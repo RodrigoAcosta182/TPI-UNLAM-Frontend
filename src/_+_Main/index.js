@@ -4,12 +4,12 @@ import RouterMain from "./routes/routes";
 
 const MainContainer = ({match}) => {
     
-    let config = localStorage.getItem("config");
-    let modoEstilo = JSON.parse(config).modoEstilo;
+    // let config = localStorage.getItem("config");
+    // let modoEstilo = JSON.parse(config).modoEstilo;
 
     return (
         <>
-            <GlobalStyled mode={modoEstilo} />
+            <GlobalStyled mode={"blue"} />
             <RouterMain match={match}/>
         </> 
     )
