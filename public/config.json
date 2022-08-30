@@ -1,0 +1,6 @@
+{
+  "REACT_APP_BACKEND_URL": "https://apmedicos.dim.com.ar/api/v1/",  
+  "mantenimiento": false,
+  "version": "v.22.7.6.0",
+  "modoEstilo": "blue"  
+}
