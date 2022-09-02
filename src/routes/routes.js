@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { GlobalProvider } from "../context/Provider";
 import GlobalInitializeData from "../global/GlobalInitializeData";
 import listRoutes from "./listRoutes";
@@ -17,19 +17,17 @@ const RouterApp = () => {
   return (
     <GlobalProvider>
       <GlobalInitializeData>
-        <BrowserRouter>
-          <Routes>
-            {listRoutes.map((route, index) => {
-              return (
-                <Route
-                  path={route.path}
-                  element={route.component()}
-                  key={index}
-                />
-              );
-            })}
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          {listRoutes.map((route, index) => {
+            return (
+              <Route
+                path={route.path}
+                element={route.component()}
+                key={index}
+              />
+            );
+          })}
+        </Routes>
       </GlobalInitializeData>
     </GlobalProvider>
   );

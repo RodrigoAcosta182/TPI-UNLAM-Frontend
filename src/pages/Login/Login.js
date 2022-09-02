@@ -1,9 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const Login = () => {
+  let navigate = useNavigate();
+  const funcion = () => {
+    navigate("/home");
+  };
   return (
     <React.Fragment>
-      <button>Ir a home</button>
+      <div className="login-container">
+        <button onClick={funcion}>Ir a home</button>
+      </div>
     </React.Fragment>
   );
 };
