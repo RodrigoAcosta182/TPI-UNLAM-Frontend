@@ -153,7 +153,7 @@ const InputV1 = ({
 
             />{" "}
             <label
-              className="ptur-label-checkbox rb16t"
+              className="ptur-label-checkbox bw16t"
               htmlFor={"check" + name}
             >
               {checkboxStr}
@@ -176,7 +176,7 @@ const InputV1 = ({
 
             />
             <label
-              className={`ptur-label-radio ${radioClass} rb16l`}
+              className={`ptur-label-radio ${radioClass} bw16l`}
               // htmlFor={"radio" + name}
             >
               {labelStr}

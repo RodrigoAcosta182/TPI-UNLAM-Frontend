@@ -69,7 +69,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
         </Link>
         <div className="ptur-RightMenu">
           <div className="ptur-headerBarHome-txtDiaHora">
-            <p id="ptur-DiaResponsive" className="rb18m">
+            <p id="ptur-DiaResponsive" className="bw18m">
               {getStrDate(new Date())}
               <span className="ptur-timer">
                 <HeaderTimer />
@@ -77,7 +77,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
             </p>
           </div>
           <div className="ptur-perfilMenu">
-            <p className="rb18b">{nameCamelized()}</p>
+            <p className="bw18b">{nameCamelized()}</p>
             <div
               onClick={onHandleClickAvatar}
               className="ptur-flechaAvatar-box"
@@ -104,7 +104,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
                   </div>
                   <div className="ptur-dropDownAvatar-box dropdownSidebar">
                     <div className="ptur-dropDownAvatar">
-                      <ul className="ptur-dropDownAvatar-list pointer rb18m">
+                      <ul className="ptur-dropDownAvatar-list pointer bw18m">
                         <li
                           onClick={onHandleVerPerfil}
                           className="ptur-dropDownAvatar-listItem"

@@ -73,12 +73,6 @@ export const ContainerSignIn = styled.div`
   .ag-login-inputs {
     padding: 10px 10px;
   }
-  /* @media (max-width: 480px) {
-    width: 400px;
-  }
-  @media (max-width: px) {
-    width: 400px;
-  } */
 `;
 
 export const BtnContainer = styled.div`

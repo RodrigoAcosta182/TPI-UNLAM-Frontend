@@ -7,7 +7,7 @@ const InputDate = ({ placeholderText, onChange }) => {
   };
   return (
     <>
-      <div className={`rb16m fecha`}>
+      <div className={`bw16m fecha`}>
         <ion-datetime
           display-timezone="utc"
           placeholder={placeholderText}

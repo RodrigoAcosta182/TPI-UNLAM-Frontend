@@ -57,7 +57,7 @@ const InputDatePicker = ({
   return (
     <div className="ptur-InputDate-inputBox">
       <div className="ptur-InputDate-headerText">
-        <span className="rb14m">{headerStr}</span>
+        <span className="bw14m">{headerStr}</span>
       </div>
       <div
         className={

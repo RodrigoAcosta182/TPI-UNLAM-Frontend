@@ -158,7 +158,7 @@ const Login = () => {
         [
           {
             text: "Volver",
-            clase: "btn b-latex30 rb16m c-latex30",
+            clase: "btn b-latex30 bw16m c-latex30",
             accion: closeModal,
           },
         ],
@@ -178,7 +178,7 @@ const Login = () => {
         [
           {
             text: "Volver",
-            clase: "btn b-latex30 rb16m c-latex30",
+            clase: "btn b-latex30 bw16m c-latex30",
             accion: closeModal,
           },
         ],
@@ -207,9 +207,9 @@ const Login = () => {
             <MantenimientoCard />
           ) : (
             <ContainerSignIn>
-              <div className="rb24b">
+              <div className="bw24b">
                 <p>Hola! Bienvenido :)</p>
-                <span className="rb16m">Ingresá tus datos</span>
+                <span className="bw16m">Ingresá tus datos</span>
               </div>
               <DivideLineSection></DivideLineSection>
               <InputsContainer>
@@ -222,7 +222,7 @@ const Login = () => {
                   onChange={onChangeUsuario}
                   onKeyPress={onKeyPress}
                   maxLength="10"
-                  className="rb16m"
+                  className="bw16m"
                   checkError={userErrForm}
                   isRequired={true}
                   tabIndex="2"
@@ -238,8 +238,8 @@ const Login = () => {
                   onKeyPress={onKeyPress}
                   className={
                     passwordShown
-                      ? "inputNumericShow inputNonScroll rb16m"
-                      : "inputNumeric inputNonScroll rb16m"
+                      ? "inputNumericShow inputNonScroll bw16m"
+                      : "inputNumeric inputNonScroll bw16m"
                   }
                   maxLength="10"
                   isRequired={true}
@@ -275,7 +275,7 @@ const Login = () => {
                   onClick={userLogin}
                 >
                   <LoginIcon />
-                  <span className="ag-login-spanBtnPrimary rb18m">
+                  <span className="ag-login-spanBtnPrimary bw18m">
                     {authState.auth.loading ? "Ingresando" : "Ingresar"}
                   </span>
                   {authState.auth.loading ? (

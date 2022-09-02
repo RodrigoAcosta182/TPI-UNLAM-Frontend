@@ -5,7 +5,7 @@ const Tooltip = ({ descripcion, data, customCss }) => {
     <div className="wrapper">
       <div className="icon">
         <div className={"tooltip noSeleccionable " + customCss}>
-          <span className="tooltip-txt c-latex10 rb14m">{descripcion}</span>
+          <span className="tooltip-txt c-latex10 bw14m">{descripcion}</span>
         </div>
         <div className="tooltip-data" data-tooltip={descripcion}>
           {data}

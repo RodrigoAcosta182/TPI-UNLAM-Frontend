@@ -31,7 +31,7 @@ const BotonSubir = ({ body }) => {
   return (
     <div className="scrollTop-container">
       <button
-        className="scrollTop rb18l bgc-latex30 c-white"
+        className="scrollTop bw18l bgc-latex30 c-white"
         onClick={scrollTop}
         style={{ height: 40, display: showScroll ? "flex" : "none" }}
       >

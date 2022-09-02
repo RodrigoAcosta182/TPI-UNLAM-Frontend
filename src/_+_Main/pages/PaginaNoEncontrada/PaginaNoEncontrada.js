@@ -28,7 +28,7 @@ const PaginaNoEncontrada = () => {
     <Pagina404Container className="bgcG-latex30">
       <Pagina404Header>
         <img src={LogoEmpresa} alt="logo"></img>
-        <span className="rb24t c-white">
+        <span className="bw24t c-white">
           {textosState.textos.data
             ? textosState.textos.data.msjPage404.nombre
             : pagina404titulo}
@@ -38,19 +38,19 @@ const PaginaNoEncontrada = () => {
         <Pagina404Txt>
           {textosState.textos.data ? (
             <span
-              className="rb18l c-white"
+              className="bw18l c-white"
               dangerouslySetInnerHTML={{
                 __html: textosState.textos.data.msjPage404.descripcion,
               }}
             ></span>
           ) : (
-            <span className="rb18l c-white">{pagina404Descripcion}</span>
+            <span className="bw18l c-white">{pagina404Descripcion}</span>
           )}
         </Pagina404Txt>
         <Pagina404BtnContainer>
           <Pagina404Btn className="btn bgc-primary" onClick={ingresarAlPortal}>
             <LoginIcon />
-            <span className="rb18m c-white">Volver al Login</span>
+            <span className="bw18m c-white">Volver al Login</span>
           </Pagina404Btn>
         </Pagina404BtnContainer>
       </Pagina404Body>

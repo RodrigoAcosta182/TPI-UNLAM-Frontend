@@ -1,19 +1,19 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyled = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@900&display=swap');
     body {
         padding: 0;
         margin: 0;
         background:#fff;
         color: #000;
-        font-family: 'Rubik', sans-serif;
+        font-family: 'Barlow', sans-serif;
     }
     * {
         margin: 0;
         padding: 0;
         outline: none;
-        font-family: "Rubik", sans-serif;
+        font-family: 'Barlow', sans-serif;
         box-sizing: border-box;
     }
 
@@ -148,142 +148,142 @@ const GlobalStyled = createGlobalStyle`
  
 
                 
-        /* Fuentes Rubik */
-        .rb52b {
-        font-family: Rubik;
+        /* Fuentes Barlow */
+        .bw52b {
+        font-family: Barlow;
         font-style: normal;
         font-weight: bold;
         font-size: 52px;
         }
-        .rb32b {
-        font-family: Rubik;
+        .bw32b {
+        font-family: Barlow;
         font-style: normal;
         font-weight: bold;
         font-size: 32px;
         }
-        .rb24b {
-        font-family: Rubik;
+        .bw24b {
+        font-family: Barlow;
         font-style: normal;
         font-weight: bold;
         font-size: 24px;
         }
-        .rb24t {
-        font-family: Rubik;
+        .bw24t {
+        font-family: Barlow;
         font-style: normal;
         font-weight: normal;
         font-size: 24px;
         }
-        .rb18b {
-        font-family: Rubik;
+        .bw18b {
+        font-family: Barlow;
         font-style: normal;
         font-weight: bold;
         font-size: 18px;
         }
-        .rb18mh {
-        font-family: Rubik;
+        .bw18mh {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 500;
         font-size: 18px;
         line-height: 150%;
         }
-        .rb18m {
-        font-family: Rubik;
+        .bw18m {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 500;
         font-size: 18px;
         }
-        .rb18l {
-        font-family: Rubik;
+        .bw18l {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 400;
         font-size: 18px;
         }
 
-        /* Rubik 100%/16 Rubik 100% (Bold) */
-        .rb16xl {
-        font-family: Rubik;
+        /* Barlow 100%/16 Barlow 100% (Bold) */
+        .bw16xl {
+        font-family: Barlow;
         font-style: normal;
         font-weight: bold;
         font-size: 16px;
         line-height: 150%;
         }
 
-        .rb16b {
-        font-family: Rubik;
+        .bw16b {
+        font-family: Barlow;
         font-style: normal;
         font-weight: bold;
         font-size: 16px;
         }
-        .rb16mh {
-        font-family: Rubik;
+        .bw16mh {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
         line-height: 150%;
         }
-        .rb16m {
-        font-family: Rubik;
+        .bw16m {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
         }
-        .rb16l {
-        font-family: Rubik;
+        .bw16l {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
         }
-        .rb16t {
-        font-family: Rubik;
+        .bw16t {
+        font-family: Barlow;
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
         }
-        .rb14b {
-        font-family: Rubik;
+        .bw14b {
+        font-family: Barlow;
         font-style: normal;
         font-weight: bold;
         font-size: 14px;
         }
-        .rb14m {
-        font-family: Rubik;
+        .bw14m {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
         }
-        .rb14l {
-        font-family: Rubik;
+        .bw14l {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
         }
-        .rb14t {
-        font-family: Rubik;
+        .bw14t {
+        font-family: Barlow;
         font-style: normal;
         font-weight: normal;
         font-size: 14px;
         }
-        .rb12m {
-        font-family: Rubik;
+        .bw12m {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 500;
         font-size: 12px;
         }
-        .rb12l {
-        font-family: Rubik;
+        .bw12l {
+        font-family: Barlow;
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
         }
-        .rb12t {
-        font-family: Rubik;
+        .bw12t {
+        font-family: Barlow;
         font-style: normal;
         font-weight: normal;
         font-size: 12px;
         }
-        .rb12tl {
+        .bw12tl {
         line-height: 150%;
-        font-family: Rubik;
+        font-family: Barlow;
         font-style: normal;
         font-weight: normal;
         font-size: 12px;

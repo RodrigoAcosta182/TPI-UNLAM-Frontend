@@ -221,7 +221,7 @@ const Dropdown = ({
             style={{ height: heightModificable }}
           >
             <span
-              className={!desactivado ? "rb16m c-latex30" : " rb16m c-grey45"}
+              className={!desactivado ? "bw16m c-latex30" : " bw16m c-grey45"}
             >
               {datos ? getDescripcion() : placeholder}
             </span>
@@ -259,8 +259,8 @@ const Dropdown = ({
             <input
               className={
                 !checkMostrarError()
-                  ? `bgc-grey95 ptur-dropdown-inputSimulado rb16m pointer`
-                  : `bgc-grey95 ptur-dropdown-inputSimulado rb16m pointer` +
+                  ? `bgc-grey95 ptur-dropdown-inputSimulado bw16m pointer`
+                  : `bgc-grey95 ptur-dropdown-inputSimulado bw16m pointer` +
                     ` ptur-input-borderError`
               }
               onClick={
@@ -282,8 +282,8 @@ const Dropdown = ({
             <div
               className={
                 !checkMostrarError()
-                  ? `bgc-grey95 ptur-dropdown-onlyList rb16m noSeleccionable pointer`
-                  : `bgc-grey95 ptur-dropdown-onlyList rb16m noSeleccionable pointer` +
+                  ? `bgc-grey95 ptur-dropdown-onlyList bw16m noSeleccionable pointer`
+                  : `bgc-grey95 ptur-dropdown-onlyList bw16m noSeleccionable pointer` +
                     ` ptur-input-borderError`
               }
               onClick={onClickDropdown}
@@ -310,8 +310,8 @@ const Dropdown = ({
                 <li
                   className={
                     selector.cursor === index
-                      ? "ptur-dropdown-lista-hover rb16m"
-                      : "ptur-dropdown-lista pointer rb16m"
+                      ? "ptur-dropdown-lista-hover bw16m"
+                      : "ptur-dropdown-lista pointer bw16m"
                   }
                   value={item[campoCodigo]}
                   key={index}

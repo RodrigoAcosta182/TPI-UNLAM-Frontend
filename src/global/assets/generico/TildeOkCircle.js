@@ -9,7 +9,7 @@ const TildeOkCircle = ({ texto, colorTexto, colorTilde }) => {
           <TildeIcon color={colorTilde} />
       </div>
       <h2
-        className={`ptur-tildeOk-texto rb18m ${colorTexto} noSeleccionable`}     
+        className={`ptur-tildeOk-texto bw18m ${colorTexto} noSeleccionable`}     
       >
         {texto}
       </h2>

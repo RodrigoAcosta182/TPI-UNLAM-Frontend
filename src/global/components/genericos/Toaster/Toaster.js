@@ -50,7 +50,7 @@ const Toaster = () => {
     <div className={`ptur-toaster ${tipo} ${animation} ${posicion}`}>
       <div className="ptur-toaster-content">
         {tipoIcon ? <ToasterSuccess /> : <ToasterDanger />}
-        <span className="rb16m ptur-toaster-texto">{params.texto}</span>
+        <span className="bw16m ptur-toaster-texto">{params.texto}</span>
       </div>
     </div>
   );

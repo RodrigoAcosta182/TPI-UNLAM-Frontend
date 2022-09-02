@@ -177,7 +177,7 @@ const Calendar = ({
           {dias.map((dia, index) => {
             return (
               <div key={index} className="column-picker">
-                <span className="text-picker rb18m">{dia.dia}</span>
+                <span className="text-picker bw18m">{dia.dia}</span>
                 {mes[dia.index].map((numeroDia, index2) => {
                   let numeroDiaString = numeroDia ? numeroDia.toString() : "";
                   let fechaProvisoria = fecha.split(" ");
@@ -200,10 +200,10 @@ const Calendar = ({
                       onClick={() => handleSelected(numeroDia)}
                       className={
                         !numeroDia
-                          ? "date-picker null-picker rb18m "
+                          ? "date-picker null-picker bw18m "
                           : diaSeleccionado
                           ? "date-picker-selected"
-                          : "date-picker rb18m"
+                          : "date-picker bw18m"
                       }
                     >
                       {numeroDia}
@@ -215,10 +215,10 @@ const Calendar = ({
                       onClick={() => handleSelected(numeroDia)}
                       className={
                         !numeroDia
-                          ? "date-picker null-picker rb18m "
+                          ? "date-picker null-picker bw18m "
                           : diaSeleccionado
                           ? "date-picker-selected"
-                          : "date-picker rb18m"
+                          : "date-picker bw18m"
                       }
                     >
                       {numeroDia}
@@ -226,7 +226,7 @@ const Calendar = ({
                   ) : Number(fechaFinal.split(" ")[2]) < Number(numeroDia) ? (
                     <span
                       key={index2}
-                      className={"date-picker null-picker rb18m "}
+                      className={"date-picker null-picker bw18m "}
                     >
                       {null}
                     </span>
@@ -236,10 +236,10 @@ const Calendar = ({
                       onClick={() => handleSelected(numeroDia)}
                       className={
                         !numeroDia
-                          ? "date-picker null-picker rb18m "
+                          ? "date-picker null-picker bw18m "
                           : diaSeleccionado
                           ? "date-picker-selected"
-                          : "date-picker rb18m"
+                          : "date-picker bw18m"
                       }
                     >
                       {numeroDia}
@@ -254,13 +254,13 @@ const Calendar = ({
         {botones ? (
           <div className="ptur-datePiker-footerContainer">
             <button
-              className="ptur-datePiker-footerContainer-btn  rb18m"
+              className="ptur-datePiker-footerContainer-btn  bw18m"
               onClick={handleDissmissCalendar}
             >
               Cancelar
             </button>
             <button
-              className="ptur-datePiker-footerContainer-btn2 rb18m"
+              className="ptur-datePiker-footerContainer-btn2 bw18m"
               onClick={handleSetFecha}
             >
               Aceptar

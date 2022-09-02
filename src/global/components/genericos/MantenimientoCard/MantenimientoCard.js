@@ -14,7 +14,7 @@ const MantenimientoCard = () => {
   return (
     <ContainerMantenimiento>
       <HeaderMantenimiento className="bgcG-latex30">
-        <span className="rb24b c-white">
+        <span className="bw24b c-white">
           {textosState.textos.data
             ? textosState.textos.data.msjPortalMantenimiento.nombre
             : mantenimientoTitulo}
@@ -23,14 +23,14 @@ const MantenimientoCard = () => {
       <BodyMantenimiento>
         {textosState.textos.data ? (
           <span
-            className="ptur-mantenimientoCard-bodyTxtSuperior rb24t"
+            className="ptur-mantenimientoCard-bodyTxtSuperior bw24t"
             dangerouslySetInnerHTML={{
               __html:
                 textosState.textos.data.msjPortalMantenimiento.descripcion,
             }}
           ></span>
         ) : (
-          <span className="ptur-mantenimientoCard-bodyTxtSuperior rb24t">
+          <span className="ptur-mantenimientoCard-bodyTxtSuperior bw24t">
             {mantenimientoDescripcion}
           </span>
         )}

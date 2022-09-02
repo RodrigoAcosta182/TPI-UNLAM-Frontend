@@ -10,7 +10,7 @@ const Loading = ({ dataLoading, color,descripcion }) => {
           <span className={color}>
             <IonSpinner name="lines"/>
           </span>
-          <span className={`${color} rb18m`}>{descripcion}</span>
+          <span className={`${color} bw18m`}>{descripcion}</span>
         </LoadingContainer>
       )}
     </React.Fragment>
