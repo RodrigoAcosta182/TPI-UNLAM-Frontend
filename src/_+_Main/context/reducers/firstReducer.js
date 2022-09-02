@@ -1,1 +1,0 @@
-// Aquí se debe hacer el reducer 
