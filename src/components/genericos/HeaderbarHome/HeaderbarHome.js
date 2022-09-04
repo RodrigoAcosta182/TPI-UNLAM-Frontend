@@ -3,13 +3,14 @@ import "./HeaderbarHome.css";
 import defaultPerfil from "../../../assets/images/defaultUserImage.png";
 
 import camelize from "../../../global/utils/camelize";
-import HeaderTimer from "./HeaderTimer/HeaderTimer";
+
 import MiniAvatar from "../../../assets/images/MiniAvatar";
 import FlechaDropdown from "../../../assets/images/FlechaDropdown";
 import SalirIconDrop from "../../../assets/images/SalirIconDrop";
 import LogoEmpresa from "../../../assets/images/empresa/Logo.png"
 import { getStrDate } from "../../../global/utils/diasData";
 import { GlobalContext } from "../../../context/Provider";
+import HeaderTimer from "../HeaderTimer/HeaderTimer";
 
 const HeaderbarHome = ({ onShowBurguerHandle }) => {
   const { authState, authDispatch } = useContext(GlobalContext);
