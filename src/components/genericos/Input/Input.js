@@ -103,7 +103,7 @@ const Input = ({
                     paddingLeft: 8,
                     color: deshabilitaFormulario
                       ? "var(--color-grey45)"
-                      : "var(--color-latex30)",
+                      : "var(--color-purple)",
                   }}
                   onKeyPress={onKeyPress}
                   value={value}

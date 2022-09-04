@@ -19,7 +19,7 @@
   border: 1px solid var(--color-grey90);
   background-color: var(--color-grey95);
   border-radius: 4px;
-  color: var(--color-latex30);
+  color: var(--color-purple);
   height: 28px;
   width: 28px;
   padding: 4px;
@@ -35,7 +35,7 @@
   height: 74px;
 }
 .input input:focus {
-  border: 2px solid var(--color-latex30);
+  border: 2px solid var(--color-purple);
 }
 .ptur-inputContainer{
   display: flex;
@@ -45,12 +45,12 @@
   border: 1px solid var(--color-grey90);
   background-color: var(--color-grey95);
   border-radius: 4px;
-  color: var(--color-latex30);
+  color: var(--color-purple);
   padding: 8px;
   height: 36px;
 }
 .fecha:focus {
-  border: 2px solid var(--color-latex30);
+  border: 2px solid var(--color-purple);
 }
 .checkBox,
 .radio {
@@ -81,7 +81,7 @@
   -webkit-text-security: disc;
 }
 .inputNumericShow {
-  -webkit-text-security: --color-latex30;
+  -webkit-text-security: --color-purple;
 }
 
 .inputNonScroll::-webkit-outer-spin-button,

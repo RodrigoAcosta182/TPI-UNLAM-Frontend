@@ -1,0 +1,162 @@
+
+/* CONTAINER CSS */
+.ptur-datePiker-containerCalendar {
+    /* overflow-x: scroll; */
+    display:  flex;
+    flex-direction: column;
+    width: 370px;
+    height: 430px;
+    /* position: absolute; */
+    top: 80px;
+    /* right: 0; */
+    z-index: 10;
+    background-color: white;
+    box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.082);
+    border: 1px solid #002033;
+    border-radius: 10px;
+    justify-self: center;
+    align-self: center;
+  }
+  .ptur-datePicker-background {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+  }
+  @media (max-width: 1020px) {
+    .ptur-datePicker-background {
+      background-color: rgba(0, 0, 0, 0.185);
+    }
+    .ptur-datePiker-containerCalendar{
+      /* position: fixed; */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 350px;
+    }
+  }
+
+  @media (max-height:790px){
+    .ptur-datePicker-background {
+      background-color: rgba(0, 0, 0, 0.185);
+    }
+    .ptur-datePiker-containerCalendar{
+      /* position: fixed; */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 350px;
+    }
+  }
+
+  /* BODY CSS */
+  .ptur-datePiker-bodyContainer {
+    display:  flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+    height: 70%;
+
+  }
+  .column-picker {
+    display:  flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 5px;
+    gap: 5px;
+  }
+  .text-picker {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .date-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .date-picker:hover {
+    color: var(--color-purple);
+    border: 2px solid var(--color-purple);
+  }
+  .null-picker {
+    cursor:auto;
+    background-color: var(--color-white);
+    /* background-color: red; */
+  }
+  .null-picker:hover {
+    color: none;
+    border: none;
+  }
+  .date-picker-selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: var(--color-latex10);
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  /* HEADER CSS */
+  .ptur-datePiker-headerContainer {
+    width: 100%;
+    height: 80px;
+    background-color: var(--color-purple);
+    padding: 1px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+
+  .ptur-datePiker-body-parentesco-dropdown {
+    width: 50%;
+    margin: 10px;
+  }
+  .ptur-datePiker-headerContainer {
+    display: flex;
+  }
+
+  #date-picker-select {
+    background-color: red;
+  }
+
+  /* FOOTER CSS */
+  .ptur-datePiker-footerContainer {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    /* background-color: red; */
+  }
+
+  .ptur-datePiker-footerContainer-btn2 {
+    width: 140px;
+    height: 40px;
+    border-radius: 8px;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+  }
+  .ptur-datePiker-footerContainer-btn{
+    width: 140px;
+    height: 40px;
+    border-radius: 8px;
+    color: var(--color-purple);
+    background-color: #f2f2f2;
+  }

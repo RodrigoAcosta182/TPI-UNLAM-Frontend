@@ -170,10 +170,7 @@ body {
 }
 
 .c-purple {
-  color: linear-gradient(
-    90deg,
-    #4d488c 44.92%,
-    rgba(77, 72, 140, 0.8) 100%);
+  color: linear-gradient(90deg, #4d488c 44.92%, rgba(77, 72, 140, 0.8) 100%);
 }
 .c-latex30 {
   color: hsla(202, 100%, 30%, 1);
@@ -238,7 +235,8 @@ body {
   background-color: linear-gradient(
     90deg,
     #4d488c 44.92%,
-    rgba(77, 72, 140, 0.8) 100%);
+    rgba(77, 72, 140, 0.8) 100%
+  );
 }
 .bgc-latex95 {
   background-color: hsla(202, 100%, 95%, 1);
@@ -340,7 +338,8 @@ body {
   --color-purple: linear-gradient(
     90deg,
     #4d488c 44.92%,
-    rgba(77, 72, 140, 0.8) 100%);
+    rgba(77, 72, 140, 0.8) 100%
+  );
 
   --color-latex95: hsla(202, 100%, 95%, 1);
   --color-latex30: hsla(202, 100%, 30%, 1);

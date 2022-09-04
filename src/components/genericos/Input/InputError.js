@@ -7,7 +7,7 @@ const InputError = ({ errorStr, linkStr, onClickChangePassword }) => {
         //eslint-disable-next-line
         <a
           onClick={onClickChangePassword}
-          className="rb14m c-latex30 pointer"
+          className="rb14m c-purple pointer"
           id="ptur-login-password-linkStr"
           style={{ marginLeft: 6, float: "right" }}
         >

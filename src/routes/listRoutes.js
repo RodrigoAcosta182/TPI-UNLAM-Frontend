@@ -2,6 +2,7 @@ import Home from "../pages/Home/Home";
 import ColorCorrecto from "../pages/Juegos/ColorCorrecto/ColorCorrecto";
 import OrdenaNumeros from "../pages/Juegos/OrdenaNumeros/OrdenaNumeros";
 import Login from "../pages/Login/Login";
+import Registro from "../pages/Registro/Registro";
 
 const listRoutes = [
   {
@@ -14,6 +15,12 @@ const listRoutes = [
     path: "/ordenanumeros",
     component: OrdenaNumeros,
     title: "Ordena Numeros",
+    auth: false,
+  },
+  {
+    path: "/registrarse",
+    component: Registro,
+    title: "Registrarse",
     auth: false,
   },
   {

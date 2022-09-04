@@ -1,4 +1,4 @@
-.loginbox-container {
+.registrobox-container {
   max-width: 1500px;
   background: var(--color-purple);
   border-radius: 50px;
@@ -6,23 +6,28 @@
   margin: 40px;
 }
 
-.loginbox-formulario {
+.registrobox-formulario {
   width: 50%;
   padding: 40px;
 }
 
-.loginbox-formulario-header {
+.registrobox-formulario-header {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.loginbox-imagen-container {
+.registrobox-imagen-container {
   display: flex;
 }
 
-.loginbox-imagen {
+.registrobox-imagen {
   object-fit: cover;
   border-radius: 0px 50px 50px 0px ;
   width: 100%;
+}
+
+.registrobox-botones-container{
+  display: flex;
+  gap: 8px;
 }
