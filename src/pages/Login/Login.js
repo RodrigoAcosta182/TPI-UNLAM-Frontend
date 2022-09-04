@@ -12,6 +12,7 @@ const Login = () => {
       <div className="login-container">
         <button onClick={funcion}>Ir a home</button>
       </div>
+      
     </React.Fragment>
   );
 };

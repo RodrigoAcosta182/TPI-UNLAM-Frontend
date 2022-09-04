@@ -2,7 +2,8 @@
 body {
   padding: 0;
   margin: 0;
-  background: var(--color-primary-gradient);
+  background: linear-gradient(90deg, #000000 18.65%, #590166 86.55%);
+
   color: #000;
   font-family: "Barlow", sans-serif;
 }
