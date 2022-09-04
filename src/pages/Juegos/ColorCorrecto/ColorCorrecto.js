@@ -12,7 +12,7 @@ export default function ColorCorrecto() {
 
   return ( <>
     <AnimateSharedLayout>
-      <ul>
+      <ul className="colorCorrecto-ul">
         {colors.map(color => (
           <Item
             key={color}
@@ -30,11 +30,11 @@ export default function ColorCorrecto() {
 
 function Item({ color, isSelected, onClick }) {
   return (
-    <li className="item" onClick={onClick} style={{ backgroundColor: color }}>
+    <li className="colorCorrecto-li" onClick={onClick} style={{ backgroundColor: color }}>
       {isSelected && (
         <motion.div
           layoutId="outline"
-          className="outline"
+          className="colorCorrecto-outline"
           initial={false}
           animate={{ borderColor: color }}
           transition={spring}
