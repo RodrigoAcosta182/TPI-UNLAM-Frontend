@@ -168,6 +168,13 @@ body {
 .c-danger {
   color: hsla(4, 100%, 40%, 1);
 }
+
+.c-purple {
+  color: linear-gradient(
+    90deg,
+    #4d488c 44.92%,
+    rgba(77, 72, 140, 0.8) 100%);
+}
 .c-latex30 {
   color: hsla(202, 100%, 30%, 1);
 }
@@ -226,6 +233,12 @@ body {
 }
 .bgc-danger {
   background-color: hsla(4, 100%, 40%, 1);
+}
+.bgc-purple {
+  background-color: linear-gradient(
+    90deg,
+    #4d488c 44.92%,
+    rgba(77, 72, 140, 0.8) 100%);
 }
 .bgc-latex95 {
   background-color: hsla(202, 100%, 95%, 1);
@@ -320,10 +333,15 @@ body {
     #027bc0 18.65%,
     #004b76 86.55%
   );
-  --color-primary: hsla(24, 100%, 50%, 1);
+  --color-primary: #f47458;
   --color-secondary: hsla(11, 100%, 70%, 1);
   --color-disabled: hsla(11, 100%, 80%, 1);
   --color-danger: hsla(4, 100%, 40%, 1);
+  --color-purple: linear-gradient(
+    90deg,
+    #4d488c 44.92%,
+    rgba(77, 72, 140, 0.8) 100%);
+
   --color-latex95: hsla(202, 100%, 95%, 1);
   --color-latex30: hsla(202, 100%, 30%, 1);
   --color-scrollbar: hsla(202, 100%, 30%, 1);

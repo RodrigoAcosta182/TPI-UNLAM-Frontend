@@ -1,18 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import LoginBox from "../../components/auth/LoginBox/LoginBox";
-import "./Login.css";
+import "./Registro.css";
 
-const Login = () => {
+const Registro = () => {
   let navigate = useNavigate();
   const funcion = () => {
     navigate("/home");
   };
   return (
-    <div className="login-container">
-      <LoginBox></LoginBox>
+    <div className="registro-container">
     </div>
   );
 };
 
-export default Login;
+export default Registro;

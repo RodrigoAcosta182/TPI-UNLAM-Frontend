@@ -1,0 +1,10 @@
+.container-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  width: 229px;
+  height: 46px;
+  cursor: pointer;
+}
