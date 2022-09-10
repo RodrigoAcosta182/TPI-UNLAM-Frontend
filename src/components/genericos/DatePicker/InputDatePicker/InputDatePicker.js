@@ -74,7 +74,7 @@ const InputDatePicker = ({
         {/* <MiTurnoIcon
           color={
             isSelected && !disable
-              ? "var(--color-purple)"
+              ? "var(--color-blue)"
               : "var(--color-grey45)"
           }
           clase={"ptur-InputDate-container-svg"}

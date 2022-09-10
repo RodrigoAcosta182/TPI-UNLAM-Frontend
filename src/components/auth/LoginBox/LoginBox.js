@@ -10,18 +10,17 @@ const LoginBox = () => {
   const { authDispatch, authState } = useContext(GlobalContext);
   const navigate = useNavigate()
   const [loginDto, setLoginDto] = useState();
+
   const onChangeLogin = (e) => {
     setLoginDto({ ...loginDto, [e.target.name]: e.target.value });
   };
 
   const loguear = () => {
     console.log(loginDto);
-    if (loginDto !== undefined && loginDto !== null) {
-      wsPostLogin(loginDto)(authDispatch);
-    }
+    // if (loginDto !== undefined && loginDto !== null) {
+    //   wsPostLogin(loginDto)(authDispatch);
+    // }
   };
-
-  
 
   useEffect(()=>{
     if(authState.auth.data){
@@ -47,8 +46,8 @@ const LoginBox = () => {
             headerStr={"Contraseña"}
             name="password"
           />
-          <Button descripcion={"Ingresar"} onClick={loguear} />
-          <span>
+          <Button descripcion={"Ingresar"} onClick={loguear} className={"loginbox-ingresarBtn"} />
+          <span className="loginbox-registrate">
             No tenes cuenta? <Link to={"/registrarse"}> Registrate</Link>{" "}
           </span>
         </div>
