@@ -214,7 +214,7 @@ const Dropdown = ({
             {origen === "CONSULTA_MEDICA" || origen === "ESTUDIOS" ? (
               ""
             ) : (
-              <FlechaDropdown color={"var(--color-purple)"} />
+              <FlechaDropdown color={"var(--color-blue)"} />
             )}
           </div>
           <div
@@ -249,7 +249,7 @@ const Dropdown = ({
                     ? "var(--color-danger)"
                     : deshabilitaFormulario
                     ? "var(--color-grey45)"
-                    : "var(--color-purple)"
+                    : "var(--color-blue)"
                 }
               />
             )}

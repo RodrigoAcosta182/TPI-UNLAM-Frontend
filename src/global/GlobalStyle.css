@@ -2,7 +2,9 @@
 body {
   padding: 0;
   margin: 0;
-  background: linear-gradient(90deg, #000000 18.65%, #590166 86.55%);
+  /* background: linear-gradient(90deg, #000000 18.65%, #590166 86.55%); */
+  background-image: url("../assets/images/empresa/FondoGC.jpg");
+  background-size: cover;
 
   color: #000;
   font-family: "Barlow", sans-serif;
@@ -335,10 +337,10 @@ body {
   --color-secondary: hsla(11, 100%, 70%, 1);
   --color-disabled: hsla(11, 100%, 80%, 1);
   --color-danger: hsla(4, 100%, 40%, 1);
-  --color-purple: linear-gradient(
+  --color-blue: linear-gradient(
     90deg,
-    #4d488c 44.92%,
-    rgba(77, 72, 140, 0.8) 100%
+    #022b59 44.92%,
+    rgba(92, 164, 239, 1) 100%
   );
 
   --color-latex95: hsla(202, 100%, 95%, 1);

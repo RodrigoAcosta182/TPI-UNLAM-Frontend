@@ -23,7 +23,7 @@
 .ptur-InputDate-container-selected {
     position: relative;
     background: #F7F7F7;
-    color: var(--color-purple);
+    color: var(--color-blue);
     padding: 5px;
     display: flex;
     justify-content: flex-start;
