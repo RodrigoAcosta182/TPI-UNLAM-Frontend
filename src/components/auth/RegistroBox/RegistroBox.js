@@ -15,12 +15,16 @@ const RegistroBox = () => {
     setRegistroDto({ ...registroDto, [e.target.name]: e.target.value });
   };
 
-  const loguear = () => {
+  const registrarUsuario = () => {
     console.log(registroDto);
   };
   const volverAlLogin = () => {
     navigate("/");
   };
+
+  const onChangeDatePicker = (e) =>{
+    setRegistroDto({ ...registroDto, fechaDeNacimiento: e.target.value });
+  }
 
   return (
     <div className="registrobox-container">
@@ -44,11 +48,12 @@ const RegistroBox = () => {
             headerStr="Fecha de nacimiento"
             fechaInicial={"1903 01 01"}
             fechaFinal={`${hoy.getFullYear()} ${hoy.getMonth() + 1} ${hoy.getDate()}`}
-            onChange={() => {}}
-            // selectedFecha={"20 30 2020"}
+            onChange={onChangeDatePicker}
+             selectedFecha={"20 30 2020"}
             checkError={"Esta equivocado"}
             errorStr="La fecha de nacimiento es requerida"
             isRequired={false}
+            
           />
           <Input
             onChange={onChangeRegistro}
@@ -63,7 +68,7 @@ const RegistroBox = () => {
           <div className="registrobox-botones-container">
             <Button onClick={volverAlLogin} descripcion={"Volver"} className="bgc-white c-black" />
 
-            <Button descripcion={"Registrarse"} onClick={loguear} />
+            <Button descripcion={"Registrarse"} onClick={registrarUsuario} />
           </div>
         </div>
       </div>
