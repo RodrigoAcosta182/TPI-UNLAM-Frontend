@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "../../genericos/DatePicker/DatePicker";
 import { wsPostRegistro } from "../../../context/action/auth/registro";
 import { GlobalContext } from "../../../context/Provider";
-import fechaFormat from "../../../global/utils/fechaTurnoFormat";
 
 const RegistroBox = ({ dsb }) => {
   const navigate = useNavigate();
@@ -52,7 +51,7 @@ const RegistroBox = ({ dsb }) => {
   };
 
   const onChangeFecha = (e) => {
-    setFechaNac(e);
+    setRegistroDto({ ...registroDto, fechaNacimiento: e });
   };
 
   const registrarse = () => {
