@@ -150,7 +150,7 @@ const Input = ({
 
             />{" "}
             <label
-              className="ptur-label-checkbox rb16t"
+              className="ptur-label-checkbox rb16t c-white"
               htmlFor={"check" + name}
             >
               {checkboxStr}

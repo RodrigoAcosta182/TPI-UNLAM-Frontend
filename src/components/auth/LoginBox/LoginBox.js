@@ -9,7 +9,10 @@ import { GlobalContext } from "../../../context/Provider";
 const LoginBox = () => {
   const { authDispatch, authState } = useContext(GlobalContext);
   const navigate = useNavigate()
-  const [loginDto, setLoginDto] = useState();
+  const [loginDto, setLoginDto] = useState({
+    email: null,
+    clave: null
+  });
 
   const onChangeLogin = (e) => {
     setLoginDto({ ...loginDto, [e.target.name]: e.target.value });
@@ -18,7 +21,7 @@ const LoginBox = () => {
   const loguear = () => {
     console.log(loginDto);
     // if (loginDto !== undefined && loginDto !== null) {
-    //   wsPostLogin(loginDto)(authDispatch);
+      wsPostLogin(loginDto.email, loginDto.clave)(authDispatch);
     // }
   };
 
@@ -39,12 +42,12 @@ const LoginBox = () => {
           <Input
             onChange={onChangeLogin}
             headerStr={"Usuario"}
-            name="usuario"
+            name="email"
           />
           <Input
             onChange={onChangeLogin}
             headerStr={"Contraseña"}
-            name="password"
+            name="clave"
           />
           <Button descripcion={"Ingresar"} onClick={loguear} className={"loginbox-ingresarBtn"} />
           <span className="loginbox-registrate">
