@@ -17,16 +17,17 @@ export const setUsuarioAuth = (usuario) => (dispatch) => {
   });
 };
 
-export const wsPostLogin = (dtoLogin) => (dispatch) => {
+export const wsPostLogin = (email, clave) => (dispatch) => {
   dispatch({
     type: LOGIN_LOADING,
   });
 
   axiosInstance().then((respuesta) => {
     respuesta
-      .post("/auth", dtoLogin)
+      .post(`/auth/${email}/${clave}`)
       .then((res) => {
-        sessionStorage.token = res.data.token;
+        console.log(res);
+        // sessionStorage.token = res.data.token;
         dispatch({
           type: LOGIN_SUCCESS,
           payload: res.data,
@@ -41,7 +42,6 @@ export const wsPostLogin = (dtoLogin) => (dispatch) => {
 
         dispatch({
           type: LOGIN_ERROR,
-
           payload: error,
         });
       });

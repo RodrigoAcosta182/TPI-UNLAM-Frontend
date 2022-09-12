@@ -4,6 +4,7 @@
   border-radius: 50px;
   display: flex;
   margin: 40px;
+  
 }
 
 .registrobox-formulario {
@@ -16,17 +17,29 @@
   flex-direction: column;
   gap: 16px;
 }
-
+.registrobox-formulario-nombreApellido{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 .registrobox-imagen-container {
   display: flex;
 }
-
+.registrobox-gradient-container{
+  display: flex;
+  background-color: var(--color-blue);
+  background: linear-gradient(90deg, #022B59 44.92%, rgba(31, 39, 113, 0.62) 100%);
+  width: 40%;
+}
 .registrobox-imagen {
   object-fit: cover;
   border-radius: 0px 50px 50px 0px ;
   width: 100%;
 }
-
+.loginbox-registrarseBtn{
+  border: none;
+  border-radius: 8px;
+}
 .registrobox-botones-container{
   display: flex;
   gap: 8px;
