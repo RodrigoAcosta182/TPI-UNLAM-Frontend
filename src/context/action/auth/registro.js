@@ -20,6 +20,7 @@ export const wsPostRegistro = (dtoRegistro) => (dispatch) => {
         Mail: dtoRegistro.mail,
         Usuario: dtoRegistro.usuario,
         Contrasena: dtoRegistro.contrasena,
+        // FechaNacimiento: dtoRegistro.fechaNacimiento
       })
       .then((res) => {
         dispatch({

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "../../genericos/DatePicker/DatePicker";
 import { wsPostRegistro } from "../../../context/action/auth/registro";
 import { GlobalContext } from "../../../context/Provider";
+import fechaFormat from "../../../global/utils/fechaTurnoFormat";
 
 const RegistroBox = ({ dsb }) => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const RegistroBox = ({ dsb }) => {
   const [registroDto, setRegistroDto] = useState({
     matricula: null,
     tipoUsuarioId: 1,
-    // FechaNacimiento: "1997/01/01",
+    fechaNacimiento: fechaNac,
     nombre: "",
     apellido: "",
     dni: "",
@@ -51,7 +52,7 @@ const RegistroBox = ({ dsb }) => {
   };
 
   const onChangeFecha = (e) => {
-    // setFechaNac(e);
+    setFechaNac(e);
   };
 
   const registrarse = () => {
@@ -94,14 +95,12 @@ const RegistroBox = ({ dsb }) => {
           </div>
           <div className="registrobox-formulario-nombreApellido">
             <Input onChange={onChangeRegistro} headerStr={"DNI"} name="dni" />
-            {soyMedico ? (
+            {soyMedico && (
               <Input
                 onChange={onChangeRegistro}
                 headerStr={"Matricula"}
                 name="matricula"
               />
-            ) : (
-              ""
             )}
           </div>
 
@@ -134,15 +133,12 @@ const RegistroBox = ({ dsb }) => {
               descripcion={"Volver"}
               className="loginbox-registrarseBtn bgc-white c-black bw18m"
             />
-            {/* <Button
-              descripcion={"Registrarse"}
-              onClick={btnDisabled ? dsb : registrarse}
-              className="loginbox-registrarseBtn bw18m"
-            /> */}
             <Button
               descripcion={"Registrarse"}
-              onClick={registrarse}
-              className="loginbox-registrarseBtn bw18m"
+              onClick={btnDisabled ? dsb : registrarse}
+              className={`loginbox-registrarseBtn bw18m ${
+                !btnDisabled && "bgc-broccoli"
+              }`}
             />
           </div>
         </div>
