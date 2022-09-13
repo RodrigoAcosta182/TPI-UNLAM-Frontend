@@ -125,6 +125,7 @@ const RegistroBox = ({ dsb }) => {
             onChange={onChangeRegistro}
             headerStr={"Contraseña"}
             name="contrasena"
+            inputType="password"
           />
           <div className="registrobox-botones-container">
             <Button

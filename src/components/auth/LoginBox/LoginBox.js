@@ -48,6 +48,7 @@ const LoginBox = () => {
             onChange={onChangeLogin}
             headerStr={"Contraseña"}
             name="clave"
+            inputType="password"
           />
           <Button descripcion={"Ingresar"} onClick={loguear} className={"loginbox-ingresarBtn"} />
           <span className="loginbox-registrate">
