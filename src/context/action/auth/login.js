@@ -17,14 +17,14 @@ export const setUsuarioAuth = (usuario) => (dispatch) => {
   });
 };
 
-export const wsPostLogin = (email, clave) => (dispatch) => {
+export const wsPostLogin = (loginDto) => (dispatch) => {
   dispatch({
     type: LOGIN_LOADING,
   });
 
   axiosInstance().then((respuesta) => {
     respuesta
-      .post(`/auth/${email}/${clave}`)
+      .post(`/auth`, { email: loginDto.email, contrasena: loginDto.contrasena })
       .then((res) => {
         console.log(res);
         // sessionStorage.token = res.data.token;

@@ -6,12 +6,15 @@ import ImagenFormulario from "../../../assets/images/empresa/ImagenFormulario.pn
 import { useContext, useEffect, useState } from "react";
 import { wsPostLogin } from "../../../context/action/auth/login";
 import { GlobalContext } from "../../../context/Provider";
+
+
+
 const LoginBox = () => {
   const { authDispatch, authState } = useContext(GlobalContext);
   const navigate = useNavigate()
   const [loginDto, setLoginDto] = useState({
     email: null,
-    clave: null
+    contrasena: null
   });
 
   const onChangeLogin = (e) => {
@@ -19,10 +22,9 @@ const LoginBox = () => {
   };
 
   const loguear = () => {
-    console.log(loginDto);
-    // if (loginDto !== undefined && loginDto !== null) {
-      wsPostLogin(loginDto.email, loginDto.clave)(authDispatch);
-    // }
+    if (loginDto !== undefined && loginDto !== null) {
+      wsPostLogin(loginDto)(authDispatch);
+    }
   };
 
   useEffect(()=>{
@@ -41,13 +43,13 @@ const LoginBox = () => {
         <div className="loginbox-formulario-body">
           <Input
             onChange={onChangeLogin}
-            headerStr={"Usuario"}
+            headerStr={"Email"}
             name="email"
           />
           <Input
             onChange={onChangeLogin}
             headerStr={"Contraseña"}
-            name="clave"
+            name="contrasena"
             inputType="password"
           />
           <Button descripcion={"Ingresar"} onClick={loguear} className={"loginbox-ingresarBtn"} />

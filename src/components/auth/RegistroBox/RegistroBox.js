@@ -26,7 +26,6 @@ const RegistroBox = ({ dsb }) => {
     apellido: "",
     dni: "",
     mail: "",
-    usuario: "",
     contrasena: "",
   });
 
@@ -116,11 +115,6 @@ const RegistroBox = ({ dsb }) => {
             isRequired={false}
           />
           <Input onChange={onChangeRegistro} headerStr={"Mail"} name="mail" />
-          <Input
-            onChange={onChangeRegistro}
-            headerStr={"Usuario"}
-            name="usuario"
-          />
           <Input
             onChange={onChangeRegistro}
             headerStr={"Contraseña"}
