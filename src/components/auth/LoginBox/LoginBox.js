@@ -33,6 +33,9 @@ const LoginBox = () => {
     }
   },[authState.auth.data])
 
+  const [checkError, setCheckError] = useState(false)
+  const [isRequired, setIsRequired] = useState(false)
+
   return (
     <div className="loginbox-container">
       <div className="loginbox-formulario">
@@ -45,12 +48,18 @@ const LoginBox = () => {
             onChange={onChangeLogin}
             headerStr={"Email"}
             name="email"
+            checkError={checkError}
+            isRequired={isRequired}
+            errorStr="El email es requerido"
           />
           <Input
             onChange={onChangeLogin}
             headerStr={"Contraseña"}
             name="contrasena"
             inputType="password"
+            checkError={checkError}
+            isRequired={isRequired}
+            errorStr="La contraseña es requerida"
           />
           <Button descripcion={"Ingresar"} onClick={loguear} className={"loginbox-ingresarBtn"} />
           <span className="loginbox-registrate">
