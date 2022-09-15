@@ -39,6 +39,11 @@ const LoginBox = () => {
     }
   };
 
+  const registrarse =() =>{
+    resetListError()(listErrorDispatch)
+    navigate("/registrarse")
+  }
+
   useEffect(() => {
     if (authState.auth.data) {
       navigate("/home");
@@ -83,8 +88,8 @@ const LoginBox = () => {
             onClick={loguear}
             className={"loginbox-ingresarBtn"}
           />
-          <span className="loginbox-registrate">
-            No tenes cuenta? <Link to={"/registrarse"}> Registrate</Link>{" "}
+          <span className="loginbox-registrate" >
+            No tenes cuenta? <span onClick={registrarse}>Registrate</span>
           </span>
         </div>
       </div>

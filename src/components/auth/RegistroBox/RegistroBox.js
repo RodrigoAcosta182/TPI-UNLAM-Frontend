@@ -8,7 +8,10 @@ import DatePicker from "../../genericos/DatePicker/DatePicker";
 import { wsPostRegistro } from "../../../context/action/auth/registro";
 import { GlobalContext } from "../../../context/Provider";
 import isErrorEmail from "../../../global/utils/isErrorEmail";
-import { setListError } from "../../../context/action/listError/listError";
+import {
+  resetListError,
+  setListError,
+} from "../../../context/action/listError/listError";
 import isEmptyError, {
   isNombreApellidoError,
 } from "../../../global/utils/isEmptyError";
@@ -96,7 +99,8 @@ const RegistroBox = ({ dsb }) => {
     }
   };
   const volverAlLogin = () => {
-    navigate("/");
+    resetListError()(listErrorDispatch);
+    // navigate("/");
   };
 
   return (

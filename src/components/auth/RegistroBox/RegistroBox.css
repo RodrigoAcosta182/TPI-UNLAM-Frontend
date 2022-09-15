@@ -9,7 +9,7 @@
 .registrobox-formulario-body {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
 }
 
 .registrobox-formulario {
