@@ -35,3 +35,7 @@
   border-radius: 0px 50px 50px 0px ;
   width: 100%;
 }
+
+.loginbox-formulario-input-container{
+  height: 88px;
+}

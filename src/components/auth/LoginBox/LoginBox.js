@@ -6,18 +6,30 @@ import ImagenFormulario from "../../../assets/images/empresa/ImagenFormulario.pn
 import { useContext, useEffect, useState } from "react";
 import { wsPostLogin } from "../../../context/action/auth/login";
 import { GlobalContext } from "../../../context/Provider";
-
-
+import { resetListError, setListError } from "../../../context/action/listError/listError";
+import isErrorEmail from "../../../global/utils/isErrorEmail";
+import isEmptyError from "../../../global/utils/isEmptyError";
 
 const LoginBox = () => {
-  const { authDispatch, authState } = useContext(GlobalContext);
-  const navigate = useNavigate()
+  const { authDispatch, authState, listErrorState, listErrorDispatch } =
+    useContext(GlobalContext);
+  const navigate = useNavigate();
   const [loginDto, setLoginDto] = useState({
     email: null,
-    contrasena: null
+    contrasena: null,
   });
 
   const onChangeLogin = (e) => {
+    //switch control de errores en login
+    switch (e.target.name) {
+      case "email":
+        listErrorState.listError.email = isErrorEmail(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
+      default:
+        listErrorState.listError.contrasena = isEmptyError(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
+    }
     setLoginDto({ ...loginDto, [e.target.name]: e.target.value });
   };
 
@@ -27,14 +39,15 @@ const LoginBox = () => {
     }
   };
 
-  useEffect(()=>{
-    if(authState.auth.data){
-      navigate("/home")
+  useEffect(() => {
+    if (authState.auth.data) {
+      navigate("/home");
     }
-  },[authState.auth.data])
+  }, [authState.auth.data]);
 
-  const [checkError, setCheckError] = useState(false)
-  const [isRequired, setIsRequired] = useState(false)
+  useEffect(()=>{
+    resetListError()(listErrorDispatch)
+  },[])
 
   return (
     <div className="loginbox-container">
@@ -44,24 +57,32 @@ const LoginBox = () => {
           <span className="c-white bw52b ">Iniciar Sesión</span>
         </div>
         <div className="loginbox-formulario-body">
-          <Input
-            onChange={onChangeLogin}
-            headerStr={"Email"}
-            name="email"
-            checkError={checkError}
-            isRequired={isRequired}
-            errorStr="El email es requerido"
+          <div className="loginbox-formulario-input-container">
+            <Input
+              onChange={onChangeLogin}
+              headerStr={"Email"}
+              name="email"
+              checkError={listErrorState.listError.email}
+              isRequired={true}
+              errorStr="El email es requerido"
+            />
+          </div>
+          <div className="loginbox-formulario-input-container">
+            <Input
+              onChange={onChangeLogin}
+              headerStr={"Contraseña"}
+              name="contrasena"
+              inputType="password"
+              checkError={listErrorState.listError.contrasena}
+              isRequired={true}
+              errorStr="La contraseña es requerida"
+            />
+          </div>
+          <Button
+            descripcion={"Ingresar"}
+            onClick={loguear}
+            className={"loginbox-ingresarBtn"}
           />
-          <Input
-            onChange={onChangeLogin}
-            headerStr={"Contraseña"}
-            name="contrasena"
-            inputType="password"
-            checkError={checkError}
-            isRequired={isRequired}
-            errorStr="La contraseña es requerida"
-          />
-          <Button descripcion={"Ingresar"} onClick={loguear} className={"loginbox-ingresarBtn"} />
           <span className="loginbox-registrate">
             No tenes cuenta? <Link to={"/registrarse"}> Registrate</Link>{" "}
           </span>

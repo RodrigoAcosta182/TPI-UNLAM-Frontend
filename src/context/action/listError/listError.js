@@ -8,6 +8,6 @@ export const setListError = (listError) => (dispatch) => {
   });
 };
 
-export const logoutAuth = () => (dispatch) => {
+export const resetListError = () => (dispatch) => {
   dispatch({ type: LIST_ERROR_RESET });
 };

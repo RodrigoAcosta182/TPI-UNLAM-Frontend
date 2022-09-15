@@ -7,21 +7,26 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "../../genericos/DatePicker/DatePicker";
 import { wsPostRegistro } from "../../../context/action/auth/registro";
 import { GlobalContext } from "../../../context/Provider";
+import isErrorEmail from "../../../global/utils/isErrorEmail";
+import { setListError } from "../../../context/action/listError/listError";
+import isEmptyError, {
+  isNombreApellidoError,
+} from "../../../global/utils/isEmptyError";
 
 const RegistroBox = ({ dsb }) => {
   const navigate = useNavigate();
   const hoy = new Date();
 
-  const { registroDispatch } = useContext(GlobalContext);
+  const { registroDispatch, listErrorState, listErrorDispatch } =
+    useContext(GlobalContext);
 
-  const [fechaNac, setFechaNac] = useState(null);
   const [soyMedico, setSoyMedico] = useState(false);
   const [btnDisabled, setBtnDisabled] = useState(true);
 
   const [registroDto, setRegistroDto] = useState({
     matricula: null,
     tipoUsuarioId: 1,
-    fechaNacimiento: fechaNac,
+    fechaNacimiento: null,
     nombre: "",
     apellido: "",
     dni: "",
@@ -31,13 +36,43 @@ const RegistroBox = ({ dsb }) => {
 
   const onChangeRegistro = (e) => {
     //PROBANDO DESHABILITAR BOTON HASTA QUE TODOS LOS CAMPOS ESTEN LLENOS
-    if (e.target.value !== "" || e.target.value !== null) {
-      setBtnDisabled(false);
-      console.log("deshabilitado");
-    } else {
-      setBtnDisabled(true);
-      console.log("habilitado");
+    // if (e.target.value !== "" || e.target.value !== null) {
+    //   setBtnDisabled(false);
+    //   console.log("deshabilitado");
+    // } else {
+    //   setBtnDisabled(true);
+    //   console.log("habilitado");
+    // }
+
+    //switch control de errores en login
+    switch (e.target.name) {
+      case "email":
+        listErrorState.listError.email = isErrorEmail(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
+      case "nombre":
+        listErrorState.listError.nombre = isNombreApellidoError(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
+      case "apellido":
+        listErrorState.listError.apellido = isNombreApellidoError(
+          e.target.value
+        );
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
+      case "dni":
+        listErrorState.listError.dni = isEmptyError(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
+      case "matricula":
+        listErrorState.listError.matricula = isEmptyError(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
+      default:
+        listErrorState.listError.contrasena = isEmptyError(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
     }
+
     setRegistroDto({ ...registroDto, [e.target.name]: e.target.value });
   };
 
@@ -70,36 +105,61 @@ const RegistroBox = ({ dsb }) => {
         <div className="registrobox-formulario-header">
           <span className="c-white">BIENVENIDO A “TarEA”</span>
           <span className="c-white bw52b ">Registrarse</span>
-          <Input
-            inputType="check"
-            onChange={onChangeMedico}
-            headerStr={"Nombre"}
-            name="profesional"
-            checkboxStr={"Soy Profesional"}
-          />
+          <div className="registrobox-formulario-soyProfesional">
+            <Input
+              inputType="check"
+              onChange={onChangeMedico}
+              name="profesional"
+              checkboxStr={"Soy Profesional"}
+            />
+          </div>
         </div>
         <div className="registrobox-formulario-body">
           <div className="registrobox-formulario-nombreApellido">
-            <Input
-              onChange={onChangeRegistro}
-              headerStr={"Nombre"}
-              name="nombre"
-            />
-            <Input
-              onChange={onChangeRegistro}
-              headerStr={"Apellido"}
-              name="apellido"
-            />
-          </div>
-          <div className="registrobox-formulario-nombreApellido">
-            <Input onChange={onChangeRegistro} headerStr={"DNI"} name="dni" />
-            {soyMedico && (
+            <div className="registrobox-formulario-input">
               <Input
                 onChange={onChangeRegistro}
-                headerStr={"Matricula"}
-                name="matricula"
+                headerStr={"Nombre"}
+                name="nombre"
+                isRequired={true}
+                checkError={listErrorState.listError.nombre}
+                errorStr="El nombre es requerido"
               />
-            )}
+            </div>
+            <div className="registrobox-formulario-input">
+              <Input
+                onChange={onChangeRegistro}
+                headerStr={"Apellido"}
+                name="apellido"
+                isRequired={true}
+                checkError={listErrorState.listError.apellido}
+                errorStr="El apellido es requerido"
+              />
+            </div>
+          </div>
+          <div className="registrobox-formulario-nombreApellido">
+            <div className="registrobox-formulario-input">
+              <Input
+                onChange={onChangeRegistro}
+                headerStr={"DNI"}
+                name="dni"
+                isRequired={true}
+                checkError={listErrorState.listError.dni}
+                errorStr="El dni es requerido"
+              />
+            </div>
+            <div className="registrobox-formulario-input">
+              {soyMedico && (
+                <Input
+                  onChange={onChangeRegistro}
+                  headerStr={"Matricula"}
+                  name="matricula"
+                  isRequired={true}
+                  checkError={listErrorState.listError.matricula}
+                  errorStr="La matricula es requerida"
+                />
+              )}
+            </div>
           </div>
 
           <DatePicker
@@ -114,12 +174,22 @@ const RegistroBox = ({ dsb }) => {
             errorStr="La fecha de nacimiento es requerida"
             isRequired={false}
           />
-          <Input onChange={onChangeRegistro} headerStr={"Mail"} name="mail" />
+          <Input
+            onChange={onChangeRegistro}
+            headerStr={"Email"}
+            name="email"
+            isRequired={true}
+            checkError={listErrorState.listError.email}
+            errorStr="El email es requerido"
+          />
           <Input
             onChange={onChangeRegistro}
             headerStr={"Contraseña"}
             name="contrasena"
             inputType="password"
+            isRequired={true}
+            checkError={listErrorState.listError.contrasena}
+            errorStr="La contraseña es requerida"
           />
           <div className="registrobox-botones-container">
             <Button

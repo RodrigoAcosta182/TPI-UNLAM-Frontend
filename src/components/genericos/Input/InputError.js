@@ -2,7 +2,7 @@ import "./Input.css";
 const InputError = ({ errorStr, linkStr, onClickChangePassword }) => {
   return (
     <h5 className="rb12m c-danger" style={{ marginTop: 4 }}>
-      <span style={{ float: "left" }}>{errorStr}</span>
+      {errorStr&& <span className="input-errorstr">{errorStr}</span>}
       {linkStr && (
         //eslint-disable-next-line
         <a

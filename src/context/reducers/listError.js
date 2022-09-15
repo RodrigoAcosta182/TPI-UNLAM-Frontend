@@ -6,10 +6,7 @@ const listError = (state, { payload, type }) => {
     case SET_LIST_ERROR:
       return {
         ...state,
-        listError: {
-          ...state.listError,
-          data: payload,
-        },
+        listError: payload,
       };
     case LIST_ERROR_RESET:
       return listErrorInitialState;

@@ -37,7 +37,7 @@
 .input input:focus {
   border: 2px solid var(--color-blue);
 }
-.ptur-inputContainer{
+.ptur-inputContainer {
   display: flex;
   flex-direction: column;
 }
@@ -102,6 +102,15 @@
   width: 200px;
 }
 
+.input-errorstr {
+  float: left;
+  color: var(--color-white);
+  background: var(--color-danger);
+  border-radius: 8px ;
+  padding: 4px;
+  
+}
+
 @media (max-width: 768px) {
   .ptur-registro-scroll {
     overflow-y: scroll;
@@ -114,7 +123,7 @@
 }
 
 @media (max-width: 370px) {
-  #ptur-login-password-linkStr {  
+  #ptur-login-password-linkStr {
     font-size: 13px;
   }
 }
