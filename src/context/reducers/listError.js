@@ -15,5 +15,4 @@ const listError = (state, { payload, type }) => {
       return state;
   }
 };
-
 export default listError;
