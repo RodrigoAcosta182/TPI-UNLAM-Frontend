@@ -49,7 +49,7 @@ const RegistroBox = ({ dsb }) => {
 
     //switch control de errores en login
     switch (e.target.name) {
-      case "email":
+      case "mail":
         listErrorState.listError.email = isErrorEmail(e.target.value);
         setListError(listErrorState.listError)(listErrorDispatch);
         break;
@@ -92,6 +92,7 @@ const RegistroBox = ({ dsb }) => {
   };
 
   const registrarse = () => {
+    console.log(registroDto)
     wsPostRegistro(registroDto)(registroDispatch);
     if (registroDto !== undefined && registroDto !== null) {
       if (btnDisabled === false) {
@@ -100,7 +101,7 @@ const RegistroBox = ({ dsb }) => {
   };
   const volverAlLogin = () => {
     resetListError()(listErrorDispatch);
-    // navigate("/");
+     navigate("/");
   };
 
   return (
@@ -181,7 +182,7 @@ const RegistroBox = ({ dsb }) => {
           <Input
             onChange={onChangeRegistro}
             headerStr={"Email"}
-            name="email"
+            name="mail"
             isRequired={true}
             checkError={listErrorState.listError.email}
             errorStr="El email es requerido"
@@ -203,11 +204,18 @@ const RegistroBox = ({ dsb }) => {
             />
             <Button
               descripcion={"Registrarse"}
-              onClick={btnDisabled ? dsb : registrarse}
+              onClick={registrarse}
               className={`loginbox-registrarseBtn bw18m ${
                 !btnDisabled && "bgc-broccoli"
               }`}
             />
+            {/* <Button
+              descripcion={"Registrarse"}
+              onClick={btnDisabled ? dsb : registrarse}
+              className={`loginbox-registrarseBtn bw18m ${
+                !btnDisabled && "bgc-broccoli"
+              }`}
+            /> */}
           </div>
         </div>
       </div>
