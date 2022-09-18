@@ -16,9 +16,13 @@ li {
   font-size: 24px;
 }
 
-ul {
+/* ul {
   position: relative;
   width: 300px;
+} */
+.listaNumeros{
+ position: relative;
+  width: 300px; 
 }
 
 li {

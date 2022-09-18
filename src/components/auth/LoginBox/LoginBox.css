@@ -5,7 +5,18 @@
   display: flex;
   margin: 40px;
 }
-
+.fondoBlue-login{
+  background: linear-gradient(
+    90deg,
+    #0459BA 44.92%,
+    rgba(4, 89, 186, 1) 100%
+  );
+  color: var(--color-white);
+}
+.loginbox-logo{
+  width: 50%;
+  margin-left: 100px;
+}
 .loginbox-formulario {
   width: 50%;
   padding: 40px;
@@ -24,11 +35,17 @@
   margin-top: 30px;
 }
 .loginbox-registrate{
-  margin-top: 50px;
+}
+.loginbox-regBtn{
+  cursor: pointer;
+}
+.loginbox-regBtn:hover{
+  text-decoration: underline;
 }
 .loginbox-ingresarBtn{
   border: none;
   border-radius: 8px;
+  margin-bottom: 10px;
 }
 .loginbox-imagen {
   object-fit: cover;

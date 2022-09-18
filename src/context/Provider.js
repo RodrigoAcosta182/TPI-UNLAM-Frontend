@@ -4,11 +4,13 @@ import { createContext, useReducer } from "react";
 import authInitialState from "./initialStates/authInitialState";
 import listErrorInitialState from "./initialStates/listErrorInitialState";
 import registroInitialState from "./initialStates/registroInitialState";
+import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
 
 //Reducers ordenar alfabeticamente
 import auth from "./reducers/auth";
 import listError from "./reducers/listError";
 import registro from "./reducers/registro";
+import listaJuegos from "./reducers/listaJuegos";
 
 export const GlobalContext = createContext();
 
@@ -22,6 +24,7 @@ export const GlobalProvider = ({ children }) => {
 
   const [listErrorState, listErrorDispatch] = useReducer(listError,listErrorInitialState);
   const [registroState, registroDispatch] = useReducer(registro,registroInitialState);
+  const [listaJuegosState, listaJuegosDispatch] = useReducer(listaJuegos,listaJuegosInitialState);
 
 
   return (
@@ -34,6 +37,8 @@ export const GlobalProvider = ({ children }) => {
         listErrorDispatch,
         registroState,
         registroDispatch,
+        listaJuegosState,
+        listaJuegosDispatch
       }}
     >
       {children}

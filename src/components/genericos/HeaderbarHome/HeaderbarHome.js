@@ -7,13 +7,16 @@ import camelize from "../../../global/utils/camelize";
 import MiniAvatar from "../../../assets/images/MiniAvatar";
 import FlechaDropdown from "../../../assets/images/FlechaDropdown";
 import SalirIconDrop from "../../../assets/images/SalirIconDrop";
-import LogoEmpresa from "../../../assets/images/empresa/Logo.png"
+import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 import { getStrDate } from "../../../global/utils/diasData";
 import { GlobalContext } from "../../../context/Provider";
 import HeaderTimer from "../HeaderTimer/HeaderTimer";
+import { logoutAuth } from "../../../context/action/auth/login";
+import { useNavigate } from "react-router-dom";
 
 const HeaderbarHome = ({ onShowBurguerHandle }) => {
   const { authState, authDispatch } = useContext(GlobalContext);
+  const navigate = useNavigate();
 
   const [showDropPerfil, setShowDropPerfil] = useState(false);
   // const imgAvatar = authState.auth.data.paciente.imagenPerfil;
@@ -38,7 +41,11 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
   const onHandleVerPerfil = () => {
     console.log("/perfil");
   };
-  const onHandleSalir = () => {};
+
+  const onHandleSalir = () => {
+    navigate("/");
+    logoutAuth()(authDispatch);
+  };
 
   return (
     <React.Fragment>
@@ -50,16 +57,12 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
       ></div>
       <div className={"ptur-HeaderbarDiv c-white"}>
         <div className="logoHeader">
-          <img
-            className="ptur-logoHeader"
-            src={LogoEmpresa}
-            alt="logo"
-          ></img>
+          <img className="ptur-logoHeader" src={LogoEmpresa} alt="logo"></img>
         </div>
 
         <div className="ptur-RightMenu">
           <div className="ptur-headerBarHome-txtDiaHora">
-            <p id="ptur-DiaResponsive" className="rb18m">
+            <p id="ptur-DiaResponsive" className="bw18l">
               {getStrDate(new Date())}
               <span className="ptur-timer">
                 <HeaderTimer />
@@ -67,7 +70,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
             </p>
           </div>
           <div className="ptur-perfilMenu">
-            <p className="rb18b">{nameCamelized()}</p>
+            <p className="bw18b">{nameCamelized()}</p>
             <div
               onClick={onHandleClickAvatar}
               className="ptur-flechaAvatar-box"
@@ -95,17 +98,17 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
                   </div>
                   <div className="ptur-dropDownAvatar-box dropdownSidebar">
                     <div className="ptur-dropDownAvatar">
-                      <ul className="ptur-dropDownAvatar-list pointer rb18m">
+                      <ul className="ptur-dropDownAvatar-list pointer bw18l">
                         <li
                           onClick={onHandleVerPerfil}
-                          className="ptur-dropDownAvatar-listItem"
+                          className="ptur-dropDownAvatar-listItem bw18l"
                         >
                           <MiniAvatar className={"ptur-dropDownAvatar-icons"} />
                           <span>Ver mi perfil</span>
                         </li>
                         <li
                           onClick={onHandleSalir}
-                          className="ptur-dropDownAvatar-listItem"
+                          className="ptur-dropDownAvatar-listItem bw18l"
                         >
                           <SalirIconDrop
                             className={"ptur-dropDownAvatar-icons"}

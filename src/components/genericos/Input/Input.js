@@ -31,6 +31,7 @@ const Input = ({
   pattern,
   refElement,
   radioClass,
+  letterColor
 }) => {
   const [showError, setShowError] = useState(false);
   const [isUsed, setIsUsed] = useState(false);
@@ -103,7 +104,7 @@ const Input = ({
                     paddingLeft: 8,
                     color: deshabilitaFormulario
                       ? "var(--color-grey45)"
-                      : "var(--color-blue)",
+                      : letterColor,
                   }}
                   onKeyPress={onKeyPress}
                   value={value}
@@ -130,6 +131,7 @@ const Input = ({
               <InputDate
                 placeholderText={placeholderText}
                 onChange={onChange}
+                className={className}
               ></InputDate>
               <InputError errorStr={errorStr} linkStr={linkStr} />
             </div>

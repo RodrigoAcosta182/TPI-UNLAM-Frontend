@@ -26,6 +26,14 @@
   display: flex;
   gap: 20px;
 }
+.fondoBlue{
+  background: linear-gradient(
+    90deg,
+    #0459BA 44.92%,
+    rgba(4, 89, 186, 1) 100%
+  );
+  color: var(--color-white);
+}
 .registrobox-imagen-container {
   display: flex;
 }

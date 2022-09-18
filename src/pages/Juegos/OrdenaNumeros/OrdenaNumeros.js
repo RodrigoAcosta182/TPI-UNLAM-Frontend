@@ -14,7 +14,7 @@ const OrdenaNumeros = () => {
   return (
     <>
       <h1 className="c-white">ORDENAR NUMEROS</h1>
-      <Reorder.Group axis="y" onReorder={setItems} values={items}>
+      <Reorder.Group axis="y" onReorder={setItems} values={items} className="listaNumeros">
         {items.map((item) => (
           <Item key={item} item={item} />
         ))}

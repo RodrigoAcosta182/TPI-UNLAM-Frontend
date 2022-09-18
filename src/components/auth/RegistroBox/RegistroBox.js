@@ -15,6 +15,7 @@ import {
 import isEmptyError, {
   isNombreApellidoError,
 } from "../../../global/utils/isEmptyError";
+import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 
 const RegistroBox = ({ dsb }) => {
   const navigate = useNavigate();
@@ -92,7 +93,7 @@ const RegistroBox = ({ dsb }) => {
   };
 
   const registrarse = () => {
-    console.log(registroDto)
+    console.log(registroDto);
     wsPostRegistro(registroDto)(registroDispatch);
     if (registroDto !== undefined && registroDto !== null) {
       if (btnDisabled === false) {
@@ -101,14 +102,14 @@ const RegistroBox = ({ dsb }) => {
   };
   const volverAlLogin = () => {
     resetListError()(listErrorDispatch);
-     navigate("/");
+    navigate("/");
   };
 
   return (
     <div className="registrobox-container">
       <div className="registrobox-formulario">
         <div className="registrobox-formulario-header">
-          <span className="c-white">BIENVENIDO A “TarEA”</span>
+          <img className="loginbox-logo" src={LogoEmpresa} alt="logo"></img>
           <span className="c-white bw52b ">Registrarse</span>
           <div className="registrobox-formulario-soyProfesional">
             <Input
@@ -129,6 +130,8 @@ const RegistroBox = ({ dsb }) => {
                 isRequired={true}
                 checkError={listErrorState.listError.nombre}
                 errorStr="El nombre es requerido"
+                className={"fondoBlue"}
+                letterColor={"var(--color-white)"}
               />
             </div>
             <div className="registrobox-formulario-input">
@@ -139,6 +142,8 @@ const RegistroBox = ({ dsb }) => {
                 isRequired={true}
                 checkError={listErrorState.listError.apellido}
                 errorStr="El apellido es requerido"
+                className={"fondoBlue"}
+                letterColor={"var(--color-white)"}
               />
             </div>
           </div>
@@ -151,6 +156,8 @@ const RegistroBox = ({ dsb }) => {
                 isRequired={true}
                 checkError={listErrorState.listError.dni}
                 errorStr="El dni es requerido"
+                className={"fondoBlue"}
+                letterColor={"var(--color-white)"}
               />
             </div>
             <div className="registrobox-formulario-input">
@@ -162,6 +169,8 @@ const RegistroBox = ({ dsb }) => {
                   isRequired={true}
                   checkError={listErrorState.listError.matricula}
                   errorStr="La matricula es requerida"
+                  className={"fondoBlue"}
+                  letterColor={"var(--color-white)"}
                 />
               )}
             </div>
@@ -178,6 +187,7 @@ const RegistroBox = ({ dsb }) => {
             checkError={"Esta equivocado"}
             errorStr="La fecha de nacimiento es requerida"
             isRequired={false}
+            customCss={"fondoBlue"}
           />
           <Input
             onChange={onChangeRegistro}
@@ -186,6 +196,8 @@ const RegistroBox = ({ dsb }) => {
             isRequired={true}
             checkError={listErrorState.listError.email}
             errorStr="El email es requerido"
+            className={"fondoBlue"}
+            letterColor={"var(--color-white)"}
           />
           <Input
             onChange={onChangeRegistro}
@@ -195,6 +207,8 @@ const RegistroBox = ({ dsb }) => {
             isRequired={true}
             checkError={listErrorState.listError.contrasena}
             errorStr="La contraseña es requerida"
+            className={"fondoBlue"}
+            letterColor={"var(--color-white)"}
           />
           <div className="registrobox-botones-container">
             <Button

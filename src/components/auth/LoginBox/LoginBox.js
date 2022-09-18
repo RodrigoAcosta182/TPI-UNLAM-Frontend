@@ -6,9 +6,13 @@ import ImagenFormulario from "../../../assets/images/empresa/ImagenFormulario.pn
 import { useContext, useEffect, useState } from "react";
 import { wsPostLogin } from "../../../context/action/auth/login";
 import { GlobalContext } from "../../../context/Provider";
-import { resetListError, setListError } from "../../../context/action/listError/listError";
+import {
+  resetListError,
+  setListError,
+} from "../../../context/action/listError/listError";
 import isErrorEmail from "../../../global/utils/isErrorEmail";
 import isEmptyError from "../../../global/utils/isEmptyError";
+import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 
 const LoginBox = () => {
   const { authDispatch, authState, listErrorState, listErrorDispatch } =
@@ -39,10 +43,10 @@ const LoginBox = () => {
     }
   };
 
-  const registrarse =() =>{
-    resetListError()(listErrorDispatch)
-    navigate("/registrarse")
-  }
+  const registrarse = () => {
+    resetListError()(listErrorDispatch);
+    navigate("/registrarse");
+  };
 
   useEffect(() => {
     if (authState.auth.data) {
@@ -50,15 +54,15 @@ const LoginBox = () => {
     }
   }, [authState.auth.data]);
 
-  useEffect(()=>{
-    resetListError()(listErrorDispatch)
-  },[])
+  useEffect(() => {
+    resetListError()(listErrorDispatch);
+  }, []);
 
   return (
     <div className="loginbox-container">
       <div className="loginbox-formulario">
         <div className="loginbox-formulario-header">
-          <span className="c-white">BIENVENIDO A “TarEA”</span>
+          <img className="loginbox-logo" src={LogoEmpresa} alt="logo"></img>
           <span className="c-white bw52b ">Iniciar Sesión</span>
         </div>
         <div className="loginbox-formulario-body">
@@ -70,6 +74,8 @@ const LoginBox = () => {
               checkError={listErrorState.listError.email}
               isRequired={true}
               errorStr="El email es requerido"
+              className={"fondoBlue-login"}
+              letterColor={"var(--color-white)"}
             />
           </div>
           <div className="loginbox-formulario-input-container">
@@ -81,15 +87,17 @@ const LoginBox = () => {
               checkError={listErrorState.listError.contrasena}
               isRequired={true}
               errorStr="La contraseña es requerida"
+              className={"fondoBlue-login"}
+              letterColor={"var(--color-white)"}
             />
           </div>
           <Button
             descripcion={"Ingresar"}
             onClick={loguear}
-            className={"loginbox-ingresarBtn"}
+            className={"loginbox-ingresarBtn bw18m"}
           />
-          <span className="loginbox-registrate" >
-            No tenes cuenta? <span onClick={registrarse}>Registrate</span>
+          <span className="loginbox-registrate c-white">
+            No tenes cuenta? <span className="c-primary loginbox-regBtn" onClick={registrarse}>Registrate</span>
           </span>
         </div>
       </div>
