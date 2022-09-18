@@ -14,8 +14,8 @@
   color: var(--color-white);
 }
 .loginbox-logo{
-  width: 50%;
-  margin-left: 100px;
+  width: 100px;
+ 
 }
 .loginbox-formulario {
   width: 50%;

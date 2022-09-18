@@ -10,7 +10,7 @@ export default function ColorCorrecto() {
     console.log(selected);
   } 
 
-  return ( <>
+  return ( <div className="colorCorrecto-container">
     <AnimateSharedLayout>
       <ul className="colorCorrecto-ul">
         {colors.map(color => (
@@ -24,7 +24,7 @@ export default function ColorCorrecto() {
       </ul>
     </AnimateSharedLayout>
     <button onClick={enviarColorCorrecto}>Enviar</button>
-  </>
+  </div>
   );
 }
 
