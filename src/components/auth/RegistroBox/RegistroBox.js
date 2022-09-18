@@ -178,7 +178,7 @@ const RegistroBox = ({ dsb }) => {
 
           <DatePicker
             headerStr="Fecha de nacimiento"
-            fechaInicial={"1903 01 01"}
+            fechaInicial={"2000 01 01"}
             fechaFinal={`${hoy.getFullYear()} ${
               hoy.getMonth() + 1
             } ${hoy.getDate()}`}
