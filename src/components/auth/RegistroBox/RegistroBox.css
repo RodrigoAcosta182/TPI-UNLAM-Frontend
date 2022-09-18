@@ -68,3 +68,18 @@
 .registrobox-formulario-soyProfesional {
   height: 44px;
 }
+
+.registrobox-logo{
+  width: 100px;
+}
+
+
+@media (max-width: 1024px) {
+  .registrobox-imagen-container{
+    display: none;
+  }
+  .registrobox-formulario, .registrobox-formulario{
+    width: 100%;
+  }
+
+}
