@@ -109,7 +109,7 @@ const RegistroBox = ({ dsb }) => {
     <div className="registrobox-container">
       <div className="registrobox-formulario">
         <div className="registrobox-formulario-header">
-          <img className="loginbox-logo" src={LogoEmpresa} alt="logo"></img>
+          <img className="registrobox-logo" src={LogoEmpresa} alt="logo"></img>
           <span className="c-white bw52b ">Registrarse</span>
           <div className="registrobox-formulario-soyProfesional">
             <Input
