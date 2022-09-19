@@ -5,11 +5,9 @@ import { GlobalProvider } from "./context/Provider";
 
 function App() {
   return (
-    <GlobalProvider>
-      <BrowserRouter>
+      <GlobalProvider>
         <RouterApp />
-      </BrowserRouter>
-    </GlobalProvider>
+      </GlobalProvider>
   );
 }
 

@@ -15,21 +15,21 @@ const RouterApp = () => {
   //   }, []);
 
   return (
-    <GlobalProvider>
-      <GlobalInitializeData>
-        <Routes>
-          {listRoutes.map((route, index) => {
-            return (
-              <Route
-                path={route.path}
-                element={route.component()}
-                key={index}
-              />
-            );
-          })}
-        </Routes>
-      </GlobalInitializeData>
-    </GlobalProvider>
+    <>
+        <GlobalInitializeData>
+          <Routes>
+            {listRoutes.map((route, index) => {
+              return (
+                <Route
+                  path={route.path}
+                  element={route.component()}
+                  key={index}
+                />
+              );
+            })}
+          </Routes>
+        </GlobalInitializeData>
+    </>
   );
 };
 

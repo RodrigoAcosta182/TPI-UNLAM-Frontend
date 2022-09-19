@@ -8,7 +8,10 @@ import CardJuegos from "../../components/CardJuegos/CardJuegos";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { listaJuegosState, listaJuegosDispatch } = useContext(GlobalContext);
+  // const { listaJuegosState, listaJuegosDispatch } = useContext(GlobalContext);
+  const ContextoGlobal = useContext(GlobalContext);
+  const { listaJuegosDispatch, listaJuegosState } = ContextoGlobal;
+
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -56,6 +56,9 @@
   border: none;
   border-radius: 8px;
 }
+.dsbCursor{
+  cursor: initial;
+}
 .registrobox-botones-container {
   display: flex;
   gap: 8px;

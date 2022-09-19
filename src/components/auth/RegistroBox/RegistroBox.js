@@ -2,10 +2,15 @@ import Button from "../../genericos/Button/Button";
 import Input from "../../genericos/Input/Input";
 import "./RegistroBox.css";
 import ImagenFormulario from "../../../assets/images/empresa/ImagenFormulario.png";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "../../genericos/DatePicker/DatePicker";
-import { wsPostRegistro } from "../../../context/action/auth/registro";
+import {
+  resetMatricula,
+  resetRegistro,
+  setRegistro,
+  wsPostRegistro,
+} from "../../../context/action/auth/registro";
 import { GlobalContext } from "../../../context/Provider";
 import isErrorEmail from "../../../global/utils/isErrorEmail";
 import {
@@ -21,11 +26,13 @@ const RegistroBox = ({ dsb }) => {
   const navigate = useNavigate();
   const hoy = new Date();
 
-  const { registroDispatch, listErrorState, listErrorDispatch } =
+  const { registroState, registroDispatch, listErrorState, listErrorDispatch } =
     useContext(GlobalContext);
 
   const [soyMedico, setSoyMedico] = useState(false);
   const [btnDisabled, setBtnDisabled] = useState(true);
+
+  const [valida, setValida] = useState(false);
 
   const [registroDto, setRegistroDto] = useState({
     matricula: null,
@@ -38,41 +45,116 @@ const RegistroBox = ({ dsb }) => {
     contrasena: "",
   });
 
+  //Puse este useEffect porque al ir atras en el navegador y luego voler quedaba el boton activado
+  useEffect(() => {
+    resetRegistro()(registroDispatch);
+    resetListError()(listErrorDispatch);
+  }, []);
+
+  useEffect(() => {
+    if (
+      registroState.registro.registroCampos.nombre === "" ||
+      registroState.registro.registroCampos.apellido === "" ||
+      registroState.registro.registroCampos.dni === "" ||
+      registroState.registro.registroCampos.mail === "" ||
+      listErrorState.listError.email === true ||
+      registroState.registro.registroCampos.contrasena === ""
+    ) {
+      setBtnDisabled(true);
+    } else {
+      setBtnDisabled(false);
+    }
+    if (
+      soyMedico === true &&
+      registroDto.matricula === ""
+    ) {
+      setBtnDisabled(true);
+    }
+  }, [
+    registroState.registro.registroCampos,
+    listErrorState.listError.email,
+    valida,
+    soyMedico,
+    registroDto
+  ]);
+
+  // useEffect(() => {
+  //   console.log(soyMedico);
+  //   console.log(registroDto.matricula);
+
+  //   if (soyMedico) {
+  //     if (registroState.registro.registroCampos.matricula === "") {
+  //       setBtnDisabled(true);
+  //     } else {
+  //       setBtnDisabled(false);
+  //     }
+  //   }
+  // }, [registroState.registro.registroCampos, soyMedico]);
+
   const onChangeRegistro = (e) => {
     //PROBANDO DESHABILITAR BOTON HASTA QUE TODOS LOS CAMPOS ESTEN LLENOS
-    // if (e.target.value !== "" || e.target.value !== null) {
-    //   setBtnDisabled(false);
-    //   console.log("deshabilitado");
-    // } else {
-    //   setBtnDisabled(true);
-    //   console.log("habilitado");
-    // }
 
     //switch control de errores en login
     switch (e.target.name) {
       case "mail":
+        let targetMail = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        targetMail.mail = e.target.value;
+        setRegistro(targetMail)(registroDispatch);
         listErrorState.listError.email = isErrorEmail(e.target.value);
         setListError(listErrorState.listError)(listErrorDispatch);
         break;
       case "nombre":
+        let targetNombre = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        targetNombre.nombre = e.target.value;
+        setRegistro(targetNombre)(registroDispatch);
         listErrorState.listError.nombre = isNombreApellidoError(e.target.value);
         setListError(listErrorState.listError)(listErrorDispatch);
         break;
       case "apellido":
+        let targetApellido = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        targetApellido.apellido = e.target.value;
+        setRegistro(targetApellido)(registroDispatch);
         listErrorState.listError.apellido = isNombreApellidoError(
           e.target.value
         );
         setListError(listErrorState.listError)(listErrorDispatch);
         break;
       case "dni":
+        let targetDni = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        targetDni.dni = e.target.value;
+        setRegistro(targetDni)(registroDispatch);
         listErrorState.listError.dni = isEmptyError(e.target.value);
         setListError(listErrorState.listError)(listErrorDispatch);
         break;
       case "matricula":
+        let targetMatricula = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        targetMatricula.matricula = e.target.value;
+        setRegistro(targetMatricula)(registroDispatch);
         listErrorState.listError.matricula = isEmptyError(e.target.value);
         setListError(listErrorState.listError)(listErrorDispatch);
         break;
       default:
+        let targetPass = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        targetPass.contrasena = e.target.value;
+        setRegistro(targetPass)(registroDispatch);
         listErrorState.listError.contrasena = isEmptyError(e.target.value);
         setListError(listErrorState.listError)(listErrorDispatch);
     }
@@ -85,6 +167,11 @@ const RegistroBox = ({ dsb }) => {
       setSoyMedico(true);
     } else {
       setSoyMedico(false);
+      resetListError()(listErrorDispatch);
+      setRegistroDto({
+        ...registroDto,
+        matricula: "",
+      });
     }
   };
 
@@ -93,15 +180,18 @@ const RegistroBox = ({ dsb }) => {
   };
 
   const registrarse = () => {
-    console.log(registroDto);
     wsPostRegistro(registroDto)(registroDispatch);
     if (registroDto !== undefined && registroDto !== null) {
       if (btnDisabled === false) {
       }
     }
   };
+
+  const funcVoid = () => {};
+
   const volverAlLogin = () => {
     resetListError()(listErrorDispatch);
+    resetRegistro()(registroDispatch);
     navigate("/");
   };
 
@@ -218,18 +308,11 @@ const RegistroBox = ({ dsb }) => {
             />
             <Button
               descripcion={"Registrarse"}
-              onClick={registrarse}
+              onClick={btnDisabled ? funcVoid : registrarse}
               className={`loginbox-registrarseBtn bw18m ${
-                !btnDisabled && "bgc-broccoli"
+                !btnDisabled ? "bgc-primary" : "bgc-grey45 dsbCursor"
               }`}
             />
-            {/* <Button
-              descripcion={"Registrarse"}
-              onClick={btnDisabled ? dsb : registrarse}
-              className={`loginbox-registrarseBtn bw18m ${
-                !btnDisabled && "bgc-broccoli"
-              }`}
-            /> */}
           </div>
         </div>
       </div>

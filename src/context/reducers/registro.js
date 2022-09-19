@@ -3,6 +3,8 @@ import {
   REGISTRO_LOADING,
   REGISTRO_ERROR,
   REGISTRO_RESET,
+  REGISTRO_CAMPOS,
+  REGISTRO_CAMPO_MATRICULA,
 } from "../ActionTypes";
 import registroInitialState from "../initialStates/registroInitialState";
 
@@ -37,6 +39,23 @@ const registro = (state, { payload, type }) => {
           data: null,
         },
       };
+    case REGISTRO_CAMPOS:
+      return {
+        ...state,
+        registro: {
+          ...state.registro,
+          registroCampos: payload,
+        },
+      };
+    case REGISTRO_CAMPO_MATRICULA:
+      return {
+        ...state,
+        registroCampos: {
+          ...state.registroCampos,
+          matricula: "",
+        },
+      };
+
     case REGISTRO_RESET:
       return registroInitialState;
 

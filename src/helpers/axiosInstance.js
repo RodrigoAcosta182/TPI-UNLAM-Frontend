@@ -1,9 +1,14 @@
 import axios from "axios";
+let flgBack = null;
+let baseUrl;
 
 const axiosInstance = async (history = null) => {
-  let baseUrl = await fetch("./config.json");
-  baseUrl = await baseUrl.json();
-  baseUrl = baseUrl.REACT_APP_BACKEND_URL;
+  if (flgBack === null) {
+    baseUrl = await fetch("./config.json");
+    baseUrl = await baseUrl.json();
+    baseUrl = await baseUrl.REACT_APP_BACKEND_URL;
+    flgBack = true;
+  }
 
   let headers = {
     "Content-Type": "application/json",

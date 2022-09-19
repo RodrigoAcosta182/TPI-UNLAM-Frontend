@@ -3,6 +3,9 @@ import {
   REGISTRO_ERROR,
   REGISTRO_LOADING,
   REGISTRO_SUCCESS,
+  REGISTRO_RESET,
+  REGISTRO_CAMPOS,
+  REGISTRO_CAMPO_MATRICULA
 } from "../../ActionTypes";
 
 export const wsPostRegistro = (dtoRegistro) => (dispatch) => {
@@ -20,7 +23,7 @@ export const wsPostRegistro = (dtoRegistro) => (dispatch) => {
         Mail: dtoRegistro.mail,
         Usuario: dtoRegistro.usuario,
         Contrasena: dtoRegistro.contrasena,
-        FechaNacimiento: dtoRegistro.fechaNacimiento
+        FechaNacimiento: dtoRegistro.fechaNacimiento,
       })
       .then((res) => {
         dispatch({
@@ -40,5 +43,25 @@ export const wsPostRegistro = (dtoRegistro) => (dispatch) => {
           payload: error,
         });
       });
+  });
+};
+
+export const resetRegistro = () => (dispatch) => {
+  dispatch({
+    type: REGISTRO_RESET
+  });
+};
+
+export const resetMatricula = () => (dispatch) => {
+  dispatch({
+    type: REGISTRO_CAMPO_MATRICULA
+  });
+};
+
+
+export const setRegistro = (registroCampos) => (dispatch) => {
+  dispatch({
+    type: REGISTRO_CAMPOS,
+    payload: registroCampos,
   });
 };

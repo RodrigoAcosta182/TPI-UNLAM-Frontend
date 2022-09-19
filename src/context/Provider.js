@@ -12,20 +12,27 @@ import listError from "./reducers/listError";
 import registro from "./reducers/registro";
 import listaJuegos from "./reducers/listaJuegos";
 
-export const GlobalContext = createContext();
+export const GlobalContext = createContext({});
 
 export const GlobalProvider = ({ children }) => {
-
   //State y Dispatch, ordenar alfabeticamente
   const [authState, authDispatch] = useReducer(auth, [], () => {
     const localData = sessionStorage.auth;
     return localData ? JSON.parse(localData) : authInitialState;
   });
 
-  const [listErrorState, listErrorDispatch] = useReducer(listError,listErrorInitialState);
-  const [registroState, registroDispatch] = useReducer(registro,registroInitialState);
-  const [listaJuegosState, listaJuegosDispatch] = useReducer(listaJuegos,listaJuegosInitialState);
-
+  const [listErrorState, listErrorDispatch] = useReducer(
+    listError,
+    listErrorInitialState
+  );
+  const [registroState, registroDispatch] = useReducer(
+    registro,
+    registroInitialState
+  );
+  const [listaJuegosState, listaJuegosDispatch] = useReducer(
+    listaJuegos,
+    listaJuegosInitialState
+  );
 
   return (
     //Declarar en Contexto Global, ordenar alfabeticamente
@@ -35,13 +42,15 @@ export const GlobalProvider = ({ children }) => {
         authDispatch,
         listErrorState,
         listErrorDispatch,
+        listaJuegosState,
+        listaJuegosDispatch,
         registroState,
         registroDispatch,
-        listaJuegosState,
-        listaJuegosDispatch
       }}
     >
       {children}
     </GlobalContext.Provider>
   );
 };
+
+export default GlobalProvider
