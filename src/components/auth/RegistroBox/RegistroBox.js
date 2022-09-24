@@ -21,9 +21,10 @@ import isEmptyError, {
   isNombreApellidoError,
 } from "../../../global/utils/isEmptyError";
 import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
+import { useHistory } from "react-router-dom";
 
 const RegistroBox = ({ dsb }) => {
-  
+  const history = useHistory()
   const hoy = new Date();
 
   const { registroState, registroDispatch, listErrorState, listErrorDispatch } =
@@ -192,6 +193,7 @@ const RegistroBox = ({ dsb }) => {
   const volverAlLogin = () => {
     resetListError()(listErrorDispatch);
     resetRegistro()(registroDispatch);
+    history.push("/")
     
   };
 

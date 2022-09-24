@@ -29,9 +29,8 @@ const Home = () => {
       <HeaderbarHome></HeaderbarHome>
       <div className="home-container">
         <div className="home-logoBienvenida">
-          <img className="home-logo" src={LogoEmpresa} alt="logo"></img>
           <p className="c-white bw52t">
-            Hola <span className="bw52b">Terry</span>, Seleccioná un juego
+            Hola <span className="bw52b">Terry</span>, seleccioná un juego:
           </p>
         </div>
         <div className="home-listaJuegos">

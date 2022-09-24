@@ -13,6 +13,7 @@ import {
 import isErrorEmail from "../../../global/utils/isErrorEmail";
 import isEmptyError from "../../../global/utils/isEmptyError";
 import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
+import { useHistory } from "react-router-dom";
 
 const LoginBox = () => {
   const { authDispatch, authState, listErrorState, listErrorDispatch } =
@@ -43,9 +44,11 @@ const LoginBox = () => {
     }
   };
 
+  const history = useHistory()
+
   const registrarse = () => {
     resetListError()(listErrorDispatch);
-    
+    history.push("/registrarse")
   };
 
   useEffect(() => {
