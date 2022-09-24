@@ -3,7 +3,7 @@ import Input from "../../genericos/Input/Input";
 import "./RegistroBox.css";
 import ImagenFormulario from "../../../assets/images/empresa/ImagenFormulario.png";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import DatePicker from "../../genericos/DatePicker/DatePicker";
 import {
   resetMatricula,
@@ -23,7 +23,7 @@ import isEmptyError, {
 import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 
 const RegistroBox = ({ dsb }) => {
-  const navigate = useNavigate();
+  
   const hoy = new Date();
 
   const { registroState, registroDispatch, listErrorState, listErrorDispatch } =
@@ -192,7 +192,7 @@ const RegistroBox = ({ dsb }) => {
   const volverAlLogin = () => {
     resetListError()(listErrorDispatch);
     resetRegistro()(registroDispatch);
-    navigate("/");
+    
   };
 
   return (

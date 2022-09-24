@@ -5,14 +5,14 @@ import { GlobalContext } from "../../context/Provider";
 import LogoEmpresa from "../../assets/images/empresa/Logo.png";
 import "./Home.css";
 import CardJuegos from "../../components/CardJuegos/CardJuegos";
-import { useNavigate } from "react-router-dom";
+
 
 const Home = () => {
   // const { listaJuegosState, listaJuegosDispatch } = useContext(GlobalContext);
   const ContextoGlobal = useContext(GlobalContext);
   const { listaJuegosDispatch, listaJuegosState } = ContextoGlobal;
 
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     wsGetListaDeJuegos()(listaJuegosDispatch);
@@ -21,7 +21,7 @@ const Home = () => {
   const irAlJuego = (e) => {
     //LO DEJO COMENTADO PORQUE TODAVIA NO TIENEN UNA RUTA GUARDADA EN LA BASE
     // navigate("/"+e.ruta)
-    navigate("/colorcorrecto");
+    
   }
 
   return (

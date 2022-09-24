@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+
 import Button from "../../genericos/Button/Button";
 import Input from "../../genericos/Input/Input";
 import "./LoginBox.css";
@@ -17,7 +17,7 @@ import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 const LoginBox = () => {
   const { authDispatch, authState, listErrorState, listErrorDispatch } =
     useContext(GlobalContext);
-  const navigate = useNavigate();
+  
   const [loginDto, setLoginDto] = useState({
     email: null,
     contrasena: null,
@@ -45,12 +45,12 @@ const LoginBox = () => {
 
   const registrarse = () => {
     resetListError()(listErrorDispatch);
-    navigate("/registrarse");
+    
   };
 
   useEffect(() => {
     if (authState.auth.data) {
-      navigate("/home");
+      
     }
   }, [authState.auth.data]);
 

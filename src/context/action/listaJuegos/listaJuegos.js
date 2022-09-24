@@ -13,7 +13,7 @@ export const wsGetListaDeJuegos = () => (dispatch) => {
 
   axiosInstance().then((respuesta) => {
     respuesta
-      .get(`/auth`)
+      .get(`/getAllJuegos`)
       .then((res) => {
         dispatch({
           type: LISTAJUEGOS_SUCCESS,
