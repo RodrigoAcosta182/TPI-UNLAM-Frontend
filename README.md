@@ -1,8 +1,8 @@
-# Getting Started with Create React App
+# TPI Unlam 2022
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Proyecto final UNLAM 2022 - Tecnictura en Desarrollo Web
 
-## Available Scripts
+## Scripts disponibles
 
 In the project directory, you can run:
 
