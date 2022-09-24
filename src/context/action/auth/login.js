@@ -27,7 +27,7 @@ export const wsPostLogin = (loginDto) => (dispatch) => {
       .post(`/auth`, { email: loginDto.email, contrasena: loginDto.contrasena })
       .then((res) => {
         console.log(res);
-        // sessionStorage.token = res.data.token;
+        sessionStorage.token = res.data.token.token;
         dispatch({
           type: LOGIN_SUCCESS,
           payload: res.data,
