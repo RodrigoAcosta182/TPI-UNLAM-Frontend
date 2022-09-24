@@ -1,10 +1,8 @@
-# TPI Unlam 2022
+# TPI UNLaM 2022
 
-Proyecto final UNLAM 2022 - Tecnictura en Desarrollo Web
+Proyecto final UNLaM 2022 - Tecnictura en Desarrollo Web.
 
 ## Scripts disponibles
-
-In the project directory, you can run:
 
 ### `npm start`
 
