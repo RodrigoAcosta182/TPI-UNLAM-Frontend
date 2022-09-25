@@ -12,11 +12,10 @@ import { getStrDate } from "../../../global/utils/diasData";
 import { GlobalContext } from "../../../context/Provider";
 import HeaderTimer from "../HeaderTimer/HeaderTimer";
 import { logoutAuth } from "../../../context/action/auth/login";
-
+import BurgerBtn from "../../../assets/images/BurgerBtn";
 
 const HeaderbarHome = ({ onShowBurguerHandle }) => {
   const { authState, authDispatch } = useContext(GlobalContext);
-  
 
   const [showDropPerfil, setShowDropPerfil] = useState(false);
   // const imgAvatar = authState.auth.data.paciente.imagenPerfil;
@@ -43,7 +42,6 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
   };
 
   const onHandleSalir = () => {
-    
     logoutAuth()(authDispatch);
   };
 
@@ -75,27 +73,17 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
               onClick={onHandleClickAvatar}
               className="ptur-flechaAvatar-box"
             >
-              <div className="ptur-perfilMenu-perfilImg-box">
-                <img
-                  className={
-                    showDropPerfil
-                      ? `ptur-perfilMenu-perfilImg-img clickedAvatar`
-                      : `ptur-perfilMenu-perfilImg-img`
-                  }
-                  // src={
-                  //   imgAvatar
-                  //     ? `data:image/jpeg;base64,${imgAvatar}`
-                  //     : defaultPerfil
-                  // }
-                  src={defaultPerfil}
-                  alt="Perfil"
-                />
-              </div>
+              <BurgerBtn
+                color={
+                  showDropPerfil ? "var(--color-primary)" : "var(--color-white)"
+                }
+              />
+
               {showDropPerfil ? (
                 <div style={{ position: "relative" }}>
-                  <div className="ptur-flechaAvatar img-rotatedX180">
+                  {/* <div className="ptur-flechaAvatar img-rotatedX180">
                     <FlechaDropdown color={"var(--color-primary)"} />
-                  </div>
+                  </div> */}
                   <div className="ptur-dropDownAvatar-box dropdownSidebar">
                     <div className="ptur-dropDownAvatar">
                       <ul className="ptur-dropDownAvatar-list pointer bw18l">
@@ -120,9 +108,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
                   </div>
                 </div>
               ) : (
-                <div className="ptur-flechaAvatar pointer">
-                  <FlechaDropdown color={"var(--color-white)"} />
-                </div>
+                ""
               )}
             </div>
           </div>

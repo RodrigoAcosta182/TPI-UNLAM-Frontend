@@ -1,4 +1,3 @@
-
 import Button from "../../genericos/Button/Button";
 import Input from "../../genericos/Input/Input";
 import "./LoginBox.css";
@@ -18,11 +17,25 @@ import { useHistory } from "react-router-dom";
 const LoginBox = () => {
   const { authDispatch, authState, listErrorState, listErrorDispatch } =
     useContext(GlobalContext);
-  
+
+  const [btnDisabled, setBtnDisabled] = useState(true);
   const [loginDto, setLoginDto] = useState({
     email: null,
     contrasena: null,
   });
+
+  useEffect(() => {
+    if (
+      listErrorState.listError.email === true ||
+      listErrorState.listError.contrasena === true ||
+      loginDto.email === null ||
+      loginDto.contrasena === null
+    ) {
+      setBtnDisabled(true);
+    } else {
+      setBtnDisabled(false);
+    }
+  }, [listErrorState.listError.email, loginDto]);
 
   const onChangeLogin = (e) => {
     //switch control de errores en login
@@ -44,16 +57,16 @@ const LoginBox = () => {
     }
   };
 
-  const history = useHistory()
+  const history = useHistory();
 
   const registrarse = () => {
     resetListError()(listErrorDispatch);
-    history.push("/registrarse")
+    history.push("/registrarse");
   };
 
   useEffect(() => {
     if (authState.auth.data) {
-      
+      history.push("/home");
     }
   }, [authState.auth.data]);
 
@@ -96,11 +109,16 @@ const LoginBox = () => {
           </div>
           <Button
             descripcion={"Ingresar"}
-            onClick={loguear}
-            className={"loginbox-ingresarBtn bw18m"}
+            onClick={btnDisabled ? () => {} : loguear}
+            className={`loginbox-ingresarBtn bw18m ${
+              !btnDisabled ? "bgc-primary" : "bgc-grey45 dsbCursor"
+            }`}
           />
           <span className="loginbox-registrate c-white">
-            No tenes cuenta? <span className="c-primary loginbox-regBtn" onClick={registrarse}>Registrate</span>
+            No tenes cuenta?{" "}
+            <span className="c-primary loginbox-regBtn" onClick={registrarse}>
+              Registrate
+            </span>
           </span>
         </div>
       </div>

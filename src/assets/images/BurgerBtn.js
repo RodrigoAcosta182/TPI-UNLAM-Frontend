@@ -1,4 +1,4 @@
-const Hamburguer = () => {
+const BurgerBtn = ({color}) => {
   return (
     <svg
       width="24"
@@ -7,23 +7,24 @@ const Hamburguer = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect width="23.9996" height="3.42851" rx="1.71426" fill="white" />
+      <rect width="23.9996" height="3.42851" rx="1.71426" fill={color} />
       <rect
         y="8.22827"
         width="23.9996"
         height="3.42851"
         rx="1.71426"
-        fill="white"
+        fill={color}
       />
       <rect
         y="16.457"
         width="23.9996"
         height="3.42851"
         rx="1.71426"
-        fill="white"
+        fill={color}
       />
     </svg>
   );
 };
 
-export default Hamburguer;
+export default BurgerBtn;
+
