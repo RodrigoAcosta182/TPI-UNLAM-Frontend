@@ -2,15 +2,17 @@ import { createContext, useReducer } from "react";
 
 //InitialStates ordenar alfabeticamente
 import authInitialState from "./initialStates/authInitialState";
+import colorCorrectoInitialState from "./initialStates/colorCorrectoInitialState";
 import listErrorInitialState from "./initialStates/listErrorInitialState";
-import registroInitialState from "./initialStates/registroInitialState";
 import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
+import registroInitialState from "./initialStates/registroInitialState";
 
 //Reducers ordenar alfabeticamente
 import auth from "./reducers/auth";
+import colorCorrecto from "./reducers/colorCorrecto";
 import listError from "./reducers/listError";
-import registro from "./reducers/registro";
 import listaJuegos from "./reducers/listaJuegos";
+import registro from "./reducers/registro";
 
 export const GlobalContext = createContext({});
 
@@ -33,6 +35,10 @@ export const GlobalProvider = ({ children }) => {
     listaJuegos,
     listaJuegosInitialState
   );
+  const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
+    colorCorrecto,
+    colorCorrectoInitialState
+  );
 
   return (
     //Declarar en Contexto Global, ordenar alfabeticamente
@@ -40,6 +46,8 @@ export const GlobalProvider = ({ children }) => {
       value={{
         authState,
         authDispatch,
+        colorCorrectoState,
+        colorCorrectoDispatch,
         listErrorState,
         listErrorDispatch,
         listaJuegosState,
@@ -53,4 +61,4 @@ export const GlobalProvider = ({ children }) => {
   );
 };
 
-export default GlobalProvider
+export default GlobalProvider;

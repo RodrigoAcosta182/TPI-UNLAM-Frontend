@@ -24,7 +24,7 @@ import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 import { useHistory } from "react-router-dom";
 
 const RegistroBox = ({ dsb }) => {
-  const history = useHistory()
+  const history = useHistory();
   const hoy = new Date();
 
   const { registroState, registroDispatch, listErrorState, listErrorDispatch } =
@@ -65,10 +65,7 @@ const RegistroBox = ({ dsb }) => {
     } else {
       setBtnDisabled(false);
     }
-    if (
-      soyMedico === true &&
-      registroDto.matricula === ""
-    ) {
+    if (soyMedico === true && registroDto.matricula === "") {
       setBtnDisabled(true);
     }
   }, [
@@ -76,7 +73,7 @@ const RegistroBox = ({ dsb }) => {
     listErrorState.listError.email,
     valida,
     soyMedico,
-    registroDto
+    registroDto,
   ]);
 
   // useEffect(() => {
@@ -188,13 +185,18 @@ const RegistroBox = ({ dsb }) => {
     }
   };
 
+  useEffect(() => {
+    if (registroState.registro.data) {
+      history.push("/");
+    }
+  }, [registroState.registro.data]);
+
   const funcVoid = () => {};
 
   const volverAlLogin = () => {
     resetListError()(listErrorDispatch);
     resetRegistro()(registroDispatch);
-    history.push("/")
-    
+    history.push("/");
   };
 
   return (

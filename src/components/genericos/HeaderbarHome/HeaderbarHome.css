@@ -7,10 +7,9 @@
   padding: 0 44px;
   background: var(--color-primary-gradient);
   box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.14);
-  
 }
 
-.ptur-logoHeader{
+.ptur-logoHeader {
   width: 60px;
 }
 
@@ -31,6 +30,7 @@
 .ptur-perfilMenu {
   display: flex;
   align-items: center;
+  gap: 14px;
 }
 
 .ptur-perfilMenu .ptur-perfilMenu-perfilImg-box {
@@ -55,6 +55,7 @@
 .ptur-flechaAvatar-box {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .ptur-dropDownAvatar-box {
   width: 242px;
@@ -62,7 +63,7 @@
   color: var(--color-black);
   position: absolute;
   z-index: 12;
-  top: 54px;
+  top: 44px;
   right: -10px;
   background: var(--color-white);
   border: 1px solid var(--color-grey85);
@@ -78,7 +79,6 @@
   border-top-right-radius: 0px;
   border-top: none;
   animation-duration: 1s;
-
 }
 
 .ptur-dropDownAvatar {
@@ -100,13 +100,14 @@
   background: var(--color-primary);
   color: var(--color-white);
 }
-.ptur-dropDownAvatar-icons{
+.ptur-dropDownAvatar-icons {
   fill: var(--color-black);
   stroke: var(--color-black);
 }
 .ptur-dropDownAvatar-list
   .ptur-dropDownAvatar-listItem:hover
-  .ptur-dropDownAvatar-icons path{
+  .ptur-dropDownAvatar-icons
+  path {
   fill: var(--color-white);
   stroke: var(--color-white);
 }
@@ -147,7 +148,7 @@
   height: 100%;
 }
 
-.ptur-headerBarHome-txtDiaHora{
+.ptur-headerBarHome-txtDiaHora {
   margin-right: 57px;
 }
 @media (max-width: 1365px) {
@@ -166,9 +167,12 @@
     margin-left: 29px;
     transition: all 0.5s;
   }
-  .ptur-perfilMenu {
-    display: none;
+  .ptur-dropDownAvatar-box {
+    top: 38px;
   }
+  /* .ptur-perfilMenu {
+    display: none;
+  } */
 
   .ptur-burguerPerfil {
     display: flex;
@@ -186,9 +190,9 @@
     margin-right: 28px;
     margin-left: 29px;
   }
-  .ptur-perfilMenu {
+  /* .ptur-perfilMenu {
     display: none;
-  }
+  } */
   .ptur-HeaderbarDiv {
     width: 100%;
   }
@@ -206,7 +210,7 @@
     transition: all 0.5s;
     margin-left: 14px;
   }
-  .ptur-headerBarHome-txtDiaHora{
+  .ptur-headerBarHome-txtDiaHora {
     margin-right: 10px;
   }
 }
@@ -229,14 +233,14 @@
   }
 }
 
-.ptur-HeaderbarDiv-background{
+.ptur-HeaderbarDiv-background {
   position: absolute;
-  background-color:transparent;
+  background-color: transparent;
   width: 100vw;
   height: 100vh;
   z-index: 12;
 }
 
 .disable {
-  display:  none;
+  display: none;
 }

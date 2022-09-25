@@ -9,7 +9,18 @@ const listError = (state, { payload, type }) => {
         listError: payload,
       };
     case LIST_ERROR_RESET:
-      return listErrorInitialState;
+      return {
+        ...state,
+        listError: {
+          dni: false,
+          nombre: false,
+          apellido: false,
+          contrasena: false,
+          fecha_nacimiento: false,
+          email: false,
+          matricula: false,
+        },
+      };
 
     default:
       return state;
