@@ -3,23 +3,76 @@ import { useState } from "react";
 import { Reorder } from "framer-motion";
 import { Item } from "./Item";
 import "./OrdenaNumeros.css";
+import SalirIcon from "../../../assets/images/SalirIcon";
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useContext } from "react";
+import { wsGetNumerosDesordenados } from "../../../context/action/Juegos/ordenarNumeros";
+import { GlobalContext } from "../../../context/Provider";
 
 const OrdenaNumeros = () => {
-  const initialItems = ["4", "2", "1", "3"];
-  const [items, setItems] = useState(initialItems);
+  const { ordenNumerosDispatch, ordenNumerosState } = useContext(GlobalContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    wsGetNumerosDesordenados()(ordenNumerosDispatch);
+  }, []);
+
+  const [items, setItems] = useState(null);
+
+  useEffect(() => {
+    if (ordenNumerosState.numeros.data) {
+      let initialItems = [
+        ordenNumerosState.numeros.data[0],
+        ordenNumerosState.numeros.data[1],
+        ordenNumerosState.numeros.data[2],
+        ordenNumerosState.numeros.data[3],
+      ];
+      setItems(initialItems)
+    }
+  }, [ordenNumerosState.numeros.data]);
 
   const enviarNumerosOrdenados = () => {
     console.log(items);
   };
+
+  const volverAlHome = () => {
+    history.push("/home");
+  };
+
   return (
     <>
-      <h1 className="c-white">ORDENAR NUMEROS</h1>
-      <Reorder.Group axis="y" onReorder={setItems} values={items} className="listaNumeros">
-        {items.map((item) => (
-          <Item key={item} item={item} />
-        ))}
-      </Reorder.Group>
-      <button onClick={enviarNumerosOrdenados}>Enviar</button>
+      <div className="ordenarNumeros-volverAccion" onClick={volverAlHome}>
+        <div className="ordenarNumeros-btnCont">
+          <SalirIcon />
+          <p className="ordenarNumeros-volverBtn c-white">VOLVER</p>
+        </div>
+      </div>
+      {items !== null && (
+        <>
+          <div className="ordenarNumeros-container">
+            <p className="ordenarNumeros-titulo c-white bw52b">
+              Ordená los numeros de menor a mayor
+            </p>
+            <Reorder.Group
+              axis="y"
+              onReorder={setItems}
+              values={items}
+              className="listaNumeros c-white"
+            >
+              {items.map((item, index) => (
+                <Item key={item} item={item} />
+              ))}
+            </Reorder.Group>
+            <button
+              className="ordenarNumeros-btn bw24t"
+              onClick={enviarNumerosOrdenados}
+            >
+              Listo
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
 };

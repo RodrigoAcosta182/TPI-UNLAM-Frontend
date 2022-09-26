@@ -7,6 +7,7 @@ import listErrorInitialState from "./initialStates/listErrorInitialState";
 import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
 import modalAvatarInitialState from "./initialStates/modalAvatarInitialState";
 import modalInitialState from "./initialStates/modalInitialState";
+import ordenNumerosInitialState from "./initialStates/ordenNumerosInitialState";
 import registroInitialState from "./initialStates/registroInitialState";
 
 //Reducers ordenar alfabeticamente
@@ -16,6 +17,7 @@ import listError from "./reducers/listError";
 import listaJuegos from "./reducers/listaJuegos";
 import modalAvatar from "./reducers/modalAvatar";
 import modal from "./reducers/modal";
+import ordenNumeros from "./reducers/ordenNumeros";
 import registro from "./reducers/registro";
 
 export const GlobalContext = createContext({});
@@ -26,6 +28,7 @@ export const GlobalProvider = ({ children }) => {
     const localData = sessionStorage.auth;
     return localData ? JSON.parse(localData) : authInitialState;
   });
+
 
   const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
     colorCorrecto,
@@ -44,6 +47,11 @@ export const GlobalProvider = ({ children }) => {
     modalAvatarInitialState
   );
   const [modalState, modalDispatch] = useReducer(modal, modalInitialState);
+
+  const [ordenNumerosState, ordenNumerosDispatch] = useReducer(
+    ordenNumeros,
+    ordenNumerosInitialState
+  );
   const [registroState, registroDispatch] = useReducer(
     registro,
     registroInitialState
@@ -65,6 +73,8 @@ export const GlobalProvider = ({ children }) => {
         modalAvatarDispatch,
         modalState,
         modalDispatch,
+        ordenNumerosState,
+        ordenNumerosDispatch,
         registroState,
         registroDispatch,
       }}
