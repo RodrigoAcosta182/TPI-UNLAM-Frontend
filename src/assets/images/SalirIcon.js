@@ -10,9 +10,9 @@ const SalirIcon = () => {
       <path
         d="M92.5001 37L55.5001 74L92.5001 111"
         stroke="white"
-        stroke-width="17.3727"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="17.3727"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

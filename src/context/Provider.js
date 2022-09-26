@@ -5,6 +5,7 @@ import authInitialState from "./initialStates/authInitialState";
 import colorCorrectoInitialState from "./initialStates/colorCorrectoInitialState";
 import listErrorInitialState from "./initialStates/listErrorInitialState";
 import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
+import ordenNumerosInitialState from "./initialStates/ordenNumerosInitialState";
 import registroInitialState from "./initialStates/registroInitialState";
 
 //Reducers ordenar alfabeticamente
@@ -12,6 +13,7 @@ import auth from "./reducers/auth";
 import colorCorrecto from "./reducers/colorCorrecto";
 import listError from "./reducers/listError";
 import listaJuegos from "./reducers/listaJuegos";
+import ordenNumeros from "./reducers/ordenNumeros";
 import registro from "./reducers/registro";
 
 export const GlobalContext = createContext({});
@@ -22,22 +24,26 @@ export const GlobalProvider = ({ children }) => {
     const localData = sessionStorage.auth;
     return localData ? JSON.parse(localData) : authInitialState;
   });
+  const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
+    colorCorrecto,
+    colorCorrectoInitialState
+  );
 
   const [listErrorState, listErrorDispatch] = useReducer(
     listError,
     listErrorInitialState
   );
-  const [registroState, registroDispatch] = useReducer(
-    registro,
-    registroInitialState
-  );
   const [listaJuegosState, listaJuegosDispatch] = useReducer(
     listaJuegos,
     listaJuegosInitialState
   );
-  const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
-    colorCorrecto,
-    colorCorrectoInitialState
+  const [ordenNumerosState, ordenNumerosDispatch] = useReducer(
+    ordenNumeros,
+    ordenNumerosInitialState
+  );
+  const [registroState, registroDispatch] = useReducer(
+    registro,
+    registroInitialState
   );
 
   return (
@@ -52,6 +58,8 @@ export const GlobalProvider = ({ children }) => {
         listErrorDispatch,
         listaJuegosState,
         listaJuegosDispatch,
+        ordenNumerosState,
+        ordenNumerosDispatch,
         registroState,
         registroDispatch,
       }}
