@@ -5,6 +5,8 @@ import authInitialState from "./initialStates/authInitialState";
 import colorCorrectoInitialState from "./initialStates/colorCorrectoInitialState";
 import listErrorInitialState from "./initialStates/listErrorInitialState";
 import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
+import modalAvatarInitialState from "./initialStates/modalAvatarInitialState";
+import modalInitialState from "./initialStates/modalInitialState";
 import ordenNumerosInitialState from "./initialStates/ordenNumerosInitialState";
 import registroInitialState from "./initialStates/registroInitialState";
 
@@ -13,6 +15,8 @@ import auth from "./reducers/auth";
 import colorCorrecto from "./reducers/colorCorrecto";
 import listError from "./reducers/listError";
 import listaJuegos from "./reducers/listaJuegos";
+import modalAvatar from "./reducers/modalAvatar";
+import modal from "./reducers/modal";
 import ordenNumeros from "./reducers/ordenNumeros";
 import registro from "./reducers/registro";
 
@@ -24,19 +28,26 @@ export const GlobalProvider = ({ children }) => {
     const localData = sessionStorage.auth;
     return localData ? JSON.parse(localData) : authInitialState;
   });
+
+
   const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
     colorCorrecto,
     colorCorrectoInitialState
-  );
-
-  const [listErrorState, listErrorDispatch] = useReducer(
-    listError,
-    listErrorInitialState
   );
   const [listaJuegosState, listaJuegosDispatch] = useReducer(
     listaJuegos,
     listaJuegosInitialState
   );
+  const [listErrorState, listErrorDispatch] = useReducer(
+    listError,
+    listErrorInitialState
+  );
+  const [modalAvatarState, modalAvatarDispatch] = useReducer(
+    modalAvatar,
+    modalAvatarInitialState
+  );
+  const [modalState, modalDispatch] = useReducer(modal, modalInitialState);
+
   const [ordenNumerosState, ordenNumerosDispatch] = useReducer(
     ordenNumeros,
     ordenNumerosInitialState
@@ -58,6 +69,10 @@ export const GlobalProvider = ({ children }) => {
         listErrorDispatch,
         listaJuegosState,
         listaJuegosDispatch,
+        modalAvatarState,
+        modalAvatarDispatch,
+        modalState,
+        modalDispatch,
         ordenNumerosState,
         ordenNumerosDispatch,
         registroState,

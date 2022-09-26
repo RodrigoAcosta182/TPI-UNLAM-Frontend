@@ -1,5 +1,5 @@
 import "./CardJuegos.css";
-import ImagenJuego from "../../assets/images/defaultUserImage.png";
+import ImagenJuego from "../../../assets/images/defaultUserImage.png";
 
 const CardJuegos = ({ juego, irAlJuego }) => {
   return (

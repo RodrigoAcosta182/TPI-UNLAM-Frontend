@@ -1,0 +1,30 @@
+
+.JuegoSeleccionado-container {
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 500px;
+  height: 500px;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 4px 8px 4px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1;
+}
+.JuegoSeleccionado-ficha{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 24px;
+}
+.JuegoSeleccionado-imagen{
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.JuegoSeleccionado-titulo{
+  width: 100%;
+}
