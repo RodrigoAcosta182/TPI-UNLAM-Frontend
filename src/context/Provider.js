@@ -5,6 +5,8 @@ import authInitialState from "./initialStates/authInitialState";
 import colorCorrectoInitialState from "./initialStates/colorCorrectoInitialState";
 import listErrorInitialState from "./initialStates/listErrorInitialState";
 import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
+import modalAvatarInitialState from "./initialStates/modalAvatarInitialState";
+import modalInitialState from "./initialStates/modalInitialState";
 import registroInitialState from "./initialStates/registroInitialState";
 
 //Reducers ordenar alfabeticamente
@@ -12,6 +14,8 @@ import auth from "./reducers/auth";
 import colorCorrecto from "./reducers/colorCorrecto";
 import listError from "./reducers/listError";
 import listaJuegos from "./reducers/listaJuegos";
+import modalAvatar from "./reducers/modalAvatar";
+import modal from "./reducers/modal";
 import registro from "./reducers/registro";
 
 export const GlobalContext = createContext({});
@@ -23,21 +27,26 @@ export const GlobalProvider = ({ children }) => {
     return localData ? JSON.parse(localData) : authInitialState;
   });
 
-  const [listErrorState, listErrorDispatch] = useReducer(
-    listError,
-    listErrorInitialState
-  );
-  const [registroState, registroDispatch] = useReducer(
-    registro,
-    registroInitialState
+  const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
+    colorCorrecto,
+    colorCorrectoInitialState
   );
   const [listaJuegosState, listaJuegosDispatch] = useReducer(
     listaJuegos,
     listaJuegosInitialState
   );
-  const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
-    colorCorrecto,
-    colorCorrectoInitialState
+  const [listErrorState, listErrorDispatch] = useReducer(
+    listError,
+    listErrorInitialState
+  );
+  const [modalAvatarState, modalAvatarDispatch] = useReducer(
+    modalAvatar,
+    modalAvatarInitialState
+  );
+  const [modalState, modalDispatch] = useReducer(modal, modalInitialState);
+  const [registroState, registroDispatch] = useReducer(
+    registro,
+    registroInitialState
   );
 
   return (
@@ -52,6 +61,10 @@ export const GlobalProvider = ({ children }) => {
         listErrorDispatch,
         listaJuegosState,
         listaJuegosDispatch,
+        modalAvatarState,
+        modalAvatarDispatch,
+        modalState,
+        modalDispatch,
         registroState,
         registroDispatch,
       }}
