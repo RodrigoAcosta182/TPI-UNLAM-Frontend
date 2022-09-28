@@ -9,9 +9,10 @@ import { wsGetColores } from "../../../context/action/Juegos/colorCorrecto";
 import { useHistory } from "react-router-dom";
 import { FlechaDropdown } from "../../../assets/images/FlechaDropdown";
 import SalirIcon from "../../../assets/images/SalirIcon";
+import { wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
 
 export default function ColorCorrecto() {
-  const { colorCorrectoState, colorCorrectoDispatch } =
+  const { colorCorrectoState, colorCorrectoDispatch, finalizaJuegoDispatch } =
     useContext(GlobalContext);
 
   const history = useHistory();
@@ -19,6 +20,12 @@ export default function ColorCorrecto() {
   const [colors, setColors] = useState([]);
   const [coloresRandom, setColoresRandom] = useState([]);
   const [colorPregunta, setColorPregunta] = useState(null);
+  const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
+    Aciertos: null,
+    Desaciertos: null,
+    JuegoId: 1,
+    Finalizado: true,
+  });
 
   useEffect(() => {
     wsGetColores()(colorCorrectoDispatch);
@@ -49,12 +56,39 @@ export default function ColorCorrecto() {
   const [selected, setSelected] = useState(colors[0]);
 
   const enviarColorCorrecto = () => {
-    if (selected === colorPregunta.hexadecimal) {
-      alert("Acertaste");
+    if (selected !== null && selected !== undefined) {
+      if (resultadoJuegoDto.Aciertos < 4) {
+        if (selected === colorPregunta.hexadecimal) {
+          setResultadoJuegoDto({
+            ...resultadoJuegoDto,
+            Aciertos: resultadoJuegoDto.Aciertos + 1,
+          });
+        } else {
+          setResultadoJuegoDto({
+            ...resultadoJuegoDto,
+            Desaciertos: resultadoJuegoDto.Desaciertos + 1,
+          });
+        }
+        wsGetColores()(colorCorrectoDispatch);
+        setSelected(null);
+      }
     } else {
-      alert("Intenta de nuevo");
+      alert("Debe seleccionar un color");
     }
   };
+
+  const finalizarJuego = () => {
+    wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+    //poner logica de loading y push
+    history.push("/")
+  };
+
+  useEffect(() => {
+    //revisar para darle el finalizar
+    if (resultadoJuegoDto.Desaciertos >= 4) {
+      wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+    }
+  }, [resultadoJuegoDto.Desaciertos]);
 
   const volverAlHome = () => {
     history.push("/home");
@@ -99,21 +133,40 @@ export default function ColorCorrecto() {
             </ul>
           </AnimateSharedLayout>
           {colorPregunta && (
-            <button
-              className={
-                selected === undefined
-                  ? "colorCorrecto-btn bw24t bgc-grey65"
-                  : "colorCorrecto-btn bw24t"
-              }
-              onClick={selected === undefined ? () => {} : enviarColorCorrecto}
-              style={
-                selected === undefined
-                  ? { cursor: "initial" }
-                  : { cursor: "pointer" }
-              }
-            >
-              Listo
-            </button>
+            <>
+              <button
+                className={
+                  selected === undefined
+                    ? "colorCorrecto-btn bw24t bgc-grey65"
+                    : "colorCorrecto-btn bw24t"
+                }
+                onClick={
+                  selected === undefined ? () => {} : enviarColorCorrecto
+                }
+                style={
+                  selected === undefined
+                    ? { cursor: "initial" }
+                    : { cursor: "pointer" }
+                }
+              >
+                Listo
+              </button>
+              <button
+                className={
+                  selected === undefined
+                    ? "colorCorrecto-btn bw24t bgc-grey65"
+                    : "colorCorrecto-btn bw24t"
+                }
+                onClick={selected === undefined ? () => {} : finalizarJuego}
+                style={
+                  selected === undefined
+                    ? { cursor: "initial" }
+                    : { cursor: "pointer" }
+                }
+              >
+                Finalizar
+              </button>
+            </>
           )}
         </div>
       </div>
