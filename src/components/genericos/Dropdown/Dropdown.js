@@ -28,6 +28,7 @@ const Dropdown = ({
   notSearch,
   widthLista,
   customCss,
+  customCssInput,
   campoAgenda,
   autoFocus,
   origen,
@@ -218,7 +219,7 @@ const Dropdown = ({
             )}
           </div>
           <div
-            className={`bgc-grey95 ptur-dropdown-inputSimulado noSeleccionable pointer`}
+            className={`bgc-grey95 ptur-dropdown-inputSimulado noSeleccionable pointer ${customCssInput}`}
             onClick={onClickDropdown}
             style={{ height: heightModificable }}
           >
@@ -261,8 +262,8 @@ const Dropdown = ({
             <input
               className={
                 !checkMostrarError()
-                  ? `bgc-grey95 ptur-dropdown-inputSimulado rb16m pointer`
-                  : `bgc-grey95 ptur-dropdown-inputSimulado rb16m pointer` +
+                  ? `bgc-grey95 ptur-dropdown-inputSimulado rb16m pointer ${customCssInput}`
+                  : `bgc-grey95 ptur-dropdown-inputSimulado rb16m pointer ${customCssInput}` +
                     ` ptur-input-borderError`
               }
               onClick={
