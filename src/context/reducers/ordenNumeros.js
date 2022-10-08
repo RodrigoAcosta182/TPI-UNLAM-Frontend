@@ -3,6 +3,9 @@ import {
   ORDENNUMEROS_LOADING,
   ORDENNUMEROS_SUCCESS,
   ORDENNUMEROS_RESET,
+  VERIFICARNUMEROS_ERROR,
+  VERIFICARNUMEROS_LOADING,
+  VERIFICARNUMEROS_SUCCESS,
 } from "../ActionTypes";
 import ordenNumerosInitialState from "../initialStates/ordenNumerosInitialState";
 
@@ -37,8 +40,37 @@ const listaJuegos = (state, { payload, type }) => {
           data: null,
         },
       };
+    case VERIFICARNUMEROS_SUCCESS:
+      return {
+        ...state,
+        numeros: {
+          ...state.numeros,
+          loading: false,
+          error: false,
+          estaOrdenado: payload,
+        },
+      };
+    case VERIFICARNUMEROS_ERROR:
+      return {
+        ...state,
+        numeros: {
+          ...state.numeros,
+          error: payload,
+          loading: false,
+          estaOrdenado: null,
+        },
+      };
     case ORDENNUMEROS_RESET:
-      return ordenNumerosInitialState;
+      return {
+        ...state,
+        numeros: {
+          ...state.numeros,
+          error: null,
+          loading: false,
+          data: null,
+          estaOrdenado: null,
+        },
+      };
 
     default:
       return state;

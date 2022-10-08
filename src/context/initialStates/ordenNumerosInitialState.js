@@ -2,7 +2,8 @@ const ordenNumerosInitialState = {
     numeros: {
         loading: false,
         error: null,
-        data: null
+        data: null,
+        estaOrdenado: null,
     },
 };
 

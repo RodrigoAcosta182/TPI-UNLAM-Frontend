@@ -7,7 +7,7 @@ import SalirIcon from "../../../assets/images/SalirIcon";
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useContext } from "react";
-import { wsGetNumerosDesordenados } from "../../../context/action/Juegos/ordenarNumeros";
+import { wsGetNumerosDesordenados, wsPostVerificarNumeros } from "../../../context/action/Juegos/ordenarNumeros";
 import { GlobalContext } from "../../../context/Provider";
 
 const OrdenaNumeros = () => {
@@ -34,6 +34,7 @@ const OrdenaNumeros = () => {
 
   const enviarNumerosOrdenados = () => {
     console.log(items);
+    wsPostVerificarNumeros(items)(ordenNumerosDispatch);
   };
 
   const volverAlHome = () => {
