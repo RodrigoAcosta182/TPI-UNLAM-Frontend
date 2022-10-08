@@ -22,13 +22,21 @@ import isEmptyError, {
 } from "../../../global/utils/isEmptyError";
 import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 import { useHistory } from "react-router-dom";
+import Dropdown from "../../genericos/Dropdown/Dropdown";
+import { wsGetProfesionales } from "../../../context/action/profesionales/profesionales";
 
 const RegistroBox = ({ dsb }) => {
   const history = useHistory();
   const hoy = new Date();
 
-  const { registroState, registroDispatch, listErrorState, listErrorDispatch } =
-    useContext(GlobalContext);
+  const {
+    registroState,
+    registroDispatch,
+    listErrorState,
+    listErrorDispatch,
+    profesionalesState,
+    profesionalesDispatch,
+  } = useContext(GlobalContext);
 
   const [soyMedico, setSoyMedico] = useState(false);
   const [btnDisabled, setBtnDisabled] = useState(true);
@@ -44,12 +52,14 @@ const RegistroBox = ({ dsb }) => {
     dni: "",
     mail: "",
     contrasena: "",
+    usuarioProfesionalId: null,
   });
 
   //Puse este useEffect porque al ir atras en el navegador y luego voler quedaba el boton activado
   useEffect(() => {
     resetRegistro()(registroDispatch);
     resetListError()(listErrorDispatch);
+    wsGetProfesionales()(profesionalesDispatch);
   }, []);
 
   useEffect(() => {
@@ -199,6 +209,13 @@ const RegistroBox = ({ dsb }) => {
     history.push("/");
   };
 
+  const seleccionarProfesional = (profesional) => {
+    //revisar que el campo sea requerido
+    if (profesional) {
+      setRegistroDto({ ...registroDto, usuarioProfesionalId: profesional.id });
+    }
+  };
+
   return (
     <div className="registrobox-container">
       <div className="registrobox-formulario">
@@ -255,7 +272,7 @@ const RegistroBox = ({ dsb }) => {
               />
             </div>
             <div className="registrobox-formulario-input">
-              {soyMedico && (
+              {soyMedico ? (
                 <Input
                   onChange={onChangeRegistro}
                   headerStr={"Matricula"}
@@ -265,6 +282,18 @@ const RegistroBox = ({ dsb }) => {
                   errorStr="La matricula es requerida"
                   className={"fondoBlue"}
                   letterColor={"var(--color-white)"}
+                />
+              ) : (
+                <Dropdown
+                  valor={""}
+                  name="usuarioProfesionalId"
+                  onChange={seleccionarProfesional}
+                  headerStr={"Busca tu profesional"}
+                  datos={profesionalesState.profesionales.data}
+                  campoCodigo="id"
+                  descripcion="mail"
+                  // errorStr="El parentesco es requerido"
+                  customCssInput={"fondoBlue c-white"}
                 />
               )}
             </div>

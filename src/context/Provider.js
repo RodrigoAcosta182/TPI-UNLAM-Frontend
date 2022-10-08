@@ -9,6 +9,7 @@ import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
 import modalAvatarInitialState from "./initialStates/modalAvatarInitialState";
 import modalInitialState from "./initialStates/modalInitialState";
 import ordenNumerosInitialState from "./initialStates/ordenNumerosInitialState";
+import profesionalesInitialState from "./initialStates/profesionalesInitialState";
 import registroInitialState from "./initialStates/registroInitialState";
 
 //Reducers ordenar alfabeticamente
@@ -20,6 +21,7 @@ import listaJuegos from "./reducers/listaJuegos";
 import modalAvatar from "./reducers/modalAvatar";
 import modal from "./reducers/modal";
 import ordenNumeros from "./reducers/ordenNumeros";
+import profesionales from "./reducers/profesionales";
 import registro from "./reducers/registro";
 
 export const GlobalContext = createContext({});
@@ -58,6 +60,11 @@ export const GlobalProvider = ({ children }) => {
     ordenNumeros,
     ordenNumerosInitialState
   );
+
+  const [profesionalesState, profesionalesDispatch] = useReducer(
+    profesionales,
+    profesionalesInitialState
+  );
   const [registroState, registroDispatch] = useReducer(
     registro,
     registroInitialState
@@ -83,6 +90,8 @@ export const GlobalProvider = ({ children }) => {
         modalDispatch,
         ordenNumerosState,
         ordenNumerosDispatch,
+        profesionalesState,
+        profesionalesDispatch,
         registroState,
         registroDispatch,
       }}

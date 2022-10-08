@@ -5,7 +5,7 @@ import {
   REGISTRO_SUCCESS,
   REGISTRO_RESET,
   REGISTRO_CAMPOS,
-  REGISTRO_CAMPO_MATRICULA
+  REGISTRO_CAMPO_MATRICULA,
 } from "../../ActionTypes";
 
 export const wsPostRegistro = (dtoRegistro) => (dispatch) => {
@@ -16,14 +16,17 @@ export const wsPostRegistro = (dtoRegistro) => (dispatch) => {
   axiosInstance().then((respuesta) => {
     respuesta
       .post("/agregarUsuario", {
-        Matricula: dtoRegistro.matricula,
-        Nombre: dtoRegistro.nombre,
-        Apellido: dtoRegistro.apellido,
-        Dni: dtoRegistro.dni,
-        Mail: dtoRegistro.mail,
-        Usuario: dtoRegistro.usuario,
-        Contrasena: dtoRegistro.contrasena,
-        FechaNacimiento: dtoRegistro.fechaNacimiento,
+        usuario: {
+          Matricula: dtoRegistro.matricula,
+          Nombre: dtoRegistro.nombre,
+          Apellido: dtoRegistro.apellido,
+          Dni: dtoRegistro.dni,
+          Mail: dtoRegistro.mail,
+          Usuario: dtoRegistro.usuario,
+          Contrasena: dtoRegistro.contrasena,
+          FechaNacimiento: dtoRegistro.fechaNacimiento,
+        },
+        usuarioProfesionalId: dtoRegistro.usuarioProfesionalId,
       })
       .then((res) => {
         dispatch({
@@ -48,16 +51,15 @@ export const wsPostRegistro = (dtoRegistro) => (dispatch) => {
 
 export const resetRegistro = () => (dispatch) => {
   dispatch({
-    type: REGISTRO_RESET
+    type: REGISTRO_RESET,
   });
 };
 
 export const resetMatricula = () => (dispatch) => {
   dispatch({
-    type: REGISTRO_CAMPO_MATRICULA
+    type: REGISTRO_CAMPO_MATRICULA,
   });
 };
-
 
 export const setRegistro = (registroCampos) => (dispatch) => {
   dispatch({
