@@ -6,7 +6,7 @@ const CardJuegos = ({ juego, irAlJuego }) => {
     <div className="cardJuegos-container" onClick={irAlJuego}>
       <div className="cardJuegos-ficha">
         <img className="cardJuegos-imagen" src={ImagenJuego} alt="logo"></img>
-        <p className="cardJuegos-titulo">{juego}</p>
+        <p className="cardJuegos-titulo bw18b">{juego}</p>
       </div>
     </div>
   );

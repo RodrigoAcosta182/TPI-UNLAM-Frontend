@@ -1,8 +1,12 @@
 import Home from "../pages/Home/Home";
+import HomeProfesionales from "../pages/HomeProfesionales/HomeProfesionales";
 import ColorCorrecto from "../pages/Juegos/ColorCorrecto/ColorCorrecto";
 import OrdenaNumeros from "../pages/Juegos/OrdenaNumeros/OrdenaNumeros";
 import Login from "../pages/Login/Login";
+import MisPacientes from "../pages/MisPacientes/MisPacientes";
+import Perfil from "../pages/Perfil/Perfil";
 import Registro from "../pages/Registro/Registro";
+import Resultados from "../pages/Resultados/Resultados";
 
 const listRoutes = [
   {
@@ -21,6 +25,30 @@ const listRoutes = [
     path: "/registrarse",
     component: Registro,
     title: "Registrarse",
+    auth: false,
+  },
+  {
+    path: "/misPacientes",
+    component: MisPacientes,
+    title: "Mis Pacientes",
+    auth: false,
+  },
+  {
+    path: "/resultados",
+    component: Resultados,
+    title: "Resultados",
+    auth: false,
+  },
+  {
+    path: "/perfil",
+    component: Perfil,
+    title: "Mi Perfil",
+    auth: false,
+  },
+  {
+    path: "/homeProf",
+    component: HomeProfesionales,
+    title: "Home Profesional",
     auth: false,
   },
   {

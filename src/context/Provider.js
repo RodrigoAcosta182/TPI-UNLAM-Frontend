@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 //InitialStates ordenar alfabeticamente
 import authInitialState from "./initialStates/authInitialState";
@@ -32,6 +32,10 @@ export const GlobalProvider = ({ children }) => {
     const localData = sessionStorage.auth;
     return localData ? JSON.parse(localData) : authInitialState;
   });
+
+  useEffect(() => { 
+    sessionStorage.auth = JSON.stringify(authState);
+  },[authState])
 
   const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
     colorCorrecto,

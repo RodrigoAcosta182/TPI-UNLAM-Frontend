@@ -84,7 +84,7 @@ const Input = ({
             {/*agregue un div para mantener el espacio del error*/}
             <div>
               <InputHeader headerStr={headerStr} />
-              <div className="ptur-inputContainer">
+              <div className="ptur-inputContainer ">
                 <input
                   ref={refElement}
                   name={name}
