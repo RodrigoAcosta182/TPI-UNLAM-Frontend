@@ -13,10 +13,11 @@ import { GlobalContext } from "../../../context/Provider";
 import HeaderTimer from "../HeaderTimer/HeaderTimer";
 import { logoutAuth } from "../../../context/action/auth/login";
 import BurgerBtn from "../../../assets/images/BurgerBtn";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const HeaderbarHome = ({ onShowBurguerHandle }) => {
   const { authState, authDispatch } = useContext(GlobalContext);
-
+  const history = useHistory();
   const [showDropPerfil, setShowDropPerfil] = useState(false);
   // const imgAvatar = authState.auth.data.paciente.imagenPerfil;
 
@@ -42,6 +43,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
   };
 
   const onHandleSalir = () => {
+    history.push("/");
     logoutAuth()(authDispatch);
   };
 

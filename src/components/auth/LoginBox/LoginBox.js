@@ -66,7 +66,11 @@ const LoginBox = () => {
 
   useEffect(() => {
     if (authState.auth.data) {
-      history.push("/home");
+      if (authState.auth.data.usuario.tipoUsuarioId === 2) {
+        history.push("/homeProf");
+      } else {
+        history.push("/home");
+      }
     }
   }, [authState.auth.data]);
 

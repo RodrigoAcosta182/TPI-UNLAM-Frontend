@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Inconsolata");
 body {
   padding: 0;
   margin: 0;
@@ -8,76 +8,76 @@ body {
   background-size: cover;
 
   color: #000;
-  font-family: "Barlow", sans-serif;
+  font-family: "Work+Sans", sans-serif;
 }
 * {
   margin: 0;
   padding: 0;
   outline: none;
-  font-family: "Barlow", sans-serif;
+  font-family: "Work+Sans", sans-serif;
   box-sizing: border-box;
 }
 
-/* Fuentes Barlow */
+/* Fuentes Work+Sans */
 .bw52b {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: bo;
   font-weight: bold;
   font-size: 52px;
 }
 .bw52t {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 50px;
 }
 .bw32b {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: bold;
   font-size: 32px;
 }
 .bw24b {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
 }
 .bw24t {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
 }
 .bw18b {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
 }
 .bw18mh {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 150%;
 }
 .bw18m {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
 }
 .bw18l {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
 }
 
-/* Barlow 100%/16 Barlow 100% (Bold) */
+/* Work+Sans 100%/16 Work+Sans 100% (Bold) */
 .bw16xl {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
@@ -85,81 +85,81 @@ body {
 }
 
 .bw16b {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
 }
 .bw16mh {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
 }
 .bw16m {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
 }
 .bw16l {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
 }
 .bw16t {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
 }
 .bw14b {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
 }
 .bw14m {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
 }
 .bw14l {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
 }
 .bw14t {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
 }
 .bw12m {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
 }
 .bw12l {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
 }
 .bw12t {
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
 }
 .bw12tl {
   line-height: 150%;
-  font-family: Barlow;
+  font-family: Work+Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -352,6 +352,8 @@ body {
 
   --color-latex95: hsla(202, 100%, 95%, 1);
   --color-latex30: hsla(202, 100%, 30%, 1);
+  --color-grandin30: 	hsl(206, 78%, 39%);
+  --color-grandin10: 	  hsl(212, 96%, 22%);
   --color-scrollbar: hsla(202, 100%, 30%, 1);
   --color-latexPcr: #02507c;
   --color-white: hsla(0, 0%, 100%, 1);

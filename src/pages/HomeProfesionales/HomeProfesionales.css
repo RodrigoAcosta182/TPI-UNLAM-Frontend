@@ -1,0 +1,21 @@
+.homeProf-container{
+  padding: 60px 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+.homeProf-logoBienvenida{
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.homeProf-logo{
+  width: 250px;
+}
+.homeProf-listaJuegos{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+

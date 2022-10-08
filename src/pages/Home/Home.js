@@ -11,17 +11,20 @@ import { hideModal, showModal } from "../../context/action/modal/modal";
 import Modal from "../../components/genericos/Modal/Modal";
 import JuegoSeleccionado from "../../components/juego/JuegoSeleccionado/CardJuegos/JuegoSeleccionado";
 import CardJuegos from "../../components/juego/CardJuegos/CardJuegos";
+import { resetColores } from "../../context/action/Juegos/colorCorrecto";
+import { resetOrdenNumeros } from "../../context/action/Juegos/ordenarNumeros";
 
 const Home = () => {
   const {
+    authState,
     listaJuegosDispatch,
     listaJuegosState,
     modalAvatarState,
     modalDispatch,
     modalState,
+    colorCorrectoDispatch,
+    ordenNumerosDispatch,
   } = useContext(GlobalContext);
-
-  const { authState } = useContext(GlobalContext);
 
   const history = useHistory();
 
@@ -29,6 +32,9 @@ const Home = () => {
 
   useEffect(() => {
     wsGetListaDeJuegos()(listaJuegosDispatch);
+    //Reseteo en el home los juegos
+    resetColores()(colorCorrectoDispatch);
+    resetOrdenNumeros()(ordenNumerosDispatch);
   }, []);
 
   const irAlJuego = (e) => {
@@ -48,7 +54,6 @@ const Home = () => {
         activo={item.activo}
         irAlJuego={() => irAlJuego(item)}
         cerrar={() => cerrarModal()}
-        
       />,
       "",
       cerrarModal,
