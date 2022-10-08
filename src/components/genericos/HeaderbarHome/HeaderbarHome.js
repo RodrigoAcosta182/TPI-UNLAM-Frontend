@@ -21,8 +21,8 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
   // const imgAvatar = authState.auth.data.paciente.imagenPerfil;
 
   const nameCamelized = () => {
-    // let name = authState.auth.data.paciente.nombre;
-    return camelize("Terry Silver");
+   let name = authState.auth.data.usuario.nombre + " " +authState.auth.data.usuario.apellido;
+    return camelize(name);
   };
 
   const onHandleClickAvatar = () => {

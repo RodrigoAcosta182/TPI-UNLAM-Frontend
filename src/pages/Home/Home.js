@@ -20,6 +20,9 @@ const Home = () => {
     modalDispatch,
     modalState,
   } = useContext(GlobalContext);
+
+  const { authState } = useContext(GlobalContext);
+
   const history = useHistory();
 
   const [juegoSeleccionado, setJuegoSeleccionado] = useState(null);
@@ -29,8 +32,8 @@ const Home = () => {
   }, []);
 
   const irAlJuego = (e) => {
-    //LO DEJO COMENTADO PORQUE TODAVIA NO TIENEN UNA RUTA GUARDADA EN LA BASE
-    // history.push("/" + e.ruta);
+    history.push(e.ruta);
+    cerrarModal();
   };
 
   const cerrarModal = () => {
@@ -44,6 +47,8 @@ const Home = () => {
         juego={item.descripcion}
         activo={item.activo}
         irAlJuego={() => irAlJuego(item)}
+        cerrar={() => cerrarModal()}
+        
       />,
       "",
       cerrarModal,
@@ -62,7 +67,9 @@ const Home = () => {
       <div className="home-container">
         <div className="home-logoBienvenida">
           <p className="c-white bw52t">
-            Hola <span className="bw52b">Terry</span>, elegí un juego:
+            Hola{" "}
+            <span className="bw52b">{authState.auth.data.usuario.nombre}</span>,
+            elegí un juego:
           </p>
         </div>
         <div className="home-listaJuegos">

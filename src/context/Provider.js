@@ -3,6 +3,7 @@ import { createContext, useReducer } from "react";
 //InitialStates ordenar alfabeticamente
 import authInitialState from "./initialStates/authInitialState";
 import colorCorrectoInitialState from "./initialStates/colorCorrectoInitialState";
+import finalizaJuegoInitialState from "./initialStates/finalizaJuegoInitialState";
 import listErrorInitialState from "./initialStates/listErrorInitialState";
 import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
 import modalAvatarInitialState from "./initialStates/modalAvatarInitialState";
@@ -13,6 +14,7 @@ import registroInitialState from "./initialStates/registroInitialState";
 //Reducers ordenar alfabeticamente
 import auth from "./reducers/auth";
 import colorCorrecto from "./reducers/colorCorrecto";
+import finalizaJuego from "./reducers/finalizaJuego";
 import listError from "./reducers/listError";
 import listaJuegos from "./reducers/listaJuegos";
 import modalAvatar from "./reducers/modalAvatar";
@@ -29,10 +31,14 @@ export const GlobalProvider = ({ children }) => {
     return localData ? JSON.parse(localData) : authInitialState;
   });
 
-
   const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
     colorCorrecto,
     colorCorrectoInitialState
+  );
+
+  const [finalizaJuegoState, finalizaJuegoDispatch] = useReducer(
+    finalizaJuego,
+    finalizaJuegoInitialState
   );
   const [listaJuegosState, listaJuegosDispatch] = useReducer(
     listaJuegos,
@@ -65,6 +71,8 @@ export const GlobalProvider = ({ children }) => {
         authDispatch,
         colorCorrectoState,
         colorCorrectoDispatch,
+        finalizaJuegoState,
+        finalizaJuegoDispatch,
         listErrorState,
         listErrorDispatch,
         listaJuegosState,
