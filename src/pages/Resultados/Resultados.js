@@ -28,7 +28,7 @@ const Resultados = () => {
           <p className="resultados-titulo c-white bw52b">
             Resultados de: John Doe
           </p>
-          <div className="sarasa">
+          <div className="bordeTabla">
             <table className="containerTabla">
               <tbody>
                 <tr className="bw24t c-white">

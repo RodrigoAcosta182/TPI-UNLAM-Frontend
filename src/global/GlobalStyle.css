@@ -185,6 +185,12 @@ body {
   color: hsla(202, 100%, 30%, 1);
 }
 .c-latex10 {
+  color: hsl(212, 96%, 22%);
+}
+.c-grandin30 {
+  color: hsl(206, 78%, 39%);
+}
+.c-gradin10 {
   color: hsla(202, 100%, 10%, 1);
 }
 .c-white {

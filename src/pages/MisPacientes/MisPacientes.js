@@ -30,7 +30,7 @@ const MisPacientes = () => {
       <>
         <div className="misPacientes-container">
           <p className="misPacientes-titulo c-white bw52b">Mis Pacientes:</p>
-          <div className="sarasa">
+          <div className="bordeTabla">
             <table className="containerTabla">
               <tbody>
                 <tr className="bw24t c-white">

@@ -39,7 +39,8 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
   };
 
   const onHandleVerPerfil = () => {
-    console.log("/perfil");
+    history.push("/perfil");
+
   };
 
   const onHandleSalir = () => {

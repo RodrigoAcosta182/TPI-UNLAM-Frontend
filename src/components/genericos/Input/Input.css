@@ -16,7 +16,7 @@
 }
 
 .input input {
-  border: 1px solid var(--color-grey90);
+  border: 1px solid var(--color-grandin10);
   background-color: var(--color-grey95);
   border-radius: 4px;
   color: var(--color-blue);
@@ -35,7 +35,7 @@
   height: 74px;
 }
 .input input:focus {
-  border: 2px solid var(--color-blue);
+  border: 2px solid var(--color-grey95);
 }
 .ptur-inputContainer {
   display: flex;
