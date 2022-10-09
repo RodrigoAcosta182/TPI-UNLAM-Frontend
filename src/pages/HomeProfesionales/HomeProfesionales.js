@@ -9,14 +9,22 @@ import ModalAvatar from "../../components/genericos/ModalAvatar/ModalAvatar";
 import { hideModal } from "../../context/action/modal/modal";
 import Modal from "../../components/genericos/Modal/Modal";
 import CardJuegos from "../../components/juego/CardJuegos/CardJuegos";
+import { wsGetListaDePacientes } from "../../context/action/misPacientes/misPacientes";
 
 const HomeProfesionales = () => {
-  const { authState, modalAvatarState, modalDispatch, modalState } =
-    useContext(GlobalContext);
+  const {
+    authState,
+    modalAvatarState,
+    modalDispatch,
+    modalState,
+    misPacientesDispatch
+  } = useContext(GlobalContext);
 
   const history = useHistory();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    wsGetListaDePacientes()(misPacientesDispatch);
+  }, []);
 
   const cerrarModal = () => {
     hideModal()(modalDispatch);

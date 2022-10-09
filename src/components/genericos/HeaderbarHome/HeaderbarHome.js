@@ -7,7 +7,7 @@ import camelize from "../../../global/utils/camelize";
 import MiniAvatar from "../../../assets/images/MiniAvatar";
 import FlechaDropdown from "../../../assets/images/FlechaDropdown";
 import SalirIconDrop from "../../../assets/images/SalirIconDrop";
-import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
+import LogoEmpresa from "../../../assets/images/empresa/LogoHeaderGrandin.png";
 import { getStrDate } from "../../../global/utils/diasData";
 import { GlobalContext } from "../../../context/Provider";
 import HeaderTimer from "../HeaderTimer/HeaderTimer";

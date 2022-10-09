@@ -6,6 +6,7 @@ import colorCorrectoInitialState from "./initialStates/colorCorrectoInitialState
 import finalizaJuegoInitialState from "./initialStates/finalizaJuegoInitialState";
 import listErrorInitialState from "./initialStates/listErrorInitialState";
 import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
+import misPacientesInitialState from "./initialStates/misPacientesInitialState";
 import modalAvatarInitialState from "./initialStates/modalAvatarInitialState";
 import modalInitialState from "./initialStates/modalInitialState";
 import ordenNumerosInitialState from "./initialStates/ordenNumerosInitialState";
@@ -18,6 +19,7 @@ import colorCorrecto from "./reducers/colorCorrecto";
 import finalizaJuego from "./reducers/finalizaJuego";
 import listError from "./reducers/listError";
 import listaJuegos from "./reducers/listaJuegos";
+import misPacientes from "./reducers/misPacientes";
 import modalAvatar from "./reducers/modalAvatar";
 import modal from "./reducers/modal";
 import ordenNumeros from "./reducers/ordenNumeros";
@@ -33,9 +35,9 @@ export const GlobalProvider = ({ children }) => {
     return localData ? JSON.parse(localData) : authInitialState;
   });
 
-  useEffect(() => { 
+  useEffect(() => {
     sessionStorage.auth = JSON.stringify(authState);
-  },[authState])
+  }, [authState]);
 
   const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
     colorCorrecto,
@@ -53,6 +55,10 @@ export const GlobalProvider = ({ children }) => {
   const [listErrorState, listErrorDispatch] = useReducer(
     listError,
     listErrorInitialState
+  );
+  const [misPacientesState, misPacientesDispatch] = useReducer(
+    misPacientes,
+    misPacientesInitialState
   );
   const [modalAvatarState, modalAvatarDispatch] = useReducer(
     modalAvatar,
@@ -90,6 +96,8 @@ export const GlobalProvider = ({ children }) => {
         listaJuegosDispatch,
         modalAvatarState,
         modalAvatarDispatch,
+        misPacientesState,
+        misPacientesDispatch,
         modalState,
         modalDispatch,
         ordenNumerosState,
