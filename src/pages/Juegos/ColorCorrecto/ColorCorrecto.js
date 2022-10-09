@@ -7,7 +7,6 @@ import { GlobalContext } from "../../../context/Provider";
 import { useEffect } from "react";
 import { wsGetColores } from "../../../context/action/Juegos/colorCorrecto";
 import { useHistory } from "react-router-dom";
-import { FlechaDropdown } from "../../../assets/images/FlechaDropdown";
 import SalirIcon from "../../../assets/images/SalirIcon";
 import { wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
 

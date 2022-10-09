@@ -7,6 +7,7 @@ const listErrorInitialState = {
     fecha_nacimiento: false,
     email: false,
     matricula: false,
+    // seleccionProfesional: false,
   },
 };
 export default listErrorInitialState;

@@ -11,6 +11,7 @@ import { hideModal, showModal } from "../../context/action/modal/modal";
 import Modal from "../../components/genericos/Modal/Modal";
 import JuegoSeleccionado from "../../components/juego/JuegoSeleccionado/CardJuegos/JuegoSeleccionado";
 import CardJuegos from "../../components/juego/CardJuegos/CardJuegos";
+import VideoLlamada from "../../components/genericos/VideoLlamada/VideoLlamada";
 import { resetColores } from "../../context/action/Juegos/colorCorrecto";
 import { resetOrdenNumeros } from "../../context/action/Juegos/ordenarNumeros";
 
@@ -94,6 +95,7 @@ const Home = () => {
             })}
         </div>
       </div>
+      <VideoLlamada/>
     </React.Fragment>
   );
 };
