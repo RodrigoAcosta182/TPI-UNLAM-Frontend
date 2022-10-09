@@ -83,7 +83,7 @@ const LoginBox = () => {
       <div className="loginbox-formulario">
         <div className="loginbox-formulario-header">
           <img className="loginbox-logo" src={LogoEmpresa} alt="logo"></img>
-          <span className="c-white bw52b ">Iniciar Sesión</span>
+          <span className="c-white bw32b ">Iniciar Sesión</span>
         </div>
         <div className="loginbox-formulario-body">
           <div className="loginbox-formulario-input-container">
