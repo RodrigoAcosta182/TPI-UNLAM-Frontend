@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHome";
 import { GlobalContext } from "../../context/Provider";
 
@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import "./HomeProfesionales.css";
 import ModalAvatar from "../../components/genericos/ModalAvatar/ModalAvatar";
 
-import { hideModal, showModal } from "../../context/action/modal/modal";
+import { hideModal } from "../../context/action/modal/modal";
 import Modal from "../../components/genericos/Modal/Modal";
 import CardJuegos from "../../components/juego/CardJuegos/CardJuegos";
 import { wsGetListaDePacientes } from "../../context/action/misPacientes/misPacientes";

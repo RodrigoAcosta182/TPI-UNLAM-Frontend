@@ -95,7 +95,7 @@ const Home = () => {
             })}
         </div>
       </div>
-      <VideoLlamada/>
+      
     </React.Fragment>
   );
 };
