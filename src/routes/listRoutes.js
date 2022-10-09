@@ -1,5 +1,4 @@
 import Home from "../pages/Home/Home";
-import HomeProfesionales from "../pages/HomeProfesionales/HomeProfesionales";
 import ColorCorrecto from "../pages/Juegos/ColorCorrecto/ColorCorrecto";
 import OrdenaNumeros from "../pages/Juegos/OrdenaNumeros/OrdenaNumeros";
 import Login from "../pages/Login/Login";
@@ -43,12 +42,6 @@ const listRoutes = [
     path: "/perfil",
     component: Perfil,
     title: "Mi Perfil",
-    auth: false,
-  },
-  {
-    path: "/homeProf",
-    component: HomeProfesionales,
-    title: "Home Profesional",
     auth: false,
   },
   {

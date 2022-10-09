@@ -1,23 +1,14 @@
 import React, { useContext, useEffect } from "react";
-import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHome";
-import { GlobalContext } from "../../context/Provider";
-
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import "./HomeProfesionales.css";
-import ModalAvatar from "../../components/genericos/ModalAvatar/ModalAvatar";
-
-import { hideModal } from "../../context/action/modal/modal";
-import Modal from "../../components/genericos/Modal/Modal";
-import CardJuegos from "../../components/juego/CardJuegos/CardJuegos";
-import { wsGetListaDePacientes } from "../../context/action/misPacientes/misPacientes";
+import CardJuegos from "../../../components/juego/CardJuegos/CardJuegos";
+import { wsGetListaDePacientes } from "../../../context/action/misPacientes/misPacientes";
+import { GlobalContext } from "../../../context/Provider";
 
 const HomeProfesionales = () => {
   const {
     authState,
-    modalAvatarState,
-    modalDispatch,
-    modalState,
-    misPacientesDispatch
+    misPacientesDispatch,
   } = useContext(GlobalContext);
 
   const history = useHistory();
@@ -26,19 +17,12 @@ const HomeProfesionales = () => {
     wsGetListaDePacientes()(misPacientesDispatch);
   }, []);
 
-  const cerrarModal = () => {
-    hideModal()(modalDispatch);
-  };
-
   const showModalJuego = () => {
     history.push("/misPacientes");
   };
 
   return (
     <React.Fragment>
-      {modalAvatarState.modalAvatar.show && <ModalAvatar />}
-      {modalState.modal.show && <Modal />}
-      <HeaderbarHome></HeaderbarHome>
       <div className="homeProf-container">
         <div className="homeProf-logoBienvenida">
           <p className="c-white bw52t">

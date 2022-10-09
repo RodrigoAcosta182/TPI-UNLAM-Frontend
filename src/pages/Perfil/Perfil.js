@@ -20,11 +20,7 @@ const Perfil = () => {
   useEffect(() => {}, []);
 
   const volverAlHome = () => {
-    if (authState.auth.data.usuario.tipoUsuarioId === 2) {
-      history.push("/homeProf");
-    } else {
-      history.push("/home");
-    }
+    history.push("/home");
   };
 
   const onChangeLogin = (e) => {

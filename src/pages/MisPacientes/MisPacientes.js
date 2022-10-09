@@ -4,8 +4,11 @@ import SalirIcon from "../../assets/images/SalirIcon";
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHome";
+import { GlobalContext } from "../../context/Provider";
 
 const MisPacientes = () => {
+  const { misPacientesState } = React.useContext(GlobalContext);
+
   const history = useHistory();
 
   useEffect(() => {}, []);
@@ -15,7 +18,7 @@ const MisPacientes = () => {
   };
 
   const volverAlHome = () => {
-    history.push("/homeProf");
+    history.push("/home");
   };
 
   return (
@@ -40,87 +43,30 @@ const MisPacientes = () => {
                   <th className="columna">Acciones</th>
                 </tr>
 
-                <tr className="tablaFilasContainer bw24t">
-                  <td className="tablaFilas c-white">John Doe</td>
-                  <td className="tablaFilas c-white">John Doe 2</td>
-                  <td className="tablaFilas c-white">1145213546</td>
-                  <td className="tablaFilas c-white"><button onClick={irAMasInfo}>Mas Info</button></td>
-                </tr>
+                {Array.isArray(misPacientesState.misPacientes.data) &&
+                  misPacientesState.misPacientes.data.map((item, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        <tr className="tablaFilasContainer bw24t">
+                          <td className="tablaFilas c-white">{item.id}  </td>
+                          <td className="tablaFilas c-white">{item.usuarioProfesionalId}</td>
+                          <td className="tablaFilas c-white">{item.usuarioPacienteId}</td>
+                          <td className="tablaFilas c-white">
+                            <button onClick={irAMasInfo}>Mas Info</button>
+                          </td>
+                        </tr>
+                      </React.Fragment>
+                    );
+                  })}
 
-                <tr className="tablaFilasContainer bw24t">
+                {/* <tr className="tablaFilasContainer bw24t">
                   <td className="tablaFilas c-white">John Doe</td>
                   <td className="tablaFilas c-white">John Doe 2</td>
                   <td className="tablaFilas c-white">1145217846</td>
-                  <td className="tablaFilas c-white"><button onClick={irAMasInfo}>Mas Info</button></td>
-                </tr>
-
-                {/* <React.Fragment key={index}>
-              <TablaGrupo>
-                <td
-                  className={item.sobre_turno ? "c-primary" : "c-latex30"}
-                >
-                  {item.hora_turno}hs
-                </td>
-                <td
-                  className={item.sobre_turno ? "c-primary" : "c-latex30"}
-                >
-                  <div className="pacienteCont">{item.paciente_desc} </div>
-                </td>
-                <td>
-                  {item.cancelado && (
-                    <p className="c-danger rb16m">Cancelado</p>
-                  )}
-                  {item.presente && !item.evolucionado && !item.atendido && (
-                    <p className="c-broccoli rb16m">Presente</p>
-                  )}
-                  {item.atendido && !item.evolucionado && (
-                    <p className="c-latex30 rb16m">Atendido</p>
-                  )}
-                  {item.evolucionado && (
-                    <p className="c-black rb16m">Evolucionado</p>
-                  )}
-                </td>
-
-                <td>
-                  {item.nota !== "" && (
-                    <>
-                      <div className="iconNota">
-                        <button
-                          className="iconButton"
-                          onClick={() => showModalNota(item)}
-                          data-tip
-                          data-for={"tooltipNota" + index}
-                        >
-                          <RecetaIcon />
-                        </button>
-                        <ReactTooltip
-                          id={"tooltipNota" + index}
-                          place="top"
-                          type="info"
-                          effect="solid"
-                        >
-                          {item.nota}
-                        </ReactTooltip>
-                      </div>
-                    </>
-                  )}
-                </td>
-                <td>
-                  <span
-                    className="infoIcon"
-                    onClick={() => showModalInformacionPaciente(item)}
-                  >
-                    <InfoIcon
-                      color={
-                        item.sobre_turno
-                          ? "var(--color-primary)"
-                          : "var(--color-latex30)"
-                      }
-                    />
-                  </span>
-                </td>
-              </TablaGrupo>
-            </React.Fragment> */}
+                  <td className="tablaFilas c-white">
+                    <button onClick={irAMasInfo}>Mas Info</button>
+                  </td>
+                </tr> */}
               </tbody>
             </table>
           </div>
