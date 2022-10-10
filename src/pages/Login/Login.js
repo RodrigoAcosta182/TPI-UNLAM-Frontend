@@ -12,10 +12,14 @@ const Login = () => {
     listErrorDispatch,
     authState,
     modalAvatarState,
+    
   } = useContext(GlobalContext);
+
+
 
   useEffect(() => {
     resetListError()(listErrorDispatch);
+    
   }, []);
 
   return (

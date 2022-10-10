@@ -1,16 +1,12 @@
 const modalAvatarInitialState = {
-    modalAvatar: {
-        show: false,
-        data: {
-            component: null,
-            title: "",
-            dissmiss: null,
-            headerState: false,
-            listBotones: null,
-            posicion: null,
-            bloquearDissmiss: null,
-        }
+  modalAvatar: {
+    show: false,
+    data: {
+      accion: null,
+      dismiss: null,
+      bloquearDismiss: false,
     },
+  },
 };
 
 export default modalAvatarInitialState;

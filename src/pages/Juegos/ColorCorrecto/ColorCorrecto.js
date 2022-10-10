@@ -8,11 +8,23 @@ import { useEffect } from "react";
 import { wsGetColores } from "../../../context/action/Juegos/colorCorrecto";
 import { useHistory } from "react-router-dom";
 import SalirIcon from "../../../assets/images/SalirIcon";
-import { wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
+import {
+  resetFinalizaJuego,
+  wsPostFinalizaJuego,
+} from "../../../context/action/Juegos/finalizaJuego";
+import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
+import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
+import Loading from "../../../components/genericos/Loading/Loading";
 
 export default function ColorCorrecto() {
-  const { colorCorrectoState, colorCorrectoDispatch, finalizaJuegoDispatch } =
-    useContext(GlobalContext);
+  const {
+    colorCorrectoState,
+    colorCorrectoDispatch,
+    finalizaJuegoDispatch,
+    finalizaJuegoState,
+    modalAvatarDispatch,
+    modalAvatarState,
+  } = useContext(GlobalContext);
 
   const history = useHistory();
 
@@ -25,8 +37,8 @@ export default function ColorCorrecto() {
   const [coloresRandom, setColoresRandom] = useState([]);
   const [colorPregunta, setColorPregunta] = useState(null);
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
-    Aciertos: null,
-    Desaciertos: null,
+    Aciertos: 0,
+    Desaciertos: 0,
     JuegoId: 1,
     Finalizado: true,
     FechaInicio: horaInicio,
@@ -124,25 +136,28 @@ export default function ColorCorrecto() {
       ...resultadoJuegoDto,
       FechaFinalizacion: new Date(),
     });
-    setFinal(true);
+
     //poner logica de loading y push
   };
 
+  useEffect(() => {
+    if (resultadoJuegoDto.FechaFinalizacion !== null) {
+      showModalAvatar(enviarResultados)(modalAvatarDispatch);
+    }
+  }, [resultadoJuegoDto.FechaFinalizacion]);
+
   // Este useEffect se utilizo porque sino no llega a ver los cambios de la fecha
   // de finalizacion al mandar el dto
-  useEffect(() => {
-    if (final) {
-      wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
-      history.push("/home");
-    }
-  }, [final]);
+  const enviarResultados = () => {
+    wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+  };
 
-  // useEffect(() => {
-  //   //revisar para darle el finalizar
-  //   if (resultadoJuegoDto.Desaciertos >= 4) {
-  //     wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
-  //   }
-  // }, [resultadoJuegoDto.Desaciertos]);
+  useEffect(() => {
+    if (finalizaJuegoState.finalizaJuego.data !== null) {
+      volverAlHome();
+      resetFinalizaJuego()(finalizaJuegoDispatch);
+    }
+  }, [finalizaJuegoState.finalizaJuego.data]);
 
   const volverAlHome = () => {
     history.push("/home");
@@ -150,6 +165,11 @@ export default function ColorCorrecto() {
 
   return (
     <>
+      {modalAvatarState.modalAvatar.show && <ModalAvatar />}
+      <Loading
+        state={finalizaJuegoState.finalizaJuego.loading}
+        mensaje={"Enviando resultados..."}
+      />
       <div className="colorCorrecto-volverAccion" onClick={volverAlHome}>
         <div className="colorCorrecto-btnCont">
           <SalirIcon />
