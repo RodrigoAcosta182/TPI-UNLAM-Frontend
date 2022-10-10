@@ -93,7 +93,12 @@ const MisPacientes = () => {
                           <td className="tablaFilas c-white">
                             <div className="btnPacientesBox">
                               {item.activo ? (
-                                ""
+                                <button
+                                  className="btnAccionesPacientes c-white bgc-primary bw18m"
+                                  onClick={() => habilitarPaciente(item)}
+                                >
+                                  Deshabilitar
+                                </button>
                               ) : (
                                 <button
                                   className="btnAccionesPacientes c-white bgc-primary bw18m"

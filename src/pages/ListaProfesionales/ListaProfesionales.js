@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHome";
 import { GlobalContext } from "../../context/Provider";
 import {
+  resetHabilitacion,
   wsGetAllProfesionales,
   wsHabilitarProfesional,
 } from "../../context/action/profesionales/profesionales";
@@ -22,6 +23,13 @@ const ListaProfesionales = () => {
   useEffect(() => {
     wsGetAllProfesionales()(profesionalesDispatch);
   }, []);
+
+  useEffect(() => {
+    if (profesionalesState.profesionales.habilitado === "") {
+      wsGetAllProfesionales()(profesionalesDispatch);
+      resetHabilitacion()(profesionalesDispatch);
+    }
+  }, [profesionalesState.profesionales.habilitado]);
 
   const volverAlHome = () => {
     history.push("/home");
