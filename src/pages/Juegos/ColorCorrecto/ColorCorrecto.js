@@ -16,6 +16,9 @@ export default function ColorCorrecto() {
 
   const history = useHistory();
 
+  const horaInicio = new Date();
+
+  const [final, setFinal] = useState(false);
   const [colors, setColors] = useState([]);
   const [coloresRandom, setColoresRandom] = useState([]);
   const [colorPregunta, setColorPregunta] = useState(null);
@@ -24,6 +27,8 @@ export default function ColorCorrecto() {
     Desaciertos: null,
     JuegoId: 1,
     Finalizado: true,
+    FechaInicio: horaInicio,
+    FechaFinalizacion: null,
   });
 
   useEffect(() => {
@@ -39,10 +44,9 @@ export default function ColorCorrecto() {
         colorCorrectoState.colores.data[3].hexadecimal,
       ]);
       //En este hook se agarra al array del ws y se devuelve de manera aleatoria uno solo
+      const cuatroColores = colorCorrectoState.colores.data.slice(0, 4);
       setColorPregunta(
-        colorCorrectoState.colores.data[
-          Math.floor(Math.random() * colorCorrectoState.colores.data.length)
-        ]
+        cuatroColores[Math.floor(Math.random() * cuatroColores.length)]
       );
     }
   }, [colorCorrectoState.colores.data]);
@@ -52,6 +56,7 @@ export default function ColorCorrecto() {
       setColoresRandom(colors.sort(() => Math.random() - 0.5));
     }
   }, [colors, colorPregunta]);
+
   const [selected, setSelected] = useState(colors[0]);
 
   const enviarColorCorrecto = () => {
@@ -72,22 +77,33 @@ export default function ColorCorrecto() {
         setSelected(null);
       }
     } else {
-      alert("Debe seleccionar un color");
+      console.log("Debe seleccionar un color");
     }
   };
 
   const finalizarJuego = () => {
-    wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+    setResultadoJuegoDto({
+      ...resultadoJuegoDto,
+      FechaFinalizacion: new Date(),
+    });
+    setFinal(true);
     //poner logica de loading y push
-    history.push("/")
+    // history.push("/");
   };
 
   useEffect(() => {
-    //revisar para darle el finalizar
-    if (resultadoJuegoDto.Desaciertos >= 4) {
+    if (final) {
+      console.log(resultadoJuegoDto);
       wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
     }
-  }, [resultadoJuegoDto.Desaciertos]);
+  }, [final]);
+
+  // useEffect(() => {
+  //   //revisar para darle el finalizar
+  //   if (resultadoJuegoDto.Desaciertos >= 4) {
+  //     wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+  //   }
+  // }, [resultadoJuegoDto.Desaciertos]);
 
   const volverAlHome = () => {
     history.push("/home");

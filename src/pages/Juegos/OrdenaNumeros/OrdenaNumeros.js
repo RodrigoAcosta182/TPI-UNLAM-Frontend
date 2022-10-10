@@ -12,6 +12,12 @@ import { GlobalContext } from "../../../context/Provider";
 
 const OrdenaNumeros = () => {
   const { ordenNumerosDispatch, ordenNumerosState } = useContext(GlobalContext);
+  const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
+    Aciertos: null,
+    Desaciertos: null,
+    JuegoId: 2,
+    Finalizado: true,
+  });
   const history = useHistory();
 
   useEffect(() => {
@@ -33,7 +39,6 @@ const OrdenaNumeros = () => {
   }, [ordenNumerosState.numeros.data]);
 
   const enviarNumerosOrdenados = () => {
-    console.log(items);
     wsPostVerificarNumeros(items)(ordenNumerosDispatch);
   };
 
