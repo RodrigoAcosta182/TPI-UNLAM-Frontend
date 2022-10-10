@@ -2,20 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import "./HomeProfesionales.css";
 import CardJuegos from "../../../components/juego/CardJuegos/CardJuegos";
-import { wsGetListaDePacientes } from "../../../context/action/misPacientes/misPacientes";
 import { GlobalContext } from "../../../context/Provider";
 
 const HomeProfesionales = () => {
-  const {
-    authState,
-    misPacientesDispatch,
-  } = useContext(GlobalContext);
+  const { authState } = useContext(GlobalContext);
 
   const history = useHistory();
-
-  useEffect(() => {
-    wsGetListaDePacientes()(misPacientesDispatch);
-  }, []);
 
   const showModalJuego = () => {
     history.push("/misPacientes");

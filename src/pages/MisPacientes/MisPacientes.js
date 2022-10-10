@@ -5,17 +5,45 @@ import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHome";
 import { GlobalContext } from "../../context/Provider";
+import {
+  wsGetListaDePacientes,
+  wsHabilitarPaciente,
+} from "../../context/action/misPacientes/misPacientes";
 
 const MisPacientes = () => {
-  const { misPacientesState } = React.useContext(GlobalContext);
+  const { misPacientesState, misPacientesDispatch } =
+    React.useContext(GlobalContext);
+  const [habilitarPacienteDto, setHabilitarPacienteDto] = React.useState({
+    id: null,
+    estado: null,
+  });
 
   const history = useHistory();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    wsGetListaDePacientes()(misPacientesDispatch);
+  }, []);
 
   const irAMasInfo = () => {
     history.push("/resultados");
   };
+
+  const habilitarPaciente = (e) => {
+    setHabilitarPacienteDto({
+      ...habilitarPacienteDto,
+      id: e.id,
+      estado: e.activo,
+    });
+  };
+
+  useEffect(() => {
+    if (
+      (habilitarPacienteDto.id !== null) &
+      (habilitarPacienteDto.estado !== null)
+    ) {
+      wsHabilitarPaciente(habilitarPacienteDto)(misPacientesDispatch);
+    }
+  }, [habilitarPacienteDto]);
 
   const volverAlHome = () => {
     history.push("/home");
@@ -49,31 +77,44 @@ const MisPacientes = () => {
                     return (
                       <React.Fragment key={index}>
                         <tr className="tablaFilasContainer bw24t">
-                          <td className="tablaFilas c-white">{item.id}  </td>
-                          <td className="tablaFilas c-white">{item.usuarioProfesionalId}</td>
-                          <td className="tablaFilas c-white">{item.usuarioPacienteId}</td>
+                          <td className="tablaFilas c-white">{item.id} </td>
+                          <td className="tablaFilas c-white">
+                            {item.usuarioProfesionalId}
+                          </td>
+                          <td className="tablaFilas c-white">
+                            {item.usuarioPacienteId}
+                          </td>
                           {item.activo ? (
                             <td className="tablaFilas c-white">Si</td>
                           ) : (
                             <td className="tablaFilas c-white">No</td>
                           )}
+
                           <td className="tablaFilas c-white">
-                            <button onClick={irAMasInfo}>Mas Info</button>
-                            <button onClick={irAMasInfo}>Mas Info</button>
+                            <div className="btnPacientesBox">
+                              {item.activo ? (
+                                ""
+                              ) : (
+                                <button
+                                  className="btnAccionesPacientes c-white bgc-primary bw18m"
+                                  onClick={() => habilitarPaciente(item)}
+                                >
+                                  Habilitar
+                                </button>
+                              )}
+
+                              <button
+                                className="btnAccionesPacientes c-white bgc-primary bw18m"
+                                onClick={irAMasInfo}
+                              >
+                                Mas Info
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       </React.Fragment>
                     );
                   })}
-
-                {/* <tr className="tablaFilasContainer bw24t">
-                  <td className="tablaFilas c-white">John Doe</td>
-                  <td className="tablaFilas c-white">John Doe 2</td>
-                  <td className="tablaFilas c-white">1145217846</td>
-                  <td className="tablaFilas c-white">
-                    <button onClick={irAMasInfo}>Mas Info</button>
-                  </td>
-                </tr> */}
               </tbody>
             </table>
           </div>

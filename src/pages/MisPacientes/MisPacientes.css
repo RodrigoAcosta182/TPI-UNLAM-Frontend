@@ -65,3 +65,16 @@
 .tablaFilas {
   padding: 16px 0;
 }
+.btnPacientesBox{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.btnAccionesPacientes{
+  width: 80px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 10px 0;
+}

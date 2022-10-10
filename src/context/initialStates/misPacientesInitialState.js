@@ -2,7 +2,8 @@ const misPacientesInitialState = {
     misPacientes: {
         loading: false,
         error: null,
-        data: null
+        data: null,
+        habilitar: null,
     },
 };
 
