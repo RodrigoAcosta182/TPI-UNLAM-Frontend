@@ -8,17 +8,12 @@ import { GlobalContext } from "../../../context/Provider";
 const HomeAdmin = () => {
   const {
     authState,
-    misPacientesDispatch,
   } = useContext(GlobalContext);
 
   const history = useHistory();
 
-  useEffect(() => {
-    wsGetListaDePacientes()(misPacientesDispatch);
-  }, []);
-
-  const showModalJuego = () => {
-    history.push("/misPacientes");
+  const verListaProfesionales = () => {
+    history.push("/listaProfesionales");
   };
 
   return (
@@ -34,9 +29,9 @@ const HomeAdmin = () => {
           <React.Fragment>
             <div className="homeAdmin-cardJuegos">
               <CardJuegos
-                juego="Mis Pacientes"
+                juego="Listado Profesionales"
                 activo={true}
-                irAlJuego={() => showModalJuego()}
+                irAlJuego={() => verListaProfesionales()}
               />
             </div>
           </React.Fragment>

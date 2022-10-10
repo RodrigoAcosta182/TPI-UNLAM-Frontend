@@ -40,6 +40,7 @@ const MisPacientes = () => {
                   <th className="columnaInicio">Nombre</th>
                   <th className="columna">Tutor a Cargo</th>
                   <th className="columna">Teléfono</th>
+                  <th className="columna">Activo</th>
                   <th className="columna">Acciones</th>
                 </tr>
 
@@ -51,7 +52,13 @@ const MisPacientes = () => {
                           <td className="tablaFilas c-white">{item.id}  </td>
                           <td className="tablaFilas c-white">{item.usuarioProfesionalId}</td>
                           <td className="tablaFilas c-white">{item.usuarioPacienteId}</td>
+                          {item.activo ? (
+                            <td className="tablaFilas c-white">Si</td>
+                          ) : (
+                            <td className="tablaFilas c-white">No</td>
+                          )}
                           <td className="tablaFilas c-white">
+                            <button onClick={irAMasInfo}>Mas Info</button>
                             <button onClick={irAMasInfo}>Mas Info</button>
                           </td>
                         </tr>

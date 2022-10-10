@@ -3,6 +3,7 @@ const profesionalesInitialState = {
     loading: false,
     error: null,
     data: null,
+    habilitado: null,
   },
 };
 

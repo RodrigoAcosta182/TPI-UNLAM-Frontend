@@ -66,7 +66,11 @@ const LoginBox = () => {
 
   useEffect(() => {
     if (authState.auth.data) {
-      history.push("/home");
+      if (authState.auth.data.usuario.activo === true) {
+        history.push("/home");
+      } else {
+        alert("Un profesional debe activar tu cuenta");
+      }
     }
   }, [authState.auth.data]);
 
@@ -109,7 +113,7 @@ const LoginBox = () => {
           </div>
           <Button
             descripcion={"Ingresar"}
-            onClick={btnDisabled ? () => {} : loguear}
+            onClick={btnDisabled ? () => {} : () => loguear()}
             className={`loginbox-ingresarBtn bw18m ${
               !btnDisabled ? "bgc-primary" : "bgc-grey45 dsbCursor"
             }`}

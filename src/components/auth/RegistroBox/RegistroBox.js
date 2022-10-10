@@ -23,7 +23,10 @@ import isEmptyError, {
 import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 import { useHistory } from "react-router-dom";
 import Dropdown from "../../genericos/Dropdown/Dropdown";
-import { wsGetProfesionales } from "../../../context/action/profesionales/profesionales";
+import {
+  profesionalesReset,
+  wsGetProfesionalesActivos,
+} from "../../../context/action/profesionales/profesionales";
 
 const RegistroBox = ({ dsb }) => {
   const history = useHistory();
@@ -59,7 +62,7 @@ const RegistroBox = ({ dsb }) => {
   useEffect(() => {
     resetRegistro()(registroDispatch);
     resetListError()(listErrorDispatch);
-    wsGetProfesionales()(profesionalesDispatch);
+    wsGetProfesionalesActivos()(profesionalesDispatch);
   }, []);
 
   useEffect(() => {
@@ -196,8 +199,9 @@ const RegistroBox = ({ dsb }) => {
   };
 
   useEffect(() => {
-    if (registroState.registro.data) {
+    if (registroState.registro.data || registroState.registro.data === "") {
       history.push("/");
+      profesionalesReset()(profesionalesDispatch);
     }
   }, [registroState.registro.data]);
 

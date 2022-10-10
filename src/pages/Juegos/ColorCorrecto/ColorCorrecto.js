@@ -19,6 +19,8 @@ export default function ColorCorrecto() {
   const horaInicio = new Date();
 
   const [final, setFinal] = useState(false);
+  const [segundoNivel, setSegundoNivel] = useState(false);
+  const [colorAnterior, setColorAnterior] = useState();
   const [colors, setColors] = useState([]);
   const [coloresRandom, setColoresRandom] = useState([]);
   const [colorPregunta, setColorPregunta] = useState(null);
@@ -37,19 +39,54 @@ export default function ColorCorrecto() {
 
   useEffect(() => {
     if (colorCorrectoState.colores.data) {
-      setColors([
-        colorCorrectoState.colores.data[0].hexadecimal,
-        colorCorrectoState.colores.data[1].hexadecimal,
-        colorCorrectoState.colores.data[2].hexadecimal,
-        colorCorrectoState.colores.data[3].hexadecimal,
-      ]);
-      //En este hook se agarra al array del ws y se devuelve de manera aleatoria uno solo
-      const cuatroColores = colorCorrectoState.colores.data.slice(0, 4);
-      setColorPregunta(
-        cuatroColores[Math.floor(Math.random() * cuatroColores.length)]
-      );
+      // Si los aciertos son menos de 4 muestro solamente 4 colores
+      // sino muestro todos
+      if (resultadoJuegoDto.Aciertos < 4) {
+        setColors([
+          colorCorrectoState.colores.data[0].hexadecimal,
+          colorCorrectoState.colores.data[1].hexadecimal,
+          colorCorrectoState.colores.data[2].hexadecimal,
+          colorCorrectoState.colores.data[3].hexadecimal,
+        ]);
+      } else {
+        setSegundoNivel(true);
+        setColors([
+          colorCorrectoState.colores.data[0].hexadecimal,
+          colorCorrectoState.colores.data[1].hexadecimal,
+          colorCorrectoState.colores.data[2].hexadecimal,
+          colorCorrectoState.colores.data[3].hexadecimal,
+          colorCorrectoState.colores.data[4].hexadecimal,
+          colorCorrectoState.colores.data[5].hexadecimal,
+          colorCorrectoState.colores.data[6].hexadecimal,
+          colorCorrectoState.colores.data[7].hexadecimal,
+        ]);
+      }
+
+      // Aca pregunto si los aciertos son menor a cuatro filtro entre los primeros 4
+      // sino muestro todos los colores
+      let cuatroColores = [];
+      if (resultadoJuegoDto.Aciertos < 4) {
+        cuatroColores = colorCorrectoState.colores.data.slice(0, 4);
+      } else {
+        cuatroColores = colorCorrectoState.colores.data;
+      }
+
+      // En este if pregunto si ya se utilizo un color en especifico para no repetirlo
+      // en la siguiente pregunta
+      if (colorAnterior) {
+        let colorNuevo = cuatroColores.filter(
+          (item) => item.id !== colorAnterior.id
+        );
+        setColorPregunta(
+          colorNuevo[Math.floor(Math.random() * colorNuevo.length)]
+        );
+      } else {
+        setColorPregunta(
+          cuatroColores[Math.floor(Math.random() * cuatroColores.length)]
+        );
+      }
     }
-  }, [colorCorrectoState.colores.data]);
+  }, [colorCorrectoState.colores.data, colorAnterior]);
 
   useEffect(() => {
     if (colors && colorPregunta) {
@@ -62,6 +99,7 @@ export default function ColorCorrecto() {
   const enviarColorCorrecto = () => {
     if (selected !== null && selected !== undefined) {
       if (resultadoJuegoDto.Aciertos < 4) {
+        setColorAnterior(colorPregunta);
         if (selected === colorPregunta.hexadecimal) {
           setResultadoJuegoDto({
             ...resultadoJuegoDto,
@@ -88,13 +126,14 @@ export default function ColorCorrecto() {
     });
     setFinal(true);
     //poner logica de loading y push
-    // history.push("/");
   };
 
+  // Este useEffect se utilizo porque sino no llega a ver los cambios de la fecha
+  // de finalizacion al mandar el dto
   useEffect(() => {
     if (final) {
-      console.log(resultadoJuegoDto);
       wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+      history.push("/home");
     }
   }, [final]);
 
@@ -136,7 +175,11 @@ export default function ColorCorrecto() {
         )}
         <div className="colorCorrecto-boxColores">
           <AnimateSharedLayout>
-            <ul className="colorCorrecto-ul">
+            <ul
+              className={
+                segundoNivel ? "colorCorrectoNivel2-ul" : "colorCorrecto-ul"
+              }
+            >
               {coloresRandom.map((color) => (
                 <Item
                   key={color}
