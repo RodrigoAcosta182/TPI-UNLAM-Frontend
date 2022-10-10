@@ -43,7 +43,7 @@ export const wsGetAllProfesionales = () => (dispatch) => {
   });
   axiosInstance().then((respuesta) => {
     respuesta
-      .get(`/ObtenerTodosLosPacientes`)
+      .get(`/ObtenerTodosLosProfesionales`)
       .then((res) => {
         dispatch({
           type: PROFESIONALES_SUCCESS,
