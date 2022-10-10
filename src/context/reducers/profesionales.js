@@ -6,6 +6,7 @@ import {
   HABILITAR_PROFESIONAL_LOADING,
   HABILITAR_PROFESIONAL_ERROR,
   HABILITAR_PROFESIONAL_SUCCESS,
+  HABILITAR_PROFESIONAL_RESET,
 } from "../ActionTypes";
 import profesionalesInitialState from "../initialStates/profesionalesInitialState";
 
@@ -67,6 +68,15 @@ const profesionales = (state, { payload, type }) => {
           loading: false,
         },
       };
+      case HABILITAR_PROFESIONAL_RESET:
+      return {
+        ...state,
+        profesionales: {
+          ...state.profesionales,
+          habilitado: null,
+        },
+      };
+      
     case PROFESIONALES_RESET:
       return profesionalesInitialState;
 

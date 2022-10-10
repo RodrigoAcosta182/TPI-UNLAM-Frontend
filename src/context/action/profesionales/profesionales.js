@@ -7,6 +7,7 @@ import {
   HABILITAR_PROFESIONAL_LOADING,
   HABILITAR_PROFESIONAL_ERROR,
   HABILITAR_PROFESIONAL_SUCCESS,
+  HABILITAR_PROFESIONAL_RESET,
 } from "../../ActionTypes";
 
 export const wsGetProfesionalesActivos = () => (dispatch) => {
@@ -43,7 +44,7 @@ export const wsGetAllProfesionales = () => (dispatch) => {
   });
   axiosInstance().then((respuesta) => {
     respuesta
-      .get(`/ObtenerTodosLosPacientes`)
+      .get(`/ObtenerTodosLosProfesionales`)
       .then((res) => {
         dispatch({
           type: PROFESIONALES_SUCCESS,
@@ -91,6 +92,10 @@ export const wsHabilitarProfesional = (dtoHabilitar) => (dispatch) => {
         });
       });
   });
+};
+
+export const resetHabilitacion = () => (dispatch) => {
+  dispatch({ type: HABILITAR_PROFESIONAL_RESET });
 };
 
 export const profesionalesReset = () => (dispatch) => {
