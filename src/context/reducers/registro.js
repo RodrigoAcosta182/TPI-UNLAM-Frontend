@@ -36,7 +36,6 @@ const registro = (state, { payload, type }) => {
           ...state.registro,
           error: payload,
           loading: false,
-          data: null,
         },
       };
     case REGISTRO_CAMPOS:

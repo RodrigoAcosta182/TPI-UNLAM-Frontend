@@ -3,7 +3,8 @@ import {
   MISPACIENTES_LOADING,
   MISPACIENTES_SUCCESS,
   MISPACIENTES_RESET,
-  HABILITAR_PACIENTE_SUCCESS
+  HABILITAR_PACIENTE_SUCCESS,
+  HABILITAR_PACIENTE_RESET
 } from "../ActionTypes";
 import misPacientesInitialState from "../initialStates/misPacientesInitialState";
 
@@ -47,6 +48,15 @@ const misPacientes = (state, { payload, type }) => {
             habilitar: payload,
           },
         };
+      case HABILITAR_PACIENTE_RESET:
+        return {
+          ...state,
+          misPacientes: {
+            ...state.misPacientes,
+            habilitar: null,
+          },
+        };
+        
     case MISPACIENTES_RESET:
       return misPacientesInitialState;
 

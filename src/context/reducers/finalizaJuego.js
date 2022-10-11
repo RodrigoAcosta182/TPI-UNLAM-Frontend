@@ -34,7 +34,6 @@ const finalizaJuego = (state, { payload, type }) => {
           ...state.finalizaJuego,
           error: payload,
           loading: false,
-          data: null,
         },
       };
 

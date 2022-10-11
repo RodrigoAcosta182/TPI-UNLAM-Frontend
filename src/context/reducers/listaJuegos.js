@@ -34,7 +34,6 @@ const listaJuegos = (state, { payload, type }) => {
           ...state.listaJuegos,
           error: payload,
           loading: false,
-          data: null,
         },
       };
     case LISTAJUEGOS_RESET:

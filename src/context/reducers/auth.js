@@ -31,7 +31,6 @@ const auth = (state, { payload, type }) => {
           ...state.auth,
           error: payload,
           loading: false,
-          data: null
         },
       };
     case LOGIN_SETUSUARIO:

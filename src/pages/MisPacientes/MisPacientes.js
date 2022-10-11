@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHome";
 import { GlobalContext } from "../../context/Provider";
 import {
+  resetHabilitacionPaciente,
   wsGetListaDePacientes,
   wsHabilitarPaciente,
 } from "../../context/action/misPacientes/misPacientes";
@@ -24,6 +25,13 @@ const MisPacientes = () => {
     wsGetListaDePacientes()(misPacientesDispatch);
   }, []);
 
+  useEffect(() => {
+    if (misPacientesState.misPacientes.habilitar === "") {
+      wsGetListaDePacientes()(misPacientesDispatch);
+      resetHabilitacionPaciente()(misPacientesDispatch);
+    }
+  }, [misPacientesState.misPacientes.habilitar]);
+
   const irAMasInfo = () => {
     history.push("/resultados");
   };
@@ -31,7 +39,7 @@ const MisPacientes = () => {
   const habilitarPaciente = (e) => {
     setHabilitarPacienteDto({
       ...habilitarPacienteDto,
-      id: e.id,
+      id: e.usuarioPacienteId,
       estado: e.activo,
     });
   };

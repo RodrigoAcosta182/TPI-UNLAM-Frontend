@@ -4,6 +4,7 @@ import {
     MISPACIENTES_SUCCESS,
     MISPACIENTES_RESET,
     HABILITAR_PACIENTE_SUCCESS,
+    HABILITAR_PACIENTE_RESET,
 } from "../../ActionTypes";
 import axiosInstance from "../../../helpers/axiosInstance";
 
@@ -62,6 +63,10 @@ export const wsHabilitarPaciente = (dtoHabilitar) => (dispatch) => {
         });
       });
   });
+};
+
+export const resetHabilitacionPaciente = () => (dispatch) => {
+  dispatch({ type: HABILITAR_PACIENTE_RESET });
 };
 
 export const resetListaPacientes = () => (dispatch) => {
