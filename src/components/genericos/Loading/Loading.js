@@ -24,7 +24,7 @@ const Loading = ({ state, mensaje }) => {
               animate="visible"
             />
           </div>
-          <span className="c-white">{mensaje}</span>
+          <span className="bw18b c-white">{mensaje}</span>
         </div>
       )}
     </>

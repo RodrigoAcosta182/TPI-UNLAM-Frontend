@@ -9,6 +9,7 @@ import { resetOrdenNumeros } from "../../context/action/Juegos/ordenarNumeros";
 import HomePaciente from "./Usuario/HomePaciente";
 import HomeProfesionales from "./Profesional/HomeProfesionales";
 import HomeAdmin from "./Admin/HomeAdmin";
+import { showModalAvatar } from "../../context/action/modal/modalAvatar";
 
 const Home = () => {
   const {
