@@ -110,7 +110,7 @@ export default function ColorCorrecto() {
 
   const enviarColorCorrecto = () => {
     if (selected !== null && selected !== undefined) {
-      if (resultadoJuegoDto.Aciertos < 4) {
+      // if (resultadoJuegoDto.Aciertos < 4) {
         setColorAnterior(colorPregunta);
         if (selected === colorPregunta.hexadecimal) {
           setResultadoJuegoDto({
@@ -125,7 +125,7 @@ export default function ColorCorrecto() {
         }
         wsGetColores()(colorCorrectoDispatch);
         setSelected(null);
-      }
+      // }
     } else {
       console.log("Debe seleccionar un color");
     }
@@ -180,7 +180,7 @@ export default function ColorCorrecto() {
         {colorPregunta ? (
           <>
             <div className="colorCorrecto-pregunta bw52b">
-              <p className="c-white">¿Qué color coincide con este</p>
+              <p className="c-white">¿Qué color es este</p>
               <div
                 className="colorCorrecto-prgColor"
                 style={{ background: colorPregunta.hexadecimal }}
