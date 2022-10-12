@@ -132,9 +132,10 @@ export default function ColorCorrecto() {
   };
 
   const finalizarJuego = () => {
+    let horarioFinalizacion = new Date()
     setResultadoJuegoDto({
       ...resultadoJuegoDto,
-      FechaFinalizacion: new Date(),
+      FechaFinalizacion: horarioFinalizacion,
     });
 
     //poner logica de loading y push

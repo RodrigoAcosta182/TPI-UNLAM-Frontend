@@ -12,6 +12,8 @@ import modalInitialState from "./initialStates/modalInitialState";
 import ordenNumerosInitialState from "./initialStates/ordenNumerosInitialState";
 import profesionalesInitialState from "./initialStates/profesionalesInitialState";
 import registroInitialState from "./initialStates/registroInitialState";
+import resultadosInitialState from "./initialStates/resultadosInitialState";
+import pacienteSeleccionadoInitialState from "./initialStates/pacienteSeleccionadoInitialState";
 
 //Reducers ordenar alfabeticamente
 import auth from "./reducers/auth";
@@ -25,6 +27,8 @@ import modal from "./reducers/modal";
 import ordenNumeros from "./reducers/ordenNumeros";
 import profesionales from "./reducers/profesionales";
 import registro from "./reducers/registro";
+import resultados from "./reducers/resultados";
+import pacienteSeleccionado from "./reducers/pacienteSeleccionado";
 
 export const GlobalContext = createContext({});
 
@@ -79,6 +83,14 @@ export const GlobalProvider = ({ children }) => {
     registro,
     registroInitialState
   );
+  const [resultadosState, resultadosDispatch] = useReducer(
+    resultados,
+    resultadosInitialState
+  );
+  const [pacienteSeleccionadoState, pacienteSeleccionadoDispatch] = useReducer(
+    pacienteSeleccionado,
+    pacienteSeleccionadoInitialState
+  );
 
   return (
     //Declarar en Contexto Global, ordenar alfabeticamente
@@ -106,6 +118,10 @@ export const GlobalProvider = ({ children }) => {
         profesionalesDispatch,
         registroState,
         registroDispatch,
+        resultadosState,
+        resultadosDispatch,
+        pacienteSeleccionadoState,
+        pacienteSeleccionadoDispatch,
       }}
     >
       {children}

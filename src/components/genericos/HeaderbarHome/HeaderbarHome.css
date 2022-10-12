@@ -57,7 +57,7 @@
   align-items: center;
   cursor: pointer;
 }
-.ptur-dropDownAvatar-box {
+.ptur-dropDownAvatar-box, .ptur-dropDownAvatarPaciente-box {
   width: 242px;
   height: 104px;
   color: var(--color-black);
@@ -79,6 +79,9 @@
   border-top-right-radius: 0px;
   border-top: none;
   animation-duration: 1s;
+}
+.ptur-dropDownAvatarPaciente-box{
+  height: 150px;
 }
 
 .ptur-dropDownAvatar {

@@ -22,7 +22,10 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
   // const imgAvatar = authState.auth.data.paciente.imagenPerfil;
 
   const nameCamelized = () => {
-   let name = authState.auth.data.usuario.nombre + " " +authState.auth.data.usuario.apellido;
+    let name =
+      authState.auth.data.usuario.nombre +
+      " " +
+      authState.auth.data.usuario.apellido;
     return camelize(name);
   };
 
@@ -34,13 +37,12 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
     }
   };
 
-  const onClickSearchPcr = () => {
-    console.log("/laboratorio");
+  const onHandleVerResultados = () => {
+    history.push("/resultados");
   };
 
   const onHandleVerPerfil = () => {
     history.push("/perfil");
-
   };
 
   const onHandleSalir = () => {
@@ -87,7 +89,13 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
                   {/* <div className="ptur-flechaAvatar img-rotatedX180">
                     <FlechaDropdown color={"var(--color-primary)"} />
                   </div> */}
-                  <div className="ptur-dropDownAvatar-box dropdownSidebar">
+                  <div
+                    className={
+                      authState.auth.data.usuario.tipoUsuarioId === 1
+                        ? "ptur-dropDownAvatarPaciente-box dropdownSidebar"
+                        : "ptur-dropDownAvatar-box dropdownSidebar"
+                    }
+                  >
                     <div className="ptur-dropDownAvatar">
                       <ul className="ptur-dropDownAvatar-list pointer bw18l">
                         <li
@@ -97,6 +105,18 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
                           <MiniAvatar className={"ptur-dropDownAvatar-icons"} />
                           <span>Ver mi perfil</span>
                         </li>
+                        {authState.auth.data.usuario.tipoUsuarioId === 1 && (
+                          <li
+                            onClick={onHandleVerResultados}
+                            className="ptur-dropDownAvatar-listItem bw18l"
+                          >
+                            <MiniAvatar
+                              className={"ptur-dropDownAvatar-icons"}
+                            />
+                            <span>Ver mis Resultados</span>
+                          </li>
+                        )}
+
                         <li
                           onClick={onHandleSalir}
                           className="ptur-dropDownAvatar-listItem bw18l"

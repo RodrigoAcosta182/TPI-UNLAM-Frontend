@@ -10,10 +10,14 @@ import {
   wsGetListaDePacientes,
   wsHabilitarPaciente,
 } from "../../context/action/misPacientes/misPacientes";
+import { setPacienteContexto } from "../../context/action/pacienteSeleccionado/pacienteSeleccionado";
 
 const MisPacientes = () => {
-  const { misPacientesState, misPacientesDispatch } =
-    React.useContext(GlobalContext);
+  const {
+    misPacientesState,
+    misPacientesDispatch,
+    pacienteSeleccionadoDispatch,
+  } = React.useContext(GlobalContext);
   const [habilitarPacienteDto, setHabilitarPacienteDto] = React.useState({
     id: null,
     estado: null,
@@ -32,8 +36,9 @@ const MisPacientes = () => {
     }
   }, [misPacientesState.misPacientes.habilitar]);
 
-  const irAMasInfo = () => {
+  const irAMasInfo = (e) => {
     history.push("/resultados");
+    setPacienteContexto(e)(pacienteSeleccionadoDispatch);
   };
 
   const habilitarPaciente = (e) => {
@@ -85,12 +90,14 @@ const MisPacientes = () => {
                     return (
                       <React.Fragment key={index}>
                         <tr className="tablaFilasContainer bw24t">
-                          <td className="tablaFilas c-white">{item.id} </td>
                           <td className="tablaFilas c-white">
-                            {item.usuarioProfesionalId}
+                            {item.pacienteNombre} {item.pacienteApellido}{" "}
                           </td>
                           <td className="tablaFilas c-white">
-                            {item.usuarioPacienteId}
+                            {item.nombreTutor}
+                          </td>
+                          <td className="tablaFilas c-white">
+                            {item.telefono}
                           </td>
                           {item.activo ? (
                             <td className="tablaFilas c-white">Si</td>
@@ -118,9 +125,9 @@ const MisPacientes = () => {
 
                               <button
                                 className="btnAccionesPacientes c-white bgc-primary bw18m"
-                                onClick={irAMasInfo}
+                                onClick={() => irAMasInfo(item)}
                               >
-                                Mas Info
+                                Resultados
                               </button>
                             </div>
                           </td>

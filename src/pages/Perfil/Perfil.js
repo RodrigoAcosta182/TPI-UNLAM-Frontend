@@ -136,6 +136,30 @@ const Perfil = () => {
                 className={"fondoBlue-login"}
                 letterColor={"var(--color-white)"}
               />
+              <Input
+                  onChange={onChangeLogin}
+                  headerStr={"Nombre Tutor"}
+                  name="matricula"
+                  value={authState.auth.data.usuario.nombreTutor}
+                  checkError={listErrorState.listError.contrasena}
+                  isRequired={true}
+                  errorStr="La matricula es requerida"
+                  className={"fondoBlue-login"}
+                  letterColor={"var(--color-white)"}
+                />
+              <Input
+                  onChange={onChangeLogin}
+                  headerStr={"Telefono"}
+                  name="matricula"
+                  value={authState.auth.data.usuario.telefono}
+                  checkError={listErrorState.listError.contrasena}
+                  isRequired={true}
+                  errorStr="La matricula es requerida"
+                  className={"fondoBlue-login"}
+                  letterColor={"var(--color-white)"}
+                />
+
+
               <button className="perfil-confirmarBtn bw18b c-white">
                 <CheckIcon /> Confirmar
               </button>
