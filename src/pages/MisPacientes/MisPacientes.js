@@ -44,8 +44,8 @@ const MisPacientes = () => {
   const habilitarPaciente = (e) => {
     setHabilitarPacienteDto({
       ...habilitarPacienteDto,
-      id: e.usuarioPacienteId,
-      estado: e.activo,
+      id: e.id,
+      estado: e.estado,
     });
   };
 
@@ -99,7 +99,7 @@ const MisPacientes = () => {
                           <td className="tablaFilas c-white">
                             {item.telefono}
                           </td>
-                          {item.activo ? (
+                          {item.estado ? (
                             <td className="tablaFilas c-white">Si</td>
                           ) : (
                             <td className="tablaFilas c-white">No</td>
@@ -107,7 +107,7 @@ const MisPacientes = () => {
 
                           <td className="tablaFilas c-white">
                             <div className="btnPacientesBox">
-                              {item.activo ? (
+                              {item.estado ? (
                                 <button
                                   className="btnAccionesPacientes c-white bgc-primary bw18m"
                                   onClick={() => habilitarPaciente(item)}
