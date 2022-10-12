@@ -6,6 +6,7 @@ import {
   VERIFICARNUMEROS_ERROR,
   VERIFICARNUMEROS_LOADING,
   VERIFICARNUMEROS_SUCCESS,
+  VERIFICARNUMEROS_RESET,
 } from "../../ActionTypes";
 import axiosInstance from "../../../helpers/axiosInstance";
 
@@ -40,12 +41,12 @@ export const wsGetNumerosDesordenados = () => (dispatch) => {
 
 export const wsPostVerificarNumeros = (listaNumeros) => (dispatch) => {
   dispatch({
-    type: ORDENNUMEROS_LOADING,
+    type: VERIFICARNUMEROS_LOADING,
   });
 
   axiosInstance().then((respuesta) => {
     respuesta
-      .post(`/VerificarNumerosOrdenados`, {listaNumeros})
+      .post(`/VerificarNumerosOrdenados`, listaNumeros)
       .then((res) => {
         dispatch({
           type: VERIFICARNUMEROS_SUCCESS,
@@ -69,4 +70,8 @@ export const wsPostVerificarNumeros = (listaNumeros) => (dispatch) => {
 
 export const resetOrdenNumeros = () => (dispatch) => {
   dispatch({ type: ORDENNUMEROS_RESET });
+};
+
+export const resetVerificarNumero = () => (dispatch) => {
+  dispatch({ type: VERIFICARNUMEROS_RESET });
 };
