@@ -28,6 +28,7 @@ const Login = () => {
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       <div className="login-container">
         <LoginBox></LoginBox>
+        
       </div>
     </>
   );

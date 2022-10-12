@@ -1,0 +1,17 @@
+.video-subcontainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#screen {
+  width: 400px;
+  height: max-content;
+}
+#stream {
+  width: 400px;
+  height: max-content;
+}
