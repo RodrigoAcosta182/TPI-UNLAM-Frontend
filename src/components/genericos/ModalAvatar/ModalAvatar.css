@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 16px;
   width: 80%;
-  height: 200px;
+  height: 120px;
   border-radius: 16px;
   background-color: var(--color-white);
   border: 5px solid var(--color-black);
@@ -11,10 +11,10 @@
 
 .modalavatar-imagen-container {
   position: absolute;
-  top: -297px;
+  top: -188px;
 }
 .modalavatar-imagen {
-  width: 350px;
+  width: 220px;
 }
 
 .modalavatar-texto {

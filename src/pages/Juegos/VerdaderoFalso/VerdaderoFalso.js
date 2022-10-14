@@ -56,7 +56,7 @@ const VerdaderoFalso = () => {
         </div>
       </div>
       <div className="verdaderofalso-container">
-        <div className="verdaderofalso-pregunta bw52b">
+        <div className="verdaderofalso-pregunta bw32b">
           <p className="c-white">¿Esto es una manzana?</p>
         </div>
 

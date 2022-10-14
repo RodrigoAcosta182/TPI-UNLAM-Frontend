@@ -10,11 +10,15 @@ const ModalAvatar = (funcion) => {
   const { modalAvatarDispatch, modalAvatarState, authState } =
     useContext(GlobalContext);
   const arrayImagen = [dog, fox];
-  const [imagenAvatar, setImagenAvatar] = useState();
-  const [txtAvatar, setTxtAvatar] = useState();
+  const [imagenAvatar, setImagenAvatar] = useState(null);
+  const [txtAvatar, setTxtAvatar] = useState(null);
 
-  const txtModalAvatar = `¡Muy bien ${authState.auth.data.usuario.nombre}, sos un genio!`;
-  const txtModalAvatar2 = `¡Excelente ${authState.auth.data.usuario.nombre}, gracias por jugar conmigo!`;
+  const txtModalAvatar = `¡Muy bien ${
+    authState.auth.data ? authState.auth.data.usuario.nombre : ""
+  }, sos un genio!`;
+  const txtModalAvatar2 = `¡Excelente ${
+    authState.auth.data ? authState.auth.data.usuario.nombre : ""
+  }, gracias por jugar conmigo!`;
   const arrayTxt = [txtModalAvatar, txtModalAvatar2];
 
   useEffect(() => {
@@ -22,10 +26,6 @@ const ModalAvatar = (funcion) => {
       arrayImagen[Math.floor(Math.random() * arrayImagen.length)]
     );
     setTxtAvatar(arrayTxt[Math.floor(Math.random() * arrayTxt.length)]);
-
-    setTimeout(() => {
-      hideModalAvatar()(modalAvatarDispatch);
-    }, 5000);
 
     return () => {
       //esta accion se ejecuta cuando el modal desaparece de la pantalla
@@ -36,9 +36,17 @@ const ModalAvatar = (funcion) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (imagenAvatar) {
+      setTimeout(() => {
+        hideModalAvatar()(modalAvatarDispatch);
+      }, 5000);
+    }
+  }, [imagenAvatar]);
+
   const dismiss = () => {
-    hideModalAvatar()(modalAvatarDispatch)
-  }
+    hideModalAvatar()(modalAvatarDispatch);
+  };
 
   return (
     <>
@@ -56,7 +64,7 @@ const ModalAvatar = (funcion) => {
             <img className="modalavatar-imagen" src={imagenAvatar} alt="" />
           </div>
           <div className="modalavatar-texto">
-            <span className="bw32b">{txtAvatar}</span>
+            <span className="bw24b">{txtAvatar}</span>
           </div>
         </motion.div>
       </div>
