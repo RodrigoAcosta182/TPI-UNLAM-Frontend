@@ -225,15 +225,15 @@ const RegistroBox = ({ dsb }) => {
       <div className="registrobox-formulario">
         <div className="registrobox-formulario-header">
           <img className="registrobox-logo" src={LogoEmpresa} alt="logo"></img>
-          <span className="c-white bw52b ">Registrarse</span>
-          <div className="registrobox-formulario-soyProfesional">
-            <Input
-              inputType="check"
-              onChange={onChangeMedico}
-              name="profesional"
-              checkboxStr={"Soy Profesional"}
-            />
-          </div>
+          <span className="registrobox-title c-white bw32b ">Registrarse</span>
+        </div>
+        <div className="registrobox-formulario-soyProfesional">
+          <Input
+            inputType="check"
+            onChange={onChangeMedico}
+            name="profesional"
+            checkboxStr={"Soy Profesional"}
+          />
         </div>
         <div className="registrobox-formulario-body">
           <div className="registrobox-formulario-nombreApellido">
@@ -303,40 +303,49 @@ const RegistroBox = ({ dsb }) => {
             </div>
           </div>
 
-          <DatePicker
-            headerStr="Fecha de nacimiento"
-            fechaInicial={"2000 01 01"}
-            fechaFinal={`${hoy.getFullYear()} ${
-              hoy.getMonth() + 1
-            } ${hoy.getDate()}`}
-            onChange={onChangeFecha}
-            selectedFecha={""}
-            checkError={"Esta equivocado"}
-            errorStr="La fecha de nacimiento es requerida"
-            isRequired={false}
-            customCss={"fondoBlue"}
-          />
-          <Input
-            onChange={onChangeRegistro}
-            headerStr={"Email"}
-            name="mail"
-            isRequired={true}
-            checkError={listErrorState.listError.email}
-            errorStr="El email es requerido"
-            className={"fondoBlue"}
-            letterColor={"var(--color-white)"}
-          />
-          <Input
-            onChange={onChangeRegistro}
-            headerStr={"Contraseña"}
-            name="contrasena"
-            inputType="password"
-            isRequired={true}
-            checkError={listErrorState.listError.contrasena}
-            errorStr="La contraseña es requerida"
-            className={"fondoBlue"}
-            letterColor={"var(--color-white)"}
-          />
+          <div className="registrobox-formulario-nombreApellido">
+            <div className="registrobox-formulario-input">
+              <DatePicker
+                headerStr="Fecha de nacimiento"
+                fechaInicial={"2000 01 01"}
+                fechaFinal={`${hoy.getFullYear()} ${
+                  hoy.getMonth() + 1
+                } ${hoy.getDate()}`}
+                onChange={onChangeFecha}
+                selectedFecha={""}
+                checkError={"Esta equivocado"}
+                errorStr="La fecha de nacimiento es requerida"
+                isRequired={false}
+                customCss={"fondoBlue"}
+              />
+            </div>
+            <div className="registrobox-formulario-input">
+              <Input
+                onChange={onChangeRegistro}
+                headerStr={"Email"}
+                name="mail"
+                isRequired={true}
+                checkError={listErrorState.listError.email}
+                errorStr="El email es requerido"
+                className={"fondoBlue"}
+                letterColor={"var(--color-white)"}
+              />
+            </div>
+          </div>
+            <div className="registrobox-formulario-input">
+              <Input
+                onChange={onChangeRegistro}
+                headerStr={"Contraseña"}
+                name="contrasena"
+                inputType="password"
+                isRequired={true}
+                checkError={listErrorState.listError.contrasena}
+                errorStr="La contraseña es requerida"
+                className={"fondoBlue"}
+                letterColor={"var(--color-white)"}
+              />
+            </div>
+
           <div className="registrobox-botones-container">
             <Button
               onClick={volverAlLogin}
@@ -353,7 +362,6 @@ const RegistroBox = ({ dsb }) => {
           </div>
         </div>
       </div>
-      {/* <div className="registrobox-gradient-container"></div> */}
       <div className="registrobox-imagen-container">
         <img className="registrobox-imagen" src={ImagenFormulario} alt=""></img>
       </div>

@@ -5,28 +5,26 @@
   display: flex;
   margin: 40px;
 }
-.fondoBlue-login{
-  background: linear-gradient(
-    90deg,
-    #0459BA 44.92%,
-    rgba(4, 89, 186, 1) 100%
-  );
+.fondoBlue-login {
+  background: linear-gradient(90deg, #0459ba 44.92%, rgba(4, 89, 186, 1) 100%);
   color: var(--color-white);
 }
-.loginbox-logo{
-  width: 100px;
- 
+.loginbox-formulario-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.loginbox-logo {
+  width: 70px;
+}
+.loginbox-title{
+  margin-bottom: 20px;
 }
 .loginbox-formulario {
   width: 50%;
   padding: 40px;
 }
 
-.loginbox-formulario-header {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
 
 .loginbox-imagen-container {
   display: flex;
@@ -34,25 +32,25 @@
 .loginbox-formulario-body {
   margin-top: 30px;
 }
-.loginbox-registrate{
+.loginbox-registrate {
 }
-.loginbox-regBtn{
+.loginbox-regBtn {
   cursor: pointer;
 }
-.loginbox-regBtn:hover{
+.loginbox-regBtn:hover {
   text-decoration: underline;
 }
-.loginbox-ingresarBtn{
+.loginbox-ingresarBtn {
   border: none;
   border-radius: 8px;
   margin-bottom: 10px;
 }
 .loginbox-imagen {
   object-fit: cover;
-  border-radius: 0px 50px 50px 0px ;
+  border-radius: 0px 50px 50px 0px;
   width: 100%;
 }
 
-.loginbox-formulario-input-container{
+.loginbox-formulario-input-container {
   height: 88px;
 }

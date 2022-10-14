@@ -45,11 +45,11 @@ const Perfil = () => {
         </div>
       </div>
       <>
-        <p className="perfil-titulo c-white bw52b">Mis Datos</p>
+        <p className="perfil-titulo c-white bw32b">Mis Datos</p>
         <div className="perfil-container">
-          <button className="perfil-editarBtn bw18b c-grandin30">
+          {/* <button className="perfil-editarBtn bw18b c-grandin30">
             <EditarIcon /> Editar
-          </button>
+          </button> */}
           <div className="perfilBoxContainer">
             <div className="perfilBox1">
               <Input

@@ -32,7 +32,7 @@ const Home = () => {
     <React.Fragment>
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       {modalState.modal.show && <Modal />}
-      <HeaderbarHome></HeaderbarHome>
+      <HeaderbarHome/>
       {authState.auth.data.usuario.tipoUsuarioId === 1 && <HomePaciente />}
       {authState.auth.data.usuario.tipoUsuarioId === 2 && <HomeProfesionales />}
       {authState.auth.data.usuario.tipoUsuarioId === 3 && <HomeAdmin />}

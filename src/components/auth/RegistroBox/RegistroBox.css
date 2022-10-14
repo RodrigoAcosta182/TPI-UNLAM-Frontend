@@ -1,9 +1,13 @@
 .registrobox-container {
   max-width: 1500px;
-  background: var(--color-blue);
+  background: linear-gradient(
+    90deg,
+    #022b59 44.92%,
+    rgba(31, 39, 113, 0.62) 100%
+  );
   border-radius: 50px;
   display: flex;
-  margin: 40px;
+  height: 584px;
 }
 
 .registrobox-formulario-body {
@@ -14,24 +18,25 @@
 
 .registrobox-formulario {
   width: 50%;
-  padding: 40px;
+  padding: 20px 40px;
 }
 
 .registrobox-formulario-header {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.registrobox-title {
+  margin-bottom: 14px;
 }
 .registrobox-formulario-nombreApellido {
   display: flex;
   gap: 20px;
 }
-.fondoBlue{
-  background: linear-gradient(
-    90deg,
-    #0459BA 44.92%,
-    rgba(4, 89, 186, 1) 100%
-  );
+.fondoBlue {
+  background: linear-gradient(90deg, #0459ba 44.92%, rgba(4, 89, 186, 1) 100%);
   color: var(--color-white);
 }
 .registrobox-imagen-container {
@@ -56,7 +61,7 @@
   border: none;
   border-radius: 8px;
 }
-.dsbCursor{
+.dsbCursor {
   cursor: initial;
 }
 .registrobox-botones-container {
@@ -72,19 +77,16 @@
   height: 44px;
 }
 
-.registrobox-logo{
-  width: 100px;
+.registrobox-logo {
+  width: 70px;
 }
-
 
 @media (max-width: 1024px) {
-  .registrobox-imagen-container{
+  .registrobox-imagen-container {
     display: none;
   }
-  .registrobox-formulario, .registrobox-formulario{
+  .registrobox-formulario,
+  .registrobox-formulario {
     width: 100%;
   }
-
 }
-
-

@@ -55,7 +55,7 @@ const Resultados = () => {
       </div>
       <>
         <div className="resultados-container">
-          <p className="resultados-titulo c-white bw52b">
+          <p className="resultados-titulo c-white bw32b">
             Resultados de:{" "}
             {pacienteSeleccionadoState.pacienteSelected.data
               ? `${pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre} ${pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}`
@@ -64,7 +64,7 @@ const Resultados = () => {
           <div className="bordeTabla">
             <table className="containerTabla">
               <tbody>
-                <tr className="bw24t c-white">
+                <tr className="bw18t c-white">
                   <th className="columnaInicio">Juego</th>
                   <th className="columna">Aciertos</th>
                   <th className="columna">Desaciertos</th>
@@ -75,7 +75,7 @@ const Resultados = () => {
                   resultadosState.resultados.data.map((item, index) => {
                     return (
                       <React.Fragment key={index}>
-                        <tr className="tablaFilasContainer bw24t">
+                        <tr className="tablaFilasContainer bw18t">
                           <td className="tablaFilas c-white">
                             {item.juegoDescripcion}{" "}
                           </td>

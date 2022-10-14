@@ -15,6 +15,7 @@ import {
 import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
 import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
 import Loading from "../../../components/genericos/Loading/Loading";
+import HeaderbarHome from "../../../components/genericos/HeaderbarHome/HeaderbarHome";
 
 export default function ColorCorrecto() {
   const {
@@ -171,6 +172,7 @@ export default function ColorCorrecto() {
         state={finalizaJuegoState.finalizaJuego.loading}
         mensaje={"Enviando resultados..."}
       />
+      {/* <HeaderbarHome/> */}
       <div className="colorCorrecto-volverAccion" onClick={volverAlHome}>
         <div className="colorCorrecto-btnCont">
           <SalirIcon />
@@ -212,7 +214,7 @@ export default function ColorCorrecto() {
             </ul>
           </AnimateSharedLayout>
           {colorPregunta && (
-            <>
+            <div className="colorCorrecto-btnContainer">
               <button
                 className={
                   selected === undefined
@@ -245,7 +247,7 @@ export default function ColorCorrecto() {
               >
                 Finalizar
               </button>
-            </>
+            </div>
           )}
         </div>
       </div>

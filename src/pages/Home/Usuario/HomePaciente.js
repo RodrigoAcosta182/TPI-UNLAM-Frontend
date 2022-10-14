@@ -46,9 +46,9 @@ const HomePaciente = () => {
     <React.Fragment>
       <div className="home-container">
         <div className="home-logoBienvenida">
-          <p className="c-white bw52t">
+          <p className="c-white bw32t">
             Hola{" "}
-            <span className="bw52b">{authState.auth.data.usuario.nombre}</span>,
+            <span className="bw32b">{authState.auth.data.usuario.nombre}</span>,
             elegí un juego:
           </p>
         </div>

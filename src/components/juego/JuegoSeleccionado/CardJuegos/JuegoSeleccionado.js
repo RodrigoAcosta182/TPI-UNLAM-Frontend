@@ -10,7 +10,7 @@ const JuegoSeleccionado = ({ juego, irAlJuego, cerrar }) => {
           src={ImagenJuego}
           alt="logo"
         ></img>
-        <p className="JuegoSeleccionado-titulo">{juego}</p>
+        <p className="JuegoSeleccionado-titulo bw24b">{juego}</p>
         <div>
           <button className="btn bgc-danger c-white" onClick={cerrar}>Cerrar</button>
           <button className="btn bgc-broccoli c-white" onClick={irAlJuego}>Jugar</button>

@@ -16,7 +16,10 @@ import {
 import { GlobalContext } from "../../../context/Provider";
 import { verificaOrdenArray } from "../../../global/utils/verificaOrdenArray";
 import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
-import { resetFinalizaJuego, wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
+import {
+  resetFinalizaJuego,
+  wsPostFinalizaJuego,
+} from "../../../context/action/Juegos/finalizaJuego";
 import Loading from "../../../components/genericos/Loading/Loading";
 import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
 
@@ -118,7 +121,7 @@ const OrdenaNumeros = () => {
       {items !== null && (
         <>
           <div className="ordenarNumeros-container">
-            <p className="ordenarNumeros-titulo c-white bw52b">
+            <p className="ordenarNumeros-titulo c-white bw32b">
               Ordená los numeros de menor a mayor
             </p>
             <Reorder.Group
@@ -131,18 +134,20 @@ const OrdenaNumeros = () => {
                 <Item key={item} item={item} />
               ))}
             </Reorder.Group>
-            <button
-              className="ordenarNumeros-btn bw24t"
-              onClick={enviarNumerosOrdenados}
-            >
-              Listo
-            </button>
-            <button
-              className="ordenarNumeros-btn bw24t"
-              onClick={finalizarJuego}
-            >
-              Finalizar
-            </button>
+            <div className="ordenarNumeros-btn-container">
+              <button
+                className="ordenarNumeros-btn bw24t"
+                onClick={enviarNumerosOrdenados}
+              >
+                Listo
+              </button>
+              <button
+                className="ordenarNumeros-btn bw24t"
+                onClick={finalizarJuego}
+              >
+                Finalizar
+              </button>
+            </div>
           </div>
         </>
       )}
