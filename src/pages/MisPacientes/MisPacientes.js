@@ -44,14 +44,14 @@ const MisPacientes = () => {
   const habilitarPaciente = (e) => {
     setHabilitarPacienteDto({
       ...habilitarPacienteDto,
-      id: e.id,
+      id: e.pacienteId,
       estado: e.estado,
     });
   };
 
   useEffect(() => {
     if (
-      (habilitarPacienteDto.id !== null) &
+      (habilitarPacienteDto.pacienteId !== null) &
       (habilitarPacienteDto.estado !== null)
     ) {
       wsHabilitarPaciente(habilitarPacienteDto)(misPacientesDispatch);
