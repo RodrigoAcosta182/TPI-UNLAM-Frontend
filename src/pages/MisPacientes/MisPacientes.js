@@ -73,13 +73,13 @@ const MisPacientes = () => {
       </div>
       <>
         <div className="misPacientes-container">
-          <p className="misPacientes-titulo c-white bw52b">Mis Pacientes:</p>
+          <p className="misPacientes-titulo c-white bw32b">Mis Pacientes:</p>
           <div className="bordeTabla">
             <table className="containerTabla">
               <tbody>
-                <tr className="bw24t c-white">
+                <tr className="bw18t c-white">
                   <th className="columnaInicio">Nombre</th>
-                  <th className="columna">Tutor a Cargo</th>
+                  <th className="columna">Tutor a cargo</th>
                   <th className="columna">Teléfono</th>
                   <th className="columna">Activo</th>
                   <th className="columna">Acciones</th>
@@ -89,7 +89,7 @@ const MisPacientes = () => {
                   misPacientesState.misPacientes.data.map((item, index) => {
                     return (
                       <React.Fragment key={index}>
-                        <tr className="tablaFilasContainer bw24t">
+                        <tr className="tablaFilasContainer bw18t">
                           <td className="tablaFilas c-white">
                             {item.pacienteNombre} {item.pacienteApellido}{" "}
                           </td>

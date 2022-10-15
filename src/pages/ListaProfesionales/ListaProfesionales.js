@@ -63,16 +63,16 @@ const ListaProfesionales = () => {
       </div>
       <>
         <div className="listaProf-container">
-          <p className="listaProf-titulo c-white bw52b">
+          <p className="listaProf-titulo c-white bw32b">
             Lista de Profesionales
           </p>
           <div className="bordeTabla">
             <table className="containerTabla">
               <tbody>
-                <tr className="bw24t c-white">
+                <tr className="bw18t c-white">
                   <th className="columnaInicio">Nombre Completo</th>
                   <th className="columna">DNI</th>
-                  <th className="columna">Matricula</th>
+                  <th className="columna">Matrícula</th>
                   <th className="columna">Fecha Nacimiento</th>
                   <th className="columnaFinal">Activo</th>
                   <th className="columnaFinal">Acciones</th>
@@ -82,7 +82,7 @@ const ListaProfesionales = () => {
                   profesionalesState.profesionales.data.map((item, index) => {
                     return (
                       <React.Fragment key={index}>
-                        <tr className="tablaFilasContainer bw24t">
+                        <tr className="tablaFilasContainer bw18t">
                           <td className="tablaFilas c-white">
                             {item.nombre} {item.apellido}{" "}
                           </td>

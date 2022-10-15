@@ -32,6 +32,7 @@ const HomePaciente = () => {
         activo={item.activo}
         irAlJuego={() => irAlJuego(item)}
         cerrar={() => cerrarModal()}
+        imagen={item.id}
       />,
       "",
       cerrarModal,
@@ -61,7 +62,8 @@ const HomePaciente = () => {
                     <CardJuegos
                       juego={item.descripcion}
                       activo={item.activo}
-                      irAlJuego={() => showModalJuego(item)}
+                      irAlJuego={() => showModalJuego(item)} 
+                      imagen={item.id}
                     />
                   </div>
                 </React.Fragment>

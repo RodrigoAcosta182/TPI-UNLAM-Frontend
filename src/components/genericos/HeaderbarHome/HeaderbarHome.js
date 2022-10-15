@@ -103,7 +103,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
                           className="ptur-dropDownAvatar-listItem bw18l"
                         >
                           <MiniAvatar className={"ptur-dropDownAvatar-icons"} />
-                          <span>Ver mi perfil</span>
+                          <span>Mi perfil</span>
                         </li>
                         {authState.auth.data.usuario.tipoUsuarioId === 1 && (
                           <li
@@ -113,7 +113,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
                             <MiniAvatar
                               className={"ptur-dropDownAvatar-icons"}
                             />
-                            <span>Ver mis Resultados</span>
+                            <span>Mis resultados</span>
                           </li>
                         )}
 

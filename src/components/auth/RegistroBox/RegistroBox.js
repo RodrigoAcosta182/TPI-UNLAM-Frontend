@@ -279,7 +279,7 @@ const RegistroBox = ({ dsb }) => {
               {soyMedico ? (
                 <Input
                   onChange={onChangeRegistro}
-                  headerStr={"Matricula"}
+                  headerStr={"Matrícula"}
                   name="matricula"
                   isRequired={true}
                   checkError={listErrorState.listError.matricula}
@@ -292,7 +292,7 @@ const RegistroBox = ({ dsb }) => {
                   valor={""}
                   name="usuarioProfesionalId"
                   onChange={seleccionarProfesional}
-                  headerStr={"Busca tu profesional"}
+                  headerStr={"Buscá tu profesional"}
                   datos={profesionalesState.profesionales.data}
                   campoCodigo="id"
                   descripcion="mail"

@@ -20,16 +20,16 @@ const HomeAdmin = () => {
     <React.Fragment>
       <div className="homeAdmin-container">
         <div className="homeAdmin-logoBienvenida">
-          <p className="c-white bw52t">
+          <p className="c-white bw32t">
             Bienvenido{" "}
-            <span className="bw52b">{authState.auth.data.usuario.nombre}</span>
+            <span className="bw32b">{authState.auth.data.usuario.nombre}</span>
           </p>
         </div>
         <div className="homeAdmin-listaJuegos">
           <React.Fragment>
             <div className="homeAdmin-cardJuegos">
               <CardJuegos
-                juego="Listado Profesionales"
+                juego="Listado profesionales"
                 activo={true}
                 irAlJuego={() => verListaProfesionales()}
               />

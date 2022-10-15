@@ -122,7 +122,7 @@ const OrdenaNumeros = () => {
         <>
           <div className="ordenarNumeros-container">
             <p className="ordenarNumeros-titulo c-white bw32b">
-              Ordená los numeros de menor a mayor
+              Ordená los números de menor a mayor
             </p>
             <Reorder.Group
               axis="y"

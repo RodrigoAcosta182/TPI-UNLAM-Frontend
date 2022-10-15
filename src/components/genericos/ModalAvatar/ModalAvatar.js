@@ -50,7 +50,7 @@ const ModalAvatar = (funcion) => {
 
   return (
     <>
-      <div className="modalAvatar-fondo" onClick={dismiss}>
+      <div className="modalAvatar-fondo">
         <motion.div
           className="modalavatar-container"
           initial={{ opacity: 0, scale: 0.0 }}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import "./HomeProfesionales.css";
 import CardJuegos from "../../../components/juego/CardJuegos/CardJuegos";
@@ -17,9 +17,9 @@ const HomeProfesionales = () => {
     <React.Fragment>
       <div className="homeProf-container">
         <div className="homeProf-logoBienvenida">
-          <p className="c-white bw52t">
+          <p className="c-white bw32b">
             Bienvenido{" "}
-            <span className="bw52b">{authState.auth.data.usuario.nombre}</span>
+            <span className="bw32b">{authState.auth.data.usuario.nombre}</span>
           </p>
         </div>
         <div className="homeProf-listaJuegos">

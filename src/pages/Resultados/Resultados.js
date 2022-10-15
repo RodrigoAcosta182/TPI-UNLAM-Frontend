@@ -68,8 +68,8 @@ const Resultados = () => {
                   <th className="columnaInicio">Juego</th>
                   <th className="columna">Aciertos</th>
                   <th className="columna">Desaciertos</th>
-                  <th className="columna">Tiempo de Resolucion</th>
-                  <th className="columnaFinal">¿Completo?</th>
+                  <th className="columna">Tiempo de resolución</th>
+                  <th className="columnaFinal">¿Completó?</th>
                 </tr>
                 {Array.isArray(resultadosState.resultados.data) &&
                   resultadosState.resultados.data.map((item, index) => {

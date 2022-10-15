@@ -182,7 +182,7 @@ export default function ColorCorrecto() {
       <div className="colorCorrecto-container">
         {colorPregunta ? (
           <>
-            <div className="colorCorrecto-pregunta bw52b">
+            <div className="colorCorrecto-pregunta bw32b">
               <p className="c-white">¿Qué color es este</p>
               <div
                 className="colorCorrecto-prgColor"

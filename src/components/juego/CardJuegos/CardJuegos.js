@@ -1,11 +1,34 @@
 import "./CardJuegos.css";
-import ImagenJuego from "../../../assets/images/defaultUserImage.png";
+import ColorCorrecto from "../../../assets/images/juegos/ColorCorrecto.png";
+import OrdenarNumeros from "../../../assets/images/juegos/OrdenarNumeros.png";
+import VerdaderoFalso from "../../../assets/images/juegos/VerdaderoFalso.png";
+import ImagenDefault from "../../../assets/images/defaultUserImage.png"
 
-const CardJuegos = ({ juego, irAlJuego }) => {
+import { useEffect, useState } from "react";
+
+const CardJuegos = ({ juego, irAlJuego, imagen }) => {
+  const [imagenActual, setImagenActual] = useState();
+
+  useEffect(() => {
+    switch (imagen) {
+      case 1:
+        setImagenActual(ColorCorrecto);
+        break;
+      case 2:
+        setImagenActual(OrdenarNumeros);
+        break;
+      case 4:
+        setImagenActual(VerdaderoFalso);
+        break;
+      default:
+        return setImagenActual(ImagenDefault);
+    }
+  }, []);
+
   return (
     <div className="cardJuegos-container" onClick={irAlJuego}>
       <div className="cardJuegos-ficha">
-        <img className="cardJuegos-imagen" src={ImagenJuego} alt="logo"></img>
+        <img className="cardJuegos-imagen" src={imagenActual} alt="logo"></img>
         <p className="cardJuegos-titulo bw18b">{juego}</p>
       </div>
     </div>

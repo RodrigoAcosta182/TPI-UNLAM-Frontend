@@ -115,12 +115,12 @@ const Perfil = () => {
               {authState.auth.data.usuario.tipoUsuarioId === 2 && (
                 <Input
                   onChange={onChangeLogin}
-                  headerStr={"Matricula"}
+                  headerStr={"Matrícula"}
                   name="matricula"
                   value={authState.auth.data.usuario.matricula}
                   checkError={listErrorState.listError.contrasena}
                   isRequired={true}
-                  errorStr="La matricula es requerida"
+                  errorStr="La matrícula es requerida"
                   className={"fondoBlue-login"}
                   letterColor={"var(--color-white)"}
                 />
@@ -138,23 +138,23 @@ const Perfil = () => {
               />
               <Input
                   onChange={onChangeLogin}
-                  headerStr={"Nombre Tutor"}
-                  name="matricula"
+                  headerStr={"Nombre tutor"}
+                  name="nombreTutor"
                   value={authState.auth.data.usuario.nombreTutor}
                   checkError={listErrorState.listError.contrasena}
                   isRequired={true}
-                  errorStr="La matricula es requerida"
+                  errorStr="El nombre del tutor es requerida"
                   className={"fondoBlue-login"}
                   letterColor={"var(--color-white)"}
                 />
               <Input
                   onChange={onChangeLogin}
-                  headerStr={"Telefono"}
-                  name="matricula"
+                  headerStr={"Teléfono"}
+                  name="telefono"
                   value={authState.auth.data.usuario.telefono}
                   checkError={listErrorState.listError.contrasena}
                   isRequired={true}
-                  errorStr="La matricula es requerida"
+                  errorStr="El teléfono es requerido"
                   className={"fondoBlue-login"}
                   letterColor={"var(--color-white)"}
                 />

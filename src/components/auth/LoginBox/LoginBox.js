@@ -119,7 +119,7 @@ const LoginBox = () => {
             }`}
           />
           <span className="loginbox-registrate c-white">
-            No tenes cuenta?{" "}
+            ¿No tenés cuenta?{" "}
             <span className="c-primary loginbox-regBtn" onClick={registrarse}>
               Registrate
             </span>

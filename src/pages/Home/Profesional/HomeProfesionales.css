@@ -2,7 +2,6 @@
   padding: 60px 120px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 50px;
 }
 .homeProf-logoBienvenida{
