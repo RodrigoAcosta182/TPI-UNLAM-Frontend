@@ -4,13 +4,13 @@ import "firebase/firestore";
 import { ReactComponent as HangupIcon } from "../../../assets/images/hangup.svg";
 import { ReactComponent as MoreIcon } from "../../../assets/images/more-vertical.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/images/copy.svg";
-
-import "./VideoLlamada.css";
 import {
   firebaseConfig,
   servers,
   terminarLlamada,
 } from "../../../helpers/firebase";
+
+import "./VideoLlamada.css";
 
 // Initialize Firebase
 
@@ -19,12 +19,10 @@ if (!firebase.apps.length) {
 }
 
 const firestore = firebase.firestore();
-
 // Initialize WebRTC
 
 const pc = new RTCPeerConnection(servers);
-
-function IngresoLlamada() {
+function LlamadaPaciente() {
   const [currentPage, setCurrentPage] = useState("home");
   const [joinCode, setJoinCode] = useState("");
 
@@ -58,10 +56,9 @@ function Menu({ joinCode, setJoinCode, setPage }) {
   );
 }
 
-function Videos({ mode, callId, setPage }) {
+function Videos({ callId, setPage }) {
   const [webcamActive, setWebcamActive] = useState(false);
-  const [roomId, setRoomId] = useState(callId);
-
+  const [idroom, setIdroom] = useState(callId);
   const localRef = useRef();
   const remoteRef = useRef();
 
@@ -89,7 +86,7 @@ function Videos({ mode, callId, setPage }) {
     setWebcamActive(true);
 
     //ingresamos a llamada creada
-    const callDoc = firestore.collection("calls").doc(callId);
+    const callDoc = firestore.collection("calls").doc(idroom);
     const answerCandidates = callDoc.collection("answerCandidates");
     const offerCandidates = callDoc.collection("offerCandidates");
 
@@ -110,11 +107,8 @@ function Videos({ mode, callId, setPage }) {
       type: answerDescription.type,
       sdp: answerDescription.sdp,
     };
-
     //escribimos la descripcion en la base de datos firestone
-
     await callDoc.update({ answer });
-
     //escuchamos los cambios de los offerCandidates
     offerCandidates.onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
@@ -128,11 +122,10 @@ function Videos({ mode, callId, setPage }) {
     // cuando llamamos a esta funcion cerramos conexiones
     pc.onconnectionstatechange = (event) => {
       if (pc.connectionState === "disconnected") {
-        terminarLlamada(pc, roomId, firestore);
+        terminarLlamada(pc, idroom, firestore);
       }
     };
   };
-
   return (
     <div className="videos">
       {/* miniatura */}
@@ -142,7 +135,7 @@ function Videos({ mode, callId, setPage }) {
 
       <div className="buttonsContainer">
         <button
-          onClick={() => terminarLlamada(pc, roomId, firestore)}
+          onClick={() => terminarLlamada(pc, idroom, firestore)}
           disabled={!webcamActive}
           className="hangup button"
         >
@@ -153,7 +146,7 @@ function Videos({ mode, callId, setPage }) {
           <div className="popover">
             <button
               onClick={() => {
-                navigator.clipboard.writeText(roomId);
+                navigator.clipboard.writeText(idroom);
               }}
             >
               <CopyIcon /> Copiar ID de ingreso
@@ -161,7 +154,6 @@ function Videos({ mode, callId, setPage }) {
           </div>
         </div>
       </div>
-
       {!webcamActive && (
         <div className="modalContainer">
           <div className="modal">
@@ -179,4 +171,4 @@ function Videos({ mode, callId, setPage }) {
   );
 }
 
-export default IngresoLlamada;
+export default LlamadaPaciente;
