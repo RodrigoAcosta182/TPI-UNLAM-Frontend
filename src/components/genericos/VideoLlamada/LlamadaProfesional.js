@@ -24,7 +24,7 @@ const firestore = firebase.firestore();
 
 const pc = new RTCPeerConnection(servers);
 
-function CreaLlamada() {
+function LlamadaProfesional() {
   const [currentPage, setCurrentPage] = useState("home");
   const [joinCode, setJoinCode] = useState("");
 
@@ -43,7 +43,7 @@ function CreaLlamada() {
   );
 }
 
-function Menu({ joinCode, setJoinCode, setPage }) {
+function Menu({ setPage }) {
   return (
     <div className="home">
       <div className="create box">
@@ -140,7 +140,7 @@ function Videos({ callId, setPage }) {
       {/* miniatura */}
       <video ref={localRef} autoPlay playsInline className="local" muted />
       {/* grande */}
-      {/* <video ref={remoteRef} autoPlay playsInline className="remote" /> */}
+      <video ref={remoteRef} autoPlay playsInline className="remote" />
 
       <div className="buttonsContainer">
         <button
@@ -181,4 +181,4 @@ function Videos({ callId, setPage }) {
   );
 }
 
-export default CreaLlamada;
+export default LlamadaProfesional;
