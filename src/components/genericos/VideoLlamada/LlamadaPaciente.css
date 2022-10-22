@@ -1,4 +1,13 @@
-.llamadaProfesional-container {
+.llamadaPacienteMenu-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  bottom: 40px;
+  right: 40px;
+  gap: 8px;
+}
+
+.llamadaPaciente-container {
   border-radius: 16px;
   position: absolute;
   width: 100%;
@@ -10,7 +19,7 @@
   border-radius: 16px;
 }
 
-.llamadaProfesional-videosContainer {
+.llamadaPaciente-videosContainer {
   height: 100%;
   display: flex;
   align-items: center;
@@ -18,7 +27,7 @@
   gap: 48px;
 }
 
-.llamadaProfesional-videoLocal {
+.llamadaPaciente-videoLocal {
   position: absolute;
   bottom: 0px;
   right: 40px;
@@ -28,7 +37,7 @@
   z-index: 10;
 }
 
-.llamadaProfesional-videoRemote {
+.llamadaPaciente-videoRemote {
   width: 710px;
   height: 400px;
   background-color: var(--color-white);
@@ -37,17 +46,16 @@
   margin-bottom: 20px;
 }
 
-.llamadaProfesional-botones-container {
+.llamadaPaciente-botones-container {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
 }
 
-.btnllamadaProfesional {
+.btnllamadaPaciente {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
 }
-

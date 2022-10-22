@@ -1,4 +1,4 @@
-.llamadaProfesional-modal-container {
+.aceptarLlamada-modal-container {
   border: 1px solid var(--color-white);
   z-index: 50;
   background-color: var(--color-white);
@@ -10,7 +10,7 @@
   gap: 20px;
 }
 
-.llamadaProfesional-modal-botones {
+.aceptarLlamada-modal-botones {
   display: flex;
   justify-content: center;
   gap: 8px;
