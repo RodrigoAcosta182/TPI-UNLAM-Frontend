@@ -1,16 +1,20 @@
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { ReactComponent as HangupIcon } from "../../../assets/images/hangup.svg";
 import { ReactComponent as MoreIcon } from "../../../assets/images/more-vertical.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/images/copy.svg";
-
-import "./VideoLlamada.css";
 import {
   firebaseConfig,
   servers,
   terminarLlamada,
 } from "../../../helpers/firebase";
+import { hideModal, showModal } from "../../../context/action/modal/modal";
+import { GlobalContext } from "../../../context/Provider";
+import AceptaLlamada from "../AceptaLlamada/AceptaLlamada";
+import "./VideoLlamada.css";
+import CardInfoPaciente from "../CardInfoPaciente/CardInfoPaciente";
+import NotaPaciente from "../NotaPaciente/NotaPaciente";
 
 // Initialize Firebase
 
@@ -24,36 +28,42 @@ const firestore = firebase.firestore();
 
 const pc = new RTCPeerConnection(servers);
 
-function LlamadaProfesional() {
-  const [currentPage, setCurrentPage] = useState("home");
+function LlamadaProfesional({ paciente }) {
+  const { modalDispatch } = useContext(GlobalContext);
   const [joinCode, setJoinCode] = useState("");
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const mostrarModalLlamar = () => {
+    showModal(
+      <AceptaLlamada
+        pacienteSeleccionado={paciente}
+        setupSources={setMostrarModal}
+      />
+    )(modalDispatch);
+  };
 
   return (
-    <div className="app">
-      {currentPage === "home" ? (
-        <Menu
-          joinCode={joinCode}
-          setJoinCode={setJoinCode}
-          setPage={setCurrentPage}
-        />
-      ) : (
-        <Videos callId={joinCode} setPage={setCurrentPage} />
+    <>
+      <button
+        className="btnAccionesPacientes  c-white bgc-primary bw18m"
+        onClick={mostrarModalLlamar}
+      >
+        Llamar
+      </button>
+      {mostrarModal && (
+        <div className="llamadaProfesional-container">
+          <Videos
+            callId={joinCode}
+            setMostrarModal={setMostrarModal}
+            pacienteSeleccionado={paciente}
+          />
+        </div>
       )}
-    </div>
+    </>
   );
 }
 
-function Menu({ setPage }) {
-  return (
-    <div className="home">
-      <div className="create box">
-        <button onClick={() => setPage("create")}>Create Call</button>
-      </div>
-    </div>
-  );
-}
-
-function Videos({ callId, setPage }) {
+function Videos({ callId }) {
+  const { modalDispatch } = useContext(GlobalContext);
   const [webcamActive, setWebcamActive] = useState(false);
   const [roomId, setRoomId] = useState(callId);
 
@@ -135,49 +145,57 @@ function Videos({ callId, setPage }) {
     };
   };
 
-  return (
-    <div className="videos">
-      {/* miniatura */}
-      <video ref={localRef} autoPlay playsInline className="local" muted />
-      {/* grande */}
-      <video ref={remoteRef} autoPlay playsInline className="remote" />
+  useEffect(() => {
+    setupSources();
+    hideModal()(modalDispatch);
+  }, []);
 
-      <div className="buttonsContainer">
-        <button
-          onClick={() => terminarLlamada(pc, roomId, firestore)}
-          disabled={!webcamActive}
-          className="hangup button"
-        >
-          <HangupIcon />
-        </button>
-        <div tabIndex={0} role="button" className="more button">
-          <MoreIcon />
-          <div className="popover">
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(roomId);
-              }}
-            >
-              <CopyIcon /> Copiar ID de ingreso
-            </button>
+  return (
+    <>
+      <div className="llamadaProfesional-Container">
+        <div className="llamadaProfesional-videosContainer">
+          {/* miniatura */}
+          <video
+            ref={localRef}
+            autoPlay
+            playsInline
+            className="llamadaProfesional-videoLocal"
+            muted
+          />
+          {/* grande */}
+
+          <div>
+            <CardInfoPaciente/>
+            <video
+              ref={remoteRef}
+              autoPlay
+              playsInline
+              className="llamadaProfesional-videoRemote"
+            />
+            {webcamActive && (
+              <div className="llamadaProfesional-botones-container">
+                <button
+                  onClick={() => terminarLlamada(pc, roomId, firestore)}
+                  disabled={!webcamActive}
+                  className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
+                >
+                  <HangupIcon />
+                </button>
+                <button
+                  className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
+                  onClick={() => {
+                    navigator.clipboard.writeText(roomId);
+                  }}
+                >
+                  <CopyIcon /> Copiar ID
+                </button>
+              </div>
+            )}
           </div>
+        <NotaPaciente/>
         </div>
       </div>
-
-      {!webcamActive && (
-        <div className="modalContainer">
-          <div className="modal">
-            <h3>Encender cámara y microfono para empezar la llamada</h3>
-            <div className="container">
-              <button onClick={() => setPage("home")} className="secondary">
-                Cancel
-              </button>
-              <button onClick={setupSources}>Start</button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 

@@ -1,0 +1,17 @@
+.llamadaProfesional-modal-container {
+  border: 1px solid var(--color-white);
+  z-index: 50;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.llamadaProfesional-modal-botones {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
