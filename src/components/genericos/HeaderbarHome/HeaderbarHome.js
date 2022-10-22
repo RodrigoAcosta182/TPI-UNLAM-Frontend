@@ -64,14 +64,14 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
         </div>
 
         <div className="ptur-RightMenu">
-          <div className="ptur-headerBarHome-txtDiaHora">
+          {/* <div className="ptur-headerBarHome-txtDiaHora">
             <p id="ptur-DiaResponsive" className="bw18l">
               {getStrDate(new Date())}
               <span className="ptur-timer">
                 <HeaderTimer />
               </span>
             </p>
-          </div>
+          </div> */}
           <div className="ptur-perfilMenu">
             <p className="bw18b">{nameCamelized()}</p>
             <div

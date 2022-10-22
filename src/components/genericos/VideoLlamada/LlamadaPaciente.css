@@ -1,0 +1,45 @@
+.llamadaPacienteMenu-container{
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.llamadaPaciente-videosContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 20px;
+  bottom: 10px;
+}
+
+.llamadaPaciente-videoLocal {
+  bottom: 0px;
+  right: 40px;
+  width: 280px;
+  height: 210px;
+  border-radius: 8px;
+}
+
+.llamadaPaciente-videoRemote {
+  bottom: 200px;
+  right: 40px;
+  width: 280px;
+  height: 210px;
+  border-radius: 8px;
+}
+
+.llamadaPaciente-botones-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btnllamadaPaciente {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}

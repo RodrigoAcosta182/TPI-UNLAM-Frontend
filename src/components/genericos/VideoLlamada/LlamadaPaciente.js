@@ -1,16 +1,19 @@
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { ReactComponent as HangupIcon } from "../../../assets/images/hangup.svg";
 import { ReactComponent as MoreIcon } from "../../../assets/images/more-vertical.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/images/copy.svg";
-
-import "./VideoLlamada.css";
 import {
   firebaseConfig,
   servers,
   terminarLlamada,
 } from "../../../helpers/firebase";
+
+import "./LlamadaPaciente.css";
+import { hideModal, showModal } from "../../../context/action/modal/modal";
+import AceptaLlamada from "../AceptaLlamada/AceptaLlamada";
+import { GlobalContext } from "../../../context/Provider";
 
 // Initialize Firebase
 
@@ -19,55 +22,66 @@ if (!firebase.apps.length) {
 }
 
 const firestore = firebase.firestore();
-
 // Initialize WebRTC
 
 const pc = new RTCPeerConnection(servers);
-
-function IngresoLlamada() {
+function LlamadaPaciente() {
+  const { modalDispatch } = useContext(GlobalContext);
   const [currentPage, setCurrentPage] = useState("home");
   const [joinCode, setJoinCode] = useState("");
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const mostrarModalLlamar = () => {
+    showModal(
+      <AceptaLlamada
+        llamadaPaciente={true}
+        setupSources={() => setMostrarModal(true)}
+      />
+    )(modalDispatch);
+  };
 
   return (
-    <div className="app">
-      {currentPage === "home" ? (
+    <>
+      {!mostrarModal ? (
         <Menu
           joinCode={joinCode}
           setJoinCode={setJoinCode}
-          setPage={setCurrentPage}
+          mostrarModal={mostrarModalLlamar}
         />
       ) : (
         <Videos mode={currentPage} callId={joinCode} setPage={setCurrentPage} />
       )}
-    </div>
+    </>
   );
 }
 
-function Menu({ joinCode, setJoinCode, setPage }) {
+function Menu({ joinCode, setJoinCode, mostrarModal }) {
   return (
-    <div className="home">
-      <div className="answer box">
-        <input
-          value={joinCode}
-          onChange={(e) => setJoinCode(e.target.value)}
-          placeholder="Join with code"
-        />
-        <button onClick={() => setPage("join")}>Answer</button>
-      </div>
+    <div className="llamadaPacienteMenu-container">
+      <input
+        value={joinCode}
+        onChange={(e) => setJoinCode(e.target.value)}
+        placeholder="ID Llamada"
+      />
+      <button
+        className="btnAccionesPacientes bgc-primary c-white"
+        onClick={() => mostrarModal()}
+      >
+        Contestar
+      </button>
     </div>
   );
 }
 
-function Videos({ mode, callId, setPage }) {
+function Videos({ callId }) {
+  const { modalDispatch } = useContext(GlobalContext);
   const [webcamActive, setWebcamActive] = useState(false);
-  const [roomId, setRoomId] = useState(callId);
-
+  const [idroom, setIdroom] = useState(callId);
   const localRef = useRef();
   const remoteRef = useRef();
 
   const setupSources = async () => {
     //obtenemos video y audio
-    const localStream = await navigator.mediaDevices.getUserMedia({
+    const localStream = await navigator.mediaDevices.getDisplayMedia({
       video: true,
       audio: true,
     });
@@ -89,7 +103,7 @@ function Videos({ mode, callId, setPage }) {
     setWebcamActive(true);
 
     //ingresamos a llamada creada
-    const callDoc = firestore.collection("calls").doc(callId);
+    const callDoc = firestore.collection("calls").doc(idroom);
     const answerCandidates = callDoc.collection("answerCandidates");
     const offerCandidates = callDoc.collection("offerCandidates");
 
@@ -110,11 +124,8 @@ function Videos({ mode, callId, setPage }) {
       type: answerDescription.type,
       sdp: answerDescription.sdp,
     };
-
     //escribimos la descripcion en la base de datos firestone
-
     await callDoc.update({ answer });
-
     //escuchamos los cambios de los offerCandidates
     offerCandidates.onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
@@ -128,55 +139,57 @@ function Videos({ mode, callId, setPage }) {
     // cuando llamamos a esta funcion cerramos conexiones
     pc.onconnectionstatechange = (event) => {
       if (pc.connectionState === "disconnected") {
-        terminarLlamada(pc, roomId, firestore);
+        terminarLlamada(pc, idroom, firestore);
       }
     };
   };
+  useEffect(() => {
+    setupSources();
+    hideModal()(modalDispatch);
+  }, []);
 
   return (
-    <div className="videos">
-      {/* miniatura */}
-      <video ref={localRef} autoPlay playsInline className="local" muted />
-      {/* grande */}
-      <video ref={remoteRef} autoPlay playsInline className="remote" />
-
-      <div className="buttonsContainer">
-        <button
-          onClick={() => terminarLlamada(pc, roomId, firestore)}
-          disabled={!webcamActive}
-          className="hangup button"
-        >
-          <HangupIcon />
-        </button>
-        <div tabIndex={0} role="button" className="more button">
-          <MoreIcon />
-          <div className="popover">
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(roomId);
-              }}
-            >
-              <CopyIcon /> Copiar ID de ingreso
-            </button>
-          </div>
+    <>
+      <div className="llamadaPaciente-Container">
+        <div className="llamadaPaciente-videosContainer">
+          {/* grande */}
+          <video
+            ref={remoteRef}
+            autoPlay
+            playsInline
+            className="llamadaPaciente-videoRemote"
+          />
+          {/* miniatura */}
+          <video
+            ref={localRef}
+            autoPlay
+            playsInline
+            className="llamadaPaciente-videoLocal"
+            muted
+          />
+          {webcamActive && (
+            <div className="llamadaPaciente-botones-container">
+              <button
+                onClick={() => terminarLlamada(pc, idroom, firestore)}
+                disabled={!webcamActive}
+                className="btnAccionesPacientes btnllamadaPaciente bgc-primary c-white"
+              >
+                <HangupIcon />
+              </button>
+              <button
+                className="btnAccionesPacientes btnllamadaPaciente bgc-primary c-white"
+                onClick={() => {
+                  navigator.clipboard.writeText(idroom);
+                }}
+              >
+                <CopyIcon /> Copiar ID
+              </button>
+            </div>
+          )}
         </div>
       </div>
-
-      {!webcamActive && (
-        <div className="modalContainer">
-          <div className="modal">
-            <h3>Encender cámara y microfono para empezar la llamada</h3>
-            <div className="container">
-              <button onClick={() => setPage("home")} className="secondary">
-                Cancel
-              </button>
-              <button onClick={setupSources}>Start</button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 
-export default IngresoLlamada;
+export default LlamadaPaciente;

@@ -11,12 +11,15 @@ import {
   wsHabilitarPaciente,
 } from "../../context/action/misPacientes/misPacientes";
 import { setPacienteContexto } from "../../context/action/pacienteSeleccionado/pacienteSeleccionado";
+import LlamadaProfesional from "../../components/genericos/VideoLlamada/LlamadaProfesional";
+import Modal from "../../components/genericos/Modal/Modal";
 
 const MisPacientes = () => {
   const {
     misPacientesState,
     misPacientesDispatch,
     pacienteSeleccionadoDispatch,
+    modalState,
   } = React.useContext(GlobalContext);
   const [habilitarPacienteDto, setHabilitarPacienteDto] = React.useState({
     id: null,
@@ -64,6 +67,7 @@ const MisPacientes = () => {
 
   return (
     <>
+      {modalState.modal.show && <Modal />}
       <HeaderbarHome></HeaderbarHome>
       <div className="misPacientes-volverAccion" onClick={volverAlHome}>
         <div className="misPacientes-btnCont">
@@ -129,6 +133,7 @@ const MisPacientes = () => {
                               >
                                 Resultados
                               </button>
+                              <LlamadaProfesional paciente={item} />
                             </div>
                           </td>
                         </tr>
