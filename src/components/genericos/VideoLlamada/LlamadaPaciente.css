@@ -28,8 +28,6 @@
   width: 280px;
   height: 210px;
   border-radius: 8px;
-
-  background-color: var(--color-white);
 }
 
 .llamadaPaciente-botones-container {

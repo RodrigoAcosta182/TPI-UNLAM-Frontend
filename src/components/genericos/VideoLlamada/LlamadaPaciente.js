@@ -81,7 +81,7 @@ function Videos({ callId }) {
 
   const setupSources = async () => {
     //obtenemos video y audio
-    const localStream = await navigator.mediaDevices.getUserMedia({
+    const localStream = await navigator.mediaDevices.getDisplayMedia({
       video: true,
       audio: true,
     });
