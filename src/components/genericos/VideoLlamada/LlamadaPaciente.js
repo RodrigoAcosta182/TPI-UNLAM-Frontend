@@ -150,27 +150,34 @@ function Videos({ callId }) {
 
   return (
     <>
-      <div className="llamadaProfesional-Container">
-        <div className="llamadaProfesional-videosContainer">
-          {/* miniatura */}
+      <div className="llamadaPaciente-Container">
+        <div className="llamadaPaciente-videosContainer">
+          {/* grande */}
           <video
             ref={remoteRef}
             autoPlay
             playsInline
-            className="llamadaProfesional-videoLocal"
+            className="llamadaPaciente-videoRemote"
+          />
+          {/* miniatura */}
+          <video
+            ref={localRef}
+            autoPlay
+            playsInline
+            className="llamadaPaciente-videoLocal"
             muted
           />
           {webcamActive && (
-            <div className="llamadaProfesional-botones-container">
+            <div className="llamadaPaciente-botones-container">
               <button
                 onClick={() => terminarLlamada(pc, idroom, firestore)}
                 disabled={!webcamActive}
-                className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
+                className="btnAccionesPacientes btnllamadaPaciente bgc-primary c-white"
               >
                 <HangupIcon />
               </button>
               <button
-                className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
+                className="btnAccionesPacientes btnllamadaPaciente bgc-primary c-white"
                 onClick={() => {
                   navigator.clipboard.writeText(idroom);
                 }}
@@ -181,13 +188,6 @@ function Videos({ callId }) {
           )}
         </div>
       </div>
-      {/* grande */}
-      {/* <video
-              ref={remoteRef}
-              autoPlay
-              playsInline
-              className="llamadaProfesional-videoRemote"
-            /> */}
     </>
   );
 }
