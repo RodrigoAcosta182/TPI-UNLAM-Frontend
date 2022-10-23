@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { ReactComponent as HangupIcon } from "../../../assets/images/hangup.svg";
-import { ReactComponent as MoreIcon } from "../../../assets/images/more-vertical.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/images/copy.svg";
 import {
   firebaseConfig,
@@ -32,6 +31,7 @@ function LlamadaProfesional({ paciente }) {
   const { modalDispatch } = useContext(GlobalContext);
   const [joinCode, setJoinCode] = useState("");
   const [mostrarModal, setMostrarModal] = useState(false);
+
   const mostrarModalLlamar = () => {
     showModal(
       <AceptaLlamada
@@ -51,21 +51,21 @@ function LlamadaProfesional({ paciente }) {
       </button>
       {mostrarModal && (
         <div className="llamadaProfesional-container">
-          <Videos
-            callId={joinCode}
-            setMostrarModal={setMostrarModal}
-            pacienteSeleccionado={paciente}
-          />
+          <Videos callId={joinCode} pacienteSeleccionado={paciente} />
         </div>
       )}
     </>
   );
 }
 
-function Videos({ callId }) {
+function Videos({ callId, pacienteSeleccionado }) {
   const { modalDispatch } = useContext(GlobalContext);
   const [webcamActive, setWebcamActive] = useState(false);
-  const [roomId, setRoomId] = useState(callId);
+  // const [roomId, setRoomId] = useState(callId);
+  const [llamadaDto, setLlamadaDto] = useState({
+    idLlamada: callId,
+    paciente: pacienteSeleccionado,
+  });
 
   const localRef = useRef();
   const remoteRef = useRef();
@@ -99,7 +99,8 @@ function Videos({ callId }) {
     const answerCandidates = callDoc.collection("answerCandidates");
 
     //guardamos el id de llamada
-    setRoomId(callDoc.id);
+    setLlamadaDto({ ...llamadaDto, idLlamada: callDoc.id });
+    // setRoomId(callDoc.id);
 
     pc.onicecandidate = (event) => {
       event.candidate && offerCandidates.add(event.candidate.toJSON());
@@ -140,7 +141,7 @@ function Videos({ callId }) {
     // cuando llamamos a esta funcion cerramos conexiones
     pc.onconnectionstatechange = (event) => {
       if (pc.connectionState === "disconnected") {
-        terminarLlamada(pc, roomId, firestore);
+        terminarLlamada(pc, llamadaDto.idLlamada, firestore);
       }
     };
   };
@@ -149,6 +150,13 @@ function Videos({ callId }) {
     setupSources();
     hideModal()(modalDispatch);
   }, []);
+
+  useEffect(() => {
+    if (llamadaDto.idLlamada) {
+      //realizar post a la base. Sumarle fecha de hoy
+      console.log(llamadaDto);
+    }
+  }, [llamadaDto.idLlamada]);
 
   return (
     <>
@@ -165,7 +173,7 @@ function Videos({ callId }) {
           {/* grande */}
 
           <div>
-            <CardInfoPaciente/>
+            <CardInfoPaciente />
             <video
               ref={remoteRef}
               autoPlay
@@ -175,7 +183,7 @@ function Videos({ callId }) {
             {webcamActive && (
               <div className="llamadaProfesional-botones-container">
                 <button
-                  onClick={() => terminarLlamada(pc, roomId, firestore)}
+                  onClick={() => terminarLlamada(pc, llamadaDto.idLlamada, firestore)}
                   disabled={!webcamActive}
                   className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
                 >
@@ -184,7 +192,7 @@ function Videos({ callId }) {
                 <button
                   className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
                   onClick={() => {
-                    navigator.clipboard.writeText(roomId);
+                    navigator.clipboard.writeText(llamadaDto.idLlamada);
                   }}
                 >
                   <CopyIcon /> Copiar ID
@@ -192,7 +200,7 @@ function Videos({ callId }) {
               </div>
             )}
           </div>
-        <NotaPaciente/>
+          <NotaPaciente />
         </div>
       </div>
     </>
