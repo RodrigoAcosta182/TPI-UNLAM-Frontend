@@ -6,6 +6,7 @@ import colorCorrectoInitialState from "./initialStates/colorCorrectoInitialState
 import finalizaJuegoInitialState from "./initialStates/finalizaJuegoInitialState";
 import listErrorInitialState from "./initialStates/listErrorInitialState";
 import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
+import llamadaInitialState from "./initialStates/llamadaInitialState";
 import misPacientesInitialState from "./initialStates/misPacientesInitialState";
 import modalAvatarInitialState from "./initialStates/modalAvatarInitialState";
 import modalInitialState from "./initialStates/modalInitialState";
@@ -21,6 +22,7 @@ import colorCorrecto from "./reducers/colorCorrecto";
 import finalizaJuego from "./reducers/finalizaJuego";
 import listError from "./reducers/listError";
 import listaJuegos from "./reducers/listaJuegos";
+import llamada from "./reducers/llamada";
 import misPacientes from "./reducers/misPacientes";
 import modalAvatar from "./reducers/modalAvatar";
 import modal from "./reducers/modal";
@@ -59,6 +61,10 @@ export const GlobalProvider = ({ children }) => {
   const [listErrorState, listErrorDispatch] = useReducer(
     listError,
     listErrorInitialState
+  );
+  const [llamadaState, llamadaDispatch] = useReducer(
+    llamada,
+    llamadaInitialState
   );
   const [misPacientesState, misPacientesDispatch] = useReducer(
     misPacientes,
@@ -106,6 +112,8 @@ export const GlobalProvider = ({ children }) => {
         listErrorDispatch,
         listaJuegosState,
         listaJuegosDispatch,
+        llamadaState,
+        llamadaDispatch,
         modalAvatarState,
         modalAvatarDispatch,
         misPacientesState,
