@@ -1,0 +1,97 @@
+.comidaCorrecta-volverAccion {
+  padding: 20px 0 0 20px;
+}
+.comidaCorrecta-btnCont {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 100px;
+}
+.comidaCorrecta-btn {
+  display: flex;
+  align-items: center;
+}
+.comidaCorrecta-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.comidaCorrecta-animalBurbuja {
+  align-items: center;
+}
+.comidaCorrecta-imagenesRta {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+}
+.comidaCorrecta-pregunta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.comidaCorrecta-arrayContainer {
+  cursor: pointer;
+}
+.comidaCorrecta-array {
+  width: 150px;
+}
+.comidaCorrecta-arraySelected {
+  border: 6px solid orange;
+  border-radius: 100%;
+}
+.comidaCorrecta-imagen {
+  width: 220px;
+}
+.comidaCorrecta-imagenPregunta {
+  width: 140px;
+  position: absolute;
+  left: 49%;
+  top: 12%;
+}
+.comidaCorrecta-imagenBurbuja {
+  width: 350px;
+  margin-left: 110px;
+}
+.comidaCorrecta-btnContainer{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.comidaCorrecta-btnListo,
+.comidaCorrecta-btnFinalizar {
+  width: 200px;
+  height: 50px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
+  justify-content: center;
+  cursor: pointer;
+}
+
+@media (max-width: 1365px) {
+  .comidaCorrecta-imagenPregunta {
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    top: 14%;
+  }
+  .comidaCorrecta-imagen {
+    width: 180px;
+  }
+  .comidaCorrecta-imagenBurbuja {
+    width: 200px;
+    margin-left: 100px;
+  }
+  .comidaCorrecta-imagenesRta {
+    margin-top: 20px;
+  }
+  .comidaCorrecta-array {
+    width: 100px;
+  }
+  .comidaCorrecta-btnContainer{
+    flex-direction: row;
+  }
+}

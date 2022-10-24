@@ -1,5 +1,6 @@
 import Home from "../pages/Home/Home";
 import ColorCorrecto from "../pages/Juegos/ColorCorrecto/ColorCorrecto";
+import ComidaCorrecta from "../pages/Juegos/ComidaCorrecta/ComidaCorrecta";
 import OrdenaNumeros from "../pages/Juegos/OrdenaNumeros/OrdenaNumeros";
 import VerdaderoFalso from "../pages/Juegos/VerdaderoFalso/VerdaderoFalso";
 import ListaProfesionales from "../pages/ListaProfesionales/ListaProfesionales";
@@ -33,6 +34,12 @@ const listRoutes = [
     path: "/verdaderofalso",
     component: VerdaderoFalso,
     title: "Verdadero o Falso",
+    auth: false,
+  },
+  {
+    path: "/comidacorrecta",
+    component: ComidaCorrecta,
+    title: "Comida Correcta",
     auth: false,
   },
   {

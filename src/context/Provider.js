@@ -4,6 +4,7 @@ import { createContext, useEffect, useReducer } from "react";
 import authInitialState from "./initialStates/authInitialState";
 import colorCorrectoInitialState from "./initialStates/colorCorrectoInitialState";
 import finalizaJuegoInitialState from "./initialStates/finalizaJuegoInitialState";
+import generosInitialState from "./initialStates/generosInitialState";
 import listErrorInitialState from "./initialStates/listErrorInitialState";
 import listaJuegosInitialState from "./initialStates/listaJuegosInitialState";
 import misPacientesInitialState from "./initialStates/misPacientesInitialState";
@@ -19,6 +20,7 @@ import pacienteSeleccionadoInitialState from "./initialStates/pacienteSelecciona
 import auth from "./reducers/auth";
 import colorCorrecto from "./reducers/colorCorrecto";
 import finalizaJuego from "./reducers/finalizaJuego";
+import generos from "./reducers/generos";
 import listError from "./reducers/listError";
 import listaJuegos from "./reducers/listaJuegos";
 import misPacientes from "./reducers/misPacientes";
@@ -51,6 +53,10 @@ export const GlobalProvider = ({ children }) => {
   const [finalizaJuegoState, finalizaJuegoDispatch] = useReducer(
     finalizaJuego,
     finalizaJuegoInitialState
+  );
+  const [generosState, generosDispatch] = useReducer(
+    generos,
+    generosInitialState
   );
   const [listaJuegosState, listaJuegosDispatch] = useReducer(
     listaJuegos,
@@ -91,7 +97,6 @@ export const GlobalProvider = ({ children }) => {
     pacienteSeleccionado,
     pacienteSeleccionadoInitialState
   );
-
   return (
     //Declarar en Contexto Global, ordenar alfabeticamente
     <GlobalContext.Provider
@@ -102,6 +107,8 @@ export const GlobalProvider = ({ children }) => {
         colorCorrectoDispatch,
         finalizaJuegoState,
         finalizaJuegoDispatch,
+        generosState,
+        generosDispatch,
         listErrorState,
         listErrorDispatch,
         listaJuegosState,

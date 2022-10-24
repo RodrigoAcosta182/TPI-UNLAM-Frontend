@@ -57,7 +57,7 @@ const VerdaderoFalso = () => {
       </div>
       <div className="verdaderofalso-container">
         <div className="verdaderofalso-pregunta bw32b">
-          <p className="c-white">¿Esto es una manzana?</p>
+          <p className="c-white">¿Es una manzana?</p>
         </div>
 
         <div className="verdaderofalso-imgContainer">
