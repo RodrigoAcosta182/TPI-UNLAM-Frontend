@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { ReactComponent as HangupIcon } from "../../../assets/images/hangup.svg";
-import { ReactComponent as MoreIcon } from "../../../assets/images/more-vertical.svg";
 import { ReactComponent as CopyIcon } from "../../../assets/images/copy.svg";
 import {
   firebaseConfig,
@@ -14,6 +13,7 @@ import "./LlamadaPaciente.css";
 import { hideModal, showModal } from "../../../context/action/modal/modal";
 import AceptaLlamada from "../AceptaLlamada/AceptaLlamada";
 import { GlobalContext } from "../../../context/Provider";
+import LlamadaEntrante from "../LlamadaEntrante/LlamadaEntrante";
 
 // Initialize Firebase
 
@@ -41,6 +41,7 @@ function LlamadaPaciente() {
 
   return (
     <>
+    <LlamadaEntrante callback={mostrarModalLlamar} />
       {!mostrarModal ? (
         <Menu
           joinCode={joinCode}
