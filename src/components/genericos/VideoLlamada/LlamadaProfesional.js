@@ -14,6 +14,7 @@ import AceptaLlamada from "../AceptaLlamada/AceptaLlamada";
 import "./VideoLlamada.css";
 import CardInfoPaciente from "../CardInfoPaciente/CardInfoPaciente";
 import NotaPaciente from "../NotaPaciente/NotaPaciente";
+import { wsPostGuardarLlamada, wsPostLlamadaSaliente } from "../../../context/action/llamada/llamada";
 
 // Initialize Firebase
 
@@ -59,12 +60,14 @@ function LlamadaProfesional({ paciente }) {
 }
 
 function Videos({ callId, pacienteSeleccionado }) {
-  const { modalDispatch } = useContext(GlobalContext);
+  const { modalDispatch, llamadaDispatch, llamadaState } =
+    useContext(GlobalContext);
   const [webcamActive, setWebcamActive] = useState(false);
-  // const [roomId, setRoomId] = useState(callId);
+
   const [llamadaDto, setLlamadaDto] = useState({
-    idLlamada: callId,
-    paciente: pacienteSeleccionado,
+    CodigoLlamada: callId,
+    PacienteId: pacienteSeleccionado.pacienteId,
+    Fecha: new Date(),
   });
 
   const localRef = useRef();
@@ -99,7 +102,7 @@ function Videos({ callId, pacienteSeleccionado }) {
     const answerCandidates = callDoc.collection("answerCandidates");
 
     //guardamos el id de llamada
-    setLlamadaDto({ ...llamadaDto, idLlamada: callDoc.id });
+    setLlamadaDto({ ...llamadaDto, CodigoLlamada: callDoc.id });
     // setRoomId(callDoc.id);
 
     pc.onicecandidate = (event) => {
@@ -141,7 +144,7 @@ function Videos({ callId, pacienteSeleccionado }) {
     // cuando llamamos a esta funcion cerramos conexiones
     pc.onconnectionstatechange = (event) => {
       if (pc.connectionState === "disconnected") {
-        terminarLlamada(pc, llamadaDto.idLlamada, firestore);
+        terminarLlamada(pc, llamadaDto.CodigoLlamada, firestore);
       }
     };
   };
@@ -152,11 +155,16 @@ function Videos({ callId, pacienteSeleccionado }) {
   }, []);
 
   useEffect(() => {
-    if (llamadaDto.idLlamada) {
-      //realizar post a la base. Sumarle fecha de hoy
-      console.log(llamadaDto);
+    if (llamadaDto.CodigoLlamada) {
+      wsPostGuardarLlamada(llamadaDto)(llamadaDispatch);
     }
-  }, [llamadaDto.idLlamada]);
+  }, [llamadaDto.CodigoLlamada]);
+
+  useEffect(() => {
+    if (llamadaState.llamada.data === 200) {
+      wsPostLlamadaSaliente(llamadaDto.CodigoLlamada)(llamadaDispatch)
+    } 
+  }, [llamadaState.llamada.data]);
 
   return (
     <>
@@ -183,7 +191,9 @@ function Videos({ callId, pacienteSeleccionado }) {
             {webcamActive && (
               <div className="llamadaProfesional-botones-container">
                 <button
-                  onClick={() => terminarLlamada(pc, llamadaDto.idLlamada, firestore)}
+                  onClick={() =>
+                    terminarLlamada(pc, llamadaDto.CodigoLlamada, firestore)
+                  }
                   disabled={!webcamActive}
                   className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
                 >
@@ -192,7 +202,7 @@ function Videos({ callId, pacienteSeleccionado }) {
                 <button
                   className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
                   onClick={() => {
-                    navigator.clipboard.writeText(llamadaDto.idLlamada);
+                    navigator.clipboard.writeText(llamadaDto.CodigoLlamada);
                   }}
                 >
                   <CopyIcon /> Copiar ID

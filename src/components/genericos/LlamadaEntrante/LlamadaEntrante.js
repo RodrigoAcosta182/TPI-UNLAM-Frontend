@@ -22,6 +22,7 @@ const LlamadaEntrante = ({callback}) => {
       await connection.start();
       console.log("SignalR Connected.");
       connection.on("sendMessage", (message) => {
+        console.log(message)
         subject.next(message);
       });
     } catch (err) {
