@@ -60,6 +60,10 @@ const ComidaCorrecta = () => {
     history.push("/");
   };
 
+    const enviarResultados = () => {
+    wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+  };
+
   useEffect(() => {
     //revisar para darle el finalizar
     if (resultadoJuegoDto.Desaciertos >= 4) {

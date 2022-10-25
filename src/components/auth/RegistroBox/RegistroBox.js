@@ -41,6 +41,7 @@ const RegistroBox = ({ dsb }) => {
     profesionalesState,
     profesionalesDispatch,
     generosDispatch,
+    generosState
   } = useContext(GlobalContext);
 
   const [soyMedico, setSoyMedico] = useState(false);
@@ -57,7 +58,7 @@ const RegistroBox = ({ dsb }) => {
     NombreTutor: "",
     dni: "",
     mail: "",
-    GeneroId: 1,
+    GeneroId: null,
     direccion: "",
     telefono: "",
     contrasena: "",
@@ -262,6 +263,14 @@ const RegistroBox = ({ dsb }) => {
     }
   };
 
+  const seleccionarGenero = (genero) => {
+    //revisar que el campo sea requerido
+    if (genero) {
+      console.log(genero.id);
+      setRegistroDto({ ...registroDto, GeneroId: genero.id });
+    }
+  };
+
   return (
     <div className="registrobox-container">
       <div className="registrobox-formulario">
@@ -322,11 +331,11 @@ const RegistroBox = ({ dsb }) => {
               <Dropdown
                 valor={""}
                 name="GeneroId"
-                onChange={seleccionarProfesional}
+                onChange={seleccionarGenero}
                 headerStr={"Género"}
-                datos={profesionalesState.profesionales.data}
+                datos={generosState.generos.data}
                 campoCodigo="id"
-                descripcion="mail"
+                descripcion="descripcion"
                 errorStr="El género es requerido"
                 customCssInput={"fondoBlue c-white"}
               />

@@ -30,7 +30,8 @@
   gap: 10px;
 }
 .verdaderofalso-trueBtn,
-.verdaderofalso-falseBtn {
+.verdaderofalso-falseBtn,
+.verdaderofalso-finalizarBtn {
   width: 200px;
   height: 50px;
   border-radius: 4px;
@@ -49,11 +50,14 @@
 .verdaderofalso-falseBtn {
   background: var(--color-danger);
 }
+.verdaderofalso-finalizarBtn {
+  background: var(--color-white);
+}
 .verdaderofalso-imagen {
   width: 300px;
 }
-@media (max-width: 1365px) {
+/* @media (max-width: 1365px) {
   .verdaderofalso-imagen {
     width: 350px;
   }
-}
+} */

@@ -10,41 +10,115 @@ import SalirIcon from "../../../assets/images/SalirIcon";
 import { wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
 import CheckIcon from "../../../assets/images/CheckIcon";
 import CruzIcon from "../../../assets/images/CruzIcon";
+import Anana from "../../../assets/images/frutas/Anana.png";
+import Frutilla from "../../../assets/images/frutas/Frutilla.png";
+import Manzana from "../../../assets/images/frutas/Manzana.png";
+import Naranja from "../../../assets/images/frutas/Naranja.png";
+import Uva from "../../../assets/images/frutas/Uva.png";
+import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
 
 const VerdaderoFalso = () => {
-  const { finalizaJuegoDispatch } = useContext(GlobalContext);
+  const { finalizaJuegoDispatch, modalAvatarDispatch } = useContext(GlobalContext);
 
   const history = useHistory();
+
+  const horaInicio = new Date();
+
+  const [arrayFrutas, setArrayFrutas] = useState(null);
+  const [textoPregunta, setTextoPregunta] = useState(null);
+  const [imagenPregunta, setImagenPregunta] = useState(null);
+
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
-    Aciertos: null,
-    Desaciertos: null,
-    JuegoId: 1,
+    Aciertos: 0,
+    Desaciertos: 0,
+    JuegoId: 4,
     Finalizado: true,
+    FechaInicio: horaInicio,
+    FechaFinalizacion: null,
   });
 
+  useEffect(() => {
+    setArrayFrutas([
+      { id: 1, descripcion: "Naranja", img: Naranja },
+      { id: 1, descripcion: "Uva", img: Uva },
+      { id: 1, descripcion: "Anana", img: Anana },
+      { id: 1, descripcion: "Frutilla", img: Frutilla },
+      { id: 1, descripcion: "Manzana", img: Manzana },
+    ]);
+  }, []);
+
+  useEffect(() => {
+    if (arrayFrutas) {
+      setImagenPregunta(
+        arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+      );
+      setTextoPregunta(
+        arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+      );
+    }
+  }, [arrayFrutas]);
+
   const finalizarJuego = () => {
-    wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
-    //poner logica de loading y push
-    history.push("/");
+    let horarioFinalizacion = new Date();
+    setResultadoJuegoDto({
+      ...resultadoJuegoDto,
+      FechaFinalizacion: horarioFinalizacion,
+    });
   };
 
   useEffect(() => {
-    //revisar para darle el finalizar
-    if (resultadoJuegoDto.Desaciertos >= 4) {
-      wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+    if (resultadoJuegoDto.FechaFinalizacion !== null) {
+      showModalAvatar(enviarResultados)(modalAvatarDispatch);
     }
-  }, [resultadoJuegoDto.Desaciertos]);
+  }, [resultadoJuegoDto.FechaFinalizacion]);
+
+  const enviarResultados = () => {
+    wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+  };
 
   const volverAlHome = () => {
     history.push("/home");
   };
 
-  const verdadero = () => {
-    alert("CORRECTO")
-  };
-
-  const falso = () => {
-    alert("Intenta de nuevo")
+  const responder = (resp) => {
+    if (resp === "si") {
+      if (textoPregunta === imagenPregunta) {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Aciertos: resultadoJuegoDto.Aciertos + 1,
+        });
+      } else {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Desaciertos: resultadoJuegoDto.Desaciertos + 1,
+        });
+      }
+      setImagenPregunta(
+        arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+      );
+      setTextoPregunta(
+        arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+      );
+    }
+    if (resp === "no") {
+      if (textoPregunta === imagenPregunta) {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Desaciertos: resultadoJuegoDto.Desaciertos + 1,
+        });
+      } else {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Aciertos: resultadoJuegoDto.Aciertos + 1,
+        });
+      }
+    }
+    setImagenPregunta(
+      arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+    );
+    setTextoPregunta(
+      arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+    );
   };
 
   return (
@@ -56,34 +130,42 @@ const VerdaderoFalso = () => {
         </div>
       </div>
       <div className="verdaderofalso-container">
-        <div className="verdaderofalso-pregunta bw32b">
-          <p className="c-white">¿Es una manzana?</p>
-        </div>
-
-        <div className="verdaderofalso-imgContainer">
-          <img
-            className="verdaderofalso-imagen"
-            alt="objeto"
-            src="https://images.vexels.com/media/users/3/182371/isolated/preview/2f8c7e9f42c7781c3846b435475f92af-plano-de-fruta-de-manzana.png"
-          ></img>
-        </div>
-
-        <div className="verdaderofalso-boxBtn">
+        {imagenPregunta && textoPregunta && (
           <>
-            <button
-              className={"verdaderofalso-falseBtn bw24t c-white"}
-              onClick={() => falso()}
-            >
-              <CruzIcon /> Falso
-            </button>
-            <button
-              className={"verdaderofalso-trueBtn bw24t c-white"}
-              onClick={() => verdadero()}
-            >
-              <CheckIcon /> Verdadero
-            </button>
+            <div className="verdaderofalso-pregunta bw32b">
+              <p className="c-white">¿Es un/a {textoPregunta.descripcion}?</p>
+            </div>
+
+            <div className="verdaderofalso-imgContainer">
+              <img
+                className={"verdaderofalso-imagen"}
+                src={imagenPregunta.img}
+                alt="fruta"
+              />
+            </div>
+
+            <div className="verdaderofalso-boxBtn">
+              <button
+                className={"verdaderofalso-falseBtn bw24t c-white"}
+                onClick={() => responder("no")}
+              >
+                <CruzIcon /> Falso
+              </button>
+              <button
+                className={"verdaderofalso-trueBtn bw24t c-white"}
+                onClick={() => responder("si")}
+              >
+                <CheckIcon /> Verdadero
+              </button>
+            </div>
           </>
-        </div>
+        )}
+        <button
+          className={"verdaderofalso-finalizarBtn bw24t"}
+          onClick={() => finalizarJuego()}
+        >
+          Finalizar
+        </button>
       </div>
     </>
   );
