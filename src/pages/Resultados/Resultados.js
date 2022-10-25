@@ -91,7 +91,7 @@ const Resultados = () => {
                           </td>
 
                           <td className="tablaFilas c-white">
-                            {item.fechaInicio}
+                            {item.duracion}
                           </td>
 
                           <td className="tablaFilas c-white">

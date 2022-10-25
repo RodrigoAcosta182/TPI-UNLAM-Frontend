@@ -106,7 +106,9 @@ const MisPacientes = () => {
                             {calculaEdad(item.fechaNacimiento)}
                           </td>
                           <td className="tablaFilas c-white">
-                            {new Date(item.fechaNacimiento).toLocaleDateString()}
+                            {new Date(
+                              item.fechaNacimiento
+                            ).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
                             {item.direccion}
@@ -117,9 +119,7 @@ const MisPacientes = () => {
                           <td className="tablaFilas c-white">
                             {item.telefono}
                           </td>
-                          <td className="tablaFilas c-white">
-                            {item.mail}
-                          </td>
+                          <td className="tablaFilas c-white">{item.mail}</td>
                           {item.estado ? (
                             <td className="tablaFilas c-white">Si</td>
                           ) : (
@@ -130,27 +130,33 @@ const MisPacientes = () => {
                             <div className="btnPacientesBox">
                               {item.estado ? (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-primary bw18m"
+                                  className="btnAccionesPacientes c-white bgc-danger bw18m"
                                   onClick={() => habilitarPaciente(item)}
                                 >
                                   Deshabilitar
                                 </button>
                               ) : (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-primary bw18m"
+                                  className="btnAccionesPacientes c-white bgc-broccoli bw18m"
                                   onClick={() => habilitarPaciente(item)}
                                 >
                                   Habilitar
                                 </button>
                               )}
 
-                              <button
-                                className="btnAccionesPacientes c-white bgc-primary bw18m"
-                                onClick={() => irAMasInfo(item)}
-                              >
-                                Resultados
-                              </button>
-                              <LlamadaProfesional paciente={item} />
+                              {item.estado ? (
+                                <>
+                                  <button
+                                    className="btnAccionesPacientes c-white bgc-primary bw18m"
+                                    onClick={() => irAMasInfo(item)}
+                                  >
+                                    Resultados
+                                  </button>
+                                  <LlamadaProfesional paciente={item} />
+                                </>
+                              ) : (
+                                ""
+                              )}
                             </div>
                           </td>
                         </tr>

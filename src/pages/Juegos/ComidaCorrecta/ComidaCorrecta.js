@@ -6,31 +6,39 @@ import { GlobalContext } from "../../../context/Provider";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import SalirIcon from "../../../assets/images/SalirIcon";
-import { wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
+import { resetFinalizaJuego, wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
 import fox from "../../../assets/images/avatar/Fox.png";
 import Burbuja from "../../../assets/images/avatar/Burbuja.png";
 import Comida1 from "../../../assets/images/comidas/Comida1.png";
 import Comida2 from "../../../assets/images/comidas/Comida2.png";
 import Comida3 from "../../../assets/images/comidas/Comida3.png";
 import Comida4 from "../../../assets/images/comidas/Comida4.png";
+import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
+import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
 
 const ComidaCorrecta = () => {
-  const { finalizaJuegoDispatch } = useContext(GlobalContext);
+  const { modalAvatarState, modalAvatarDispatch, finalizaJuegoState, finalizaJuegoDispatch } =
+    useContext(GlobalContext);
 
   const history = useHistory();
+
+  const horaInicio = new Date();
 
   const [selected, setSelected] = useState(null);
 
   const [arrayComidas, setArrayComidas] = useState(null);
 
+  const [comidaSelected, setComidaSelected] = useState(null);
   const [comidaBurbuja, setComidaBurbuja] = useState();
   const [comidaAnterior, setComidaAnterior] = useState();
 
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
-    Aciertos: null,
-    Desaciertos: null,
-    JuegoId: 1,
+    Aciertos: 0,
+    Desaciertos: 0,
+    JuegoId: 5,
     Finalizado: true,
+    FechaInicio: horaInicio,
+    FechaFinalizacion: null,
   });
 
   useEffect(() => {
@@ -55,33 +63,53 @@ const ComidaCorrecta = () => {
   }, [arrayComidas, comidaAnterior]);
 
   const finalizarJuego = () => {
-    wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
-    //poner logica de loading y push
-    history.push("/");
+    let horarioFinalizacion = new Date();
+    setResultadoJuegoDto({
+      ...resultadoJuegoDto,
+      FechaFinalizacion: horarioFinalizacion,
+    });
   };
 
-    const enviarResultados = () => {
+  useEffect(() => {
+    if (resultadoJuegoDto.FechaFinalizacion !== null) {
+      showModalAvatar(enviarResultados)(modalAvatarDispatch);
+    }
+  }, [resultadoJuegoDto.FechaFinalizacion]);
+
+  const enviarResultados = () => {
     wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
   };
 
   useEffect(() => {
-    //revisar para darle el finalizar
-    if (resultadoJuegoDto.Desaciertos >= 4) {
-      wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+    if (finalizaJuegoState.finalizaJuego.data !== null) {
+      volverAlHome();
+      resetFinalizaJuego()(finalizaJuegoDispatch);
     }
-  }, [resultadoJuegoDto.Desaciertos]);
+  }, [finalizaJuegoState.finalizaJuego.data]);
 
   const volverAlHome = () => {
     history.push("/home");
   };
 
-  const selectImagen = (e) => {
-    setSelected(e);
+  const selectImagen = (item, index) => {
+    setSelected(index);
+    setComidaSelected(item);
   };
 
   const elegir = () => {
     setComidaAnterior(comidaBurbuja);
     setSelected(null);
+    if (comidaSelected === comidaBurbuja) {
+      setResultadoJuegoDto({
+        ...resultadoJuegoDto,
+        Aciertos: resultadoJuegoDto.Aciertos + 1,
+      });
+    } else {
+      setResultadoJuegoDto({
+        ...resultadoJuegoDto,
+        Desaciertos: resultadoJuegoDto.Desaciertos + 1,
+      });
+    }
     let random = arrayComidas[Math.floor(Math.random() * arrayComidas.length)];
     if (random === comidaAnterior) {
       setComidaBurbuja(
@@ -97,6 +125,7 @@ const ComidaCorrecta = () => {
 
   return (
     <>
+      {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       <div className="comidaCorrecta-volverAccion" onClick={volverAlHome}>
         <div className="comidaCorrecta-btnCont">
           <SalirIcon />
@@ -134,7 +163,7 @@ const ComidaCorrecta = () => {
                   <React.Fragment key={index}>
                     <div
                       className="comidaCorrecta-arrayContainer"
-                      onClick={() => selectImagen(index)}
+                      onClick={() => selectImagen(item, index)}
                     >
                       <img
                         className={
@@ -157,13 +186,13 @@ const ComidaCorrecta = () => {
             className={`comidaCorrecta-btnListo bw24t ${
               selected === null && "bgc-grey65"
             }`}
-            onClick={selected === null ? () => {} : elegir}
+            onClick={selected === null ? () => {} : () => elegir()}
           >
             Listo
           </button>
           <button
             className={"comidaCorrecta-btnFinalizar bw24t"}
-            onClick={elegir}
+            onClick={() => finalizarJuego()}
           >
             Finalizar
           </button>

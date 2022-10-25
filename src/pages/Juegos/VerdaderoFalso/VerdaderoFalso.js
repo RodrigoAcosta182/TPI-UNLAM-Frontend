@@ -7,7 +7,10 @@ import { GlobalContext } from "../../../context/Provider";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import SalirIcon from "../../../assets/images/SalirIcon";
-import { wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
+import {
+  resetFinalizaJuego,
+  wsPostFinalizaJuego,
+} from "../../../context/action/Juegos/finalizaJuego";
 import CheckIcon from "../../../assets/images/CheckIcon";
 import CruzIcon from "../../../assets/images/CruzIcon";
 import Anana from "../../../assets/images/frutas/Anana.png";
@@ -16,17 +19,29 @@ import Manzana from "../../../assets/images/frutas/Manzana.png";
 import Naranja from "../../../assets/images/frutas/Naranja.png";
 import Uva from "../../../assets/images/frutas/Uva.png";
 import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
+import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
 
 const VerdaderoFalso = () => {
-  const { finalizaJuegoDispatch, modalAvatarDispatch } = useContext(GlobalContext);
+  const {
+    finalizaJuegoState,
+    finalizaJuegoDispatch,
+    modalAvatarDispatch,
+    modalAvatarState,
+  } = useContext(GlobalContext);
 
   const history = useHistory();
 
   const horaInicio = new Date();
 
+  const [imagenPreguntaAnterior, setImagenPreguntaAnterior] = useState(null);
+  const [textoPreguntaAnterior, setTextoPreguntaAnterior] = useState(null);
+
   const [arrayFrutas, setArrayFrutas] = useState(null);
   const [textoPregunta, setTextoPregunta] = useState(null);
   const [imagenPregunta, setImagenPregunta] = useState(null);
+  const [juegoFinalizado, setJuegoFinalizado] = useState(false);
+
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
     Aciertos: 0,
@@ -49,14 +64,35 @@ const VerdaderoFalso = () => {
 
   useEffect(() => {
     if (arrayFrutas) {
-      setImagenPregunta(
-        arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
-      );
-      setTextoPregunta(
-        arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
-      );
+      //Si la imagen vuelve a ser la misma vuelvo a hacer un random
+      if (imagenPreguntaAnterior) {
+        let preguntaNueva = arrayFrutas.filter(
+          (item) => item !== imagenPreguntaAnterior
+        );
+        setImagenPregunta(
+          preguntaNueva[Math.floor(Math.random() * preguntaNueva.length)]
+        );
+      } else {
+        setImagenPregunta(
+          arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+        );
+      }
+
+      //Si el texto vuelve a ser la misma vuelvo a hacer un random
+      if (textoPreguntaAnterior) {
+        let textoNuevo = arrayFrutas.filter(
+          (item) => item !== textoPreguntaAnterior
+        );
+        setTextoPregunta(
+          textoNuevo[Math.floor(Math.random() * textoNuevo.length)]
+        );
+      } else {
+        setTextoPregunta(
+          arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+        );
+      }
     }
-  }, [arrayFrutas]);
+  }, [arrayFrutas, imagenPreguntaAnterior, textoPreguntaAnterior]);
 
   const finalizarJuego = () => {
     let horarioFinalizacion = new Date();
@@ -64,13 +100,22 @@ const VerdaderoFalso = () => {
       ...resultadoJuegoDto,
       FechaFinalizacion: horarioFinalizacion,
     });
+    setJuegoFinalizado(true);
   };
 
   useEffect(() => {
-    if (resultadoJuegoDto.FechaFinalizacion !== null) {
+    if (juegoFinalizado) {
       showModalAvatar(enviarResultados)(modalAvatarDispatch);
+      setJuegoFinalizado(false);
     }
-  }, [resultadoJuegoDto.FechaFinalizacion]);
+  }, [juegoFinalizado]);
+
+  useEffect(() => {
+    if (finalizaJuegoState.finalizaJuego.data !== null) {
+      volverAlHome();
+      resetFinalizaJuego()(finalizaJuegoDispatch);
+    }
+  }, [finalizaJuegoState.finalizaJuego.data]);
 
   const enviarResultados = () => {
     wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
@@ -81,6 +126,9 @@ const VerdaderoFalso = () => {
   };
 
   const responder = (resp) => {
+    setImagenPreguntaAnterior(imagenPregunta);
+    setTextoPreguntaAnterior(textoPregunta);
+    setBtnDisabled(false);
     if (resp === "si") {
       if (textoPregunta === imagenPregunta) {
         setResultadoJuegoDto({
@@ -123,6 +171,7 @@ const VerdaderoFalso = () => {
 
   return (
     <>
+      {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       <div className="verdaderofalso-volverAccion" onClick={volverAlHome}>
         <div className="verdaderofalso-btnCont">
           <SalirIcon />
@@ -163,6 +212,7 @@ const VerdaderoFalso = () => {
         <button
           className={"verdaderofalso-finalizarBtn bw24t"}
           onClick={() => finalizarJuego()}
+          disabled={btnDisabled}
         >
           Finalizar
         </button>

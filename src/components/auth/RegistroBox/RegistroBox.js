@@ -266,7 +266,6 @@ const RegistroBox = ({ dsb }) => {
   const seleccionarGenero = (genero) => {
     //revisar que el campo sea requerido
     if (genero) {
-      console.log(genero.id);
       setRegistroDto({ ...registroDto, GeneroId: genero.id });
     }
   };
