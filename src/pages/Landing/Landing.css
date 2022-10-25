@@ -1,0 +1,70 @@
+.landing-container {
+}
+
+.landing-row-blue,
+.landing-row-white {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.landing-row-white {
+  flex-direction: row-reverse;
+  background-color: var(--color-white-landing);
+  gap: 200px;
+  padding: 80px 0;
+}
+.landing-imagen-informesPaciente {
+  width: 200px;
+}
+
+.landing-textoGrandin-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.btn-landingPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 8px 16px;
+  height: 48px;
+  width: max-content;
+  cursor: pointer;
+}
+
+.landing-lista-informePorPaciente {
+  list-style: disc;
+  text-align: start;
+}
+
+@media (max-width: 1024px) {
+  .landing-imagen-laptop {
+    width: 100%;
+  }
+  .landing-row-blue,
+  .landing-row-white {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .landing-textoGrandin-container {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+  }
+  .landing-imagen-informesPaciente {
+    width: 360px;
+  }
+}
+@media (max-width: 576px) {
+  .landing-imagen-laptop {
+    width: 330px;
+  }
+  .landing-imagen-informesPaciente {
+    width: 280px;
+  }
+}
