@@ -14,6 +14,7 @@ import { hideModal, showModal } from "../../../context/action/modal/modal";
 import AceptaLlamada from "../AceptaLlamada/AceptaLlamada";
 import { GlobalContext } from "../../../context/Provider";
 import LlamadaEntrante from "../LlamadaEntrante/LlamadaEntrante";
+import { resetLlamada, wsGetLlamadaActual } from "../../../context/action/llamada/llamada";
 
 // Initialize Firebase
 
@@ -26,7 +27,7 @@ const firestore = firebase.firestore();
 
 const pc = new RTCPeerConnection(servers);
 function LlamadaPaciente() {
-  const { modalDispatch } = useContext(GlobalContext);
+  const { modalDispatch, llamadaDispatch, llamadaState } = useContext(GlobalContext);
   const [currentPage, setCurrentPage] = useState("home");
   const [joinCode, setJoinCode] = useState("");
   const [mostrarModal, setMostrarModal] = useState(false);
@@ -39,14 +40,31 @@ function LlamadaPaciente() {
     )(modalDispatch);
   };
 
+  const buscarLlamada = () => {
+    wsGetLlamadaActual()(llamadaDispatch);
+  };
+
+  useEffect(()=>{
+    if(llamadaState.llamadaActual.data){
+      console.log(llamadaState.llamadaActual.data)
+      if(llamadaState.llamadaActual.data.codigoLlamada){
+        setJoinCode(llamadaState.llamadaActual.data.codigoLlamada)
+        console.log(llamadaState.llamadaActual.data.codigoLlamada)
+        resetLlamada()(llamadaDispatch)
+      }
+    }
+
+  },[llamadaState.llamadaActual.data])
+
   return (
     <>
-    <LlamadaEntrante callback={mostrarModalLlamar} />
+      <LlamadaEntrante callback={mostrarModalLlamar} />
       {!mostrarModal ? (
         <Menu
           joinCode={joinCode}
           setJoinCode={setJoinCode}
           mostrarModal={mostrarModalLlamar}
+          buscarLlamada={buscarLlamada}
         />
       ) : (
         <Videos mode={currentPage} callId={joinCode} setPage={setCurrentPage} />
@@ -55,7 +73,7 @@ function LlamadaPaciente() {
   );
 }
 
-function Menu({ joinCode, setJoinCode, mostrarModal }) {
+function Menu({ joinCode, setJoinCode, mostrarModal, buscarLlamada }) {
   return (
     <div className="llamadaPacienteMenu-container">
       <input
@@ -67,7 +85,13 @@ function Menu({ joinCode, setJoinCode, mostrarModal }) {
         className="btnAccionesPacientes bgc-primary c-white"
         onClick={() => mostrarModal()}
       >
-        Contestar
+        Contestar manual
+      </button>
+      <button
+        className="btnAccionesPacientes bgc-broccoli c-white"
+        onClick={() => buscarLlamada()}
+      >
+        Buscar llamada automático
       </button>
     </div>
   );
