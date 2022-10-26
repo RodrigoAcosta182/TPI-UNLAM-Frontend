@@ -4,7 +4,7 @@
   width: 100vw;
   z-index: 1;
   top: 0;
-  position: absolute;
+  position: fixed;
 }
 .modalContentNew {
   width: fit-content;

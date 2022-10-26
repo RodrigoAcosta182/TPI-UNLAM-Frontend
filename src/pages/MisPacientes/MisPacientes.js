@@ -130,14 +130,14 @@ const MisPacientes = () => {
                             <div className="btnPacientesBox">
                               {item.estado ? (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-danger bw18m"
+                                  className="btnAccionesPacientes c-white bgc-danger"
                                   onClick={() => habilitarPaciente(item)}
                                 >
                                   Deshabilitar
                                 </button>
                               ) : (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-broccoli bw18m"
+                                  className="btnAccionesPacientes c-white bgc-broccoli"
                                   onClick={() => habilitarPaciente(item)}
                                 >
                                   Habilitar
@@ -147,7 +147,7 @@ const MisPacientes = () => {
                               {item.estado ? (
                                 <>
                                   <button
-                                    className="btnAccionesPacientes c-white bgc-primary bw18m"
+                                    className="btnAccionesPacientes c-white bgc-primary"
                                     onClick={() => irAMasInfo(item)}
                                   >
                                     Resultados
