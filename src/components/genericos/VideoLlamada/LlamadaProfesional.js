@@ -48,7 +48,7 @@ function LlamadaProfesional({ paciente }) {
   return (
     <>
       <button
-        className="btnAccionesPacientes  c-white bgc-primary bw18m"
+        className="btnAccionesPacientes  c-white bgc-primary bw14b"
         onClick={mostrarModalLlamar}
       >
         Llamar
@@ -195,12 +195,12 @@ function Videos({ callId, pacienteSeleccionado }) {
                   terminarLlamada(pc, llamadaDto.CodigoLlamada, firestore)
                 }
                 disabled={!webcamActive}
-                className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
+                className="llamadaProfesional-btn-btn btnllamadaProfesional bgc-primary c-white"
               >
                 <HangupIcon />
               </button>
               <button
-                className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
+                className="llamadaProfesional-btn-btn btnllamadaProfesional bgc-primary c-white"
                 onClick={() => {
                   navigator.clipboard.writeText(llamadaDto.CodigoLlamada);
                 }}

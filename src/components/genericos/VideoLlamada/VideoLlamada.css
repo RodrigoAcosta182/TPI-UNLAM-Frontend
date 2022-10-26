@@ -59,3 +59,11 @@
   gap: 8px;
 }
 
+
+.llamadaProfesional-btn-btn {
+  width: 110px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 10px 0;
+}
