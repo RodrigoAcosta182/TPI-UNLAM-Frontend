@@ -350,6 +350,9 @@ body {
 .bgcG-danger {
   background: linear-gradient(95.53deg, #730700 1.56%, #c10c00 65.41%);
 }
+.bgcG-purple {
+  background: linear-gradient(90deg, #488c4b 44.92%, rgba(72, 140, 72, 0.8) 100%);
+}
 
 .b-latex30 {
   border: 1px #006299 solid;
