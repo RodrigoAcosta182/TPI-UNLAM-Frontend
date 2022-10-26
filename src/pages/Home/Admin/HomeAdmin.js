@@ -32,6 +32,7 @@ const HomeAdmin = () => {
                 juego="Listado profesionales"
                 activo={true}
                 irAlJuego={() => verListaProfesionales()}
+                imagen={"Profesionales"}
               />
             </div>
           </React.Fragment>

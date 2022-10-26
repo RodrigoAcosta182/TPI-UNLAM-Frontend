@@ -1,7 +1,7 @@
 const registroInitialState = {
   registro: {
     loading: false,
-    error: null,
+    error: false,
     data: null,
     registroCampos: {
       matricula: "",
@@ -9,7 +9,10 @@ const registroInitialState = {
       fechaNacimiento: null,
       nombre: "",
       apellido: "",
+      nombreTutor: null,
       dni: "",
+      direccion: null,
+      telefono: null,
       mail: "",
       contrasena: "",
     },

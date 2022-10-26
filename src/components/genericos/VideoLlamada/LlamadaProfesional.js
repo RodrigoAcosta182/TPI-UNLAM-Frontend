@@ -14,7 +14,10 @@ import AceptaLlamada from "../AceptaLlamada/AceptaLlamada";
 import "./VideoLlamada.css";
 import CardInfoPaciente from "../CardInfoPaciente/CardInfoPaciente";
 import NotaPaciente from "../NotaPaciente/NotaPaciente";
-import { wsPostGuardarLlamada, wsPostLlamadaSaliente } from "../../../context/action/llamada/llamada";
+import {
+  wsPostGuardarLlamada,
+  wsPostLlamadaSaliente,
+} from "../../../context/action/llamada/llamada";
 
 // Initialize Firebase
 
@@ -45,7 +48,7 @@ function LlamadaProfesional({ paciente }) {
   return (
     <>
       <button
-        className="btnAccionesPacientes  c-white bgc-primary bw18m"
+        className="btnAccionesPacientes  c-white bgc-primary bw14b"
         onClick={mostrarModalLlamar}
       >
         Llamar
@@ -160,16 +163,54 @@ function Videos({ callId, pacienteSeleccionado }) {
     }
   }, [llamadaDto.CodigoLlamada]);
 
+  //desactivo SignalR
   useEffect(() => {
     if (llamadaState.llamada.data === 200) {
-      wsPostLlamadaSaliente(llamadaDto.CodigoLlamada)(llamadaDispatch)
-    } 
+      console.log("la llamada comenzo");
+      // wsPostLlamadaSaliente(llamadaDto.CodigoLlamada, pacienteSeleccionado.id)(llamadaDispatch);
+    }
   }, [llamadaState.llamada.data]);
+
+  const handleClickGuardarNota = () => {};
+  const onChangeNota = (e) => {
+    console.log(e.target.value)
+  };
 
   return (
     <>
-      <div className="llamadaProfesional-Container">
-        <div className="llamadaProfesional-videosContainer">
+      <div className="llamadaProfesional-videosContainer">
+        <div className="llamadaProfesional-boxLeft">
+          <CardInfoPaciente paciente={pacienteSeleccionado} />
+          {/* grande */}
+          <video
+            ref={remoteRef}
+            autoPlay
+            playsInline
+            className="llamadaProfesional-videoRemote"
+          />
+          {webcamActive && (
+            <div className="llamadaProfesional-botones-container">
+              <button
+                onClick={() =>
+                  terminarLlamada(pc, llamadaDto.CodigoLlamada, firestore)
+                }
+                disabled={!webcamActive}
+                className="llamadaProfesional-btn-btn btnllamadaProfesional bgc-primary c-white"
+              >
+                <HangupIcon />
+              </button>
+              <button
+                className="llamadaProfesional-btn-btn btnllamadaProfesional bgc-primary c-white"
+                onClick={() => {
+                  navigator.clipboard.writeText(llamadaDto.CodigoLlamada);
+                }}
+              >
+                <CopyIcon /> Copiar ID
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="nota-videoMiniatura-container">
           {/* miniatura */}
           <video
             ref={localRef}
@@ -178,39 +219,10 @@ function Videos({ callId, pacienteSeleccionado }) {
             className="llamadaProfesional-videoLocal"
             muted
           />
-          {/* grande */}
-
-          <div>
-            <CardInfoPaciente />
-            <video
-              ref={remoteRef}
-              autoPlay
-              playsInline
-              className="llamadaProfesional-videoRemote"
-            />
-            {webcamActive && (
-              <div className="llamadaProfesional-botones-container">
-                <button
-                  onClick={() =>
-                    terminarLlamada(pc, llamadaDto.CodigoLlamada, firestore)
-                  }
-                  disabled={!webcamActive}
-                  className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
-                >
-                  <HangupIcon />
-                </button>
-                <button
-                  className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
-                  onClick={() => {
-                    navigator.clipboard.writeText(llamadaDto.CodigoLlamada);
-                  }}
-                >
-                  <CopyIcon /> Copiar ID
-                </button>
-              </div>
-            )}
-          </div>
-          <NotaPaciente />
+          <NotaPaciente
+            handleClickGuardarNota={handleClickGuardarNota}
+            onChangeNota={onChangeNota}
+          />
         </div>
       </div>
     </>

@@ -16,6 +16,7 @@ import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
 import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
 import Loading from "../../../components/genericos/Loading/Loading";
 import HeaderbarHome from "../../../components/genericos/HeaderbarHome/HeaderbarHome";
+import LlamadaPaciente from "../../../components/genericos/VideoLlamada/LlamadaPaciente";
 
 export default function ColorCorrecto() {
   const {
@@ -251,6 +252,7 @@ export default function ColorCorrecto() {
           )}
         </div>
       </div>
+      
     </>
   );
 }

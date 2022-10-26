@@ -4,8 +4,8 @@ import { Subject } from "rxjs";
 import { showModal } from "../../../context/action/modal/modal";
 import LlamadaEntranteModal from "./LlamadaEntranteModal";
 import { GlobalContext } from "../../../context/Provider";
-const LlamadaEntrante = ({callback}) => {
-  const {modalDispatch} =useContext(GlobalContext)
+const LlamadaEntrante = ({ callback }) => {
+  const { modalDispatch, authState } = useContext(GlobalContext);
   const connection = new HubConnectionBuilder()
     .withUrl("https://localhost:44392/message")
     .configureLogging(LogLevel.Information)
@@ -16,14 +16,18 @@ const LlamadaEntrante = ({callback}) => {
       const subject = new Subject();
       subject.subscribe((message) => {
         // showModal(<LlamadaEntranteModal mensaje={message} />)(modalDispatch);
-        callback()
+        callback();
       });
 
       await connection.start();
       console.log("SignalR Connected.");
       connection.on("sendMessage", (message) => {
-        console.log(message)
-        subject.next(message);
+        if (message.ReceptorId === authState.auth.data.usuario.id) {
+          console.log(message);
+          console.log(authState.auth.data);
+
+          subject.next(message);
+        }
       });
     } catch (err) {
       console.log(err);

@@ -66,6 +66,7 @@ const Resultados = () => {
               <tbody>
                 <tr className="bw18t c-white">
                   <th className="columnaInicio">Juego</th>
+                  <th className="columna">Fecha de inicio</th>
                   <th className="columna">Aciertos</th>
                   <th className="columna">Desaciertos</th>
                   <th className="columna">Tiempo de resolución</th>
@@ -80,6 +81,9 @@ const Resultados = () => {
                             {item.juegoDescripcion}{" "}
                           </td>
                           <td className="tablaFilas c-white">
+                            {new Date(item.fechaInicio).toLocaleDateString()}{" "}
+                          </td>
+                          <td className="tablaFilas c-white">
                             {item.aciertos}
                           </td>
                           <td className="tablaFilas c-white">
@@ -87,7 +91,7 @@ const Resultados = () => {
                           </td>
 
                           <td className="tablaFilas c-white">
-                            {item.fechaInicio}
+                            {item.duracion}
                           </td>
 
                           <td className="tablaFilas c-white">

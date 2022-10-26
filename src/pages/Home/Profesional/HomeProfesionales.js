@@ -29,6 +29,7 @@ const HomeProfesionales = () => {
                 juego="Mis Pacientes"
                 activo={true}
                 irAlJuego={() => showModalJuego()}
+                imagen={"MisPacientes"}
               />
             </div>
           </React.Fragment>

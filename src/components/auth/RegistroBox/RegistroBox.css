@@ -7,13 +7,13 @@
   );
   border-radius: 50px;
   display: flex;
-  height: 584px;
+  height: 750px;
 }
 
 .registrobox-formulario-body {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .registrobox-formulario {

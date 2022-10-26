@@ -13,6 +13,7 @@ import {
 import { setPacienteContexto } from "../../context/action/pacienteSeleccionado/pacienteSeleccionado";
 import LlamadaProfesional from "../../components/genericos/VideoLlamada/LlamadaProfesional";
 import Modal from "../../components/genericos/Modal/Modal";
+import calculaEdad from "../../global/utils/edad";
 
 const MisPacientes = () => {
   const {
@@ -83,8 +84,12 @@ const MisPacientes = () => {
               <tbody>
                 <tr className="bw18t c-white">
                   <th className="columnaInicio">Nombre</th>
+                  <th className="columna">Edad</th>
+                  <th className="columna">Fecha Nacimiento</th>
+                  <th className="columna">Dirección</th>
                   <th className="columna">Tutor a cargo</th>
                   <th className="columna">Teléfono</th>
+                  <th className="columna">Mail</th>
                   <th className="columna">Activo</th>
                   <th className="columna">Acciones</th>
                 </tr>
@@ -98,11 +103,23 @@ const MisPacientes = () => {
                             {item.pacienteNombre} {item.pacienteApellido}{" "}
                           </td>
                           <td className="tablaFilas c-white">
+                            {calculaEdad(item.fechaNacimiento)}
+                          </td>
+                          <td className="tablaFilas c-white">
+                            {new Date(
+                              item.fechaNacimiento
+                            ).toLocaleDateString()}
+                          </td>
+                          <td className="tablaFilas c-white">
+                            {item.direccion}
+                          </td>
+                          <td className="tablaFilas c-white">
                             {item.nombreTutor}
                           </td>
                           <td className="tablaFilas c-white">
                             {item.telefono}
                           </td>
+                          <td className="tablaFilas c-white">{item.mail}</td>
                           {item.estado ? (
                             <td className="tablaFilas c-white">Si</td>
                           ) : (
@@ -113,27 +130,33 @@ const MisPacientes = () => {
                             <div className="btnPacientesBox">
                               {item.estado ? (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-primary bw18m"
+                                  className="btnAccionesPacientes c-white bgc-danger bw14b"
                                   onClick={() => habilitarPaciente(item)}
                                 >
                                   Deshabilitar
                                 </button>
                               ) : (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-primary bw18m"
+                                  className="btnAccionesPacientes c-white bgc-broccoli bw14b"
                                   onClick={() => habilitarPaciente(item)}
                                 >
                                   Habilitar
                                 </button>
                               )}
 
-                              <button
-                                className="btnAccionesPacientes c-white bgc-primary bw18m"
-                                onClick={() => irAMasInfo(item)}
-                              >
-                                Resultados
-                              </button>
-                              <LlamadaProfesional paciente={item} />
+                              {item.estado ? (
+                                <>
+                                  <button
+                                    className="btnAccionesPacientes c-white bgc-primary bw14b"
+                                    onClick={() => irAMasInfo(item)}
+                                  >
+                                    Resultados
+                                  </button>
+                                  <LlamadaProfesional paciente={item} />
+                                </>
+                              ) : (
+                                ""
+                              )}
                             </div>
                           </td>
                         </tr>

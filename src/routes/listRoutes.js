@@ -1,7 +1,9 @@
 import Home from "../pages/Home/Home";
 import ColorCorrecto from "../pages/Juegos/ColorCorrecto/ColorCorrecto";
+import ComidaCorrecta from "../pages/Juegos/ComidaCorrecta/ComidaCorrecta";
 import OrdenaNumeros from "../pages/Juegos/OrdenaNumeros/OrdenaNumeros";
 import VerdaderoFalso from "../pages/Juegos/VerdaderoFalso/VerdaderoFalso";
+import Landing from "../pages/Landing/Landing";
 import ListaProfesionales from "../pages/ListaProfesionales/ListaProfesionales";
 import Login from "../pages/Login/Login";
 import MisPacientes from "../pages/MisPacientes/MisPacientes";
@@ -10,6 +12,12 @@ import Registro from "../pages/Registro/Registro";
 import Resultados from "../pages/Resultados/Resultados";
 
 const listRoutes = [
+  {
+    path: "/landing",
+    component: Landing,
+    title: "Landing",
+    auth: false,
+  },
   {
     path: "/colorcorrecto",
     component: ColorCorrecto,
@@ -26,6 +34,12 @@ const listRoutes = [
     path: "/verdaderofalso",
     component: VerdaderoFalso,
     title: "Verdadero o Falso",
+    auth: false,
+  },
+  {
+    path: "/comidacorrecta",
+    component: ComidaCorrecta,
+    title: "Comida Correcta",
     auth: false,
   },
   {

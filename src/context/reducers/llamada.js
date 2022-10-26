@@ -6,6 +6,9 @@ import {
   LLAMADA_SALIENTE_LOADING,
   LLAMADA_SALIENTE_SUCCESS,
   LLAMADA_RESET,
+  GET_LLAMADA_ACTUAL_LOADING,
+  GET_LLAMADA_ACTUAL_SUCCESS,
+  GET_LLAMADA_ACTUAL_ERROR,
 } from "../ActionTypes";
 import llamadaInitialState from "../initialStates/llamadaInitialState";
 
@@ -64,6 +67,36 @@ const llamada = (state, { payload, type }) => {
         ...state,
         llamadaSaliente: {
           ...state.llamadaSaliente,
+          error: payload,
+          loading: false,
+          data: null,
+        },
+      };
+
+    case GET_LLAMADA_ACTUAL_LOADING:
+      return {
+        ...state,
+        llamadaActual: {
+          ...state.llamadaActual,
+          error: false,
+          loading: true,
+        },
+      };
+    case GET_LLAMADA_ACTUAL_SUCCESS:
+      return {
+        ...state,
+        llamadaActual: {
+          ...state.llamadaActual,
+          loading: false,
+          error: false,
+          data: payload,
+        },
+      };
+    case GET_LLAMADA_ACTUAL_ERROR:
+      return {
+        ...state,
+        llamadaActual: {
+          ...state.llamadaActual,
           error: payload,
           loading: false,
           data: null,

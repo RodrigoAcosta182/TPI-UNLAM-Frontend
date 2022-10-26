@@ -27,18 +27,25 @@ import {
   profesionalesReset,
   wsGetProfesionalesActivos,
 } from "../../../context/action/profesionales/profesionales";
+import { wsGetGeneros } from "../../../context/action/generos/generos";
+import { hideModal, showModal } from "../../../context/action/modal/modal";
+import ModalRegistro from "./ModalRegistro/ModalRegistro";
 
 const RegistroBox = ({ dsb }) => {
   const history = useHistory();
   const hoy = new Date();
+  const [flgRegistro, setFlgRegistro] = useState(false);
 
   const {
+    modalDispatch,
     registroState,
     registroDispatch,
     listErrorState,
     listErrorDispatch,
     profesionalesState,
     profesionalesDispatch,
+    generosDispatch,
+    generosState,
   } = useContext(GlobalContext);
 
   const [soyMedico, setSoyMedico] = useState(false);
@@ -52,8 +59,12 @@ const RegistroBox = ({ dsb }) => {
     fechaNacimiento: null,
     nombre: "",
     apellido: "",
+    NombreTutor: "",
     dni: "",
     mail: "",
+    GeneroId: null,
+    direccion: "",
+    telefono: "",
     contrasena: "",
     usuarioProfesionalId: null,
   });
@@ -63,12 +74,16 @@ const RegistroBox = ({ dsb }) => {
     resetRegistro()(registroDispatch);
     resetListError()(listErrorDispatch);
     wsGetProfesionalesActivos()(profesionalesDispatch);
+    wsGetGeneros()(generosDispatch);
   }, []);
 
   useEffect(() => {
     if (
       registroState.registro.registroCampos.nombre === "" ||
       registroState.registro.registroCampos.apellido === "" ||
+      registroState.registro.registroCampos.nombreTutor === "" ||
+      registroState.registro.registroCampos.direccion === "" ||
+      registroState.registro.registroCampos.telefono === "" ||
       registroState.registro.registroCampos.dni === "" ||
       registroState.registro.registroCampos.mail === "" ||
       listErrorState.listError.email === true ||
@@ -139,6 +154,18 @@ const RegistroBox = ({ dsb }) => {
         );
         setListError(listErrorState.listError)(listErrorDispatch);
         break;
+      case "NombreTutor":
+        let targetTutor = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        targetTutor.nombreTutor = e.target.value;
+        setRegistro(targetTutor)(registroDispatch);
+        listErrorState.listError.nombreTutor = isNombreApellidoError(
+          e.target.value
+        );
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
       case "dni":
         let targetDni = Object.assign(
           {},
@@ -157,6 +184,26 @@ const RegistroBox = ({ dsb }) => {
         targetMatricula.matricula = e.target.value;
         setRegistro(targetMatricula)(registroDispatch);
         listErrorState.listError.matricula = isEmptyError(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
+      case "direccion":
+        let targetDireccion = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        targetDireccion.direccion = e.target.value;
+        setRegistro(targetDireccion)(registroDispatch);
+        listErrorState.listError.direccion = isEmptyError(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
+      case "telefono":
+        let targetTelefono = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        targetTelefono.telefono = e.target.value;
+        setRegistro(targetTelefono)(registroDispatch);
+        listErrorState.listError.telefono = isEmptyError(e.target.value);
         setListError(listErrorState.listError)(listErrorDispatch);
         break;
       default:
@@ -199,11 +246,34 @@ const RegistroBox = ({ dsb }) => {
   };
 
   useEffect(() => {
-    if (registroState.registro.data || registroState.registro.data === "") {
-      history.push("/");
-      profesionalesReset()(profesionalesDispatch);
+    if (registroState.registro.data !== null) {
+      if (
+        registroState.registro.data !== null &&
+        registroState.registro.error === false
+      ) {
+        history.push("/");
+        profesionalesReset()(profesionalesDispatch);
+      }
     }
-  }, [registroState.registro.data]);
+  }, [registroState.registro.data, registroState.registro.error]);
+
+  useEffect(() => {
+    if (registroState.registro.error !== false) {
+      showModal(
+        <ModalRegistro cerrar={() => cerrarModal()} />,
+        "",
+        cerrarModal,
+        true,
+        {},
+        "centro",
+        true
+      )(modalDispatch);
+    }
+  }, [registroState.registro.data, registroState.registro.error]);
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
+  };
 
   const funcVoid = () => {};
 
@@ -217,6 +287,13 @@ const RegistroBox = ({ dsb }) => {
     //revisar que el campo sea requerido
     if (profesional) {
       setRegistroDto({ ...registroDto, usuarioProfesionalId: profesional.id });
+    }
+  };
+
+  const seleccionarGenero = (genero) => {
+    //revisar que el campo sea requerido
+    if (genero) {
+      setRegistroDto({ ...registroDto, GeneroId: genero.id });
     }
   };
 
@@ -262,6 +339,7 @@ const RegistroBox = ({ dsb }) => {
               />
             </div>
           </div>
+
           <div className="registrobox-formulario-nombreApellido">
             <div className="registrobox-formulario-input">
               <Input
@@ -271,6 +349,34 @@ const RegistroBox = ({ dsb }) => {
                 isRequired={true}
                 checkError={listErrorState.listError.dni}
                 errorStr="El dni es requerido"
+                className={"fondoBlue"}
+                letterColor={"var(--color-white)"}
+              />
+            </div>
+            <div className="registrobox-formulario-input">
+              <Dropdown
+                valor={""}
+                name="GeneroId"
+                onChange={seleccionarGenero}
+                headerStr={"Género"}
+                datos={generosState.generos.data}
+                campoCodigo="id"
+                descripcion="descripcion"
+                errorStr="El género es requerido"
+                customCssInput={"fondoBlue c-white"}
+              />
+            </div>
+          </div>
+
+          <div className="registrobox-formulario-nombreApellido">
+            <div className="registrobox-formulario-input">
+              <Input
+                onChange={onChangeRegistro}
+                headerStr={"Dirección"}
+                name="direccion"
+                isRequired={true}
+                checkError={listErrorState.listError.direccion}
+                errorStr="La direccion es requerida"
                 className={"fondoBlue"}
                 letterColor={"var(--color-white)"}
               />
@@ -296,7 +402,7 @@ const RegistroBox = ({ dsb }) => {
                   datos={profesionalesState.profesionales.data}
                   campoCodigo="id"
                   descripcion="mail"
-                  // errorStr="El parentesco es requerido"
+                  errorStr="Debe seleccionar un profesional"
                   customCssInput={"fondoBlue c-white"}
                 />
               )}
@@ -332,19 +438,46 @@ const RegistroBox = ({ dsb }) => {
               />
             </div>
           </div>
+
+          <div className="registrobox-formulario-nombreApellido">
             <div className="registrobox-formulario-input">
               <Input
                 onChange={onChangeRegistro}
-                headerStr={"Contraseña"}
-                name="contrasena"
-                inputType="password"
+                headerStr={"Nombre tutor"}
+                name="NombreTutor"
                 isRequired={true}
-                checkError={listErrorState.listError.contrasena}
-                errorStr="La contraseña es requerida"
+                checkError={listErrorState.listError.nombreTutor}
+                errorStr="El nombre del tutor es requerido"
                 className={"fondoBlue"}
                 letterColor={"var(--color-white)"}
               />
             </div>
+            <div className="registrobox-formulario-input">
+              <Input
+                onChange={onChangeRegistro}
+                headerStr={"Télefono"}
+                name="telefono"
+                isRequired={true}
+                checkError={listErrorState.listError.telefono}
+                errorStr="El télefono es requerido"
+                className={"fondoBlue"}
+                letterColor={"var(--color-white)"}
+              />
+            </div>
+          </div>
+          <div className="registrobox-formulario-input">
+            <Input
+              onChange={onChangeRegistro}
+              headerStr={"Contraseña"}
+              name="contrasena"
+              inputType="password"
+              isRequired={true}
+              checkError={listErrorState.listError.contrasena}
+              errorStr="La contraseña es requerida"
+              className={"fondoBlue"}
+              letterColor={"var(--color-white)"}
+            />
+          </div>
 
           <div className="registrobox-botones-container">
             <Button

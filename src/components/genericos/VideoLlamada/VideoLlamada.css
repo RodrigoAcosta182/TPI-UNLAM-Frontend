@@ -2,28 +2,36 @@
   border-radius: 16px;
   position: absolute;
   width: 100%;
-  height: 100%;
-  padding: 40px;
-  top: 0;
+  height: 86%;
+  padding: 20px 40px;
+  top: 120px;
   left: 0;
   background-color: var(--color-latex30);
-  border-radius: 16px;
+  
 }
 
 .llamadaProfesional-videosContainer {
-  height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 48px;
+  justify-content: center;
+  height: 100%;
+  gap: 20px;
+}
+
+.llamadaProfesional-boxLeft{
+  display: flex;
+  flex-direction: column;
+}
+
+.nota-videoMiniatura-container{
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
 }
 
 .llamadaProfesional-videoLocal {
-  position: absolute;
-  bottom: 0px;
-  right: 40px;
-  width: 280px;
-  height: 210px;
+  width: 240px;
   border-radius: 8px;
   z-index: 10;
 }
@@ -51,3 +59,11 @@
   gap: 8px;
 }
 
+
+.llamadaProfesional-btn-btn {
+  width: 110px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 10px 0;
+}

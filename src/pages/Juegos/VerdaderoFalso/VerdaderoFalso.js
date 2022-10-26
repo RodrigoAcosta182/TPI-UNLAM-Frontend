@@ -7,48 +7,171 @@ import { GlobalContext } from "../../../context/Provider";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import SalirIcon from "../../../assets/images/SalirIcon";
-import { wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
+import {
+  resetFinalizaJuego,
+  wsPostFinalizaJuego,
+} from "../../../context/action/Juegos/finalizaJuego";
 import CheckIcon from "../../../assets/images/CheckIcon";
 import CruzIcon from "../../../assets/images/CruzIcon";
+import Anana from "../../../assets/images/frutas/Anana.png";
+import Frutilla from "../../../assets/images/frutas/Frutilla.png";
+import Manzana from "../../../assets/images/frutas/Manzana.png";
+import Naranja from "../../../assets/images/frutas/Naranja.png";
+import Uva from "../../../assets/images/frutas/Uva.png";
+import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
+import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
 
 const VerdaderoFalso = () => {
-  const { finalizaJuegoDispatch } = useContext(GlobalContext);
+  const {
+    finalizaJuegoState,
+    finalizaJuegoDispatch,
+    modalAvatarDispatch,
+    modalAvatarState,
+  } = useContext(GlobalContext);
 
   const history = useHistory();
+
+  const horaInicio = new Date();
+
+  const [imagenPreguntaAnterior, setImagenPreguntaAnterior] = useState(null);
+  const [textoPreguntaAnterior, setTextoPreguntaAnterior] = useState(null);
+
+  const [arrayFrutas, setArrayFrutas] = useState(null);
+  const [textoPregunta, setTextoPregunta] = useState(null);
+  const [imagenPregunta, setImagenPregunta] = useState(null);
+  const [juegoFinalizado, setJuegoFinalizado] = useState(false);
+
+  const [btnDisabled, setBtnDisabled] = useState(true);
+
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
-    Aciertos: null,
-    Desaciertos: null,
-    JuegoId: 1,
+    Aciertos: 0,
+    Desaciertos: 0,
+    JuegoId: 4,
     Finalizado: true,
+    FechaInicio: horaInicio,
+    FechaFinalizacion: null,
   });
 
+  useEffect(() => {
+    setArrayFrutas([
+      { id: 1, descripcion: "Naranja", img: Naranja },
+      { id: 1, descripcion: "Uva", img: Uva },
+      { id: 1, descripcion: "Anana", img: Anana },
+      { id: 1, descripcion: "Frutilla", img: Frutilla },
+      { id: 1, descripcion: "Manzana", img: Manzana },
+    ]);
+  }, []);
+
+  useEffect(() => {
+    if (arrayFrutas) {
+      //Si la imagen vuelve a ser la misma vuelvo a hacer un random
+      if (imagenPreguntaAnterior) {
+        let preguntaNueva = arrayFrutas.filter(
+          (item) => item !== imagenPreguntaAnterior
+        );
+        setImagenPregunta(
+          preguntaNueva[Math.floor(Math.random() * preguntaNueva.length)]
+        );
+      } else {
+        setImagenPregunta(
+          arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+        );
+      }
+
+      //Si el texto vuelve a ser la misma vuelvo a hacer un random
+      if (textoPreguntaAnterior) {
+        let textoNuevo = arrayFrutas.filter(
+          (item) => item !== textoPreguntaAnterior
+        );
+        setTextoPregunta(
+          textoNuevo[Math.floor(Math.random() * textoNuevo.length)]
+        );
+      } else {
+        setTextoPregunta(
+          arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+        );
+      }
+    }
+  }, [arrayFrutas, imagenPreguntaAnterior, textoPreguntaAnterior]);
+
   const finalizarJuego = () => {
-    wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
-    //poner logica de loading y push
-    history.push("/");
+    let horarioFinalizacion = new Date();
+    setResultadoJuegoDto({
+      ...resultadoJuegoDto,
+      FechaFinalizacion: horarioFinalizacion,
+    });
+    setJuegoFinalizado(true);
   };
 
   useEffect(() => {
-    //revisar para darle el finalizar
-    if (resultadoJuegoDto.Desaciertos >= 4) {
-      wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+    if (juegoFinalizado) {
+      showModalAvatar(enviarResultados)(modalAvatarDispatch);
+      setJuegoFinalizado(false);
     }
-  }, [resultadoJuegoDto.Desaciertos]);
+  }, [juegoFinalizado]);
+
+  useEffect(() => {
+    if (finalizaJuegoState.finalizaJuego.data !== null) {
+      volverAlHome();
+      resetFinalizaJuego()(finalizaJuegoDispatch);
+    }
+  }, [finalizaJuegoState.finalizaJuego.data]);
+
+  const enviarResultados = () => {
+    wsPostFinalizaJuego(resultadoJuegoDto)(finalizaJuegoDispatch);
+  };
 
   const volverAlHome = () => {
     history.push("/home");
   };
 
-  const verdadero = () => {
-    alert("CORRECTO")
-  };
-
-  const falso = () => {
-    alert("Intenta de nuevo")
+  const responder = (resp) => {
+    setImagenPreguntaAnterior(imagenPregunta);
+    setTextoPreguntaAnterior(textoPregunta);
+    setBtnDisabled(false);
+    if (resp === "si") {
+      if (textoPregunta === imagenPregunta) {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Aciertos: resultadoJuegoDto.Aciertos + 1,
+        });
+      } else {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Desaciertos: resultadoJuegoDto.Desaciertos + 1,
+        });
+      }
+      setImagenPregunta(
+        arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+      );
+      setTextoPregunta(
+        arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+      );
+    }
+    if (resp === "no") {
+      if (textoPregunta === imagenPregunta) {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Desaciertos: resultadoJuegoDto.Desaciertos + 1,
+        });
+      } else {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Aciertos: resultadoJuegoDto.Aciertos + 1,
+        });
+      }
+    }
+    setImagenPregunta(
+      arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+    );
+    setTextoPregunta(
+      arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
+    );
   };
 
   return (
     <>
+      {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       <div className="verdaderofalso-volverAccion" onClick={volverAlHome}>
         <div className="verdaderofalso-btnCont">
           <SalirIcon />
@@ -56,34 +179,43 @@ const VerdaderoFalso = () => {
         </div>
       </div>
       <div className="verdaderofalso-container">
-        <div className="verdaderofalso-pregunta bw32b">
-          <p className="c-white">¿Esto es una manzana?</p>
-        </div>
-
-        <div className="verdaderofalso-imgContainer">
-          <img
-            className="verdaderofalso-imagen"
-            alt="objeto"
-            src="https://images.vexels.com/media/users/3/182371/isolated/preview/2f8c7e9f42c7781c3846b435475f92af-plano-de-fruta-de-manzana.png"
-          ></img>
-        </div>
-
-        <div className="verdaderofalso-boxBtn">
+        {imagenPregunta && textoPregunta && (
           <>
-            <button
-              className={"verdaderofalso-falseBtn bw24t c-white"}
-              onClick={() => falso()}
-            >
-              <CruzIcon /> Falso
-            </button>
-            <button
-              className={"verdaderofalso-trueBtn bw24t c-white"}
-              onClick={() => verdadero()}
-            >
-              <CheckIcon /> Verdadero
-            </button>
+            <div className="verdaderofalso-pregunta bw32b">
+              <p className="c-white">¿Es un/a {textoPregunta.descripcion}?</p>
+            </div>
+
+            <div className="verdaderofalso-imgContainer">
+              <img
+                className={"verdaderofalso-imagen"}
+                src={imagenPregunta.img}
+                alt="fruta"
+              />
+            </div>
+
+            <div className="verdaderofalso-boxBtn">
+              <button
+                className={"verdaderofalso-falseBtn bw24t c-white"}
+                onClick={() => responder("no")}
+              >
+                <CruzIcon /> Falso
+              </button>
+              <button
+                className={"verdaderofalso-trueBtn bw24t c-white"}
+                onClick={() => responder("si")}
+              >
+                <CheckIcon /> Verdadero
+              </button>
+            </div>
           </>
-        </div>
+        )}
+        <button
+          className={"verdaderofalso-finalizarBtn bw24t"}
+          onClick={() => finalizarJuego()}
+          disabled={btnDisabled}
+        >
+          Finalizar
+        </button>
       </div>
     </>
   );
