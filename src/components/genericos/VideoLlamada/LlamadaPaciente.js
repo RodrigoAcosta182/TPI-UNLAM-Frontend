@@ -85,7 +85,7 @@ function Menu({ joinCode, setJoinCode, mostrarModal, buscarLlamada }) {
         className="btnAccionesPacientes bgc-primary c-white"
         onClick={() => mostrarModal()}
       >
-        Contestar manual
+        Contestar
       </button>
       <button
         className="btnAccionesPacientes bgc-broccoli c-white"

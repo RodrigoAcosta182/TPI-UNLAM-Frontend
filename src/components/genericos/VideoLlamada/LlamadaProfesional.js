@@ -163,14 +163,18 @@ function Videos({ callId, pacienteSeleccionado }) {
     }
   }, [llamadaDto.CodigoLlamada]);
 
-
   //desactivo SignalR
   useEffect(() => {
     if (llamadaState.llamada.data === 200) {
-      console.log("la llamada comenzo")
+      console.log("la llamada comenzo");
       // wsPostLlamadaSaliente(llamadaDto.CodigoLlamada, pacienteSeleccionado.id)(llamadaDispatch);
     }
   }, [llamadaState.llamada.data]);
+
+  const handleClickGuardarNota = () => {};
+  const onChangeNota = (e) => {
+    console.log(e.target.value)
+  };
 
   return (
     <>
@@ -215,7 +219,10 @@ function Videos({ callId, pacienteSeleccionado }) {
             className="llamadaProfesional-videoLocal"
             muted
           />
-          <NotaPaciente />
+          <NotaPaciente
+            handleClickGuardarNota={handleClickGuardarNota}
+            onChangeNota={onChangeNota}
+          />
         </div>
       </div>
     </>

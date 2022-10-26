@@ -1,6 +1,12 @@
+import LlamadaPaciente from "../components/genericos/VideoLlamada/LlamadaPaciente";
+
 const GlobalInitializeData = ({ children }) => {
-  return <div>{children}
-  </div>;
+  return (
+    <div>
+      {children}
+      <LlamadaPaciente />
+    </div>
+  );
 };
 
 export default GlobalInitializeData;
