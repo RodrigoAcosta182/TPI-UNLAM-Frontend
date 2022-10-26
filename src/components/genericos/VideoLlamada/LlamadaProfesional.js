@@ -14,7 +14,10 @@ import AceptaLlamada from "../AceptaLlamada/AceptaLlamada";
 import "./VideoLlamada.css";
 import CardInfoPaciente from "../CardInfoPaciente/CardInfoPaciente";
 import NotaPaciente from "../NotaPaciente/NotaPaciente";
-import { wsPostGuardarLlamada, wsPostLlamadaSaliente } from "../../../context/action/llamada/llamada";
+import {
+  wsPostGuardarLlamada,
+  wsPostLlamadaSaliente,
+} from "../../../context/action/llamada/llamada";
 
 // Initialize Firebase
 
@@ -160,16 +163,50 @@ function Videos({ callId, pacienteSeleccionado }) {
     }
   }, [llamadaDto.CodigoLlamada]);
 
+
+  //desactivo SignalR
   useEffect(() => {
     if (llamadaState.llamada.data === 200) {
-      wsPostLlamadaSaliente(llamadaDto.CodigoLlamada)(llamadaDispatch)
-    } 
+      console.log("la llamada comenzo")
+      // wsPostLlamadaSaliente(llamadaDto.CodigoLlamada, pacienteSeleccionado.id)(llamadaDispatch);
+    }
   }, [llamadaState.llamada.data]);
 
   return (
     <>
-      <div className="llamadaProfesional-Container">
-        <div className="llamadaProfesional-videosContainer">
+      <div className="llamadaProfesional-videosContainer">
+        <div className="llamadaProfesional-boxLeft">
+          <CardInfoPaciente paciente={pacienteSeleccionado} />
+          {/* grande */}
+          <video
+            ref={remoteRef}
+            autoPlay
+            playsInline
+            className="llamadaProfesional-videoRemote"
+          />
+          {webcamActive && (
+            <div className="llamadaProfesional-botones-container">
+              <button
+                onClick={() =>
+                  terminarLlamada(pc, llamadaDto.CodigoLlamada, firestore)
+                }
+                disabled={!webcamActive}
+                className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
+              >
+                <HangupIcon />
+              </button>
+              <button
+                className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
+                onClick={() => {
+                  navigator.clipboard.writeText(llamadaDto.CodigoLlamada);
+                }}
+              >
+                <CopyIcon /> Copiar ID
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="nota-videoMiniatura-container">
           {/* miniatura */}
           <video
             ref={localRef}
@@ -178,38 +215,6 @@ function Videos({ callId, pacienteSeleccionado }) {
             className="llamadaProfesional-videoLocal"
             muted
           />
-          {/* grande */}
-
-          <div>
-            <CardInfoPaciente />
-            <video
-              ref={remoteRef}
-              autoPlay
-              playsInline
-              className="llamadaProfesional-videoRemote"
-            />
-            {webcamActive && (
-              <div className="llamadaProfesional-botones-container">
-                <button
-                  onClick={() =>
-                    terminarLlamada(pc, llamadaDto.CodigoLlamada, firestore)
-                  }
-                  disabled={!webcamActive}
-                  className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
-                >
-                  <HangupIcon />
-                </button>
-                <button
-                  className="btnAccionesPacientes btnllamadaProfesional bgc-primary c-white"
-                  onClick={() => {
-                    navigator.clipboard.writeText(llamadaDto.CodigoLlamada);
-                  }}
-                >
-                  <CopyIcon /> Copiar ID
-                </button>
-              </div>
-            )}
-          </div>
           <NotaPaciente />
         </div>
       </div>
