@@ -82,13 +82,13 @@ function Menu({ joinCode, setJoinCode, mostrarModal, buscarLlamada }) {
         placeholder="ID Llamada"
       />
       <button
-        className="btnAccionesPacientes bgc-primary c-white"
+        className="llamadaProfesional-btn-btn bgc-primary c-white"
         onClick={() => mostrarModal()}
       >
-        Contestar manual
+        Contestar
       </button>
       <button
-        className="btnAccionesPacientes bgc-broccoli c-white"
+        className="llamadaProfesional-btn-btn bgc-broccoli c-white"
         onClick={() => buscarLlamada()}
       >
         Buscar llamada automático

@@ -77,7 +77,6 @@
   border-radius: 8px;
   cursor: pointer;
   padding: 10px 0;
-  font-size: 18px;
 }
 @media (max-width: 1365px) {
   .btnPacientesBox {

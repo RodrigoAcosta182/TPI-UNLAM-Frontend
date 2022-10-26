@@ -74,7 +74,6 @@ const HomePaciente = () => {
             })}
         </div>
         
-        <LlamadaPaciente/>
       </div>
     </React.Fragment>
   );
