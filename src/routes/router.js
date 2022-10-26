@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import LlamadaPaciente from "../components/genericos/VideoLlamada/LlamadaPaciente";
 import GlobalProvider from "../context/Provider";
 import GlobalInitializeData from "../global/GlobalInitializeData";
 import routes from "./listRoutes";
