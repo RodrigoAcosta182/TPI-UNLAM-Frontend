@@ -7,8 +7,7 @@
     background-color: var(--color-white);
     border-radius: 16px;
     height: 400px;
-    width: 710px;
-    margin-top: 70px;
+    width: 100%;
     padding: 20px;
 }
 .notaPaciente-textarea{
