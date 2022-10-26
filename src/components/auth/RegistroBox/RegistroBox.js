@@ -28,12 +28,16 @@ import {
   wsGetProfesionalesActivos,
 } from "../../../context/action/profesionales/profesionales";
 import { wsGetGeneros } from "../../../context/action/generos/generos";
+import { hideModal, showModal } from "../../../context/action/modal/modal";
+import ModalRegistro from "./ModalRegistro/ModalRegistro";
 
 const RegistroBox = ({ dsb }) => {
   const history = useHistory();
   const hoy = new Date();
+  const [flgRegistro, setFlgRegistro] = useState(false);
 
   const {
+    modalDispatch,
     registroState,
     registroDispatch,
     listErrorState,
@@ -41,7 +45,7 @@ const RegistroBox = ({ dsb }) => {
     profesionalesState,
     profesionalesDispatch,
     generosDispatch,
-    generosState
+    generosState,
   } = useContext(GlobalContext);
 
   const [soyMedico, setSoyMedico] = useState(false);
@@ -242,11 +246,34 @@ const RegistroBox = ({ dsb }) => {
   };
 
   useEffect(() => {
-    if (registroState.registro.data || registroState.registro.data === "") {
-      history.push("/");
-      profesionalesReset()(profesionalesDispatch);
+    if (registroState.registro.data !== null) {
+      if (
+        registroState.registro.data !== null &&
+        registroState.registro.error === false
+      ) {
+        history.push("/");
+        profesionalesReset()(profesionalesDispatch);
+      }
     }
-  }, [registroState.registro.data]);
+  }, [registroState.registro.data, registroState.registro.error]);
+
+  useEffect(() => {
+    if (registroState.registro.error !== false) {
+      showModal(
+        <ModalRegistro cerrar={() => cerrarModal()} />,
+        "",
+        cerrarModal,
+        true,
+        {},
+        "centro",
+        true
+      )(modalDispatch);
+    }
+  }, [registroState.registro.data, registroState.registro.error]);
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
+  };
 
   const funcVoid = () => {};
 
