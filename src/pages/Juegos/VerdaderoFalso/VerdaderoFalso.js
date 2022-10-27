@@ -40,6 +40,7 @@ const VerdaderoFalso = () => {
   const [textoPregunta, setTextoPregunta] = useState(null);
   const [imagenPregunta, setImagenPregunta] = useState(null);
   const [juegoFinalizado, setJuegoFinalizado] = useState(false);
+  const [contadorAciertos, setContadorAciertos] = useState(0);
 
   const [btnDisabled, setBtnDisabled] = useState(true);
 
@@ -135,11 +136,13 @@ const VerdaderoFalso = () => {
           ...resultadoJuegoDto,
           Aciertos: resultadoJuegoDto.Aciertos + 1,
         });
+        setContadorAciertos(contadorAciertos + 1);
       } else {
         setResultadoJuegoDto({
           ...resultadoJuegoDto,
           Desaciertos: resultadoJuegoDto.Desaciertos + 1,
         });
+        setContadorAciertos(0);
       }
       setImagenPregunta(
         arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
@@ -154,11 +157,13 @@ const VerdaderoFalso = () => {
           ...resultadoJuegoDto,
           Desaciertos: resultadoJuegoDto.Desaciertos + 1,
         });
+        setContadorAciertos(0);
       } else {
         setResultadoJuegoDto({
           ...resultadoJuegoDto,
           Aciertos: resultadoJuegoDto.Aciertos + 1,
         });
+        setContadorAciertos(contadorAciertos + 1);
       }
     }
     setImagenPregunta(
@@ -168,6 +173,12 @@ const VerdaderoFalso = () => {
       arrayFrutas[Math.floor(Math.random() * arrayFrutas.length)]
     );
   };
+
+  useEffect(() => {
+    if (contadorAciertos === 5) {
+      finalizarJuego();
+    }
+  }, [contadorAciertos]);
 
   return (
     <>

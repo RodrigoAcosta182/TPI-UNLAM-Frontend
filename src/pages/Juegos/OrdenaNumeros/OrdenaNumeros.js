@@ -35,6 +35,7 @@ const OrdenaNumeros = () => {
     finalizaJuegoState,
   } = useContext(GlobalContext);
   const [items, setItems] = useState(null);
+  const [contadorAciertos, setContadorAciertos] = useState(0);
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
     Aciertos: 0,
     Desaciertos: 0,
@@ -66,11 +67,13 @@ const OrdenaNumeros = () => {
         ...resultadoJuegoDto,
         Aciertos: resultadoJuegoDto.Aciertos + 1,
       });
+      setContadorAciertos(contadorAciertos + 1)
     } else {
       setResultadoJuegoDto({
         ...resultadoJuegoDto,
         Desaciertos: resultadoJuegoDto.Desaciertos + 1,
       });
+      setContadorAciertos(0)
     }
     wsGetNumerosDesordenados()(ordenNumerosDispatch);
   };
@@ -104,6 +107,12 @@ const OrdenaNumeros = () => {
   const volverAlHome = () => {
     history.push("/home");
   };
+
+  useEffect(() => {
+    if (contadorAciertos === 5) {
+      finalizarJuego();
+    }
+  }, [contadorAciertos]);
 
   return (
     <>
