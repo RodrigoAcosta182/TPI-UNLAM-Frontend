@@ -31,11 +31,12 @@ const Input = ({
   pattern,
   refElement,
   radioClass,
-  letterColor
+  letterColor,
+  ref,
 }) => {
   const [showError, setShowError] = useState(false);
   const [isUsed, setIsUsed] = useState(false);
-  
+
   const [requerido, setRequerido] = useState(false);
 
   useEffect(() => {
@@ -56,9 +57,7 @@ const Input = ({
     setIsUsed(true);
   };
 
-  const checkBlur = (e) => {
-    
-  };
+  const checkBlur = (e) => {};
 
   const checkMostrarError = () => {
     let flag = false;
@@ -149,7 +148,6 @@ const Input = ({
               onClick={onClick}
               name={name}
               autoComplete="off"
-
             />{" "}
             <label
               className="ptur-label-checkbox rb16t c-white"
@@ -172,7 +170,6 @@ const Input = ({
               defaultValue={value}
               // checked={checked}
               autoComplete="off"
-
             />
             <label
               className={`ptur-label-radio ${radioClass} rb16l`}
@@ -190,6 +187,7 @@ const Input = ({
         return (
           <>
             <textarea
+              ref={refElement}
               className={className}
               name={name}
               placeholder={placeholderText}
