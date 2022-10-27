@@ -1,0 +1,35 @@
+.sugerencia-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 80px;
+}
+
+.sugerencia-input-email-container{
+    width: 500px;
+}
+
+.sugerencia-textarea-container{
+    width: 500px;
+    height: 400px;
+    
+}
+
+.sugerencia-textarea{
+    padding: 40px;
+    width: 500px;
+    min-width: 500px;
+    max-width: 500px;
+    height: 400px;
+    max-height: 400px;
+    min-height: 400px;
+    border: 0;
+    border-radius: 16px;
+}
+
+.sugerencia-input-email{
+    width: 500px;
+}

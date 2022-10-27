@@ -31,6 +31,7 @@ const ComidaCorrecta = () => {
   const [comidaSelected, setComidaSelected] = useState(null);
   const [comidaBurbuja, setComidaBurbuja] = useState();
   const [comidaAnterior, setComidaAnterior] = useState();
+  const [contadorAciertos, setContadorAciertos] = useState(0);
 
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
     Aciertos: 0,
@@ -104,11 +105,13 @@ const ComidaCorrecta = () => {
         ...resultadoJuegoDto,
         Aciertos: resultadoJuegoDto.Aciertos + 1,
       });
+      setContadorAciertos(contadorAciertos + 1)
     } else {
       setResultadoJuegoDto({
         ...resultadoJuegoDto,
         Desaciertos: resultadoJuegoDto.Desaciertos + 1,
       });
+      setContadorAciertos(0)
     }
     let random = arrayComidas[Math.floor(Math.random() * arrayComidas.length)];
     if (random === comidaAnterior) {
@@ -122,6 +125,12 @@ const ComidaCorrecta = () => {
       return Math.random() - 0.5;
     });
   };
+
+  useEffect(() => {
+    if (contadorAciertos === 5) {
+      finalizarJuego();
+    }
+  }, [contadorAciertos]);
 
   return (
     <>

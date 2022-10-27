@@ -365,6 +365,10 @@ body {
   background: var(--color-secondary);
 }
 
+.pointer{
+  cursor: pointer;
+}
+
 :root {
   --color-primary-gradient: linear-gradient(
     90deg,

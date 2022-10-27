@@ -46,6 +46,8 @@ export default function ColorCorrecto() {
     FechaInicio: horaInicio,
     FechaFinalizacion: null,
   });
+  const [contadorAciertos, setContadorAciertos] = useState(0);
+
 
   useEffect(() => {
     wsGetColores()(colorCorrectoDispatch);
@@ -119,11 +121,13 @@ export default function ColorCorrecto() {
             ...resultadoJuegoDto,
             Aciertos: resultadoJuegoDto.Aciertos + 1,
           });
+          setContadorAciertos(contadorAciertos + 1)
         } else {
           setResultadoJuegoDto({
             ...resultadoJuegoDto,
             Desaciertos: resultadoJuegoDto.Desaciertos + 1,
           });
+          setContadorAciertos(0)
         }
         wsGetColores()(colorCorrectoDispatch);
         setSelected(null);
@@ -132,6 +136,13 @@ export default function ColorCorrecto() {
       console.log("Debe seleccionar un color");
     }
   };
+
+
+  useEffect(() => {
+    if (contadorAciertos === 5) {
+      finalizarJuego();
+    }
+  }, [contadorAciertos]);
 
   const finalizarJuego = () => {
     let horarioFinalizacion = new Date()

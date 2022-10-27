@@ -10,8 +10,15 @@ import MisPacientes from "../pages/MisPacientes/MisPacientes";
 import Perfil from "../pages/Perfil/Perfil";
 import Registro from "../pages/Registro/Registro";
 import Resultados from "../pages/Resultados/Resultados";
+import Sugerencia from "../pages/Sugerencia/Sugerencia";
 
 const listRoutes = [
+  {
+    path: "/sugerencia",
+    component: Sugerencia,
+    title: "Sugerencia",
+    auth: false,
+  },
   {
     path: "/landing",
     component: Landing,
