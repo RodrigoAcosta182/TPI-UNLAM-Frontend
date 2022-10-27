@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import HeaderbaSugerencia from "../../components/genericos/HeaderbaSugerencia/HeaderbaSugerencia";
 import Input from "../../components/genericos/Input/Input";
 import Loading from "../../components/genericos/Loading/Loading";
@@ -12,6 +12,8 @@ import {
 import { GlobalContext } from "../../context/Provider";
 import "./Sugerencia.css";
 const Sugerencia = () => {
+  const refInput = useRef();
+  const refTextArea = useRef();
   const { sugerenciaDispatch, sugerenciaState, modalState, modalDispatch } =
     useContext(GlobalContext);
   const [sugerencia, setSugerencia] = useState({
@@ -41,13 +43,19 @@ const Sugerencia = () => {
         "centro",
         true
       )(modalDispatch);
-      setSugerencia({
-        mail: null,
-        descripcion: null,
-      });
+      limpiarCampos()
       resetSugerencia()(sugerenciaDispatch);
     }
   }, [sugerenciaState.sugerencia.data]);
+
+  const limpiarCampos = () => {
+    refInput.current.value = "";
+    refTextArea.current.value = "";
+    setSugerencia({
+      mail: null,
+      descripcion: null,
+    });
+  };
 
   return (
     <>
@@ -60,6 +68,7 @@ const Sugerencia = () => {
       <div className="sugerencia-container">
         <div className="sugerencia-input-email-container">
           <Input
+            refElement={refInput}
             value={sugerencia.mail}
             headerStr={"Email"}
             className={"sugerencia-input-email"}
@@ -70,6 +79,7 @@ const Sugerencia = () => {
         </div>
         <div className="sugerencia-textarea-container">
           <Input
+            refElement={refTextArea}
             value={sugerencia.descripcion}
             className={"sugerencia-textarea"}
             inputType="textarea"
