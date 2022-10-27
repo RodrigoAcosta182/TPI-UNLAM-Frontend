@@ -12,10 +12,11 @@ import misPacientesInitialState from "./initialStates/misPacientesInitialState";
 import modalAvatarInitialState from "./initialStates/modalAvatarInitialState";
 import modalInitialState from "./initialStates/modalInitialState";
 import ordenNumerosInitialState from "./initialStates/ordenNumerosInitialState";
+import pacienteSeleccionadoInitialState from "./initialStates/pacienteSeleccionadoInitialState";
 import profesionalesInitialState from "./initialStates/profesionalesInitialState";
 import registroInitialState from "./initialStates/registroInitialState";
 import resultadosInitialState from "./initialStates/resultadosInitialState";
-import pacienteSeleccionadoInitialState from "./initialStates/pacienteSeleccionadoInitialState";
+import sugerenciaInitialState from "./initialStates/sugerenciaInitialState";
 
 //Reducers ordenar alfabeticamente
 import auth from "./reducers/auth";
@@ -29,10 +30,11 @@ import misPacientes from "./reducers/misPacientes";
 import modalAvatar from "./reducers/modalAvatar";
 import modal from "./reducers/modal";
 import ordenNumeros from "./reducers/ordenNumeros";
+import pacienteSeleccionado from "./reducers/pacienteSeleccionado";
 import profesionales from "./reducers/profesionales";
 import registro from "./reducers/registro";
 import resultados from "./reducers/resultados";
-import pacienteSeleccionado from "./reducers/pacienteSeleccionado";
+import sugerencia from "./reducers/sugerencia";
 
 export const GlobalContext = createContext({});
 
@@ -87,6 +89,10 @@ export const GlobalProvider = ({ children }) => {
     ordenNumerosInitialState
   );
 
+  const [pacienteSeleccionadoState, pacienteSeleccionadoDispatch] = useReducer(
+    pacienteSeleccionado,
+    pacienteSeleccionadoInitialState
+  );
   const [profesionalesState, profesionalesDispatch] = useReducer(
     profesionales,
     profesionalesInitialState
@@ -99,9 +105,9 @@ export const GlobalProvider = ({ children }) => {
     resultados,
     resultadosInitialState
   );
-  const [pacienteSeleccionadoState, pacienteSeleccionadoDispatch] = useReducer(
-    pacienteSeleccionado,
-    pacienteSeleccionadoInitialState
+  const [sugerenciaState, sugerenciaDispatch] = useReducer(
+    sugerencia,
+    sugerenciaInitialState
   );
   return (
     //Declarar en Contexto Global, ordenar alfabeticamente
@@ -137,6 +143,8 @@ export const GlobalProvider = ({ children }) => {
         resultadosDispatch,
         pacienteSeleccionadoState,
         pacienteSeleccionadoDispatch,
+        sugerenciaState,
+        sugerenciaDispatch
       }}
     >
       {children}
