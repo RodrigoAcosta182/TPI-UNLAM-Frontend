@@ -22,12 +22,13 @@ const LlamadaEntrante = ({ callback }) => {
       await connection.start();
       console.log("SignalR Connected.");
       connection.on("sendMessage", (message) => {
-        if (message.ReceptorId === authState.auth.data.usuario.id) {
-          console.log(message);
-          console.log(authState.auth.data);
+        // if (message.ReceptorId === authState.auth.data.usuario.id) {
+        //   console.log(message);
+        //   console.log(authState.auth.data);
 
-          subject.next(message);
-        }
+        // }
+        console.log(message)
+        subject.next(message);
       });
     } catch (err) {
       console.log(err);

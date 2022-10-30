@@ -41,7 +41,7 @@ export const wsPostGuardarLlamada = (llamadaDto) => (dispatch) => {
   });
 };
 
-export const wsPostLlamadaSaliente = ({idLlamada, idPaciente}) => (dispatch) => {
+export const wsPostLlamadaSaliente = (idLlamada, idPaciente) => (dispatch) => {
   dispatch({
     type: LLAMADA_SALIENTE_LOADING,
   });
