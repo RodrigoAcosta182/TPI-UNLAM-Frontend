@@ -2,9 +2,9 @@ import "./Button.css"
 import {motion} from "framer-motion"
 
 
-const Button = ({ onClick, className, descripcion }) => {
+const Button = ({ onClick, className, descripcion, onKeyDown }) => {
   return (
-    <motion.button onClick={onClick} className={`container-button ${className}`}>
+    <motion.button onKeyDown={onKeyDown} onClick={onClick} className={`container-button ${className}`}>
       {descripcion}
     </motion.button>
   );

@@ -7,7 +7,8 @@ const GlobalInitializeData = ({ children }) => {
   return (
     <div>
       {children}
-      {authState.auth.data && <LlamadaPaciente />}
+      {authState.auth.data &&
+        authState.auth.data.usuario.tipoUsuarioId !== 2 && <LlamadaPaciente />}
     </div>
   );
 };
