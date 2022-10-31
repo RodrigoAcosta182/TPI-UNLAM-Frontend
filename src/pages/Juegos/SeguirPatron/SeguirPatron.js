@@ -283,7 +283,7 @@ const SeguirPatron = () => {
               className={"seguirPatron-finalizarBtn bw24t"}
               onClick={() => limpiarArray()}
             >
-              Limpiar
+              Borrar
             </button>
           )}
           <button
