@@ -2,6 +2,7 @@ import Home from "../pages/Home/Home";
 import ColorCorrecto from "../pages/Juegos/ColorCorrecto/ColorCorrecto";
 import ComidaCorrecta from "../pages/Juegos/ComidaCorrecta/ComidaCorrecta";
 import OrdenaNumeros from "../pages/Juegos/OrdenaNumeros/OrdenaNumeros";
+import SeguirPatron from "../pages/Juegos/SeguirPatron/SeguirPatron";
 import VerdaderoFalso from "../pages/Juegos/VerdaderoFalso/VerdaderoFalso";
 import Landing from "../pages/Landing/Landing";
 import ListaProfesionales from "../pages/ListaProfesionales/ListaProfesionales";
@@ -35,6 +36,12 @@ const listRoutes = [
     path: "/ordenanumeros",
     component: OrdenaNumeros,
     title: "Ordena Numeros",
+    auth: false,
+  },
+  {
+    path: "/seguirpatrones",
+    component: SeguirPatron,
+    title: "Seguir Patron",
     auth: false,
   },
   {
