@@ -19,10 +19,10 @@
   flex-direction: column;
   align-items: center;
 }
-.seguirPatron-imgContainerDesordenado{
+.seguirPatron-imgContainerDesordenado {
   margin-top: 80px;
 }
-.seguirPatron-imgContainer{
+.seguirPatron-imgContainer {
   display: flex;
   flex-direction: row-reverse;
 }
@@ -54,11 +54,12 @@
   background: var(--color-white);
 }
 .seguirPatron-imagen {
-  width: 250px;
+  width: 170px;
+  height: 140px;
   cursor: pointer;
 }
 .seguirPatron-imagenTren {
-  width: 250px;
+  width: 174px;
 }
 /* @media (max-width: 1365px) {
   .seguirPatron-imagen {

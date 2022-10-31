@@ -45,10 +45,13 @@ const SeguirPatron = () => {
     descripcion: "VagonSinColor",
     img: VagonSinColor,
   });
+  const [contador, setContador] = useState(0);
 
   const [flgAct, setFlgAct] = useState(true);
+  const [flgPrimerItem, setFlgPrimerItem] = useState(false);
 
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [btnLimpiar, setBtnLimpiar] = useState(false);
 
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
     Aciertos: 0,
@@ -61,11 +64,14 @@ const SeguirPatron = () => {
 
   useEffect(() => {
     if (arrayTrenRandom) {
-      if(arrayTrenRandom.length === 0){
+      if (arrayTrenRandom.length === 0) {
         setBtnDisabled(false);
       }
+      if (flgPrimerItem) {
+        setBtnLimpiar(true);
+      }
     }
-  }, [arrayTrenRandom]);
+  }, [arrayTrenRandom, flgPrimerItem]);
 
   useEffect(() => {
     setArrayTren([
@@ -124,6 +130,29 @@ const SeguirPatron = () => {
     setJuegoFinalizado(true);
   };
 
+  const limpiarArray = () => {
+    setFlgPrimerItem(false);
+    setArrayTrenOculto([
+      { id: 1, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 2, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 3, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 4, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 5, descripcion: "VagonSinColor", img: VagonSinColor },
+    ]);
+    setArrayTrenRandom([
+      { id: 1, descripcion: "VagonAzul", img: VagonAzul },
+      { id: 2, descripcion: "VagonRojo", img: VagonRojo },
+      { id: 3, descripcion: "VagonVerde", img: VagonVerde },
+      { id: 4, descripcion: "VagonNegro", img: VagonNegro },
+      { id: 5, descripcion: "VagonAmarillo", img: VagonAmarillo },
+    ]);
+    arrayTrenRandom.sort(function () {
+      return Math.random() - 0.5;
+    });
+    setContador(0);
+    setBtnLimpiar(false);
+  };
+
   useEffect(() => {
     if (juegoFinalizado) {
       showModalAvatar(enviarResultados)(modalAvatarDispatch);
@@ -146,10 +175,9 @@ const SeguirPatron = () => {
     history.push("/home");
   };
 
-  const [contador, setContador] = useState(0);
-  const [contadorRandom, setContadorRandom] = useState(0);
 
   const ponerVagon = (item) => {
+    setFlgPrimerItem(true);
     const newArray = [...arrayTrenOculto];
     newArray[contador] = item;
 
@@ -165,7 +193,6 @@ const SeguirPatron = () => {
   //   if (newArray.length <= 4) {
   //     newArray.push(item);
   //   }
-
 
   //   let nuevoOculto = arrayTrenOculto.filter((e) => e.id === item.id);
 
@@ -250,13 +277,23 @@ const SeguirPatron = () => {
             })}
         </div>
 
-        <button
-          className={"seguirPatron-finalizarBtn bw24t"}
-          onClick={() => finalizarJuego()}
-          disabled={btnDisabled}
-        >
-          Finalizar
-        </button>
+        <div>
+          {btnLimpiar && (
+            <button
+              className={"seguirPatron-finalizarBtn bw24t"}
+              onClick={() => limpiarArray()}
+            >
+              Limpiar
+            </button>
+          )}
+          <button
+            className={"seguirPatron-finalizarBtn bw24t"}
+            onClick={() => finalizarJuego()}
+            disabled={btnDisabled}
+          >
+            Finalizar
+          </button>
+        </div>
       </div>
     </>
   );
