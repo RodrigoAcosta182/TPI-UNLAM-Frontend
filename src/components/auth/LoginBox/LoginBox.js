@@ -51,9 +51,11 @@ const LoginBox = () => {
     setLoginDto({ ...loginDto, [e.target.name]: e.target.value });
   };
 
-  const loguear = () => {
-    if (loginDto !== undefined && loginDto !== null) {
-      wsPostLogin(loginDto)(authDispatch);
+  const loguear = (e) => {
+    if (e.key === "Enter" || e.type === "click") {
+      if (loginDto !== undefined && loginDto !== null) {
+        wsPostLogin(loginDto)(authDispatch);
+      }
     }
   };
 
@@ -96,6 +98,7 @@ const LoginBox = () => {
               errorStr="El email es requerido"
               className={"fondoBlue-login"}
               letterColor={"var(--color-white)"}
+              onKeyPress={loguear}
             />
           </div>
           <div className="loginbox-formulario-input-container">
@@ -109,11 +112,12 @@ const LoginBox = () => {
               errorStr="La contraseña es requerida"
               className={"fondoBlue-login"}
               letterColor={"var(--color-white)"}
+              onKeyPress={loguear}
             />
           </div>
           <Button
             descripcion={"Ingresar"}
-            onClick={btnDisabled ? () => {} : () => loguear()}
+            onClick={loguear}
             className={`loginbox-ingresarBtn bw18m ${
               !btnDisabled ? "bgc-primary" : "bgc-grey45 dsbCursor"
             }`}
