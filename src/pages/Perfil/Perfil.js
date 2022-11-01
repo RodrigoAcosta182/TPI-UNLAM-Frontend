@@ -38,8 +38,8 @@ const Perfil = () => {
   return (
     <>
       <HeaderbarHome></HeaderbarHome>
-      <div className="perfil-volverAccion" onClick={volverAlHome}>
-        <div className="perfil-btnCont">
+      <div className="perfil-volverAccion">
+        <div className="perfil-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="perfil-volverBtn c-white bw16b">VOLVER</p>
         </div>

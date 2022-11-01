@@ -121,8 +121,8 @@ const OrdenaNumeros = () => {
         state={finalizaJuegoState.finalizaJuego.loading}
         mensaje={"Enviando resultados..."}
       />
-      <div className="ordenarNumeros-volverAccion" onClick={volverAlHome}>
-        <div className="ordenarNumeros-btnCont">
+      <div className="ordenarNumeros-volverAccion">
+        <div className="ordenarNumeros-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="ordenarNumeros-volverBtn c-white">VOLVER</p>
         </div>

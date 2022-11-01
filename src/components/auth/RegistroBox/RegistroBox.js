@@ -71,8 +71,8 @@ const RegistroBox = ({ dsb }) => {
 
   //Puse este useEffect porque al ir atras en el navegador y luego voler quedaba el boton activado
   useEffect(() => {
-    resetRegistro()(registroDispatch);
-    resetListError()(listErrorDispatch);
+    // resetRegistro()(registroDispatch);
+    // resetListError()(listErrorDispatch);
     wsGetProfesionalesActivos()(profesionalesDispatch);
     wsGetGeneros()(generosDispatch);
   }, []);
@@ -260,7 +260,7 @@ const RegistroBox = ({ dsb }) => {
   useEffect(() => {
     if (registroState.registro.error !== false) {
       showModal(
-        <ModalRegistro cerrar={() => cerrarModal()} />,
+        <ModalRegistro error={registroState.registro.error.detail} cerrar={() => cerrarModal()} />,
         "",
         cerrarModal,
         true,
@@ -413,7 +413,7 @@ const RegistroBox = ({ dsb }) => {
             <div className="registrobox-formulario-input">
               <DatePicker
                 headerStr="Fecha de nacimiento"
-                fechaInicial={"2000 01 01"}
+                fechaInicial={"1990 01 01"}
                 fechaFinal={`${hoy.getFullYear()} ${
                   hoy.getMonth() + 1
                 } ${hoy.getDate()}`}

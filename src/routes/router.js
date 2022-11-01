@@ -1,6 +1,12 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import GlobalProvider from "../context/Provider";
 import GlobalInitializeData from "../global/GlobalInitializeData";
+import isAuthenticated from "../global/utils/isAuthenticated";
 import routes from "./listRoutes";
 
 const RouterMain = () => {
@@ -17,10 +23,15 @@ const RouterMain = () => {
               }
               return (
                 <Route
-                  exact
                   path={route.path}
                   key={key}
-                  component={route.component}
+                  render={(props) =>
+                    route.auth && !isAuthenticated() && path !== "/" ? (
+                      <Redirect to="/" />
+                    ) : (
+                      <route.component {...props} />
+                    )
+                  }
                 />
               );
             })}

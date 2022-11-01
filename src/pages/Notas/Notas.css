@@ -1,0 +1,53 @@
+.notas-volverAccion {
+  padding: 20px 0 0 20px;
+}
+.notas-btnCont {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 100px;
+}
+.notas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  gap: 20px;
+}
+
+.notas-input-email-container {
+  width: 500px;
+}
+
+.notas-textarea-container {
+  width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notas-textarea {
+  padding: 40px;
+  width: 500px;
+  min-width: 500px;
+  max-width: 500px;
+  height: 400px;
+  max-height: 400px;
+  min-height: 400px;
+  border: 0;
+  border-radius: 16px;
+}
+
+.notas-input-email {
+  width: 500px;
+}
+.notas-btn{
+    margin-top: 40px;
+}
+.widthNota{
+  width: 400px;
+}
