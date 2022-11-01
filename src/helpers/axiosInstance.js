@@ -37,6 +37,22 @@ const axiosInstance = async (history = null) => {
           reject(error);
         });
       }
+
+      if (error.response.status === 403 || error.response.status === 401) {
+        sessionStorage.removeItem("token");
+        let path = window.location.pathname;
+
+        // if (history) {
+        //   if (path !== "/") history.push("/");
+        // } else {
+        //   if (path !== "/") window.location = "/";
+        // }
+      } else {
+        return new Promise((_resolve, reject) => {
+          reject(error);
+        });
+      }
+
     }
   );
   return axiosInstance;
