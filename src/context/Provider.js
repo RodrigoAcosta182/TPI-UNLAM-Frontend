@@ -11,6 +11,7 @@ import llamadaInitialState from "./initialStates/llamadaInitialState";
 import misPacientesInitialState from "./initialStates/misPacientesInitialState";
 import modalAvatarInitialState from "./initialStates/modalAvatarInitialState";
 import modalInitialState from "./initialStates/modalInitialState";
+import notaInitialState from "./initialStates/notaInitialState";
 import ordenNumerosInitialState from "./initialStates/ordenNumerosInitialState";
 import pacienteSeleccionadoInitialState from "./initialStates/pacienteSeleccionadoInitialState";
 import profesionalesInitialState from "./initialStates/profesionalesInitialState";
@@ -29,6 +30,7 @@ import llamada from "./reducers/llamada";
 import misPacientes from "./reducers/misPacientes";
 import modalAvatar from "./reducers/modalAvatar";
 import modal from "./reducers/modal";
+import nota from "./reducers/nota";
 import ordenNumeros from "./reducers/ordenNumeros";
 import pacienteSeleccionado from "./reducers/pacienteSeleccionado";
 import profesionales from "./reducers/profesionales";
@@ -84,6 +86,8 @@ export const GlobalProvider = ({ children }) => {
   );
   const [modalState, modalDispatch] = useReducer(modal, modalInitialState);
 
+  const [notaState, notaDispatch] = useReducer(nota, notaInitialState);
+
   const [ordenNumerosState, ordenNumerosDispatch] = useReducer(
     ordenNumeros,
     ordenNumerosInitialState
@@ -133,6 +137,8 @@ export const GlobalProvider = ({ children }) => {
         misPacientesDispatch,
         modalState,
         modalDispatch,
+        notaState,
+        notaDispatch,
         ordenNumerosState,
         ordenNumerosDispatch,
         profesionalesState,
@@ -144,7 +150,7 @@ export const GlobalProvider = ({ children }) => {
         pacienteSeleccionadoState,
         pacienteSeleccionadoDispatch,
         sugerenciaState,
-        sugerenciaDispatch
+        sugerenciaDispatch,
       }}
     >
       {children}

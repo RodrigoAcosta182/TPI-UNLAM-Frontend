@@ -1,42 +1,54 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHome";
-import HeaderbaSugerencia from "../../components/genericos/HeaderbaSugerencia/HeaderbaSugerencia";
 import Input from "../../components/genericos/Input/Input";
 import Loading from "../../components/genericos/Loading/Loading";
 import Modal from "../../components/genericos/Modal/Modal";
 import SugerenciaSaludo from "../../components/genericos/SugerenciaSaludo/SugerenciaSaludo";
 import { hideModal, showModal } from "../../context/action/modal/modal";
-import {
-  resetSugerencia,
-  wsPostSugerencia,
-} from "../../context/action/sugerencia/sugerencia";
 import { GlobalContext } from "../../context/Provider";
 import "./Notas.css";
 import { useHistory } from "react-router-dom";
 import SalirIcon from "../../assets/images/SalirIcon";
 import Dropdown from "../../components/genericos/Dropdown/Dropdown";
 import { wsGetListaDePacientes } from "../../context/action/misPacientes/misPacientes";
+import { wsPostNota } from "../../context/action/nota/nota";
 
 const Notas = () => {
   const history = useHistory();
   const refInput = useRef();
   const refTextArea = useRef();
-  const { misPacientesState, modalState, modalDispatch, misPacientesDispatch } =
-    useContext(GlobalContext);
+  const {
+    authState,
+    misPacientesState,
+    modalState,
+    modalDispatch,
+    misPacientesDispatch,
+    notaDispatch,
+  } = useContext(GlobalContext);
   const [notaPaciente, setNotaPaciente] = useState({
-    mail: null,
-    descripcion: null,
+    Fecha: new Date(),
+    Mensaje: null,
+    ProfesionalId: authState.auth.data.usuario.id,
+    PacienteId: null,
+    LlamadaId: 1,
   });
 
   useEffect(() => {
     wsGetListaDePacientes()(misPacientesDispatch);
   }, []);
 
-  const onChangeSugerencia = (e) => {
+  const onChangeNota = (e) => {
     setNotaPaciente({ ...notaPaciente, [e.target.name]: e.target.value });
   };
-  const enviarSugerencia = () => {
-    // wsPostSugerencia(sugerencia)(sugerenciaDispatch);
+
+  const seleccionarPaciente = (e) => {
+    if (e !== "") {
+      setNotaPaciente({ ...notaPaciente, PacienteId: e.pacienteId });
+    }
+  };
+
+  const enviarNota = () => {
+    wsPostNota(notaPaciente)(notaDispatch);
   };
 
   const cerrarModal = () => {
@@ -91,7 +103,7 @@ const Notas = () => {
           <Dropdown
             valor={""}
             name="Nota"
-            // onChange={seleccionarGenero}
+            onChange={seleccionarPaciente}
             datos={misPacientesState.misPacientes.data}
             campoCodigo="id"
             descripcion="pacienteNombre"
@@ -105,16 +117,16 @@ const Notas = () => {
           <p className="bw24b c-white">Nota</p>
           <Input
             refElement={refTextArea}
-            value={notaPaciente.descripcion}
+            value={notaPaciente.Mensaje}
             className={"notas-textarea"}
             inputType="textarea"
-            name={"descripcion"}
-            onChange={onChangeSugerencia}
+            name={"Mensaje"}
+            onChange={onChangeNota}
           />
         </div>
         <div
           className="notas-btn btn bgc-broccoli pointer c-white bw18b"
-          onClick={enviarSugerencia}
+          onClick={enviarNota}
         >
           Guardar nota
         </div>

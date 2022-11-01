@@ -67,8 +67,9 @@ const MisPacientes = () => {
     history.push("/home");
   };
 
-  const irANotasDelPaciente = () => {
+  const irANotasDelPaciente = (e) => {
     history.push("/notasPaciente");
+    setPacienteContexto(e)(pacienteSeleccionadoDispatch);;
   };
 
   return (
@@ -127,7 +128,7 @@ const MisPacientes = () => {
                           </td>
                           <td className="tablaFilas c-white">{item.mail}</td>
                           <td className="tablaFilas c-white">
-                            <span className="tablaNotas" onClick={() => irANotasDelPaciente()}>
+                            <span className="tablaNotas" onClick={() => irANotasDelPaciente(item)}>
                               <NotasIcon />
                             </span>
                           </td>
