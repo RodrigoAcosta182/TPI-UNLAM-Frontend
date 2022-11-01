@@ -210,8 +210,8 @@ const SeguirPatron = () => {
   return (
     <>
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
-      <div className="seguirPatron-volverAccion" onClick={volverAlHome}>
-        <div className="seguirPatron-btnCont">
+      <div className="seguirPatron-volverAccion">
+        <div className="seguirPatron-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="seguirPatron-volverBtn c-white">VOLVER</p>
         </div>

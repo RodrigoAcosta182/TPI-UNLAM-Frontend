@@ -8,6 +8,8 @@ import Landing from "../pages/Landing/Landing";
 import ListaProfesionales from "../pages/ListaProfesionales/ListaProfesionales";
 import Login from "../pages/Login/Login";
 import MisPacientes from "../pages/MisPacientes/MisPacientes";
+import Notas from "../pages/Notas/Notas";
+import NotasPaciente from "../pages/NotasPaciente/NotasPaciente";
 import Perfil from "../pages/Perfil/Perfil";
 import Registro from "../pages/Registro/Registro";
 import Resultados from "../pages/Resultados/Resultados";
@@ -72,6 +74,18 @@ const listRoutes = [
     path: "/misPacientes",
     component: MisPacientes,
     title: "Mis Pacientes",
+    auth: true,
+  },
+  {
+    path: "/notas",
+    component: Notas,
+    title: "Notas",
+    auth: true,
+  },
+  {
+    path: "/notasPaciente",
+    component: NotasPaciente,
+    title: "Notas Paciente",
     auth: true,
   },
   {
