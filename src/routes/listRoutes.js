@@ -2,11 +2,14 @@ import Home from "../pages/Home/Home";
 import ColorCorrecto from "../pages/Juegos/ColorCorrecto/ColorCorrecto";
 import ComidaCorrecta from "../pages/Juegos/ComidaCorrecta/ComidaCorrecta";
 import OrdenaNumeros from "../pages/Juegos/OrdenaNumeros/OrdenaNumeros";
+import SeguirPatron from "../pages/Juegos/SeguirPatron/SeguirPatron";
 import VerdaderoFalso from "../pages/Juegos/VerdaderoFalso/VerdaderoFalso";
 import Landing from "../pages/Landing/Landing";
 import ListaProfesionales from "../pages/ListaProfesionales/ListaProfesionales";
 import Login from "../pages/Login/Login";
 import MisPacientes from "../pages/MisPacientes/MisPacientes";
+import Notas from "../pages/Notas/Notas";
+import NotasPaciente from "../pages/NotasPaciente/NotasPaciente";
 import Perfil from "../pages/Perfil/Perfil";
 import Registro from "../pages/Registro/Registro";
 import Resultados from "../pages/Resultados/Resultados";
@@ -29,25 +32,31 @@ const listRoutes = [
     path: "/colorcorrecto",
     component: ColorCorrecto,
     title: "Color Correcto",
-    auth: false,
+    auth: true,
   },
   {
     path: "/ordenanumeros",
     component: OrdenaNumeros,
     title: "Ordena Numeros",
-    auth: false,
+    auth: true,
+  },
+  {
+    path: "/seguirpatrones",
+    component: SeguirPatron,
+    title: "Seguir Patron",
+    auth: true,
   },
   {
     path: "/verdaderofalso",
     component: VerdaderoFalso,
     title: "Verdadero o Falso",
-    auth: false,
+    auth: true,
   },
   {
     path: "/comidacorrecta",
     component: ComidaCorrecta,
     title: "Comida Correcta",
-    auth: false,
+    auth: true,
   },
   {
     path: "/registrarse",
@@ -59,19 +68,31 @@ const listRoutes = [
     path: "/listaProfesionales",
     component: ListaProfesionales,
     title: "Lista Profesionales",
-    auth: false,
+    auth: true,
   },
   {
     path: "/misPacientes",
     component: MisPacientes,
     title: "Mis Pacientes",
-    auth: false,
+    auth: true,
+  },
+  {
+    path: "/notas",
+    component: Notas,
+    title: "Notas",
+    auth: true,
+  },
+  {
+    path: "/notasPaciente",
+    component: NotasPaciente,
+    title: "Notas Paciente",
+    auth: true,
   },
   {
     path: "/resultados",
     component: Resultados,
     title: "Resultados",
-    auth: false,
+    auth: true,
   },
   {
     path: "/perfil",
@@ -83,7 +104,7 @@ const listRoutes = [
     path: "/home",
     component: Home,
     title: "Home",
-    auth: false,
+    auth: true,
   },
   {
     path: "/",

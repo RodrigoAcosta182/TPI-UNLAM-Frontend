@@ -47,8 +47,8 @@ const Resultados = () => {
   return (
     <>
       <HeaderbarHome></HeaderbarHome>
-      <div className="resultados-volverAccion" onClick={volverAlHome}>
-        <div className="resultados-btnCont">
+      <div className="resultados-volverAccion">
+        <div className="resultados-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="resultados-volverBtn c-white bw16b">VOLVER</p>
         </div>

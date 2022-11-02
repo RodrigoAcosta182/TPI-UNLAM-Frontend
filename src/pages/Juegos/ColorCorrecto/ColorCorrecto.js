@@ -185,8 +185,8 @@ export default function ColorCorrecto() {
         mensaje={"Enviando resultados..."}
       />
       {/* <HeaderbarHome/> */}
-      <div className="colorCorrecto-volverAccion" onClick={volverAlHome}>
-        <div className="colorCorrecto-btnCont">
+      <div className="colorCorrecto-volverAccion">
+        <div className="colorCorrecto-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="colorCorrecto-volverBtn c-white">VOLVER</p>
         </div>

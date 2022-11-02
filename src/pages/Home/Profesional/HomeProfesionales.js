@@ -9,8 +9,12 @@ const HomeProfesionales = () => {
 
   const history = useHistory();
 
-  const showModalJuego = () => {
-    history.push("/misPacientes");
+  const navegar = (path) => {
+    if (path === "misPac") {
+      history.push("/misPacientes");
+    } else {
+      history.push("/notas");
+    }
   };
 
   return (
@@ -28,8 +32,14 @@ const HomeProfesionales = () => {
               <CardJuegos
                 juego="Mis Pacientes"
                 activo={true}
-                irAlJuego={() => showModalJuego()}
+                irAlJuego={() => navegar("misPac")}
                 imagen={"MisPacientes"}
+              />
+              <CardJuegos
+                juego="Notas"
+                activo={true}
+                irAlJuego={() => navegar("notas")}
+                imagen={"Notas"}
               />
             </div>
           </React.Fragment>

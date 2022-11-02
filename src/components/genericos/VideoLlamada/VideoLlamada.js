@@ -111,7 +111,7 @@ function Videos({ mode, callId, setPage }) {
       const answerCandidates = callDoc.collection("answerCandidates");
 
       //guardamos el id de llamada
-      console.log(callDoc.id);
+      // console.log(callDoc.id);
       setRoomId(callDoc.id);
 
       pc.onicecandidate = (event) => {

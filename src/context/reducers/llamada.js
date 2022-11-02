@@ -9,6 +9,7 @@ import {
   GET_LLAMADA_ACTUAL_LOADING,
   GET_LLAMADA_ACTUAL_SUCCESS,
   GET_LLAMADA_ACTUAL_ERROR,
+  SET_LLAMADA_ACTUAL_SUCCESS,
 } from "../ActionTypes";
 import llamadaInitialState from "../initialStates/llamadaInitialState";
 
@@ -100,6 +101,17 @@ const llamada = (state, { payload, type }) => {
           error: payload,
           loading: false,
           data: null,
+        },
+      };
+
+    case SET_LLAMADA_ACTUAL_SUCCESS:
+      return {
+        ...state,
+        llamadaActual: {
+          ...state.llamadaActual,
+          loading: false,
+          error: false,
+          data: { ...state.data, codigoLlamada: payload },
         },
       };
     case LLAMADA_RESET:

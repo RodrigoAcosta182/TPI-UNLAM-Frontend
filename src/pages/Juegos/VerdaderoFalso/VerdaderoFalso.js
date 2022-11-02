@@ -183,8 +183,8 @@ const VerdaderoFalso = () => {
   return (
     <>
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
-      <div className="verdaderofalso-volverAccion" onClick={volverAlHome}>
-        <div className="verdaderofalso-btnCont">
+      <div className="verdaderofalso-volverAccion">
+        <div className="verdaderofalso-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="verdaderofalso-volverBtn c-white">VOLVER</p>
         </div>

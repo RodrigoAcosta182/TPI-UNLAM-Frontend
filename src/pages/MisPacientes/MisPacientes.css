@@ -65,6 +65,9 @@
 .tablaFilas {
   padding: 16px 0;
 }
+.tablaNotas{
+  cursor: pointer;
+}
 .btnPacientesBox {
   display: flex;
   gap: 20px;

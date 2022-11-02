@@ -55,8 +55,8 @@ const ListaProfesionales = () => {
   return (
     <>
       <HeaderbarHome></HeaderbarHome>
-      <div className="listaProf-volverAccion" onClick={volverAlHome}>
-        <div className="listaProf-btnCont">
+      <div className="listaProf-volverAccion">
+        <div className="listaProf-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="listaProf-volverBtn c-white bw16b">VOLVER</p>
         </div>

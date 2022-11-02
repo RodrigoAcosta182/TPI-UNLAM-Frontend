@@ -14,6 +14,7 @@ import { setPacienteContexto } from "../../context/action/pacienteSeleccionado/p
 import LlamadaProfesional from "../../components/genericos/VideoLlamada/LlamadaProfesional";
 import Modal from "../../components/genericos/Modal/Modal";
 import calculaEdad from "../../global/utils/edad";
+import NotasIcon from "../../assets/images/NotasIcon";
 
 const MisPacientes = () => {
   const {
@@ -66,12 +67,17 @@ const MisPacientes = () => {
     history.push("/home");
   };
 
+  const irANotasDelPaciente = (e) => {
+    history.push("/notasPaciente");
+    setPacienteContexto(e)(pacienteSeleccionadoDispatch);;
+  };
+
   return (
     <>
       {modalState.modal.show && <Modal />}
       <HeaderbarHome></HeaderbarHome>
-      <div className="misPacientes-volverAccion" onClick={volverAlHome}>
-        <div className="misPacientes-btnCont">
+      <div className="misPacientes-volverAccion">
+        <div className="misPacientes-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="misPacientes-volverBtn c-white bw16b">VOLVER</p>
         </div>
@@ -90,6 +96,7 @@ const MisPacientes = () => {
                   <th className="columna">Tutor a cargo</th>
                   <th className="columna">Teléfono</th>
                   <th className="columna">Mail</th>
+                  <th className="columna">Notas</th>
                   <th className="columna">Activo</th>
                   <th className="columna">Acciones</th>
                 </tr>
@@ -120,6 +127,11 @@ const MisPacientes = () => {
                             {item.telefono}
                           </td>
                           <td className="tablaFilas c-white">{item.mail}</td>
+                          <td className="tablaFilas c-white">
+                            <span className="tablaNotas" onClick={() => irANotasDelPaciente(item)}>
+                              <NotasIcon />
+                            </span>
+                          </td>
                           {item.estado ? (
                             <td className="tablaFilas c-white">Si</td>
                           ) : (

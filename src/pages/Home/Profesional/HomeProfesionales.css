@@ -4,6 +4,10 @@
   flex-direction: column;
   gap: 50px;
 }
+.homeProf-cardJuegos{
+  display: flex;
+  gap: 50px;
+}
 .homeProf-logoBienvenida{
   display: flex;
   align-items: center;

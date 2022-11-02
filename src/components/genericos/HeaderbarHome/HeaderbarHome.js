@@ -48,6 +48,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
   const onHandleSalir = () => {
     history.push("/");
     logoutAuth()(authDispatch);
+    sessionStorage.removeItem("token");
   };
 
   return (

@@ -135,8 +135,8 @@ const ComidaCorrecta = () => {
   return (
     <>
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
-      <div className="comidaCorrecta-volverAccion" onClick={volverAlHome}>
-        <div className="comidaCorrecta-btnCont">
+      <div className="comidaCorrecta-volverAccion">
+        <div className="comidaCorrecta-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="comidaCorrecta-volverBtn c-white">VOLVER</p>
         </div>
