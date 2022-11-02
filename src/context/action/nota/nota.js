@@ -21,7 +21,7 @@ export const wsGetNotaXProfesional = (idPaciente) => (dispatch) => {
       .then((res) => {
         dispatch({
           type: GET_NOTA_SUCCESS,
-          payload: res.status,
+          payload: res.data,
         });
       })
       .catch((err) => {
