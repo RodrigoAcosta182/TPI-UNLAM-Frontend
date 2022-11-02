@@ -46,15 +46,16 @@ function LlamadaPaciente() {
 
   useEffect(()=>{
     if(llamadaState.llamadaActual.data){
-      console.log(llamadaState.llamadaActual.data)
       if(llamadaState.llamadaActual.data.codigoLlamada){
         setJoinCode(llamadaState.llamadaActual.data.codigoLlamada)
-        console.log(llamadaState.llamadaActual.data.codigoLlamada)
+        // console.log(llamadaState.llamadaActual.data.codigoLlamada)
         resetLlamada()(llamadaDispatch)
       }
     }
 
   },[llamadaState.llamadaActual.data])
+
+
 
   return (
     <>

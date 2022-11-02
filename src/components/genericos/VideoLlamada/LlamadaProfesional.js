@@ -68,8 +68,8 @@ function Videos({ callId, pacienteSeleccionado }) {
   const [webcamActive, setWebcamActive] = useState(false);
 
   const [llamadaDto, setLlamadaDto] = useState({
-    LlamadaId: callId,
-    ReceptorId: pacienteSeleccionado.pacienteId,
+    CodigoLlamada: callId,
+    PacienteId: pacienteSeleccionado.pacienteId,
     Fecha: new Date(),
   });
 
@@ -166,14 +166,11 @@ function Videos({ callId, pacienteSeleccionado }) {
   //desactivo SignalR
   useEffect(() => {
     if (llamadaState.llamada.data === 200) {
-      console.log("la llamada comenzo");
-      debugger
-      wsPostLlamadaSaliente(llamadaDto.CodigoLlamada, pacienteSeleccionado.id)(llamadaDispatch);
+      wsPostLlamadaSaliente(llamadaDto.CodigoLlamada, pacienteSeleccionado.mail)(llamadaDispatch);
     }
   }, [llamadaState.llamada.data]);
 
   const handleClickGuardarNota = () => {};
-
   const onChangeNota = (e) => {
     console.log(e.target.value)
   };

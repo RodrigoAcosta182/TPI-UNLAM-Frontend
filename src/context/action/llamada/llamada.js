@@ -10,6 +10,7 @@ import {
   LLAMADA_SALIENTE_LOADING,
   LLAMADA_SALIENTE_SUCCESS,
   LLAMADA_SUCCESS,
+  SET_LLAMADA_ACTUAL_SUCCESS,
 } from "../../ActionTypes";
 
 export const wsPostGuardarLlamada = (llamadaDto) => (dispatch) => {
@@ -73,7 +74,6 @@ export const wsPostLlamadaSaliente = (idLlamada, idPaciente) => (dispatch) => {
   });
 };
 
-
 export const wsGetLlamadaActual = () => (dispatch) => {
   dispatch({
     type: GET_LLAMADA_ACTUAL_LOADING,
@@ -103,6 +103,9 @@ export const wsGetLlamadaActual = () => (dispatch) => {
   });
 };
 
+export const setLlamadaActual = (idLlamadaActual) => (dispatch) => {
+  dispatch({ type: SET_LLAMADA_ACTUAL_SUCCESS, payload: idLlamadaActual });
+};
 export const resetLlamada = () => (dispatch) => {
   dispatch({ type: LLAMADA_RESET });
 };
