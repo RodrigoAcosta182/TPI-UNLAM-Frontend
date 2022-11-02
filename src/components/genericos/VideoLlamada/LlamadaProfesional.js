@@ -166,8 +166,7 @@ function Videos({ callId, pacienteSeleccionado }) {
   //desactivo SignalR
   useEffect(() => {
     if (llamadaState.llamada.data === 200) {
-      console.log("la llamada comenzo");
-      wsPostLlamadaSaliente(llamadaDto.CodigoLlamada, pacienteSeleccionado.id)(llamadaDispatch);
+      wsPostLlamadaSaliente(llamadaDto.CodigoLlamada, pacienteSeleccionado.mail)(llamadaDispatch);
     }
   }, [llamadaState.llamada.data]);
 

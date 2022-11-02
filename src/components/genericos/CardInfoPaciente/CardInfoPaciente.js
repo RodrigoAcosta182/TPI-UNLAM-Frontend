@@ -1,7 +1,6 @@
 import { getFecha } from "../../../global/utils/getFecha";
 import "./CardInfoPaciente.css";
 const CardInfoPaciente = ({ paciente }) => {
-  console.log(paciente);
   return (
     <div className="cardInfoPaciente-container">
       <div className="cardInfoPaciente-column">
