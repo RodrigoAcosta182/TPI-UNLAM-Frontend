@@ -1,13 +1,13 @@
 .llamadaPacienteMenu-container{
   display: flex;
   gap: 8px;
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
 }
 
 .llamadaPaciente-videosContainer {
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
   right: 20px;
