@@ -18,6 +18,7 @@ import {
   wsPostGuardarLlamada,
   wsPostLlamadaSaliente,
 } from "../../../context/action/llamada/llamada";
+import LlamadaIcon from "../../../assets/images/LlamadaIcon.png"
 
 // Initialize Firebase
 
@@ -48,10 +49,10 @@ function LlamadaProfesional({ paciente }) {
   return (
     <>
       <button
-        className="btnAccionesPacientes  c-white bgc-primary bw14b"
+        className="btnAccionesPacientes bw14b"
         onClick={mostrarModalLlamar}
       >
-        Llamar
+        <img alt="call" src={LlamadaIcon} width={30}></img>
       </button>
       {mostrarModal && (
         <div className="llamadaProfesional-container">

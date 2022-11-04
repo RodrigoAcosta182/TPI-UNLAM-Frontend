@@ -15,6 +15,9 @@ import LlamadaProfesional from "../../components/genericos/VideoLlamada/LlamadaP
 import Modal from "../../components/genericos/Modal/Modal";
 import calculaEdad from "../../global/utils/edad";
 import NotasIcon from "../../assets/images/NotasIcon";
+import ResultadosIcon from "../../assets/images/ResultadosIcon.png";
+import ActiveIcon from "../../assets/images/ActiveIcon.png";
+import InactiveIcon from "../../assets/images/InactiveIcon.png";
 
 const MisPacientes = () => {
   const {
@@ -69,7 +72,7 @@ const MisPacientes = () => {
 
   const irANotasDelPaciente = (e) => {
     history.push("/notasPaciente");
-    setPacienteContexto(e)(pacienteSeleccionadoDispatch);;
+    setPacienteContexto(e)(pacienteSeleccionadoDispatch);
   };
 
   return (
@@ -128,7 +131,10 @@ const MisPacientes = () => {
                           </td>
                           <td className="tablaFilas c-white">{item.mail}</td>
                           <td className="tablaFilas c-white">
-                            <span className="tablaNotas" onClick={() => irANotasDelPaciente(item)}>
+                            <span
+                              className="tablaNotas"
+                              onClick={() => irANotasDelPaciente(item)}
+                            >
                               <NotasIcon />
                             </span>
                           </td>
@@ -142,27 +148,39 @@ const MisPacientes = () => {
                             <div className="btnPacientesBox">
                               {item.estado ? (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-danger bw14b"
+                                  className="btnAccionesPacientes bw14b"
                                   onClick={() => habilitarPaciente(item)}
                                 >
-                                  Deshabilitar
+                                  <img
+                                    alt="check"
+                                    src={InactiveIcon}
+                                    width={30}
+                                  ></img>
                                 </button>
                               ) : (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-broccoli bw14b"
+                                  className="btnAccionesPacientes bw14b"
                                   onClick={() => habilitarPaciente(item)}
                                 >
-                                  Habilitar
+                                  <img
+                                    alt="check"
+                                    src={ActiveIcon}
+                                    width={30}
+                                  ></img>
                                 </button>
                               )}
 
                               {item.estado ? (
                                 <>
                                   <button
-                                    className="btnAccionesPacientes c-white bgc-primary bw14b"
+                                    className="btnAccionesPacientes bw14b"
                                     onClick={() => irAMasInfo(item)}
                                   >
-                                    Resultados
+                                    <img
+                                      alt="result"
+                                      src={ResultadosIcon}
+                                      width={30}
+                                    ></img>
                                   </button>
                                   <LlamadaProfesional paciente={item} />
                                 </>

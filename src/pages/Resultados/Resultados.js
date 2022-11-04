@@ -11,6 +11,8 @@ import {
 } from "../../context/action/resultados/resultados";
 import { GlobalContext } from "../../context/Provider";
 import { resetPacienteContexto } from "../../context/action/pacienteSeleccionado/pacienteSeleccionado";
+import useTable from "../../global/utils/useTable";
+import TableFooter from "../../components/genericos/TableFooter/TableFooter";
 
 const Resultados = () => {
   const history = useHistory();
@@ -21,6 +23,17 @@ const Resultados = () => {
     pacienteSeleccionadoState,
     pacienteSeleccionadoDispatch,
   } = React.useContext(GlobalContext);
+
+  const [page, setPage] = React.useState(1);
+  const [data, setData] = React.useState(null);
+
+  useEffect(() => {
+    if (resultadosState.resultados.data) {
+      setData(resultadosState.resultados.data);
+    }
+  }, [resultadosState.resultados.data]);
+
+  const { slice, range } = useTable(data ? data : "", page, 4);
 
   let nombrePaciente = `${authState.auth.data.usuario.nombre} ${authState.auth.data.usuario.apellido}`;
 
@@ -72,8 +85,8 @@ const Resultados = () => {
                   <th className="columna">Tiempo de resolución</th>
                   <th className="columnaFinal">¿Completó?</th>
                 </tr>
-                {Array.isArray(resultadosState.resultados.data) &&
-                  resultadosState.resultados.data.map((item, index) => {
+                {Array.isArray(slice) &&
+                  slice.map((item, index) => {
                     return (
                       <React.Fragment key={index}>
                         <tr className="tablaFilasContainer bw18t">
@@ -104,6 +117,12 @@ const Resultados = () => {
               </tbody>
             </table>
           </div>
+          <TableFooter
+            range={range}
+            slice={slice}
+            setPage={setPage}
+            page={page}
+          />
         </div>
       </>
     </>

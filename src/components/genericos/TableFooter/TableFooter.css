@@ -1,0 +1,32 @@
+.tableFooter {
+    padding: 8px 0px;
+    font-weight: 500;
+    text-align: left;
+    font-size: 18px;
+    color: #2c3e50;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .buttonTable {
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    cursor: pointer;
+    margin-right: 4px;
+    margin-left: 4px;
+  }
+  
+  .activeButton {
+    color: white;
+    background: #185adb;
+    border: 2px solid white;
+  }
+  
+  .inactiveButton {
+    color: #2c3e50;
+    background: #f9f9f9;
+  }
+  
