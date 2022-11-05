@@ -18,6 +18,7 @@ import NotasIcon from "../../assets/images/NotasIcon";
 import ResultadosIcon from "../../assets/images/ResultadosIcon.png";
 import ActiveIcon from "../../assets/images/ActiveIcon.png";
 import InactiveIcon from "../../assets/images/InactiveIcon.png";
+import PostItIcon from "../../assets/images/PostItIcon.png";
 
 const MisPacientes = () => {
   const {
@@ -135,7 +136,11 @@ const MisPacientes = () => {
                               className="tablaNotas"
                               onClick={() => irANotasDelPaciente(item)}
                             >
-                              <NotasIcon />
+                              <img
+                                alt="result"
+                                src={PostItIcon}
+                                width={30}
+                              ></img>
                             </span>
                           </td>
                           {item.estado ? (

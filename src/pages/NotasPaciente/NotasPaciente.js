@@ -69,7 +69,7 @@ const NotasPaciente = () => {
                       <p className="bw24b">
                         {new Date(item.fecha).toLocaleDateString()}
                       </p>
-                      <p className="bw18mh notas-mensaje">{item.mensaje}</p>
+                      <p className="bw24t notas-mensaje">{item.mensaje}</p>
                     </div>
                   </div>
                 </React.Fragment>
