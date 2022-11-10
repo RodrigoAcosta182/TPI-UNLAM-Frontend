@@ -53,7 +53,6 @@ const NotasPaciente = () => {
             notaState.nota.data.map((item, index) => {
               let check = checkParOImpar(index);
               let checkPrimo = checkNroPrimo(index);
-              console.log(item);
               return (
                 <React.Fragment key={index}>
                   <div

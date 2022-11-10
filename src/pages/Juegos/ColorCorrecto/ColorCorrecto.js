@@ -15,8 +15,10 @@ import {
 import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
 import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
 import Loading from "../../../components/genericos/Loading/Loading";
-import HeaderbarHome from "../../../components/genericos/HeaderbarHome/HeaderbarHome";
-import LlamadaPaciente from "../../../components/genericos/VideoLlamada/LlamadaPaciente";
+import ListoIcon from "../../../assets/images/ListoIcon.png";
+import ListoIconDsb from "../../../assets/images/ListoIconDsb.png";
+import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
+import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
 
 export default function ColorCorrecto() {
   const {
@@ -47,7 +49,6 @@ export default function ColorCorrecto() {
     FechaFinalizacion: null,
   });
   const [contadorAciertos, setContadorAciertos] = useState(0);
-
 
   useEffect(() => {
     wsGetColores()(colorCorrectoDispatch);
@@ -115,28 +116,27 @@ export default function ColorCorrecto() {
   const enviarColorCorrecto = () => {
     if (selected !== null && selected !== undefined) {
       // if (resultadoJuegoDto.Aciertos < 4) {
-        setColorAnterior(colorPregunta);
-        if (selected === colorPregunta.hexadecimal) {
-          setResultadoJuegoDto({
-            ...resultadoJuegoDto,
-            Aciertos: resultadoJuegoDto.Aciertos + 1,
-          });
-          setContadorAciertos(contadorAciertos + 1)
-        } else {
-          setResultadoJuegoDto({
-            ...resultadoJuegoDto,
-            Desaciertos: resultadoJuegoDto.Desaciertos + 1,
-          });
-          setContadorAciertos(0)
-        }
-        wsGetColores()(colorCorrectoDispatch);
-        setSelected(null);
+      setColorAnterior(colorPregunta);
+      if (selected === colorPregunta.hexadecimal) {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Aciertos: resultadoJuegoDto.Aciertos + 1,
+        });
+        setContadorAciertos(contadorAciertos + 1);
+      } else {
+        setResultadoJuegoDto({
+          ...resultadoJuegoDto,
+          Desaciertos: resultadoJuegoDto.Desaciertos + 1,
+        });
+        setContadorAciertos(0);
+      }
+      wsGetColores()(colorCorrectoDispatch);
+      setSelected(undefined);
       // }
     } else {
       console.log("Debe seleccionar un color");
     }
   };
-
 
   useEffect(() => {
     if (contadorAciertos === 5) {
@@ -145,10 +145,11 @@ export default function ColorCorrecto() {
   }, [contadorAciertos]);
 
   const finalizarJuego = () => {
-    let horarioFinalizacion = new Date()
+    let horarioFinalizacion = new Date();
     setResultadoJuegoDto({
       ...resultadoJuegoDto,
       FechaFinalizacion: horarioFinalizacion,
+      Finalizado: false,
     });
 
     //poner logica de loading y push
@@ -195,7 +196,7 @@ export default function ColorCorrecto() {
         {colorPregunta ? (
           <>
             <div className="colorCorrecto-pregunta bw32b">
-              <p className="c-white">¿Qué color es este</p>
+              <p className="c-white">¿Qué color es</p>
               <div
                 className="colorCorrecto-prgColor"
                 style={{ background: colorPregunta.hexadecimal }}
@@ -208,7 +209,13 @@ export default function ColorCorrecto() {
         ) : (
           ""
         )}
-        <div className="colorCorrecto-boxColores">
+        <div
+          className={
+            segundoNivel
+              ? "colorCorrecto-boxColores2do"
+              : "colorCorrecto-boxColores"
+          }
+        >
           <AnimateSharedLayout>
             <ul
               className={
@@ -227,11 +234,45 @@ export default function ColorCorrecto() {
           </AnimateSharedLayout>
           {colorPregunta && (
             <div className="colorCorrecto-btnContainer">
+              
+              <button
+                className={
+                  resultadoJuegoDto.Aciertos > 0 ||
+                  resultadoJuegoDto.Desaciertos > 0
+                    ? "iconButton bw24t"
+                    : "iconButton bw24t"
+                }
+                onClick={
+                  resultadoJuegoDto.Aciertos > 0 ||
+                  resultadoJuegoDto.Desaciertos > 0
+                    ? finalizarJuego
+                    : () => {}
+                }
+                style={
+                  resultadoJuegoDto.Aciertos > 0 ||
+                  resultadoJuegoDto.Desaciertos > 0
+                    ? { cursor: "pointer" }
+                    : { cursor: "initial" }
+                }
+              >
+                <img
+                  alt="listo"
+                  src={
+                    resultadoJuegoDto.Aciertos > 0 ||
+                    resultadoJuegoDto.Desaciertos > 0
+                      ? FinalizarIcon
+                      : FinalizarIconDsb
+                  }
+                  width={80}
+                ></img>
+                <p className="c-white">Finalizar</p>
+              </button>
+
               <button
                 className={
                   selected === undefined
-                    ? "colorCorrecto-btn bw24t bgc-grey65"
-                    : "colorCorrecto-btn bw24t"
+                    ? "iconButton bw24t"
+                    : "iconButton bw24t"
                 }
                 onClick={
                   selected === undefined ? () => {} : enviarColorCorrecto
@@ -242,28 +283,17 @@ export default function ColorCorrecto() {
                     : { cursor: "pointer" }
                 }
               >
-                Listo
-              </button>
-              <button
-                className={
-                  selected === undefined
-                    ? "colorCorrecto-btn bw24t bgc-grey65"
-                    : "colorCorrecto-btn bw24t"
-                }
-                onClick={selected === undefined ? () => {} : finalizarJuego}
-                style={
-                  selected === undefined
-                    ? { cursor: "initial" }
-                    : { cursor: "pointer" }
-                }
-              >
-                Finalizar
+                <img
+                  alt="listo"
+                  src={selected === undefined ? ListoIconDsb : ListoIcon}
+                  width={80}
+                ></img>
+                <p className="c-white">Siguiente</p>
               </button>
             </div>
           )}
         </div>
       </div>
-      
     </>
   );
 }

@@ -28,7 +28,7 @@
 .bordeTabla {
   border: 2px solid white;
   border-radius: 8px;
-  width: 80%;
+  width: 85%;
 }
 .containerTabla {
   border-collapse: collapse;
@@ -63,7 +63,7 @@
   border-bottom: none;
 }
 .tablaFilas {
-  padding: 16px 0;
+  padding: 16px 8px;
 }
 .listaProf-checkBox {
   width: 80px;

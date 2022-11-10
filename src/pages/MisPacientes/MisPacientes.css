@@ -28,7 +28,7 @@
 .bordeTabla {
   border: 2px solid white;
   border-radius: 8px;
-  width: 90%;
+  width: 85%;
 }
 .containerTabla {
   border-collapse: collapse;
@@ -63,7 +63,7 @@
   border-bottom: none;
 }
 .tablaFilas {
-  padding: 16px 0;
+  padding: 16px 8px;
 }
 .tablaNotas{
   cursor: pointer;
@@ -80,7 +80,7 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  padding: 10px 6px;
+  /* padding: 10px 6px; */
 }
 @media (max-width: 1365px) {
   .btnPacientesBox {
@@ -90,6 +90,6 @@
     font-size: 16px;
   }
   .tablaFilas {
-    padding: 16px 6px;
+    padding: 16px 8px;
   }
 }

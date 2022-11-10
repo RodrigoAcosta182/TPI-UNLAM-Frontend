@@ -18,7 +18,8 @@ import {
   wsPostGuardarLlamada,
   wsPostLlamadaSaliente,
 } from "../../../context/action/llamada/llamada";
-import LlamadaIcon from "../../../assets/images/LlamadaIcon.png"
+import LlamadaIcon from "../../../assets/images/LlamadaIcon.png";
+import ReactTooltip from "react-tooltip";
 
 // Initialize Firebase
 
@@ -51,9 +52,20 @@ function LlamadaProfesional({ paciente }) {
       <button
         className="btnAccionesPacientes bw14b"
         onClick={mostrarModalLlamar}
+        data-tip
+        data-for={`botonTooltipCall`}
       >
         <img alt="call" src={LlamadaIcon} width={30}></img>
       </button>
+      <ReactTooltip
+        id={`botonTooltipCall`}
+        place="top"
+        type="light"
+        effect="solid"
+        border={true}
+      >
+        Llamar
+      </ReactTooltip>
       {mostrarModal && (
         <div className="llamadaProfesional-container">
           <Videos callId={joinCode} pacienteSeleccionado={paciente} />
@@ -167,13 +179,16 @@ function Videos({ callId, pacienteSeleccionado }) {
   //desactivo SignalR
   useEffect(() => {
     if (llamadaState.llamada.data === 200) {
-      wsPostLlamadaSaliente(llamadaDto.CodigoLlamada, pacienteSeleccionado.mail)(llamadaDispatch);
+      wsPostLlamadaSaliente(
+        llamadaDto.CodigoLlamada,
+        pacienteSeleccionado.mail
+      )(llamadaDispatch);
     }
   }, [llamadaState.llamada.data]);
 
   const handleClickGuardarNota = () => {};
   const onChangeNota = (e) => {
-    console.log(e.target.value)
+    console.log(e.target.value);
   };
 
   return (
