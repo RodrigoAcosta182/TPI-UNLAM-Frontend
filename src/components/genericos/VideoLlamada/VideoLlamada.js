@@ -9,13 +9,13 @@ import "./VideoLlamada.css";
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyB1sHifIhJGMovDl0x8W_rHjIvLTWneFGU",
-  authDomain: "grandin-79bec.firebaseapp.com",
-  projectId: "grandin-79bec",
-  storageBucket: "grandin-79bec.appspot.com",
-  messagingSenderId: "1044304916731",
-  appId: "1:1044304916731:web:286a8e775e7ea690fb005e",
-  measurementId: "G-HS9QTHBVN0",
+  apiKey: "AIzaSyD01WY7o71TwZh_z9jObobncNVqbeveCaw",
+  authDomain: "grandin2022-c1144.firebaseapp.com",
+  projectId: "grandin2022-c1144",
+  storageBucket: "grandin2022-c1144.appspot.com",
+  messagingSenderId: "383279642684",
+  appId: "1:383279642684:web:b3d391e1d6c47fc28d6b39",
+  measurementId: "G-HMT471YHNY"
 };
 
 if (!firebase.apps.length) {
