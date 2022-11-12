@@ -3,7 +3,6 @@ import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHom
 import Input from "../../components/genericos/Input/Input";
 import Loading from "../../components/genericos/Loading/Loading";
 import Modal from "../../components/genericos/Modal/Modal";
-import SugerenciaSaludo from "../../components/genericos/SugerenciaSaludo/SugerenciaSaludo";
 import { hideModal, showModal } from "../../context/action/modal/modal";
 import { GlobalContext } from "../../context/Provider";
 import "./Notas.css";
@@ -11,11 +10,11 @@ import { useHistory } from "react-router-dom";
 import SalirIcon from "../../assets/images/SalirIcon";
 import Dropdown from "../../components/genericos/Dropdown/Dropdown";
 import { wsGetListaDePacientes } from "../../context/action/misPacientes/misPacientes";
-import { wsPostNota } from "../../context/action/nota/nota";
+import { resetNota, wsPostNota } from "../../context/action/nota/nota";
+import NotaEnviadaModal from "../../components/genericos/NotaEnviadaModal/NotaEnviadaModal";
 
 const Notas = () => {
   const history = useHistory();
-  const refInput = useRef();
   const refTextArea = useRef();
   const {
     authState,
@@ -24,17 +23,18 @@ const Notas = () => {
     modalDispatch,
     misPacientesDispatch,
     notaDispatch,
+    notaState
   } = useContext(GlobalContext);
   const [notaPaciente, setNotaPaciente] = useState({
     Fecha: new Date(),
     Mensaje: null,
     ProfesionalId: authState.auth.data.usuario.id,
     PacienteId: null,
-    LlamadaId: 1,
   });
 
   useEffect(() => {
     wsGetListaDePacientes()(misPacientesDispatch);
+    resetNota()(notaDispatch);
   }, []);
 
   const onChangeNota = (e) => {
@@ -53,32 +53,23 @@ const Notas = () => {
 
   const cerrarModal = () => {
     hideModal()(modalDispatch);
+    history.push("/home");
   };
 
-  // useEffect(() => {
-  //   if (sugerenciaState.sugerencia.data === 200) {
-  //     showModal(
-  //       <SugerenciaSaludo cerrarModal={cerrarModal} />,
-  //       "",
-  //       cerrarModal,
-  //       true,
-  //       {},
-  //       "centro",
-  //       true
-  //     )(modalDispatch);
-  //     limpiarCampos()
-  //     resetSugerencia()(sugerenciaDispatch);
-  //   }
-  // }, [sugerenciaState.sugerencia.data]);
-
-  const limpiarCampos = () => {
-    refInput.current.value = "";
-    refTextArea.current.value = "";
-    setNotaPaciente({
-      mail: null,
-      descripcion: null,
-    });
-  };
+  useEffect(() => {
+    if (notaState.nota.data === 200) {
+      showModal(
+        <NotaEnviadaModal cerrarModal={cerrarModal} />,
+        "",
+        cerrarModal,
+        true,
+        {},
+        "centro",
+        true
+      )(modalDispatch);
+      resetNota()(notaDispatch);
+    }
+  }, [notaState.nota.data]);
 
   const volverAlHome = () => {
     history.push("/home");

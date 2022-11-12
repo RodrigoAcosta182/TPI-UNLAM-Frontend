@@ -15,6 +15,11 @@ import LlamadaProfesional from "../../components/genericos/VideoLlamada/LlamadaP
 import Modal from "../../components/genericos/Modal/Modal";
 import calculaEdad from "../../global/utils/edad";
 import NotasIcon from "../../assets/images/NotasIcon";
+import ResultadosIcon from "../../assets/images/ResultadosIcon.png";
+import ActiveIcon from "../../assets/images/ActiveIcon.png";
+import InactiveIcon from "../../assets/images/InactiveIcon.png";
+import PostItIcon from "../../assets/images/PostItIcon.png";
+import ReactTooltip from "react-tooltip";
 
 const MisPacientes = () => {
   const {
@@ -69,7 +74,7 @@ const MisPacientes = () => {
 
   const irANotasDelPaciente = (e) => {
     history.push("/notasPaciente");
-    setPacienteContexto(e)(pacienteSeleccionadoDispatch);;
+    setPacienteContexto(e)(pacienteSeleccionadoDispatch);
   };
 
   return (
@@ -98,7 +103,7 @@ const MisPacientes = () => {
                   <th className="columna">Mail</th>
                   <th className="columna">Notas</th>
                   <th className="columna">Activo</th>
-                  <th className="columna">Acciones</th>
+                  <th className="columnaFinal">Acciones</th>
                 </tr>
 
                 {Array.isArray(misPacientesState.misPacientes.data) &&
@@ -128,9 +133,27 @@ const MisPacientes = () => {
                           </td>
                           <td className="tablaFilas c-white">{item.mail}</td>
                           <td className="tablaFilas c-white">
-                            <span className="tablaNotas" onClick={() => irANotasDelPaciente(item)}>
-                              <NotasIcon />
-                            </span>
+                            <button
+                              className="btnAccionesPacientes tablaNotas"
+                              onClick={() => irANotasDelPaciente(item)}
+                              data-tip
+                              data-for={`botonTooltipNotas ${index}`}
+                            >
+                              <img
+                                alt="result"
+                                src={PostItIcon}
+                                width={30}
+                              ></img>
+                              <ReactTooltip
+                                id={`botonTooltipNotas ${index}`}
+                                place="top"
+                                type="light"
+                                effect="solid"
+                                border={true}
+                              >
+                                Ver Notas
+                              </ReactTooltip>
+                            </button>
                           </td>
                           {item.estado ? (
                             <td className="tablaFilas c-white">Si</td>
@@ -142,27 +165,72 @@ const MisPacientes = () => {
                             <div className="btnPacientesBox">
                               {item.estado ? (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-danger bw14b"
+                                  className="btnAccionesPacientes bw14b"
                                   onClick={() => habilitarPaciente(item)}
+                                  data-tip
+                                  data-for={`botonTooltipDes ${index}`}
                                 >
-                                  Deshabilitar
+                                  <img
+                                    alt="check"
+                                    src={InactiveIcon}
+                                    width={30}
+                                  ></img>
+                                  <ReactTooltip
+                                    id={`botonTooltipDes ${index}`}
+                                    place="top"
+                                    type="light"
+                                    effect="solid"
+                                    border={true}
+                                  >
+                                    Deshabilitar Paciente
+                                  </ReactTooltip>
                                 </button>
                               ) : (
                                 <button
-                                  className="btnAccionesPacientes c-white bgc-broccoli bw14b"
+                                  className="btnAccionesPacientes bw14b"
                                   onClick={() => habilitarPaciente(item)}
+                                  data-tip
+                                  data-for={`botonTooltipAct ${index}`}
                                 >
-                                  Habilitar
+                                  <img
+                                    alt="check"
+                                    src={ActiveIcon}
+                                    width={30}
+                                  ></img>
+                                  <ReactTooltip
+                                    id={`botonTooltipAct ${index}`}
+                                    place="top"
+                                    type="light"
+                                    effect="solid"
+                                    border={true}
+                                  >
+                                    Habilitar Paciente
+                                  </ReactTooltip>
                                 </button>
                               )}
 
                               {item.estado ? (
                                 <>
                                   <button
-                                    className="btnAccionesPacientes c-white bgc-primary bw14b"
+                                    className="btnAccionesPacientes bw14b"
                                     onClick={() => irAMasInfo(item)}
+                                    data-tip
+                                    data-for={`botonTooltipRes ${index + 1}`}
                                   >
-                                    Resultados
+                                    <img
+                                      alt="result"
+                                      src={ResultadosIcon}
+                                      width={30}
+                                    ></img>
+                                    <ReactTooltip
+                                      id={`botonTooltipRes ${index + 1}`}
+                                      place="top"
+                                      type="light"
+                                      effect="solid"
+                                      border={true}
+                                    >
+                                      Ver Resultados
+                                    </ReactTooltip>
                                   </button>
                                   <LlamadaProfesional paciente={item} />
                                 </>

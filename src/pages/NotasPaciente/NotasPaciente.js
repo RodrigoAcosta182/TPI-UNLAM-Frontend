@@ -8,7 +8,10 @@ import { useHistory } from "react-router-dom";
 import SalirIcon from "../../assets/images/SalirIcon";
 import checkParOImpar from "../../global/utils/checkParOImpar";
 import checkNroPrimo from "../../global/utils/checkNroPrimo";
-import { wsGetNotaXProfesional } from "../../context/action/nota/nota";
+import {
+  resetNota,
+  wsGetNotaXProfesional,
+} from "../../context/action/nota/nota";
 
 const NotasPaciente = () => {
   const history = useHistory();
@@ -25,6 +28,7 @@ const NotasPaciente = () => {
 
   const volverAlHome = () => {
     history.push("/misPacientes");
+    resetNota()(notaDispatch);
   };
 
   return (
@@ -39,7 +43,11 @@ const NotasPaciente = () => {
         </div>
       </div>
       <div className="notas-container">
-        <p className="c-white bw32b">Paciente: Jose</p>
+        <p className="c-white bw32b">
+          Paciente:{" "}
+          {pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre}{" "}
+          {pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}{" "}
+        </p>
         <div className="notas-input-email-container">
           {Array.isArray(notaState.nota.data) &&
             notaState.nota.data.map((item, index) => {
@@ -56,9 +64,12 @@ const NotasPaciente = () => {
                         : "notas-card3"
                     }
                   >
-                    <p>
-                      {item.Mensaje} {index}{" "}
-                    </p>
+                    <div className="notas-fechaMensaje">
+                      <p className="bw24b">
+                        {new Date(item.fecha).toLocaleDateString()}
+                      </p>
+                      <p className="bw24t notas-mensaje">{item.mensaje}</p>
+                    </div>
                   </div>
                 </React.Fragment>
               );

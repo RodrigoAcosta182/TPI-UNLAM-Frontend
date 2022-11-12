@@ -28,7 +28,7 @@
 .bordeTabla {
   border: 2px solid white;
   border-radius: 8px;
-  width: 80%;
+  width: 85%;
 }
 .containerTabla {
   border-collapse: collapse;
@@ -63,7 +63,7 @@
   border-bottom: none;
 }
 .tablaFilas {
-  padding: 16px 0;
+  padding: 16px 8px;
 }
 .tablaNotas{
   cursor: pointer;
@@ -75,22 +75,21 @@
   justify-content: center;
 }
 .btnAccionesPacientes {
-  width: 110px;
+  background: none;
+  /* width: 110px; */
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  padding: 10px 0;
+  /* padding: 10px 6px; */
 }
 @media (max-width: 1365px) {
   .btnPacientesBox {
-    flex-direction: column;
+    /* flex-direction: column; */
   }
   .btnAccionesPacientes {
-    width: 100px;
-    padding: 4px 0;
     font-size: 16px;
   }
   .tablaFilas {
-    padding: 16px 6px;
+    padding: 16px 8px;
   }
 }
