@@ -11,8 +11,6 @@ import {
   resetFinalizaJuego,
   wsPostFinalizaJuego,
 } from "../../../context/action/Juegos/finalizaJuego";
-import CheckIcon from "../../../assets/images/CheckIcon";
-import CruzIcon from "../../../assets/images/CruzIcon";
 import Anana from "../../../assets/images/frutas/Anana.png";
 import Frutilla from "../../../assets/images/frutas/Frutilla.png";
 import Manzana from "../../../assets/images/frutas/Manzana.png";
@@ -20,6 +18,12 @@ import Naranja from "../../../assets/images/frutas/Naranja.png";
 import Uva from "../../../assets/images/frutas/Uva.png";
 import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
 import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
+import InactiveIcon from "../../../assets/images/InactiveIcon.png";
+import ActiveIcon from "../../../assets/images/ActiveIcon.png";
+import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
+import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
+import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
+import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
 
 const VerdaderoFalso = () => {
   const {
@@ -189,44 +193,107 @@ const VerdaderoFalso = () => {
           <p className="verdaderofalso-volverBtn c-white">VOLVER</p>
         </div>
       </div>
-      <div className="verdaderofalso-container">
-        {imagenPregunta && textoPregunta && (
-          <>
-            <div className="verdaderofalso-pregunta bw32b">
-              <p className="c-white">¿Es un/a {textoPregunta.descripcion}?</p>
-            </div>
 
-            <div className="verdaderofalso-imgContainer">
-              <img
-                className={"verdaderofalso-imagen"}
-                src={imagenPregunta.img}
-                alt="fruta"
-              />
-            </div>
+      <div className="verdaderofalso-animal-juego">
+        <img
+          className="verdaderofalso-animalIzq"
+          alt="fox"
+          src={FoxIzq}
+          width="200"
+          height="250"
+        ></img>
+        <div className="verdaderofalso-container">
+          {imagenPregunta && textoPregunta && (
+            <>
+              <div className="verdaderofalso-pregunta bw32b">
+                <p className="c-white">¿Es un/a {textoPregunta.descripcion}?</p>
+              </div>
+              <div className="verdaderofalso-btnContainer">
+                <button
+                  className="iconButton bw24t btnDesktop"
+                  onClick={() => responder("no")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <img
+                    alt="listo"
+                    className="widthBtn"
+                    src={InactiveIcon}
+                  ></img>
+                  <p className="c-white">Falso</p>
+                </button>
 
-            <div className="verdaderofalso-boxBtn">
-              <button
-                className={"verdaderofalso-falseBtn bw24t c-white"}
-                onClick={() => responder("no")}
-              >
-                <CruzIcon /> Falso
-              </button>
-              <button
-                className={"verdaderofalso-trueBtn bw24t c-white"}
-                onClick={() => responder("si")}
-              >
-                <CheckIcon /> Verdadero
-              </button>
-            </div>
-          </>
-        )}
-        <button
-          className={"verdaderofalso-finalizarBtn bw24t"}
-          onClick={() => finalizarJuego()}
-          disabled={btnDisabled}
-        >
-          Finalizar
-        </button>
+                <div className="verdaderofalso-imgContainer">
+                  <img
+                    className={"verdaderofalso-imagen"}
+                    src={imagenPregunta.img}
+                    alt="fruta"
+                  />
+                </div>
+
+                <button
+                  className="iconButton bw24t btnDesktop"
+                  onClick={() => responder("si")}
+                  style={{ cursor: "pointer" }}
+                >
+                  <img alt="listo" className="widthBtn" src={ActiveIcon}></img>
+                  <p className="verdaderobtn c-white">Verdadero</p>
+                </button>
+              </div>
+            </>
+          )}
+          <div className="verdaderofalso-mobileCont">
+            <button
+              className="iconButton bw24t"
+              onClick={() => responder("no")}
+              style={{ cursor: "pointer" }}
+            >
+              <img alt="listo" className="widthBtn" src={InactiveIcon}></img>
+              <p className="c-white">Falso</p>
+            </button>
+            <button
+              className="iconButton bw24t"
+              onClick={() => responder("si")}
+              style={{ cursor: "pointer" }}
+            >
+              <img alt="listo" className="widthBtn" src={ActiveIcon}></img>
+              <p className="verdaderobtn c-white">Verdadero</p>
+            </button>
+          </div>
+          <button
+            className="iconButtonFin bw24t"
+            onClick={
+              resultadoJuegoDto.Aciertos > 0 ||
+              resultadoJuegoDto.Desaciertos > 0
+                ? finalizarJuego
+                : () => {}
+            }
+            style={
+              resultadoJuegoDto.Aciertos > 0 ||
+              resultadoJuegoDto.Desaciertos > 0
+                ? { cursor: "pointer" }
+                : { cursor: "initial" }
+            }
+          >
+            <img
+              alt="listo"
+              src={
+                resultadoJuegoDto.Aciertos > 0 ||
+                resultadoJuegoDto.Desaciertos > 0
+                  ? FinalizarIcon
+                  : FinalizarIconDsb
+              }
+              width={80}
+            ></img>
+            <p className="c-white">Finalizar</p>
+          </button>
+        </div>
+        <img
+          className="verdaderofalso-animalDer"
+          alt="fox"
+          src={FoxDer}
+          width="200"
+          height="250"
+        ></img>
       </div>
     </>
   );

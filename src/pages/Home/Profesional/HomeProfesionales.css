@@ -1,24 +1,38 @@
-.homeProf-container{
+.homeProf-container {
   padding: 60px 120px;
   display: flex;
   flex-direction: column;
   gap: 50px;
 }
-.homeProf-cardJuegos{
+.homeProf-cardJuegos {
   display: flex;
+  flex-wrap: wrap;
   gap: 50px;
 }
-.homeProf-logoBienvenida{
+.homeProf-logoBienvenida {
   display: flex;
   align-items: center;
   gap: 40px;
 }
-.homeProf-logo{
+.homeProf-logo {
   width: 250px;
 }
-.homeProf-listaJuegos{
+.homeProf-listaJuegos {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
-
+@media (max-width: 760px) {
+  .homeProf-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+  .homeProf-listaJuegos {
+    justify-content: center;
+  }
+  .homeProf-cardJuegos {
+    justify-content: center;
+  }
+}

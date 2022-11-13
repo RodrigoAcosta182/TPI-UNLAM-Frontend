@@ -1,5 +1,5 @@
 .llamadaPacienteMenu-container{
-  display: flex;
+  display: none;
   gap: 8px;
   position: fixed;
   bottom: 20px;

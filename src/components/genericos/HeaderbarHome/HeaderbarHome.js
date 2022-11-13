@@ -8,6 +8,7 @@ import MiniAvatar from "../../../assets/images/MiniAvatar";
 import FlechaDropdown from "../../../assets/images/FlechaDropdown";
 import SalirIconDrop from "../../../assets/images/SalirIconDrop";
 import LogoEmpresa from "../../../assets/images/empresa/LogoHeaderGrandin.png";
+import LogoEmpresaProf from "../../../assets/images/empresa/LogoGrandinLandingPage.png";
 import { getStrDate } from "../../../global/utils/diasData";
 import { GlobalContext } from "../../../context/Provider";
 import HeaderTimer from "../HeaderTimer/HeaderTimer";
@@ -59,9 +60,23 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
         }`}
         onClick={onHandleClickAvatar}
       ></div>
-      <div className={"ptur-HeaderbarDiv c-white"}>
+      <div
+        className={
+          authState.auth.data.usuario.tipoUsuarioId === 2
+            ? "ptur-HeaderbarDivProf c-black"
+            : "ptur-HeaderbarDiv c-white"
+        }
+      >
         <div className="logoHeader">
-          <img className="ptur-logoHeader" src={LogoEmpresa} alt="logo"></img>
+          <img
+            className="ptur-logoHeader"
+            src={
+              authState.auth.data.usuario.tipoUsuarioId === 2
+                ? LogoEmpresaProf
+                : LogoEmpresa
+            }
+            alt="logo"
+          ></img>
         </div>
 
         <div className="ptur-RightMenu">
@@ -81,7 +96,11 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
             >
               <BurgerBtn
                 color={
-                  showDropPerfil ? "var(--color-primary)" : "var(--color-white)"
+                  showDropPerfil
+                    ? "var(--color-primary)"
+                    : authState.auth.data.usuario.tipoUsuarioId === 2
+                    ? "var(--color-black)"
+                    : "var(--color-white)"
                 }
               />
 

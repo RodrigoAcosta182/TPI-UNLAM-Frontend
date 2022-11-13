@@ -26,7 +26,6 @@ const HomeProfesionales = () => {
             <span className="bw32b">{authState.auth.data.usuario.nombre}</span>
           </p>
         </div>
-        <div className="homeProf-listaJuegos">
           <React.Fragment>
             <div className="homeProf-cardJuegos">
               <CardJuegos
@@ -43,7 +42,6 @@ const HomeProfesionales = () => {
               />
             </div>
           </React.Fragment>
-        </div>
       </div>
     </React.Fragment>
   );

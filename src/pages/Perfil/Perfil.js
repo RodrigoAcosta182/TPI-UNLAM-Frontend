@@ -98,6 +98,17 @@ const Perfil = () => {
                 className={"fondoBlue-login"}
                 letterColor={"var(--color-white)"}
               />
+              <Input
+                onChange={onChangeLogin}
+                headerStr={"Teléfono"}
+                name="telefono"
+                value={authState.auth.data.usuario.telefono}
+                checkError={listErrorState.listError.contrasena}
+                isRequired={true}
+                errorStr="El teléfono es requerido"
+                className={"fondoBlue-login"}
+                letterColor={"var(--color-white)"}
+              />
             </div>
 
             <div className="perfilBox2">
@@ -125,6 +136,20 @@ const Perfil = () => {
                   letterColor={"var(--color-white)"}
                 />
               )}
+              {authState.auth.data.usuario.tipoUsuarioId === 1 && (
+                <Input
+                  onChange={onChangeLogin}
+                  headerStr={"Nombre tutor"}
+                  name="nombreTutor"
+                  value={authState.auth.data.usuario.nombreTutor}
+                  checkError={listErrorState.listError.contrasena}
+                  isRequired={true}
+                  errorStr="El nombre del tutor es requerida"
+                  className={"fondoBlue-login"}
+                  letterColor={"var(--color-white)"}
+                />
+              )}
+
               <Input
                 onChange={onChangeLogin}
                 headerStr={"Contraseña"}
@@ -137,28 +162,16 @@ const Perfil = () => {
                 letterColor={"var(--color-white)"}
               />
               <Input
-                  onChange={onChangeLogin}
-                  headerStr={"Nombre tutor"}
-                  name="nombreTutor"
-                  value={authState.auth.data.usuario.nombreTutor}
-                  checkError={listErrorState.listError.contrasena}
-                  isRequired={true}
-                  errorStr="El nombre del tutor es requerida"
-                  className={"fondoBlue-login"}
-                  letterColor={"var(--color-white)"}
-                />
-              <Input
-                  onChange={onChangeLogin}
-                  headerStr={"Teléfono"}
-                  name="telefono"
-                  value={authState.auth.data.usuario.telefono}
-                  checkError={listErrorState.listError.contrasena}
-                  isRequired={true}
-                  errorStr="El teléfono es requerido"
-                  className={"fondoBlue-login"}
-                  letterColor={"var(--color-white)"}
-                />
-
+                onChange={onChangeLogin}
+                headerStr={"Repetir contraseña"}
+                name="contrasenia"
+                inputType="password"
+                checkError={listErrorState.listError.contrasena}
+                isRequired={true}
+                errorStr="La fecha es requerida"
+                className={"fondoBlue-login"}
+                letterColor={"var(--color-white)"}
+              />
 
               <button className="perfil-confirmarBtn bw18b c-white">
                 <CheckIcon /> Confirmar

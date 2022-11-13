@@ -11,12 +11,30 @@
   display: flex;
   align-items: center;
 }
+.verdaderofalso-animal-juego {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
 .verdaderofalso-container {
-  width: 100%;
+  border: 5px solid var(--color-grey90);
+  border-radius: 60px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  width: 60%;
   height: 100%;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: var(--color-latex10);
+}
+.verdaderofalso-btnContainer {
+  display: flex;
+  margin-top: 20px;
+  gap: 80px;
+  margin-bottom: 10px;
 }
 .verdaderofalso-boxBtn {
   display: flex;
@@ -28,6 +46,23 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  text-align: center;
+}
+.iconButtonFin {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 20px;
+}
+.iconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+}
+.iconButton:hover {
+  transform: scale(1.1);
+  transition-duration: 200ms;
 }
 .verdaderofalso-trueBtn,
 .verdaderofalso-falseBtn,
@@ -56,8 +91,49 @@
 .verdaderofalso-imagen {
   width: 300px;
 }
-/* @media (max-width: 1365px) {
-  .verdaderofalso-imagen {
-    width: 350px;
+.widthBtn {
+  width: 80px;
+}
+.verdaderofalso-mobileCont {
+  display: none;
+}
+@media (max-width: 1200px) {
+  .verdaderofalso-btnContainer {
+    gap: 50px;
   }
-} */
+  .verdaderofalso-imagen {
+    width: 250px;
+  }
+}
+@media (max-width: 1024px) {
+  .btnDesktop {
+    display: none;
+  }
+  .verdaderofalso-mobileCont {
+    display: flex;
+    gap: 50px;
+  }
+  .verdaderofalso-btnContainer {
+    gap: 30px;
+  }
+  .verdaderofalso-imagen {
+    width: 220px;
+  }
+  .widthBtn {
+    width: 80px;
+  }
+  .iconButtonFin {
+    margin-top: 30px;
+  }
+}
+@media (max-width: 768px) {
+  .verdaderofalso-container {
+    width: 90%;
+  }
+  .verdaderofalso-animalIzq {
+    display: none;
+  }
+  .verdaderofalso-animalDer {
+    display: none;
+  }
+}

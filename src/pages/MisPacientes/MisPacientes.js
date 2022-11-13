@@ -97,13 +97,17 @@ const MisPacientes = () => {
                   <th className="columnaInicio">Nombre</th>
                   <th className="columna">Edad</th>
                   <th className="columna">Fecha Nacimiento</th>
-                  <th className="columna">Dirección</th>
                   <th className="columna">Tutor a cargo</th>
                   <th className="columna">Teléfono</th>
                   <th className="columna">Mail</th>
+                  <th className="columna">Fecha Inicio Relación</th>
+                  <th className="columna">Fecha Fin Relación</th>
                   <th className="columna">Notas</th>
                   <th className="columna">Activo</th>
-                  <th className="columnaFinal">Acciones</th>
+                  <th className="columna"></th>
+                  <th className="columnaFinal">
+                    <p className="alignLeft">Acciones</p>
+                  </th>
                 </tr>
 
                 {Array.isArray(misPacientesState.misPacientes.data) &&
@@ -123,15 +127,22 @@ const MisPacientes = () => {
                             ).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
-                            {item.direccion}
-                          </td>
-                          <td className="tablaFilas c-white">
                             {item.nombreTutor}
                           </td>
                           <td className="tablaFilas c-white">
                             {item.telefono}
                           </td>
                           <td className="tablaFilas c-white">{item.mail}</td>
+                          <td className="tablaFilas c-white">
+                            {new Date(
+                              item.fechaInicioRelac
+                            ).toLocaleDateString()}
+                          </td>
+                          <td className="tablaFilas c-white">
+                            {new Date(
+                              item.fechaFinRelac
+                            ).toLocaleDateString()}
+                          </td>
                           <td className="tablaFilas c-white">
                             <button
                               className="btnAccionesPacientes tablaNotas"
@@ -162,53 +173,55 @@ const MisPacientes = () => {
                           )}
 
                           <td className="tablaFilas c-white">
-                            <div className="btnPacientesBox">
-                              {item.estado ? (
-                                <button
-                                  className="btnAccionesPacientes bw14b"
-                                  onClick={() => habilitarPaciente(item)}
-                                  data-tip
-                                  data-for={`botonTooltipDes ${index}`}
+                            {item.estado ? (
+                              <button
+                                className="btnAccionesPacientes bw14b"
+                                onClick={() => habilitarPaciente(item)}
+                                data-tip
+                                data-for={`botonTooltipDes ${index}`}
+                              >
+                                <img
+                                  alt="check"
+                                  src={InactiveIcon}
+                                  width={30}
+                                ></img>
+                                <ReactTooltip
+                                  id={`botonTooltipDes ${index}`}
+                                  place="top"
+                                  type="light"
+                                  effect="solid"
+                                  border={true}
                                 >
-                                  <img
-                                    alt="check"
-                                    src={InactiveIcon}
-                                    width={30}
-                                  ></img>
-                                  <ReactTooltip
-                                    id={`botonTooltipDes ${index}`}
-                                    place="top"
-                                    type="light"
-                                    effect="solid"
-                                    border={true}
-                                  >
-                                    Deshabilitar Paciente
-                                  </ReactTooltip>
-                                </button>
-                              ) : (
-                                <button
-                                  className="btnAccionesPacientes bw14b"
-                                  onClick={() => habilitarPaciente(item)}
-                                  data-tip
-                                  data-for={`botonTooltipAct ${index}`}
+                                  Deshabilitar Paciente
+                                </ReactTooltip>
+                              </button>
+                            ) : (
+                              <button
+                                className="btnAccionesPacientes bw14b"
+                                onClick={() => habilitarPaciente(item)}
+                                data-tip
+                                data-for={`botonTooltipAct ${index}`}
+                              >
+                                <img
+                                  alt="check"
+                                  src={ActiveIcon}
+                                  width={30}
+                                ></img>
+                                <ReactTooltip
+                                  id={`botonTooltipAct ${index}`}
+                                  place="top"
+                                  type="light"
+                                  effect="solid"
+                                  border={true}
                                 >
-                                  <img
-                                    alt="check"
-                                    src={ActiveIcon}
-                                    width={30}
-                                  ></img>
-                                  <ReactTooltip
-                                    id={`botonTooltipAct ${index}`}
-                                    place="top"
-                                    type="light"
-                                    effect="solid"
-                                    border={true}
-                                  >
-                                    Habilitar Paciente
-                                  </ReactTooltip>
-                                </button>
-                              )}
+                                  Habilitar Paciente
+                                </ReactTooltip>
+                              </button>
+                            )}
+                          </td>
 
+                          <td className="tablaFilas c-white">
+                            <div className="btnPacientesBox">
                               {item.estado ? (
                                 <>
                                   <button

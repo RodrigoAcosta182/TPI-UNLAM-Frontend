@@ -11,12 +11,25 @@
   display: flex;
   align-items: center;
 }
+.colorCorrecto-animal-juego {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
 .colorCorrecto-container {
-  width: 100%;
+  border: 5px solid var(--color-grey90);
+  border-radius: 60px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  width: 60%;
   height: 100%;
+  padding: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* margin-left: 20%; */
+  background: var(--color-latex10);
 }
 .colorCorrecto-boxColores,
 .colorCorrecto-boxColores2do {
@@ -29,11 +42,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+  text-align: center;
 }
 .colorCorrecto-prgColor {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   border-radius: 100%;
 }
 .colorCorrecto-btn {
@@ -45,9 +59,10 @@
   justify-content: center;
   background: none;
 }
-.iconButton {
+.iconButtonColor {
   background: none;
   border: none;
+  cursor: pointer;
 }
 .colorCorrecto-ul,
 .colorCorrectoNivel2-ul {
@@ -57,16 +72,17 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   width: 280px;
-  height: 280px;
 }
 .colorCorrectoNivel2-ul {
   width: 560px;
 }
 .colorCorrecto-li {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   margin: 20px;
   position: relative;
@@ -87,5 +103,32 @@
 .colorCorrecto-btnContainer {
   display: flex;
   margin-top: 20px;
-  gap: 80px;
+  gap: 50px;
+  margin-bottom: 10px;
+}
+@media (max-width: 1366px) {
+  .colorCorrecto-container {
+    padding: 8px;
+    padding-bottom: 2px;
+  }
+  .colorCorrecto-boxColores,
+  .colorCorrecto-boxColores2do {
+    gap: 0;
+  }
+}
+@media (max-width: 1024px) {
+  .colorCorrectoNivel2-ul {
+    width: auto;
+  }
+}
+@media (max-width: 768px) {
+  .colorCorrecto-container {
+    width: 90%;
+  }
+  .colorCorrecto-animalIzq {
+    display: none;
+  }
+  .colorCorrecto-animalDer {
+    display: none;
+  }
 }

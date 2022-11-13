@@ -8,12 +8,22 @@
   width: 100px;
 }
 .ordenarNumeros-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+   border: 5px solid var(--color-grey90);
+   border-radius: 60px;
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+   width: 60%;
+   height: 100%;
+   padding: 16px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background: var(--color-latex10);
 }
 .ordenarNumeros-titulo {
   margin-bottom: 50px;
+  text-align: center;
 }
 .ordenarNumeros-btn-container{
   display: flex;
@@ -60,7 +70,7 @@ li {
   border-radius: 10px;
   margin-bottom: 10px;
   width: 100%;
-  padding: 15px 18px;
+  padding: 14px 18px;
   position: relative;
   background: white;
   border-radius: 5px;
@@ -102,4 +112,29 @@ li svg {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+.ordenarNumeros-btnContainer{
+  display: flex;
+  gap: 50px;
+  margin-top: 10px;
+}
+.iconButton {
+  background: none;
+  border: none;
+}
+.ordenarNumeros-animal-juego {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .ordenarNumeros-container {
+    width: 90%;
+  }
+  .ordenarNumeros-animalIzq{
+    display: none;
+  }
+  .ordenarNumeros-animalDer{
+    display: none;
+  }
 }

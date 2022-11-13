@@ -22,6 +22,11 @@ import {
 } from "../../../context/action/Juegos/finalizaJuego";
 import Loading from "../../../components/genericos/Loading/Loading";
 import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
+import ListoIcon from "../../../assets/images/ListoIcon.png";
+import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
+import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
+import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
+import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
 
 const OrdenaNumeros = () => {
   const history = useHistory();
@@ -67,13 +72,13 @@ const OrdenaNumeros = () => {
         ...resultadoJuegoDto,
         Aciertos: resultadoJuegoDto.Aciertos + 1,
       });
-      setContadorAciertos(contadorAciertos + 1)
+      setContadorAciertos(contadorAciertos + 1);
     } else {
       setResultadoJuegoDto({
         ...resultadoJuegoDto,
         Desaciertos: resultadoJuegoDto.Desaciertos + 1,
       });
-      setContadorAciertos(0)
+      setContadorAciertos(0);
     }
     wsGetNumerosDesordenados()(ordenNumerosDispatch);
   };
@@ -129,21 +134,71 @@ const OrdenaNumeros = () => {
       </div>
       {items !== null && (
         <>
-          <div className="ordenarNumeros-container">
-            <p className="ordenarNumeros-titulo c-white bw32b">
-              Ordená los números de menor a mayor
-            </p>
-            <Reorder.Group
-              axis="y"
-              onReorder={setItems}
-              values={items}
-              className="listaNumeros c-white"
-            >
-              {items.map((item, index) => (
-                <Item key={item} item={item} />
-              ))}
-            </Reorder.Group>
-            <div className="ordenarNumeros-btn-container">
+          <div className="ordenarNumeros-animal-juego">
+            <img
+              className="ordenarNumeros-animalIzq"
+              alt="fox"
+              src={FoxIzq}
+              width="200"
+              height="250"
+            ></img>
+            <div className="ordenarNumeros-container">
+              <p className="ordenarNumeros-titulo c-white bw32b">
+                Ordená los números de menor a mayor
+              </p>
+              <Reorder.Group
+                axis="y"
+                onReorder={setItems}
+                values={items}
+                className="listaNumeros c-white"
+              >
+                {items.map((item, index) => (
+                  <Item key={item} item={item} />
+                ))}
+              </Reorder.Group>
+              <div className="ordenarNumeros-btnContainer">
+                <button
+                  className={
+                    resultadoJuegoDto.Aciertos > 0 ||
+                    resultadoJuegoDto.Desaciertos > 0
+                      ? "iconButton bw24t"
+                      : "iconButton bw24t"
+                  }
+                  onClick={
+                    resultadoJuegoDto.Aciertos > 0 ||
+                    resultadoJuegoDto.Desaciertos > 0
+                      ? finalizarJuego
+                      : () => {}
+                  }
+                  style={
+                    resultadoJuegoDto.Aciertos > 0 ||
+                    resultadoJuegoDto.Desaciertos > 0
+                      ? { cursor: "pointer" }
+                      : { cursor: "initial" }
+                  }
+                >
+                  <img
+                    alt="listo"
+                    src={
+                      resultadoJuegoDto.Aciertos > 0 ||
+                      resultadoJuegoDto.Desaciertos > 0
+                        ? FinalizarIcon
+                        : FinalizarIconDsb
+                    }
+                    width={80}
+                  ></img>
+                  <p className="c-white">Finalizar</p>
+                </button>
+
+                <button
+                  className={"iconButton bw24t"}
+                  onClick={enviarNumerosOrdenados}
+                >
+                  <img alt="listo" src={ListoIcon} width={80}></img>
+                  <p className="c-white">Siguiente</p>
+                </button>
+              </div>
+              {/* <div className="ordenarNumeros-btn-container">
               <button
                 className="ordenarNumeros-btn bw24t"
                 onClick={enviarNumerosOrdenados}
@@ -156,7 +211,15 @@ const OrdenaNumeros = () => {
               >
                 Finalizar
               </button>
+            </div> */}
             </div>
+            <img
+              className="ordenarNumeros-animalDer"
+              alt="fox"
+              src={FoxDer}
+              width="200"
+              height="250"
+            ></img>
           </div>
         </>
       )}

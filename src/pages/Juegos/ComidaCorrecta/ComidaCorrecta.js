@@ -6,7 +6,10 @@ import { GlobalContext } from "../../../context/Provider";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import SalirIcon from "../../../assets/images/SalirIcon";
-import { resetFinalizaJuego, wsPostFinalizaJuego } from "../../../context/action/Juegos/finalizaJuego";
+import {
+  resetFinalizaJuego,
+  wsPostFinalizaJuego,
+} from "../../../context/action/Juegos/finalizaJuego";
 import fox from "../../../assets/images/avatar/Fox.png";
 import Burbuja from "../../../assets/images/avatar/Burbuja.png";
 import Comida1 from "../../../assets/images/comidas/Comida1.png";
@@ -15,10 +18,20 @@ import Comida3 from "../../../assets/images/comidas/Comida3.png";
 import Comida4 from "../../../assets/images/comidas/Comida4.png";
 import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
 import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
+import ListoIcon from "../../../assets/images/ListoIcon.png";
+import ListoIconDsb from "../../../assets/images/ListoIconDsb.png";
+import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
+import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
+import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
+import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
 
 const ComidaCorrecta = () => {
-  const { modalAvatarState, modalAvatarDispatch, finalizaJuegoState, finalizaJuegoDispatch } =
-    useContext(GlobalContext);
+  const {
+    modalAvatarState,
+    modalAvatarDispatch,
+    finalizaJuegoState,
+    finalizaJuegoDispatch,
+  } = useContext(GlobalContext);
 
   const history = useHistory();
 
@@ -105,13 +118,13 @@ const ComidaCorrecta = () => {
         ...resultadoJuegoDto,
         Aciertos: resultadoJuegoDto.Aciertos + 1,
       });
-      setContadorAciertos(contadorAciertos + 1)
+      setContadorAciertos(contadorAciertos + 1);
     } else {
       setResultadoJuegoDto({
         ...resultadoJuegoDto,
         Desaciertos: resultadoJuegoDto.Desaciertos + 1,
       });
-      setContadorAciertos(0)
+      setContadorAciertos(0);
     }
     let random = arrayComidas[Math.floor(Math.random() * arrayComidas.length)];
     if (random === comidaAnterior) {
@@ -141,71 +154,146 @@ const ComidaCorrecta = () => {
           <p className="comidaCorrecta-volverBtn c-white">VOLVER</p>
         </div>
       </div>
-      <div className="comidaCorrecta-container">
-        <div className="comidaCorrecta-animalBurbuja">
-          <img
-            className="comidaCorrecta-imagenPregunta"
-            alt="objeto1"
-            src={comidaBurbuja}
-          ></img>
+      <div className="comidaCorrecta-animal-juego">
+        <img
+          className="comidaCorrecta-animalIzq"
+          alt="fox"
+          src={FoxIzq}
+          width="200"
+          height="250"
+        ></img>
 
-          <img
-            className="comidaCorrecta-imagenBurbuja"
-            alt="objeto1"
-            src={Burbuja}
-          ></img>
+        <div className="comidaCorrecta-container">
+          <div className="comidaCorrecta-pregunta-rta">
+            <div className="comidaCorrecta-animalBurbuja">
+              <img
+                className="comidaCorrecta-imagenPregunta"
+                alt="objeto1"
+                src={comidaBurbuja}
+              ></img>
 
-          <div className="comidaCorrecta-imgContainer">
-            <img
-              className="comidaCorrecta-imagen"
-              alt="objeto2"
-              src={fox}
-            ></img>
+              <img
+                className="comidaCorrecta-imagenBurbuja"
+                alt="objeto1"
+                src={Burbuja}
+              ></img>
+
+              <div className="comidaCorrecta-imgContainer">
+                <img
+                  className="comidaCorrecta-imagen"
+                  alt="objeto2"
+                  src={fox}
+                ></img>
+              </div>
+            </div>
+
+            <div className="comidaCorrecta-imagenesRta">
+              <>
+                {Array.isArray(arrayComidas) &&
+                  arrayComidas.map((item, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        <div
+                          className="comidaCorrecta-arrayContainer"
+                          onClick={() => selectImagen(item, index)}
+                        >
+                          <img
+                            className={
+                              selected === index
+                                ? "comidaCorrecta-arraySelected comidaCorrecta-array"
+                                : "comidaCorrecta-array"
+                            }
+                            src={item}
+                            alt={`comida` + index}
+                          />
+                        </div>
+                      </React.Fragment>
+                    );
+                  })}
+              </>
+            </div>
           </div>
+
+          <div className="comidaCorrecta-btnContainer">
+            <button
+              className={
+                resultadoJuegoDto.Aciertos > 0 ||
+                resultadoJuegoDto.Desaciertos > 0
+                  ? "iconButtonVoF bw24t"
+                  : "iconButtonVoF bw24t"
+              }
+              onClick={
+                resultadoJuegoDto.Aciertos > 0 ||
+                resultadoJuegoDto.Desaciertos > 0
+                  ? finalizarJuego
+                  : () => {}
+              }
+              style={
+                resultadoJuegoDto.Aciertos > 0 ||
+                resultadoJuegoDto.Desaciertos > 0
+                  ? { cursor: "pointer" }
+                  : { cursor: "initial" }
+              }
+            >
+              <img
+                alt="listo"
+                src={
+                  resultadoJuegoDto.Aciertos > 0 ||
+                  resultadoJuegoDto.Desaciertos > 0
+                    ? FinalizarIcon
+                    : FinalizarIconDsb
+                }
+                width={80}
+              ></img>
+              <p className="c-white">Finalizar</p>
+            </button>
+
+            <button
+              className={
+                selected === null
+                  ? "iconButtonVoF bw24t"
+                  : "iconButtonVoF bw24t"
+              }
+              onClick={selected === undefined ? () => {} : () => elegir()}
+              style={
+                selected === null
+                  ? { cursor: "initial" }
+                  : { cursor: "pointer" }
+              }
+            >
+              <img
+                alt="listo"
+                src={selected === null ? ListoIconDsb : ListoIcon}
+                width={80}
+              ></img>
+              <p className="c-white">Siguiente</p>
+            </button>
+          </div>
+          {/* <div className="comidaCorrecta-btnContainer">
+            <button
+              className={`comidaCorrecta-btnListo bw24t ${
+                selected === null && "bgc-grey65"
+              }`}
+              onClick={selected === null ? () => {} : () => elegir()}
+            >
+              Listo
+            </button>
+            <button
+              className={"comidaCorrecta-btnFinalizar bw24t"}
+              onClick={() => finalizarJuego()}
+            >
+              Finalizar
+            </button>
+          </div> */}
         </div>
 
-        <div className="comidaCorrecta-imagenesRta">
-          <>
-            {Array.isArray(arrayComidas) &&
-              arrayComidas.map((item, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <div
-                      className="comidaCorrecta-arrayContainer"
-                      onClick={() => selectImagen(item, index)}
-                    >
-                      <img
-                        className={
-                          selected === index
-                            ? "comidaCorrecta-arraySelected comidaCorrecta-array"
-                            : "comidaCorrecta-array"
-                        }
-                        src={item}
-                        alt={`comida` + index}
-                      />
-                    </div>
-                  </React.Fragment>
-                );
-              })}
-          </>
-        </div>
-
-        <div className="comidaCorrecta-btnContainer">
-          <button
-            className={`comidaCorrecta-btnListo bw24t ${
-              selected === null && "bgc-grey65"
-            }`}
-            onClick={selected === null ? () => {} : () => elegir()}
-          >
-            Listo
-          </button>
-          <button
-            className={"comidaCorrecta-btnFinalizar bw24t"}
-            onClick={() => finalizarJuego()}
-          >
-            Finalizar
-          </button>
-        </div>
+        <img
+          className="comidaCorrecta-animalDer"
+          alt="fox"
+          src={FoxDer}
+          width="200"
+          height="250"
+        ></img>
       </div>
     </>
   );

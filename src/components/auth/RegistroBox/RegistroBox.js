@@ -455,7 +455,7 @@ const RegistroBox = ({ dsb }) => {
             <div className="registrobox-formulario-input">
               <Input
                 onChange={onChangeRegistro}
-                headerStr={"Télefono"}
+                headerStr={"Teléfono"}
                 name="telefono"
                 isRequired={true}
                 checkError={listErrorState.listError.telefono}

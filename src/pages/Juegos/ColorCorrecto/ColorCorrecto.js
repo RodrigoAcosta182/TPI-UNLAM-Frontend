@@ -19,6 +19,8 @@ import ListoIcon from "../../../assets/images/ListoIcon.png";
 import ListoIconDsb from "../../../assets/images/ListoIconDsb.png";
 import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
 import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
+import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
+import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
 
 export default function ColorCorrecto() {
   const {
@@ -192,107 +194,122 @@ export default function ColorCorrecto() {
           <p className="colorCorrecto-volverBtn c-white">VOLVER</p>
         </div>
       </div>
-      <div className="colorCorrecto-container">
-        {colorPregunta ? (
-          <>
-            <div className="colorCorrecto-pregunta bw32b">
-              <p className="c-white">¿Qué color es</p>
-              <div
-                className="colorCorrecto-prgColor"
-                style={{ background: colorPregunta.hexadecimal }}
-              >
-                {" "}
+      <div className="colorCorrecto-animal-juego">
+        <img
+          className="colorCorrecto-animalIzq"
+          alt="fox"
+          src={FoxIzq}
+          width="200"
+          height="250"
+        ></img>
+        <div className="colorCorrecto-container">
+          {colorPregunta ? (
+            <>
+              <div className="colorCorrecto-pregunta bw32b">
+                <p className="c-white">¿Qué color es</p>
+                <div
+                  className="colorCorrecto-prgColor"
+                  style={{ background: colorPregunta.hexadecimal }}
+                >
+                  {" "}
+                </div>
+                <p className="c-white"> ?</p>
               </div>
-              <p className="c-white"> ?</p>
-            </div>
-          </>
-        ) : (
-          ""
-        )}
-        <div
-          className={
-            segundoNivel
-              ? "colorCorrecto-boxColores2do"
-              : "colorCorrecto-boxColores"
-          }
-        >
-          <AnimateSharedLayout>
-            <ul
-              className={
-                segundoNivel ? "colorCorrectoNivel2-ul" : "colorCorrecto-ul"
-              }
-            >
-              {coloresRandom.map((color) => (
-                <Item
-                  key={color}
-                  color={color}
-                  isSelected={selected === color}
-                  onClick={() => setSelected(color)}
-                />
-              ))}
-            </ul>
-          </AnimateSharedLayout>
-          {colorPregunta && (
-            <div className="colorCorrecto-btnContainer">
-              
-              <button
+            </>
+          ) : (
+            ""
+          )}
+          <div
+            className={
+              segundoNivel
+                ? "colorCorrecto-boxColores2do"
+                : "colorCorrecto-boxColores"
+            }
+          >
+            <AnimateSharedLayout>
+              <ul
                 className={
-                  resultadoJuegoDto.Aciertos > 0 ||
-                  resultadoJuegoDto.Desaciertos > 0
-                    ? "iconButton bw24t"
-                    : "iconButton bw24t"
-                }
-                onClick={
-                  resultadoJuegoDto.Aciertos > 0 ||
-                  resultadoJuegoDto.Desaciertos > 0
-                    ? finalizarJuego
-                    : () => {}
-                }
-                style={
-                  resultadoJuegoDto.Aciertos > 0 ||
-                  resultadoJuegoDto.Desaciertos > 0
-                    ? { cursor: "pointer" }
-                    : { cursor: "initial" }
+                  segundoNivel ? "colorCorrectoNivel2-ul" : "colorCorrecto-ul"
                 }
               >
-                <img
-                  alt="listo"
-                  src={
+                {coloresRandom.map((color) => (
+                  <Item
+                    key={color}
+                    color={color}
+                    isSelected={selected === color}
+                    onClick={() => setSelected(color)}
+                  />
+                ))}
+              </ul>
+            </AnimateSharedLayout>
+            {colorPregunta && (
+              <div className="colorCorrecto-btnContainer">
+                <button
+                  className={
                     resultadoJuegoDto.Aciertos > 0 ||
                     resultadoJuegoDto.Desaciertos > 0
-                      ? FinalizarIcon
-                      : FinalizarIconDsb
+                      ? "iconButtonColor bw24t"
+                      : "iconButtonColor bw24t"
                   }
-                  width={80}
-                ></img>
-                <p className="c-white">Finalizar</p>
-              </button>
+                  onClick={
+                    resultadoJuegoDto.Aciertos > 0 ||
+                    resultadoJuegoDto.Desaciertos > 0
+                      ? finalizarJuego
+                      : () => {}
+                  }
+                  style={
+                    resultadoJuegoDto.Aciertos > 0 ||
+                    resultadoJuegoDto.Desaciertos > 0
+                      ? { cursor: "pointer" }
+                      : { cursor: "initial" }
+                  }
+                >
+                  <img
+                    alt="listo"
+                    src={
+                      resultadoJuegoDto.Aciertos > 0 ||
+                      resultadoJuegoDto.Desaciertos > 0
+                        ? FinalizarIcon
+                        : FinalizarIconDsb
+                    }
+                    width={80}
+                  ></img>
+                  <p className="c-white">Finalizar</p>
+                </button>
 
-              <button
-                className={
-                  selected === undefined
-                    ? "iconButton bw24t"
-                    : "iconButton bw24t"
-                }
-                onClick={
-                  selected === undefined ? () => {} : enviarColorCorrecto
-                }
-                style={
-                  selected === undefined
-                    ? { cursor: "initial" }
-                    : { cursor: "pointer" }
-                }
-              >
-                <img
-                  alt="listo"
-                  src={selected === undefined ? ListoIconDsb : ListoIcon}
-                  width={80}
-                ></img>
-                <p className="c-white">Siguiente</p>
-              </button>
-            </div>
-          )}
+                <button
+                  className={
+                    selected === undefined
+                      ? "iconButtonColor bw24t"
+                      : "iconButtonColor bw24t"
+                  }
+                  onClick={
+                    selected === undefined ? () => {} : enviarColorCorrecto
+                  }
+                  style={
+                    selected === undefined
+                      ? { cursor: "initial" }
+                      : { cursor: "pointer" }
+                  }
+                >
+                  <img
+                    alt="listo"
+                    src={selected === undefined ? ListoIconDsb : ListoIcon}
+                    width={80}
+                  ></img>
+                  <p className="c-white">Siguiente</p>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
+        <img
+          className="colorCorrecto-animalDer"
+          alt="fox"
+          src={FoxDer}
+          width="200"
+          height="250"
+        ></img>
       </div>
     </>
   );
