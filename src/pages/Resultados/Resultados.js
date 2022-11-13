@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHome";
 import {
   resetListaProgresos,
+  wsExportarPDF,
   wsGetResultadosByIdPaciente,
   wsGetResultadosXPaciente,
 } from "../../context/action/resultados/resultados";
@@ -13,6 +14,7 @@ import { GlobalContext } from "../../context/Provider";
 import { resetPacienteContexto } from "../../context/action/pacienteSeleccionado/pacienteSeleccionado";
 import useTable from "../../global/utils/useTable";
 import TableFooter from "../../components/genericos/TableFooter/TableFooter";
+import Chart from "react-google-charts";
 
 const Resultados = () => {
   const history = useHistory();
@@ -57,6 +59,51 @@ const Resultados = () => {
     resetPacienteContexto()(pacienteSeleccionadoDispatch);
   };
 
+  const [dataChart, setDataChart] = React.useState([
+    ["Year", "Aciertos", "Desaciertos"],
+  ]);
+
+  useEffect(() => {
+    const data2 = [...dataChart];
+    if (resultadosState.resultados.data) {
+      Array.isArray(resultadosState.resultados.data) &&
+        resultadosState.resultados.data.map((item) => {
+          data2.push([
+            new Date(item.fechaInicio).toLocaleDateString().slice(0, -5),
+            item.aciertos,
+            item.desaciertos,
+          ]);
+        });
+      setDataChart(data2);
+    }
+  }, [resultadosState.resultados.data]);
+
+  useEffect(() => {
+    console.log(dataChart);
+  }, [dataChart]);
+
+  useEffect(() => {
+    console.log(resultadosState.exportar.data);
+  }, [resultadosState.exportar.data]);
+
+  const options = {
+    title: "Color Correcto",
+    curveType: "function",
+    legend: { position: "bottom" },
+  };
+
+  var html = document.getElementsByClassName(
+    "containerTabla"
+  );
+
+  // useEffect(() => {
+  //   console.log(html[0].innerHTML);
+  // }, [html]);
+
+  const exportarPdf = () => {
+    wsExportarPDF(html[0].innerHTML)(resultadosDispatch);
+  }
+
   return (
     <>
       <HeaderbarHome></HeaderbarHome>
@@ -74,6 +121,19 @@ const Resultados = () => {
               ? `${pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre} ${pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}`
               : nombrePaciente}
           </p>
+
+          <div className="resultados-chart">
+            <Chart
+              className="chart"
+              chartType="LineChart"
+              width="100%"
+              height="400px"
+              data={dataChart}
+              options={options}
+            />
+            ;
+          </div>
+
           <div className="bordeTabla">
             <table className="containerTabla">
               <tbody>
@@ -117,6 +177,7 @@ const Resultados = () => {
               </tbody>
             </table>
           </div>
+          {/* <button onClick={exportarPdf}>Exportar</button> */}
           <TableFooter
             range={range}
             slice={slice}

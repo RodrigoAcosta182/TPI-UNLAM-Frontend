@@ -1,6 +1,17 @@
 .resultados-volverAccion {
   padding: 20px 0 0 20px;
 }
+.resultados-chart {
+  width: 1600px;
+  border-radius: 30px;
+}
+.chart {
+  background: white;
+  padding: 8px;
+  border-radius: 16px;
+  /* align-items: center; */
+  /* justify-content: center; */
+}
 .resultados-btnCont {
   display: flex;
   align-items: center;
