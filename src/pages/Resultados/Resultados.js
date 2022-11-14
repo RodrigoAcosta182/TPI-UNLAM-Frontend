@@ -6,8 +6,7 @@ import { useEffect } from "react";
 import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHome";
 import {
   resetListaProgresos,
-  wsExportarPDF,
-  wsGetResultadosByIdPaciente,
+  wsGetResultadosByIdPacienteAndIdJuego,
   wsGetResultadosXPaciente,
 } from "../../context/action/resultados/resultados";
 import { GlobalContext } from "../../context/Provider";
@@ -15,6 +14,8 @@ import { resetPacienteContexto } from "../../context/action/pacienteSeleccionado
 import useTable from "../../global/utils/useTable";
 import TableFooter from "../../components/genericos/TableFooter/TableFooter";
 import Chart from "react-google-charts";
+import ReactHtmlTableToExcel from "react-html-table-to-excel";
+import { resetJuegoContexto } from "../../context/action/juegoSeleccionado/juegoSeleccionado";
 
 const Resultados = () => {
   const history = useHistory();
@@ -23,44 +24,43 @@ const Resultados = () => {
     resultadosState,
     resultadosDispatch,
     pacienteSeleccionadoState,
-    pacienteSeleccionadoDispatch,
+    juegoSeleccionadoDispatch,
+    juegoSeleccionadoState,
   } = React.useContext(GlobalContext);
 
-  const [page, setPage] = React.useState(1);
-  const [data, setData] = React.useState(null);
-
   useEffect(() => {
-    if (resultadosState.resultados.data) {
-      setData(resultadosState.resultados.data);
+    if (
+      pacienteSeleccionadoState.pacienteSelected.data === null &&
+      authState.auth.data.usuario.tipoUsuarioId === 2
+    ) {
+      history.push("/misPacientes");
+      resetJuegoContexto()(juegoSeleccionadoDispatch);
     }
-  }, [resultadosState.resultados.data]);
-
-  const { slice, range } = useTable(data ? data : "", page, 4);
-
-  let nombrePaciente = `${authState.auth.data.usuario.nombre} ${authState.auth.data.usuario.apellido}`;
+  }, [pacienteSeleccionadoState.pacienteSelected.data, authState.auth.data]);
 
   useEffect(() => {
-    if (pacienteSeleccionadoState.pacienteSelected.data) {
-      wsGetResultadosByIdPaciente(
-        pacienteSeleccionadoState.pacienteSelected.data.id
-      )(resultadosDispatch);
-    } else {
+    if (authState.auth.data.usuario.tipoUsuarioId === 1) {
       wsGetResultadosXPaciente()(resultadosDispatch);
+    } else if (pacienteSeleccionadoState.pacienteSelected.data !== null) {
+      wsGetResultadosByIdPacienteAndIdJuego(
+        pacienteSeleccionadoState.pacienteSelected.data.id,
+        juegoSeleccionadoState.juegoSelected.data.id
+      )(resultadosDispatch);
     }
-  }, [pacienteSeleccionadoState.pacienteSelected.data]);
+  }, [pacienteSeleccionadoState.pacienteSelected.data, authState.auth.data]);
 
   const volverAlHome = () => {
     if (authState.auth.data.usuario.tipoUsuarioId === 1) {
       history.push("/home");
     } else {
-      history.push("/misPacientes");
+      history.push("/resultadosCards");
     }
     resetListaProgresos()(resultadosDispatch);
-    resetPacienteContexto()(pacienteSeleccionadoDispatch);
+    resetJuegoContexto()(juegoSeleccionadoDispatch);
   };
 
   const [dataChart, setDataChart] = React.useState([
-    ["Year", "Aciertos", "Desaciertos"],
+    ["Fecha", "Aciertos", "Desaciertos"],
   ]);
 
   useEffect(() => {
@@ -78,31 +78,10 @@ const Resultados = () => {
     }
   }, [resultadosState.resultados.data]);
 
-  useEffect(() => {
-    console.log(dataChart);
-  }, [dataChart]);
-
-  useEffect(() => {
-    console.log(resultadosState.exportar.data);
-  }, [resultadosState.exportar.data]);
-
   const options = {
-    title: "Color Correcto",
     curveType: "function",
     legend: { position: "bottom" },
   };
-
-  var html = document.getElementsByClassName(
-    "containerTabla"
-  );
-
-  // useEffect(() => {
-  //   console.log(html[0].innerHTML);
-  // }, [html]);
-
-  const exportarPdf = () => {
-    wsExportarPDF(html[0].innerHTML)(resultadosDispatch);
-  }
 
   return (
     <>
@@ -114,77 +93,107 @@ const Resultados = () => {
         </div>
       </div>
       <>
-        <div className="resultados-container">
+        {resultadosState.resultados.data &&
+        resultadosState.resultados.data.length > 0 ? (
+          <>
+            <div className="resultados-container">
+              <p className="resultados-titulo c-white bw32b">
+                Resultados de:{" "}
+                {authState.auth.data.usuario.tipoUsuarioId === 2
+                  ? `${pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre} ${pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}`
+                  : `${authState.auth.data.usuario.nombre} ${authState.auth.data.usuario.apellido}`}
+              </p>
+              {resultadosState.resultados.data && (
+                <p className="resultados-juego c-white bw32b">
+                  {resultadosState.resultados.data[0].juegoDescripcion}{" "}
+                </p>
+              )}
+
+              <div className="resultados-chart">
+                <Chart
+                  className="chart"
+                  chartType="LineChart"
+                  width="100%"
+                  height="400px"
+                  style={{ display: "flex", justifyContent: "center" }}
+                  data={dataChart}
+                  options={options}
+                />
+                ;
+              </div>
+
+              <div className="bordeTablaRes">
+                <table className="containerTabla" id="test-table-xls-button">
+                  <tbody>
+                    <tr className="bw18t c-white">
+                      <th className="columnaInicio">Juego</th>
+                      <th className="columna">Fecha de inicio</th>
+                      <th className="columna">Aciertos</th>
+                      <th className="columna">Desaciertos</th>
+                      <th className="columna">Tiempo de resolución</th>
+                      <th className="columnaFinalRes">¿Completó?</th>
+                    </tr>
+                    {Array.isArray(resultadosState.resultados.data) &&
+                      resultadosState.resultados.data.map((item, index) => {
+                        return (
+                          <React.Fragment key={index}>
+                            <tr className="tablaFilasContainer bw18t">
+                              <td className="tablaFilas c-white">
+                                {item.juegoDescripcion}{" "}
+                              </td>
+                              <td className="tablaFilas c-white">
+                                {new Date(
+                                  item.fechaInicio
+                                ).toLocaleDateString()}{" "}
+                              </td>
+                              <td className="tablaFilas c-white">
+                                {item.aciertos}
+                              </td>
+                              <td className="tablaFilas c-white">
+                                {item.desaciertos}
+                              </td>
+
+                              <td className="tablaFilas c-white">
+                                {item.duracion}
+                              </td>
+
+                              <td className="tablaFilas c-white">
+                                {item.finalizado ? "Si" : "No"}
+                              </td>
+                            </tr>
+                          </React.Fragment>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+              {pacienteSeleccionadoState.pacienteSelected.data && (
+                <ReactHtmlTableToExcel
+                  id="test-table-xls-button"
+                  className="DescargarTabla-btn c-white bw16b bgc-grandin30"
+                  table="test-table-xls-button"
+                  filename={`Resultados - ${pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre} ${pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}`}
+                  sheet="resultados"
+                  buttonText="Descargar Resultados"
+                />
+              )}
+              {authState.auth.data.usuario.tipoUsuarioId === 1 && (
+                <ReactHtmlTableToExcel
+                  id="test-table-xls-button"
+                  className="DescargarTabla-btn c-white bw16b bgc-grandin30"
+                  table="test-table-xls-button"
+                  filename={`Resultados - ${authState.auth.data.usuario.nombre} ${authState.auth.data.usuario.apellido}`}
+                  sheet="resultados"
+                  buttonText="Descargar Resultados"
+                />
+              )}
+            </div>{" "}
+          </>
+        ) : (
           <p className="resultados-titulo c-white bw32b">
-            Resultados de:{" "}
-            {pacienteSeleccionadoState.pacienteSelected.data
-              ? `${pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre} ${pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}`
-              : nombrePaciente}
+            No existen resultados para el juego seleccionado
           </p>
-
-          <div className="resultados-chart">
-            <Chart
-              className="chart"
-              chartType="LineChart"
-              width="100%"
-              height="400px"
-              data={dataChart}
-              options={options}
-            />
-            ;
-          </div>
-
-          <div className="bordeTabla">
-            <table className="containerTabla">
-              <tbody>
-                <tr className="bw18t c-white">
-                  <th className="columnaInicio">Juego</th>
-                  <th className="columna">Fecha de inicio</th>
-                  <th className="columna">Aciertos</th>
-                  <th className="columna">Desaciertos</th>
-                  <th className="columna">Tiempo de resolución</th>
-                  <th className="columnaFinal">¿Completó?</th>
-                </tr>
-                {Array.isArray(slice) &&
-                  slice.map((item, index) => {
-                    return (
-                      <React.Fragment key={index}>
-                        <tr className="tablaFilasContainer bw18t">
-                          <td className="tablaFilas c-white">
-                            {item.juegoDescripcion}{" "}
-                          </td>
-                          <td className="tablaFilas c-white">
-                            {new Date(item.fechaInicio).toLocaleDateString()}{" "}
-                          </td>
-                          <td className="tablaFilas c-white">
-                            {item.aciertos}
-                          </td>
-                          <td className="tablaFilas c-white">
-                            {item.desaciertos}
-                          </td>
-
-                          <td className="tablaFilas c-white">
-                            {item.duracion}
-                          </td>
-
-                          <td className="tablaFilas c-white">
-                            {item.finalizado ? "Si" : "No"}
-                          </td>
-                        </tr>
-                      </React.Fragment>
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div>
-          {/* <button onClick={exportarPdf}>Exportar</button> */}
-          <TableFooter
-            range={range}
-            slice={slice}
-            setPage={setPage}
-            page={page}
-          />
-        </div>
+        )}
       </>
     </>
   );

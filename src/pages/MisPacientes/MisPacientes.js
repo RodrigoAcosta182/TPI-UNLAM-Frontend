@@ -20,6 +20,8 @@ import ActiveIcon from "../../assets/images/ActiveIcon.png";
 import InactiveIcon from "../../assets/images/InactiveIcon.png";
 import PostItIcon from "../../assets/images/PostItIcon.png";
 import ReactTooltip from "react-tooltip";
+import useTable from "../../global/utils/useTable";
+import TableFooter from "../../components/genericos/TableFooter/TableFooter";
 
 const MisPacientes = () => {
   const {
@@ -35,6 +37,17 @@ const MisPacientes = () => {
 
   const history = useHistory();
 
+  const [page, setPage] = React.useState(1);
+  const [data, setData] = React.useState(null);
+
+  useEffect(() => {
+    if (misPacientesState.misPacientes.data) {
+      setData(misPacientesState.misPacientes.data);
+    }
+  }, [misPacientesState.misPacientes.data]);
+
+  const { slice, range } = useTable(data ? data : "", page, 4);
+
   useEffect(() => {
     wsGetListaDePacientes()(misPacientesDispatch);
   }, []);
@@ -47,7 +60,7 @@ const MisPacientes = () => {
   }, [misPacientesState.misPacientes.habilitar]);
 
   const irAMasInfo = (e) => {
-    history.push("/resultados");
+    history.push("/resultadosCards");
     setPacienteContexto(e)(pacienteSeleccionadoDispatch);
   };
 
@@ -90,7 +103,7 @@ const MisPacientes = () => {
       <>
         <div className="misPacientes-container">
           <p className="misPacientes-titulo c-white bw32b">Mis Pacientes:</p>
-          <div className="bordeTabla">
+          <div className="bordeTablaPac">
             <table className="containerTabla">
               <tbody>
                 <tr className="bw18t c-white">
@@ -104,14 +117,14 @@ const MisPacientes = () => {
                   <th className="columna">Fecha Fin Relación</th>
                   <th className="columna">Notas</th>
                   <th className="columna">Activo</th>
-                  <th className="columna"></th>
+                  <th className="columnaVacia">Acc</th>
                   <th className="columnaFinal">
-                    <p className="alignLeft">Acciones</p>
+                    <p className="alignLeft">iones</p>
                   </th>
                 </tr>
 
-                {Array.isArray(misPacientesState.misPacientes.data) &&
-                  misPacientesState.misPacientes.data.map((item, index) => {
+                {Array.isArray(slice) &&
+                  slice.map((item, index) => {
                     return (
                       <React.Fragment key={index}>
                         <tr className="tablaFilasContainer bw18t">
@@ -259,6 +272,12 @@ const MisPacientes = () => {
               </tbody>
             </table>
           </div>
+          <TableFooter
+            range={range}
+            slice={slice}
+            setPage={setPage}
+            page={page}
+          />
         </div>
       </>
     </>

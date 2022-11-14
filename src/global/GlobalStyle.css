@@ -269,12 +269,8 @@ body {
 .bgc-danger {
   background-color: hsla(4, 100%, 40%, 1);
 }
-.bgc-purple {
-  background-color: linear-gradient(
-    90deg,
-    #4d488c 44.92%,
-    rgba(77, 72, 140, 0.8) 100%
-  );
+.bgc-grandin30 {
+  background-color: hsl(206, 78%, 39%);
 }
 .bgc-latex95 {
   background-color: hsla(202, 100%, 95%, 1);

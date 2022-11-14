@@ -13,6 +13,7 @@ import NotasPaciente from "../pages/NotasPaciente/NotasPaciente";
 import Perfil from "../pages/Perfil/Perfil";
 import Registro from "../pages/Registro/Registro";
 import Resultados from "../pages/Resultados/Resultados";
+import ResultadosCards from "../pages/ResultadosCards/ResultadosCards";
 import Sugerencia from "../pages/Sugerencia/Sugerencia";
 
 const listRoutes = [
@@ -92,6 +93,12 @@ const listRoutes = [
     path: "/resultados",
     component: Resultados,
     title: "Resultados",
+    auth: true,
+  },
+  {
+    path: "/resultadosCards",
+    component: ResultadosCards,
+    title: "Resultados Juegos",
     auth: true,
   },
   {

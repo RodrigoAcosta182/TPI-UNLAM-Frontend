@@ -2,15 +2,17 @@
   padding: 20px 0 0 20px;
 }
 .resultados-chart {
-  width: 1600px;
+  width: 80%;
   border-radius: 30px;
+  display: flex;
+  justify-content: center;
 }
 .chart {
   background: white;
   padding: 8px;
   border-radius: 16px;
-  /* align-items: center; */
-  /* justify-content: center; */
+  display: flex;
+  justify-content: center;
 }
 .resultados-btnCont {
   display: flex;
@@ -22,9 +24,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 20px;
 }
 .resultados-titulo {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.resultados-juego{
+  margin-bottom: 20px;
 }
 .resultados-btn {
   width: 200px;
@@ -36,7 +43,8 @@
   justify-content: center;
   cursor: pointer;
 }
-.bordeTabla {
+.bordeTablaRes {
+  display: none;
   border: 2px solid white;
   border-radius: 8px;
   width: 85%;
@@ -58,7 +66,7 @@
   background-color: var(--color-grandin10);
   border: none;
 }
-.columnaFinal {
+.columnaFinalRes {
   padding: 17px 10px;
   background-color: var(--color-grandin10);
   border: none;
@@ -75,4 +83,12 @@
 }
 .tablaFilas {
   padding: 16px 8px;
+}
+.DescargarTabla-btn{
+  margin-top: 20px;
+  width: 180px;
+  height: 44px;
+  border-radius: 16px;
+  border: 2px solid white;
+  cursor: pointer;
 }

@@ -34,6 +34,7 @@
   justify-content: center;
   padding: 10px 20px;
   background-color: #fff97d;
+  overflow: auto;
 }
 .notas-card2 {
   background-color: #ff6666;

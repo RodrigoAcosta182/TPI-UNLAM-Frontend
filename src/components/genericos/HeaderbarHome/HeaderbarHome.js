@@ -39,7 +39,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
   };
 
   const onHandleVerResultados = () => {
-    history.push("/resultados");
+    history.push("/resultadosCards");
   };
 
   const onHandleVerPerfil = () => {

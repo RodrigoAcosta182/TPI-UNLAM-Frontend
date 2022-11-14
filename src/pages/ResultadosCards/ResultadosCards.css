@@ -1,0 +1,34 @@
+.resultadosCard-container{
+  padding: 14px 120px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 28px;
+}
+.resultadosCard-logoBienvenida{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+.resultadosCard-logo{
+  width: 250px;
+}
+.resultadosCard-listaJuegos{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+@media (max-width: 760px) {
+  .resultadosCard-container{
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+  .resultadosCard-listaJuegos{
+    justify-content: center;
+  }
+}
