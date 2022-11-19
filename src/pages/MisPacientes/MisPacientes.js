@@ -22,6 +22,8 @@ import PostItIcon from "../../assets/images/PostItIcon.png";
 import ReactTooltip from "react-tooltip";
 import useTable from "../../global/utils/useTable";
 import TableFooter from "../../components/genericos/TableFooter/TableFooter";
+import { hideModal, showModal } from "../../context/action/modal/modal";
+import ModalHabilitar from "../../components/genericos/ModalHabilitar/ModalHabilitar";
 
 const MisPacientes = () => {
   const {
@@ -29,6 +31,7 @@ const MisPacientes = () => {
     misPacientesDispatch,
     pacienteSeleccionadoDispatch,
     modalState,
+    modalDispatch,
   } = React.useContext(GlobalContext);
   const [habilitarPacienteDto, setHabilitarPacienteDto] = React.useState({
     id: null,
@@ -64,7 +67,28 @@ const MisPacientes = () => {
     setPacienteContexto(e)(pacienteSeleccionadoDispatch);
   };
 
+  const modalConfirmar = (item, opcion) => {
+    showModal(
+      <ModalHabilitar
+        item={item}
+        opcion={opcion}
+        habilitarPaciente={() => habilitarPaciente(item)}
+      />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
+  };
+
   const habilitarPaciente = (e) => {
+    cerrarModal();
     setHabilitarPacienteDto({
       ...habilitarPacienteDto,
       id: e.pacienteId,
@@ -152,9 +176,7 @@ const MisPacientes = () => {
                             ).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
-                            {new Date(
-                              item.fechaFinRelac
-                            ).toLocaleDateString()}
+                            {new Date(item.fechaFinRelac).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
                             <button
@@ -189,7 +211,9 @@ const MisPacientes = () => {
                             {item.estado ? (
                               <button
                                 className="btnAccionesPacientes bw14b"
-                                onClick={() => habilitarPaciente(item)}
+                                onClick={() =>
+                                  modalConfirmar(item, "deshabilitar")
+                                }
                                 data-tip
                                 data-for={`botonTooltipDes ${index}`}
                               >
@@ -211,7 +235,9 @@ const MisPacientes = () => {
                             ) : (
                               <button
                                 className="btnAccionesPacientes bw14b"
-                                onClick={() => habilitarPaciente(item)}
+                                onClick={() =>
+                                  modalConfirmar(item, "habilitar")
+                                }
                                 data-tip
                                 data-for={`botonTooltipAct ${index}`}
                               >

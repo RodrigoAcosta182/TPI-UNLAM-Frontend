@@ -59,12 +59,12 @@ const RegistroBox = ({ dsb }) => {
     fechaNacimiento: null,
     nombre: "",
     apellido: "",
-    NombreTutor: "",
+    NombreTutor: "H",
     dni: "",
     mail: "",
     GeneroId: null,
     direccion: "",
-    telefono: "",
+    telefono: "8",
     contrasena: "",
     usuarioProfesionalId: null,
   });
@@ -87,7 +87,10 @@ const RegistroBox = ({ dsb }) => {
       registroState.registro.registroCampos.dni === "" ||
       registroState.registro.registroCampos.mail === "" ||
       listErrorState.listError.email === true ||
-      registroState.registro.registroCampos.contrasena === ""
+      registroState.registro.registroCampos.contrasena === "" ||
+      registroState.registro.registroCampos.contrasenaRep === "" ||
+      (registroState.registro.registroCampos.contrasena !==
+        registroState.registro.registroCampos.contrasenaRep)
     ) {
       setBtnDisabled(true);
     } else {
@@ -206,6 +209,16 @@ const RegistroBox = ({ dsb }) => {
         listErrorState.listError.telefono = isEmptyError(e.target.value);
         setListError(listErrorState.listError)(listErrorDispatch);
         break;
+      case "contrasenaRep":
+        let contrasenaRep = Object.assign(
+          {},
+          registroState.registro.registroCampos
+        );
+        contrasenaRep.contrasenaRep = e.target.value;
+        setRegistro(contrasenaRep)(registroDispatch);
+        listErrorState.listError.contrasenaRep = isEmptyError(e.target.value);
+        setListError(listErrorState.listError)(listErrorDispatch);
+        break;
       default:
         let targetPass = Object.assign(
           {},
@@ -239,6 +252,7 @@ const RegistroBox = ({ dsb }) => {
 
   const registrarse = () => {
     wsPostRegistro(registroDto)(registroDispatch);
+    // console.log(registroDto);
     if (registroDto !== undefined && registroDto !== null) {
       if (btnDisabled === false) {
       }
@@ -260,7 +274,10 @@ const RegistroBox = ({ dsb }) => {
   useEffect(() => {
     if (registroState.registro.error !== false) {
       showModal(
-        <ModalRegistro error={registroState.registro.error.detail} cerrar={() => cerrarModal()} />,
+        <ModalRegistro
+          error={registroState.registro.error.detail}
+          cerrar={() => cerrarModal()}
+        />,
         "",
         cerrarModal,
         true,
@@ -298,7 +315,11 @@ const RegistroBox = ({ dsb }) => {
   };
 
   return (
-    <div className="registrobox-container">
+    <div
+      className={
+        !soyMedico ? "registrobox-container" : "registroboxProf-container"
+      }
+    >
       <div className="registrobox-formulario">
         <div className="registrobox-formulario-header">
           <img className="registrobox-logo" src={LogoEmpresa} alt="logo"></img>
@@ -439,15 +460,47 @@ const RegistroBox = ({ dsb }) => {
             </div>
           </div>
 
+          {soyMedico ? (
+            ""
+          ) : (
+            <div className="registrobox-formulario-nombreApellido">
+              <div className="registrobox-formulario-input">
+                <Input
+                  onChange={onChangeRegistro}
+                  headerStr={"Nombre tutor"}
+                  name="NombreTutor"
+                  isRequired={true}
+                  checkError={listErrorState.listError.nombreTutor}
+                  errorStr="El nombre del tutor es requerido"
+                  className={"fondoBlue"}
+                  letterColor={"var(--color-white)"}
+                />
+              </div>
+              <div className="registrobox-formulario-input">
+                <Input
+                  onChange={onChangeRegistro}
+                  headerStr={"Teléfono"}
+                  name="telefono"
+                  isRequired={true}
+                  checkError={listErrorState.listError.telefono}
+                  errorStr="El télefono es requerido"
+                  className={"fondoBlue"}
+                  letterColor={"var(--color-white)"}
+                />
+              </div>
+            </div>
+          )}
+
           <div className="registrobox-formulario-nombreApellido">
             <div className="registrobox-formulario-input">
               <Input
                 onChange={onChangeRegistro}
-                headerStr={"Nombre tutor"}
-                name="NombreTutor"
+                headerStr={"Contraseña"}
+                name="contrasena"
+                inputType="password"
                 isRequired={true}
-                checkError={listErrorState.listError.nombreTutor}
-                errorStr="El nombre del tutor es requerido"
+                checkError={listErrorState.listError.contrasena}
+                errorStr="La contraseña es requerida"
                 className={"fondoBlue"}
                 letterColor={"var(--color-white)"}
               />
@@ -455,28 +508,16 @@ const RegistroBox = ({ dsb }) => {
             <div className="registrobox-formulario-input">
               <Input
                 onChange={onChangeRegistro}
-                headerStr={"Teléfono"}
-                name="telefono"
+                headerStr={"Repetir contraseña"}
+                name="contrasenaRep"
+                inputType="password"
                 isRequired={true}
-                checkError={listErrorState.listError.telefono}
-                errorStr="El télefono es requerido"
+                checkError={registroState.registro.registroCampos.contrasena !== registroState.registro.registroCampos.contrasenaRep}
+                errorStr="Las contraseñas no coinciden"
                 className={"fondoBlue"}
                 letterColor={"var(--color-white)"}
               />
             </div>
-          </div>
-          <div className="registrobox-formulario-input">
-            <Input
-              onChange={onChangeRegistro}
-              headerStr={"Contraseña"}
-              name="contrasena"
-              inputType="password"
-              isRequired={true}
-              checkError={listErrorState.listError.contrasena}
-              errorStr="La contraseña es requerida"
-              className={"fondoBlue"}
-              letterColor={"var(--color-white)"}
-            />
           </div>
 
           <div className="registrobox-botones-container">

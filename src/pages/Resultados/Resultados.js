@@ -213,7 +213,7 @@ const Resultados = () => {
               <div className="resultados-dashboardCont">
                 <div className="resultados-dashboard-pacienteJuego"></div>
                 <p className="resultados-ultimaVez c-latex30 bw32t">
-                  Resultados de Ultimo Juego:
+                  Resultados del último juego:
                 </p>
                 <div className="resultados-dashboardBox1">
                   <div className="resultados-dashboard-ultimaFecha">
@@ -265,7 +265,7 @@ const Resultados = () => {
 
                 <div className="resultados-AciertosDesaciertos-BtnTabla">
                   <p className="resultados-ultimaVez c-latex30 bw32t">
-                    Aciertos y Desaciertos Generales:
+                    Aciertos y desaciertos generales:
                   </p>
                   {pacienteSeleccionadoState.pacienteSelected.data && (
                     <ReactHtmlTableToExcel

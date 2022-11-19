@@ -17,6 +17,7 @@ const listError = (state, { payload, type }) => {
           apellido: false,
           nombreTutor: false,
           contrasena: false,
+          contrasenaRep: false,
           direccion: false,
           fecha_nacimiento: false,
           email: false,

@@ -107,6 +107,9 @@
   justify-content: center;
   cursor: pointer;
 }
+.resultados-ultimaVez{
+  padding: 0 0 16px 16px;
+}
 .bordeTablaRes {
   display: none;
   border: 2px solid white;
@@ -149,16 +152,15 @@
   padding: 16px 8px;
 }
 .DescargarTabla-btn {
-  margin-top: 20px;
   width: 180px;
-  height: 44px;
+  height: 44px; 
   border-radius: 16px;
   border: 2px solid white;
   cursor: pointer;
 }
 .resultados-AciertosDesaciertos-BtnTabla{
   display: flex;
-  align-items: flex-end;
+  align-items: baseline;
   justify-content: space-between;
   padding: 10px;
 }
