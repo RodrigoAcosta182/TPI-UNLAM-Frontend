@@ -143,7 +143,15 @@
   }
 
 }
+@media (max-width: 768px) {
+  .landing-textoGrandin-container {
+    width: 90%;
+  }
+}
 @media (max-width: 576px) {
+  .landing-textoGrandin-container {
+    width: 80%;
+  }
   .landing-imagen-laptop {
     width: 330px;
   }
