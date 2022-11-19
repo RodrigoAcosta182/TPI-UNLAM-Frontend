@@ -7,6 +7,7 @@ import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHom
 import {
   resetListaProgresos,
   wsGetResultadosByIdPacienteAndIdJuego,
+  wsGetResultadosGlobales,
   wsGetResultadosXPaciente,
 } from "../../context/action/resultados/resultados";
 import { GlobalContext } from "../../context/Provider";
@@ -41,22 +42,34 @@ const Resultados = () => {
   }, [pacienteSeleccionadoState.pacienteSelected.data, authState.auth.data]);
 
   useEffect(() => {
-    if (authState.auth.data.usuario.tipoUsuarioId === 1) {
-      wsGetResultadosXPaciente()(resultadosDispatch);
-    } else if (pacienteSeleccionadoState.pacienteSelected.data !== null) {
-      wsGetResultadosByIdPacienteAndIdJuego(
-        pacienteSeleccionadoState.pacienteSelected.data.id,
-        juegoSeleccionadoState.juegoSelected.data.id
-      )(resultadosDispatch);
+    if (juegoSeleccionadoState.juegoSelected.data) {
+      if (authState.auth.data.usuario.tipoUsuarioId === 1) {
+        wsGetResultadosXPaciente(juegoSeleccionadoState.juegoSelected.data.id)(
+          resultadosDispatch
+        );
+        wsGetResultadosGlobales(
+          authState.auth.data.usuario.id,
+          juegoSeleccionadoState.juegoSelected.data.id
+        )(resultadosDispatch);
+      } else if (pacienteSeleccionadoState.pacienteSelected.data !== null) {
+        wsGetResultadosByIdPacienteAndIdJuego(
+          pacienteSeleccionadoState.pacienteSelected.data.pacienteId,
+          juegoSeleccionadoState.juegoSelected.data.id
+        )(resultadosDispatch);
+        wsGetResultadosGlobales(
+          pacienteSeleccionadoState.pacienteSelected.data.pacienteId,
+          juegoSeleccionadoState.juegoSelected.data.id
+        )(resultadosDispatch);
+      }
     }
-  }, [pacienteSeleccionadoState.pacienteSelected.data, authState.auth.data]);
+  }, [
+    juegoSeleccionadoState.juegoSelected.data,
+    pacienteSeleccionadoState.pacienteSelected.data,
+    authState.auth.data,
+  ]);
 
   const volverAlHome = () => {
-    if (authState.auth.data.usuario.tipoUsuarioId === 1) {
-      history.push("/home");
-    } else {
-      history.push("/resultadosCards");
-    }
+    history.push("/resultadosCards");
     resetListaProgresos()(resultadosDispatch);
     resetJuegoContexto()(juegoSeleccionadoDispatch);
   };
@@ -73,6 +86,10 @@ const Resultados = () => {
 
   const [dataChart, setDataChart] = React.useState([
     ["Fecha", "Aciertos", "Desaciertos"],
+  ]);
+
+  const [dataGlobalChart, setDataGlobalChart] = React.useState([
+    ["Aciertos y desaciertos", "Aciertos", "Desaciertos"],
   ]);
 
   const [dataBarChart, setBarDataChart] = React.useState([
@@ -104,6 +121,56 @@ const Resultados = () => {
     }
   }, [resultadosState.resultados.data]);
 
+  //DATOS PARA EL GRAFICO PACIENTE VS GLOBAL
+  useEffect(() => {
+    const dataGlobal = [...dataGlobalChart];
+    let sumaDeAciertosGlobales = 0;
+    let sumaDeDesaciertosGlobales = 0;
+    let sumaDeAciertosPaciente = 0;
+    let sumaDeDesaciertosPaciente = 0;
+    if (
+      resultadosState.resultadosGlobales.data &&
+      resultadosState.resultados.data
+    ) {
+      // Este map hace una suma de los aciertos y desaciertos globales
+      Array.isArray(resultadosState.resultadosGlobales.data) &&
+        resultadosState.resultadosGlobales.data.map((item) => {
+          sumaDeAciertosGlobales = sumaDeAciertosGlobales + item.aciertos;
+          sumaDeDesaciertosGlobales =
+            sumaDeDesaciertosGlobales + item.desaciertos;
+        });
+      // Este map guarda la suma aciertos y desaciertos del paciente seleccioando
+      Array.isArray(resultadosState.resultados.data) &&
+        resultadosState.resultados.data.map((item) => {
+          sumaDeAciertosPaciente = sumaDeAciertosPaciente + item.aciertos;
+          sumaDeDesaciertosPaciente =
+            sumaDeDesaciertosPaciente + item.desaciertos;
+        });
+      dataGlobal.push([
+        "Global",
+        sumaDeAciertosGlobales,
+        sumaDeDesaciertosGlobales,
+      ]);
+      if (pacienteSeleccionadoState.pacienteSelected.data) {
+        dataGlobal.push([
+          `${pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre} ${pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}`,
+          sumaDeAciertosPaciente,
+          sumaDeDesaciertosPaciente,
+        ]);
+      } else {
+        dataGlobal.push([
+          `${authState.auth.data.usuario.nombre} ${authState.auth.data.usuario.apellido}`,
+          sumaDeAciertosPaciente,
+          sumaDeDesaciertosPaciente,
+        ]);
+      }
+      setDataGlobalChart(dataGlobal);
+    }
+  }, [
+    resultadosState.resultadosGlobales.data,
+    resultadosState.resultados.data,
+  ]);
+
   //DATOS PARA EL GRAFICO DE TORTA
   useEffect(() => {
     const dataPie = [...dataPieChart];
@@ -129,7 +196,6 @@ const Resultados = () => {
     const dataBar = [...dataBarChart];
     if (ultimoJuego) {
       dataBar.push([
-        // new Date(ultimoJuego.fechaFinalizacion).toLocaleDateString().slice(0, -5),
         new Date(ultimoJuego.fechaFinalizacion).toLocaleDateString(),
         ultimoJuego.aciertos,
         ultimoJuego.desaciertos,
@@ -265,7 +331,7 @@ const Resultados = () => {
 
                 <div className="resultados-AciertosDesaciertos-BtnTabla">
                   <p className="resultados-ultimaVez c-latex30 bw32t">
-                    Aciertos y desaciertos generales:
+                    Aciertos y desaciertos histórico:
                   </p>
                   {pacienteSeleccionadoState.pacienteSelected.data && (
                     <ReactHtmlTableToExcel
@@ -296,6 +362,22 @@ const Resultados = () => {
                     height="400px"
                     style={{ display: "flex", justifyContent: "center" }}
                     data={dataChart}
+                    options={options}
+                  />
+                </div>
+                <div className="resultados-AciertosDesaciertos-BtnTabla">
+                  <p className="resultados-ultimaVez c-latex30 bw32t">
+                    Paciente vs. Global:
+                  </p>
+                </div>
+                <div className="resultados-chart">
+                  <Chart
+                    className="chart"
+                    chartType="Bar"
+                    width="100%"
+                    height="400px"
+                    style={{ display: "flex", justifyContent: "center" }}
+                    data={dataGlobalChart}
                     options={options}
                   />
                 </div>
