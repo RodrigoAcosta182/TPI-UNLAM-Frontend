@@ -18,11 +18,13 @@ import ResultadosIcon from "../../assets/images/ResultadosIcon.png";
 import ActiveIcon from "../../assets/images/ActiveIcon.png";
 import InactiveIcon from "../../assets/images/InactiveIcon.png";
 import PostItIcon from "../../assets/images/PostItIcon.png";
+import AyudaIcon from "../../assets/images/AyudaIcon";
 import ReactTooltip from "react-tooltip";
 import useTable from "../../global/utils/useTable";
 import TableFooter from "../../components/genericos/TableFooter/TableFooter";
 import { hideModal, showModal } from "../../context/action/modal/modal";
 import ModalHabilitar from "../../components/genericos/ModalHabilitar/ModalHabilitar";
+import ModalMensaje from "../../components/genericos/ModalMensaje/ModalMensaje";
 import Dropdown from "../../components/genericos/Dropdown/Dropdown";
 
 const MisPacientes = () => {
@@ -32,6 +34,7 @@ const MisPacientes = () => {
     pacienteSeleccionadoDispatch,
     modalState,
     modalDispatch,
+    textosState,
   } = React.useContext(GlobalContext);
   const [habilitarPacienteDto, setHabilitarPacienteDto] = React.useState({
     id: null,
@@ -102,6 +105,21 @@ const MisPacientes = () => {
         item={item}
         opcion={opcion}
         habilitarPaciente={() => habilitarPaciente(item)}
+      />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
+  const modalAyuda = () => {
+    showModal(
+      <ModalMensaje
+        titulo={"Información"}
+        mensaje={textosState.textos.data[0].mensaje}
       />,
       "",
       cerrarModal,
@@ -187,20 +205,40 @@ const MisPacientes = () => {
       </div>
       <>
         <p className="misPacientes-titulo c-white bw32b">Mis Pacientes:</p>
-        <div className="misPacientes-dropdownEstado">
-          <p className="c-white bw18b">Filtros:</p>
-          <Dropdown
-            valor={dropdownFiltros}
-            datos={arrayEstados}
-            name="estado"
-            onChange={filtrarEstado}
-            campoCodigo="id"
-            descripcion="estado"
-            heightLista={"auto"}
-            customCss={"widthFiltros"}
-            customCssInput={"bw18b"}
-          />
+        <div className="misPacientes-filtro-ayuda">
+          <div className="misPacientes-dropdownEstado">
+            <p className="c-white bw18b">Filtros:</p>
+            <Dropdown
+              valor={dropdownFiltros}
+              datos={arrayEstados}
+              name="estado"
+              onChange={filtrarEstado}
+              campoCodigo="id"
+              descripcion="estado"
+              heightLista={"auto"}
+              customCss={"widthFiltros"}
+              customCssInput={"bw18b"}
+            />
+          </div>
+          <button
+            className="misPacientes-ayudaBtn bw14b"
+            onClick={() => modalAyuda()}
+            data-tip
+            data-for={`botonTooltipAyuda`}
+          >
+            <AyudaIcon color={"white"} />
+            <ReactTooltip
+              id={`botonTooltipAyuda`}
+              place="top"
+              type="light"
+              effect="solid"
+              border={true}
+            >
+              Mas información
+            </ReactTooltip>
+          </button>
         </div>
+
         <div className="misPacientes-container">
           <div className="bordeTablaPac">
             <table className="containerTabla">

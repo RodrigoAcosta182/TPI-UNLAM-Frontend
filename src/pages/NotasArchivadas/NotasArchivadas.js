@@ -3,7 +3,7 @@ import HeaderbarHome from "../../components/genericos/HeaderbarHome/HeaderbarHom
 import Loading from "../../components/genericos/Loading/Loading";
 import Modal from "../../components/genericos/Modal/Modal";
 import { GlobalContext } from "../../context/Provider";
-import "./NotasPaciente.css";
+import "./NotasArchivadas.css";
 import { useHistory } from "react-router-dom";
 import SalirIcon from "../../assets/images/SalirIcon";
 import AgregarIcon from "../../assets/images/AgregarIcon";
@@ -14,15 +14,12 @@ import {
   wsArchivarNota,
   wsGetNotaXProfesional,
 } from "../../context/action/nota/nota";
-import { resetPacienteContexto } from "../../context/action/pacienteSeleccionado/pacienteSeleccionado";
-import { hideModal, showModal } from "../../context/action/modal/modal";
-import ModalAgregarNota from "./ModalAgregarNota/ModalAgregarNota";
-import { showToaster } from "../../context/action/toasterGenerico/toasterGenerico";
 import ToasterGenerico from "../../components/genericos/ToasterGenerico/ToasterGenerico";
-import GuardarIcon from "../../assets/images/GuardarIcon";
+import DesarchivarIcon from "../../assets/images/DesarchivarIcon";
 import ReactTooltip from "react-tooltip";
+import { showToaster } from "../../context/action/toasterGenerico/toasterGenerico";
 
-const NotasPaciente = () => {
+const NotasArchivadas = () => {
   const history = useHistory();
   const {
     modalState,
@@ -35,7 +32,21 @@ const NotasPaciente = () => {
     toasterGenericoDispatch,
   } = useContext(GlobalContext);
 
-  const [flgArchivar, setFlgArchivar] = useState(false);
+  useEffect(() => {
+    if (notaState.nota.data === 200) {
+      resetNota()(notaDispatch);
+      showToaster(
+        {
+          texto: "La nota fue desarchivada correctamente",
+          tipo: "success",
+        },
+        "centroArriba"
+      )(toasterGenericoDispatch);
+      wsGetNotaXProfesional(
+        pacienteSeleccionadoState.pacienteSelected.data.pacienteId
+      )(notaDispatch);
+    }
+  }, [notaState.nota.data]);
 
   useEffect(() => {
     if (pacienteSeleccionadoState.pacienteSelected.data) {
@@ -45,55 +56,12 @@ const NotasPaciente = () => {
     }
   }, [pacienteSeleccionadoState.pacienteSelected.data]);
 
-  useEffect(() => {
-    if (notaState.nota.data === 200) {
-      hideModal()(modalDispatch);
-      resetNota()(notaDispatch);
-      showToaster(
-        {
-          texto: flgArchivar
-            ? "La nota fue archivada correctamente"
-            : "La nota fue agregada correctamente",
-          tipo: "success",
-        },
-        "centroArriba"
-      )(toasterGenericoDispatch);
-      wsGetNotaXProfesional(
-        pacienteSeleccionadoState.pacienteSelected.data.pacienteId
-      )(notaDispatch);
-      setFlgArchivar(false);
-    }
-  }, [notaState.nota.data]);
-
   const volverAlHome = () => {
-    history.push("/misPacientes");
-    resetNota()(notaDispatch);
-    resetPacienteContexto()(pacienteSeleccionadoDispatch);
-  };
-
-  const crearNota = () => {
-    showModal(
-      <ModalAgregarNota cerrar={() => cerrarModal()} />,
-      "",
-      cerrarModal,
-      true,
-      {},
-      "centro",
-      true
-    )(modalDispatch);
-  };
-
-  const cerrarModal = () => {
-    hideModal()(modalDispatch);
+    history.push("/notasPaciente");
   };
 
   const archivarNota = (e) => {
-    setFlgArchivar(true);
     wsArchivarNota(e.id)(notaDispatch);
-  };
-
-  const irANotasArchivadas = (e) => {
-    history.push("/notasArchivadas");
   };
 
   return (
@@ -107,41 +75,45 @@ const NotasPaciente = () => {
           <SalirIcon />
           <p className="notas-volverBtn c-white">VOLVER</p>
         </div>
-        <div className="notas-AgregarbtnCont" onClick={crearNota}>
+        {/* <div className="notas-AgregarbtnCont" onClick={crearNota}>
           <AgregarIcon />
           <p className="notas-agregarBtn c-white">CREAR NOTA</p>
-        </div>
+        </div> */}
       </div>
-      <div className="notas-container">
+      <div className="archivarNotas-container">
         <p className="c-white bw32b">
-          Notas de:{" "}
+          Notas archivadas:{" "}
           {pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre}{" "}
           {pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}{" "}
         </p>
-        <div className="notas-input-email-container">
-          {Array.isArray(notaState.nota.data) &&
-            notaState.nota.data
-              .slice()
-              .reverse()
-              .map((item, index) => {
-                let check = checkParOImpar(index);
-                // let checkPrimo = checkNroPrimo(index);
-                if (item.archivado === false)
-                  return (
-                    <React.Fragment key={index}>
-                      <div className={check ? "notas-card" : "notas-card2"}>
-                        <div className="notas-fechaMensaje">
-                          <p className="bw24b">
+        <div className="bordeTablaRes">
+          <table className="containerTabla" id="test-table-xls-button">
+            <tbody>
+              <tr className="bw18t c-white">
+                <th className="columnaInicio">Nota Nro.</th>
+                <th className="columna">Mensaje</th>
+                <th className="columna">Fecha</th>
+                <th className="columnaFinal">Acciones</th>
+              </tr>
+              {Array.isArray(notaState.nota.data) &&
+                notaState.nota.data.map((item, index) => {
+                  if (item.archivado === true)
+                    return (
+                      <React.Fragment key={index}>
+                        <tr className="tablaFilasContainer bw18t">
+                          <td className="tablaFilas c-white">{item.id} </td>
+                          <td className="tablaFilas c-white">{item.mensaje}</td>
+                          <td className="tablaFilas c-white">
                             {new Date(item.fecha).toLocaleDateString()}{" "}
+                          </td>
+                          <td className="tablaFilas c-white">
                             <button
-                              className="notas-guardarIcon"
+                              className="archivarNotas-icon"
                               onClick={() => archivarNota(item)}
                               data-tip
                               data-for={`botonTooltipNotas ${index}`}
                             >
-                              <GuardarIcon
-                                color={check ? "var(--color-latex10)" : "white"}
-                              />{" "}
+                              <DesarchivarIcon />
                               <ReactTooltip
                                 id={`botonTooltipNotas ${index}`}
                                 place="top"
@@ -149,27 +121,20 @@ const NotasPaciente = () => {
                                 effect="solid"
                                 border={true}
                               >
-                                Archivar Nota
+                                Desarchivar Nota
                               </ReactTooltip>
                             </button>
-                            <span className=""></span>
-                          </p>
-                          <p className="bw24t notas-mensaje">{item.mensaje}</p>
-                        </div>
-                      </div>
-                    </React.Fragment>
-                  );
-              })}
+                          </td>
+                        </tr>
+                      </React.Fragment>
+                    );
+                })}
+            </tbody>
+          </table>
         </div>
-        <button
-          className="notas-archivadasBtn bw16b c-latex10 bgc-white"
-          onClick={irANotasArchivadas}
-        >
-          Ver notas archivadas
-        </button>
       </div>
     </>
   );
 };
 
-export default NotasPaciente;
+export default NotasArchivadas;

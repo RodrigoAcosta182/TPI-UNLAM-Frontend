@@ -25,6 +25,7 @@ const ModalAgregarNota = () => {
     Mensaje: null,
     ProfesionalId: authState.auth.data.usuario.id,
     PacienteId: pacienteSeleccionadoState.pacienteSelected.data.pacienteId,
+    Archivado: false,
   });
 
   useEffect(() => {

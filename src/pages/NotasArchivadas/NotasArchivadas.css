@@ -19,7 +19,7 @@
 /* .notas-agregarBtn{
   width: 200px;
 } */
-.notas-container {
+.archivarNotas-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,9 +29,7 @@
   padding: 20px;
   gap: 20px;
 }
-.notas-guardarIcon{
-  position: absolute;
-  margin-left: 54px;
+.archivarNotas-icon{
   cursor: pointer;
   border: none;
   background: none;

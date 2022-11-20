@@ -4,6 +4,7 @@ import Toaster from "../components/genericos/Toaster/Toaster";
 import LlamadaPaciente from "../components/genericos/VideoLlamada/LlamadaPaciente";
 import { wsPostEstadoConexion } from "../context/action/estadoConexion/estadoConexion";
 import { profesionalPorPacienteReset, wsGetProfesionalPorPaciente } from "../context/action/profesionales/profesionalPorPaciente";
+import { wsGetAllTextos } from "../context/action/textos/textos";
 import { showToaster } from "../context/action/toaster/toaster";
 import { GlobalContext } from "../context/Provider";
 
@@ -16,12 +17,18 @@ const GlobalInitializeData = ({ children }) => {
     profesionalPorPacienteDispatch,
     toasterState,
     toasterDispatch,
+    textosDispatch
   } = useContext(GlobalContext);
   const estadoConexionDto = {
     online: null,
     emailProfesional: null,
     paciente: null,
   };
+
+  
+  useEffect(() => {
+    wsGetAllTextos()(textosDispatch);
+  }, []);
 
   useEffect(() => {
     if (

@@ -9,6 +9,7 @@ import ListaProfesionales from "../pages/ListaProfesionales/ListaProfesionales";
 import Login from "../pages/Login/Login";
 import MisPacientes from "../pages/MisPacientes/MisPacientes";
 import Notas from "../pages/Notas/Notas";
+import NotasArchivadas from "../pages/NotasArchivadas/NotasArchivadas";
 import NotasPaciente from "../pages/NotasPaciente/NotasPaciente";
 import Perfil from "../pages/Perfil/Perfil";
 import Registro from "../pages/Registro/Registro";
@@ -87,6 +88,12 @@ const listRoutes = [
     path: "/notasPaciente",
     component: NotasPaciente,
     title: "Notas Paciente",
+    auth: true,
+  },
+  {
+    path: "/notasArchivadas",
+    component: NotasArchivadas,
+    title: "Notas Archivadas",
     auth: true,
   },
   {

@@ -30,6 +30,7 @@ const Notas = () => {
     Mensaje: null,
     ProfesionalId: authState.auth.data.usuario.id,
     PacienteId: null,
+    Archivado: false,
   });
 
   useEffect(() => {

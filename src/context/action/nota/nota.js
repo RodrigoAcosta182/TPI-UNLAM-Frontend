@@ -68,6 +68,35 @@ export const wsPostNota = (notaDto) => (dispatch) => {
   });
 };
 
+export const wsArchivarNota = (idNota) => (dispatch) => {
+  dispatch({
+    type: NOTA_LOADING,
+  });
+
+  axiosInstance().then((respuesta) => {
+    respuesta
+      .post(`/ArchivarNota/${idNota}`)
+      .then((res) => {
+        dispatch({
+          type: NOTA_SUCCESS,
+          payload: res.status,
+        });
+      })
+      .catch((err) => {
+        let error = {
+          detail: err.response
+            ? err.response.data
+            : "Error al contactar el server.",
+        };
+
+        dispatch({
+          type: NOTA_ERROR,
+          payload: error,
+        });
+      });
+  });
+};
+
 export const resetNota = () => (dispatch) => {
   dispatch({ type: NOTA_RESET });
 };

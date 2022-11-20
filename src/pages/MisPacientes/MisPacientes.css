@@ -16,11 +16,20 @@
   margin-bottom: 0px;
   text-align: center;
 }
+.misPacientes-filtro-ayuda{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 70px 10px 70px;
+}
+.misPacientes-ayudaBtn{
+  border: none;
+  background: none;
+  cursor: pointer;
+}
 .misPacientes-dropdownEstado{
   display: flex;
   align-items: center;
   gap: 20px;
-  margin: 0 0 10px 70px;
 }
 .widthFiltros{
   width: 150px;
