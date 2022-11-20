@@ -16,6 +16,8 @@ import {
 import { resetPacienteContexto } from "../../context/action/pacienteSeleccionado/pacienteSeleccionado";
 import { hideModal, showModal } from "../../context/action/modal/modal";
 import ModalAgregarNota from "./ModalAgregarNota/ModalAgregarNota";
+import { showToaster } from "../../context/action/toasterGenerico/toasterGenerico";
+import ToasterGenerico from "../../components/genericos/ToasterGenerico/ToasterGenerico";
 
 const NotasPaciente = () => {
   const history = useHistory();
@@ -26,6 +28,8 @@ const NotasPaciente = () => {
     pacienteSeleccionadoState,
     modalDispatch,
     pacienteSeleccionadoDispatch,
+    toasterGenericoState,
+    toasterGenericoDispatch
   } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -40,7 +44,13 @@ const NotasPaciente = () => {
     if (notaState.nota.data === 200) {
       hideModal()(modalDispatch);
       resetNota()(notaDispatch);
-      alert("Nota Enviada");
+      showToaster(
+        {
+          texto: "La nota fue agregada correctamente",
+          tipo: "success",
+        },
+        "centroArriba"
+      )(toasterGenericoDispatch);
       wsGetNotaXProfesional(
         pacienteSeleccionadoState.pacienteSelected.data.pacienteId
       )(notaDispatch);
@@ -71,6 +81,7 @@ const NotasPaciente = () => {
 
   return (
     <>
+      {toasterGenericoState.toasterGenerico.show && <ToasterGenerico />}
       {modalState.modal.show && <Modal />}
       <Loading state={notaState.nota.loading} mensaje={"Cargando notas..."} />
       <HeaderbarHome />

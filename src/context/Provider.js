@@ -22,6 +22,7 @@ import registroInitialState from "./initialStates/registroInitialState";
 import resultadosInitialState from "./initialStates/resultadosInitialState";
 import sugerenciaInitialState from "./initialStates/sugerenciaInitialState";
 import toasterInitialState from "./initialStates/toasterInitialState";
+import toasterGenericoInitialState from "./initialStates/toasterGenericoInitialState";
 
 //Reducers ordenar alfabeticamente
 import auth from "./reducers/auth";
@@ -45,6 +46,7 @@ import registro from "./reducers/registro";
 import resultados from "./reducers/resultados";
 import sugerencia from "./reducers/sugerencia";
 import toaster from "./reducers/toaster";
+import toasterGenerico from "./reducers/toasterGenerico";
 
 export const GlobalContext = createContext({});
 
@@ -136,6 +138,10 @@ export const GlobalProvider = ({ children }) => {
     toaster,
     toasterInitialState
   );
+  const [toasterGenericoState, toasterGenericoDispatch] = useReducer(
+    toasterGenerico,
+    toasterGenericoInitialState
+  );
   return (
     //Declarar en Contexto Global, ordenar alfabeticamente
     <GlobalContext.Provider
@@ -182,6 +188,8 @@ export const GlobalProvider = ({ children }) => {
         sugerenciaDispatch,
         toasterState,
         toasterDispatch,
+        toasterGenericoState,
+        toasterGenericoDispatch,
       }}
     >
       {children}

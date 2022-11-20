@@ -13,10 +13,18 @@ import isErrorEmail from "../../../global/utils/isErrorEmail";
 import isEmptyError from "../../../global/utils/isEmptyError";
 import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 import { useHistory } from "react-router-dom";
+import ToasterGenerico from "../../genericos/ToasterGenerico/ToasterGenerico";
+import { showToaster } from "../../../context/action/toasterGenerico/toasterGenerico";
 
 const LoginBox = () => {
-  const { authDispatch, authState, listErrorState, listErrorDispatch } =
-    useContext(GlobalContext);
+  const {
+    authDispatch,
+    authState,
+    listErrorState,
+    listErrorDispatch,
+    toasterGenericoState,
+    toasterGenericoDispatch,
+  } = useContext(GlobalContext);
 
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [loginDto, setLoginDto] = useState({
@@ -71,7 +79,13 @@ const LoginBox = () => {
       if (authState.auth.data.usuario.activo === true) {
         history.push("/home");
       } else {
-        alert("Un profesional debe activar tu cuenta");
+        showToaster(
+          {
+            texto: "Un profesional debe activar tu cuenta",
+            tipo: "danger",
+          },
+          "centroArriba"
+        )(toasterGenericoDispatch);
       }
     }
   }, [authState.auth.data]);
@@ -81,59 +95,64 @@ const LoginBox = () => {
   }, []);
 
   return (
-    <div className="loginbox-container">
-      <div className="loginbox-formulario">
-        <div className="loginbox-formulario-header">
-          <img className="loginbox-logo" src={LogoEmpresa} alt="logo"></img>
-          <span className="loginbox-title c-white bw32b ">Iniciar Sesión</span>
-        </div>
-        <div className="loginbox-formulario-body">
-          <div className="loginbox-formulario-input-container">
-            <Input
-              onChange={onChangeLogin}
-              headerStr={"Email"}
-              name="email"
-              checkError={listErrorState.listError.email}
-              isRequired={true}
-              errorStr="El email es requerido"
-              className={"fondoBlue-login"}
-              letterColor={"var(--color-white)"}
-              onKeyPress={loguear}
-            />
-          </div>
-          <div className="loginbox-formulario-input-container">
-            <Input
-              onChange={onChangeLogin}
-              headerStr={"Contraseña"}
-              name="contrasena"
-              inputType="password"
-              checkError={listErrorState.listError.contrasena}
-              isRequired={true}
-              errorStr="La contraseña es requerida"
-              className={"fondoBlue-login"}
-              letterColor={"var(--color-white)"}
-              onKeyPress={loguear}
-            />
-          </div>
-          <Button
-            descripcion={"Ingresar"}
-            onClick={loguear}
-            className={`loginbox-ingresarBtn bw18m ${
-              !btnDisabled ? "bgc-primary" : "bgc-grey45 dsbCursor"
-            }`}
-          />
-          <span className="loginbox-registrate c-white">
-            ¿No tenés cuenta?{" "}
-            <span className="c-primary loginbox-regBtn" onClick={registrarse}>
-              Registrate
+    <>
+      {toasterGenericoState.toasterGenerico.show && <ToasterGenerico />}
+      <div className="loginbox-container">
+        <div className="loginbox-formulario">
+          <div className="loginbox-formulario-header">
+            <img className="loginbox-logo" src={LogoEmpresa} alt="logo"></img>
+            <span className="loginbox-title c-white bw32b ">
+              Iniciar Sesión
             </span>
-          </span>
+          </div>
+          <div className="loginbox-formulario-body">
+            <div className="loginbox-formulario-input-container">
+              <Input
+                onChange={onChangeLogin}
+                headerStr={"Email"}
+                name="email"
+                checkError={listErrorState.listError.email}
+                isRequired={true}
+                errorStr="El email es requerido"
+                className={"fondoBlue-login"}
+                letterColor={"var(--color-white)"}
+                onKeyPress={loguear}
+              />
+            </div>
+            <div className="loginbox-formulario-input-container">
+              <Input
+                onChange={onChangeLogin}
+                headerStr={"Contraseña"}
+                name="contrasena"
+                inputType="password"
+                checkError={listErrorState.listError.contrasena}
+                isRequired={true}
+                errorStr="La contraseña es requerida"
+                className={"fondoBlue-login"}
+                letterColor={"var(--color-white)"}
+                onKeyPress={loguear}
+              />
+            </div>
+            <Button
+              descripcion={"Ingresar"}
+              onClick={loguear}
+              className={`loginbox-ingresarBtn bw18m ${
+                !btnDisabled ? "bgc-primary" : "bgc-grey45 dsbCursor"
+              }`}
+            />
+            <span className="loginbox-registrate c-white">
+              ¿No tenés cuenta?{" "}
+              <span className="c-primary loginbox-regBtn" onClick={registrarse}>
+                Registrate
+              </span>
+            </span>
+          </div>
+        </div>
+        <div className="loginbox-imagen-container">
+          <img className="loginbox-imagen" src={ImagenFormulario} alt=""></img>
         </div>
       </div>
-      <div className="loginbox-imagen-container">
-        <img className="loginbox-imagen" src={ImagenFormulario} alt=""></img>
-      </div>
-    </div>
+    </>
   );
 };
 
