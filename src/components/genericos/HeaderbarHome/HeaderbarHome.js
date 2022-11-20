@@ -39,11 +39,15 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
   };
 
   const onHandleVerResultados = () => {
-    history.push("/resultadosCards");
+    history.push("/resultados");
   };
 
   const onHandleVerPerfil = () => {
     history.push("/perfil");
+  };
+
+  const volverAlHome = () => {
+    history.push("/home");
   };
 
   const onHandleSalir = () => {
@@ -70,6 +74,7 @@ const HeaderbarHome = ({ onShowBurguerHandle }) => {
         <div className="logoHeader">
           <img
             className="ptur-logoHeader"
+            onClick={volverAlHome}
             src={
               authState.auth.data.usuario.tipoUsuarioId === 2
                 ? LogoEmpresaProf

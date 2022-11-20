@@ -6,17 +6,27 @@ import { GlobalContext } from "../../context/Provider";
 import "./NotasPaciente.css";
 import { useHistory } from "react-router-dom";
 import SalirIcon from "../../assets/images/SalirIcon";
+import AgregarIcon from "../../assets/images/AgregarIcon";
 import checkParOImpar from "../../global/utils/checkParOImpar";
 import checkNroPrimo from "../../global/utils/checkNroPrimo";
 import {
   resetNota,
   wsGetNotaXProfesional,
 } from "../../context/action/nota/nota";
+import { resetPacienteContexto } from "../../context/action/pacienteSeleccionado/pacienteSeleccionado";
+import { hideModal, showModal } from "../../context/action/modal/modal";
+import ModalAgregarNota from "./ModalAgregarNota/ModalAgregarNota";
 
 const NotasPaciente = () => {
   const history = useHistory();
-  const { modalState, notaState, notaDispatch, pacienteSeleccionadoState } =
-    useContext(GlobalContext);
+  const {
+    modalState,
+    notaState,
+    notaDispatch,
+    pacienteSeleccionadoState,
+    modalDispatch,
+    pacienteSeleccionadoDispatch,
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     if (pacienteSeleccionadoState.pacienteSelected.data) {
@@ -26,9 +36,37 @@ const NotasPaciente = () => {
     }
   }, [pacienteSeleccionadoState.pacienteSelected.data]);
 
+  useEffect(() => {
+    if (notaState.nota.data === 200) {
+      hideModal()(modalDispatch);
+      resetNota()(notaDispatch);
+      alert("Nota Enviada");
+      wsGetNotaXProfesional(
+        pacienteSeleccionadoState.pacienteSelected.data.pacienteId
+      )(notaDispatch);
+    }
+  }, [notaState.nota.data]);
+
   const volverAlHome = () => {
     history.push("/misPacientes");
     resetNota()(notaDispatch);
+    resetPacienteContexto()(pacienteSeleccionadoDispatch);
+  };
+
+  const crearNota = () => {
+    showModal(
+      <ModalAgregarNota cerrar={() => cerrarModal()} />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
   };
 
   return (
@@ -41,6 +79,10 @@ const NotasPaciente = () => {
           <SalirIcon />
           <p className="notas-volverBtn c-white">VOLVER</p>
         </div>
+        <div className="notas-AgregarbtnCont" onClick={crearNota}>
+          <AgregarIcon />
+          <p className="notas-agregarBtn c-white">CREAR NOTA</p>
+        </div>
       </div>
       <div className="notas-container">
         <p className="c-white bw32b">
@@ -52,18 +94,10 @@ const NotasPaciente = () => {
           {Array.isArray(notaState.nota.data) &&
             notaState.nota.data.map((item, index) => {
               let check = checkParOImpar(index);
-              let checkPrimo = checkNroPrimo(index);
+              // let checkPrimo = checkNroPrimo(index);
               return (
                 <React.Fragment key={index}>
-                  <div
-                    className={
-                      check
-                        ? "notas-card"
-                        : checkPrimo
-                        ? "notas-card2"
-                        : "notas-card3"
-                    }
-                  >
+                  <div className={check ? "notas-card" : "notas-card2"}>
                     <div className="notas-fechaMensaje">
                       <p className="bw24b">
                         {new Date(item.fecha).toLocaleDateString()}

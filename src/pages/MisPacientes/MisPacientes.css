@@ -13,7 +13,17 @@
   align-items: center;
 }
 .misPacientes-titulo {
-  margin-bottom: 50px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+.misPacientes-dropdownEstado{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0 0 10px 70px;
+}
+.widthFiltros{
+  width: 150px;
 }
 .misPacientes-btn {
   width: 200px;

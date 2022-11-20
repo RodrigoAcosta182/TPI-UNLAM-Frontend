@@ -64,7 +64,7 @@ const Dropdown = ({
 
   const onClickDropdown = () => {
     if (!desactivado) {
-      setValorInput("");
+      // setValorInput("");
       setListaFiltrada(datos);
       setMostrar(!mostrar);
       onChange("");

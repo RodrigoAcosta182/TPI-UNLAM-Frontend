@@ -15,6 +15,7 @@ const registroInitialState = {
       telefono: null,
       mail: "",
       contrasena: "",
+      contrasenaRep: "",
     },
   },
 };

@@ -23,7 +23,7 @@ const Notas = () => {
     modalDispatch,
     misPacientesDispatch,
     notaDispatch,
-    notaState
+    notaState,
   } = useContext(GlobalContext);
   const [notaPaciente, setNotaPaciente] = useState({
     Fecha: new Date(),
@@ -83,43 +83,58 @@ const Notas = () => {
         mensaje={"Enviando sugerencia"}
       /> */}
       <HeaderbarHome />
-      <div className="notas-volverAccion">
-        <div className="notas-btnCont" onClick={volverAlHome}>
+      <div className="notas-crear-volverAccion">
+        <div className="notas-crear-btnCont" onClick={volverAlHome}>
           <SalirIcon />
-          <p className="notas-volverBtn c-white">VOLVER</p>
+          <p className="notas-crear-volverBtn c-white">VOLVER</p>
         </div>
       </div>
-      <div className="notas-container">
-        <div className="notas-input-email-container">
-          <Dropdown
-            valor={""}
-            name="Nota"
-            onChange={seleccionarPaciente}
-            datos={misPacientesState.misPacientes.data}
-            campoCodigo="id"
-            descripcion="pacienteNombre"
-            errorStr="El paciente es requerido"
-            placeholder={"Seleccionar Paciente"}
-            customCss={"widthNota"}
-            // customCssInput={"fondoBlue c-white"}
-          />
-        </div>
-        <div className="notas-textarea-container">
-          <p className="bw24b c-white">Nota</p>
-          <Input
-            refElement={refTextArea}
-            value={notaPaciente.Mensaje}
-            className={"notas-textarea"}
-            inputType="textarea"
-            name={"Mensaje"}
-            onChange={onChangeNota}
-          />
-        </div>
-        <div
-          className="notas-btn btn bgc-broccoli pointer c-white bw18b"
-          onClick={enviarNota}
-        >
-          Guardar nota
+      <div className="notas-Crearcontainer">
+        <div className="notas-box">
+          <div className="notas-crear-input-email-container">
+            <Dropdown
+              valor={""}
+              name="Nota"
+              onChange={seleccionarPaciente}
+              datos={misPacientesState.misPacientes.data}
+              campoCodigo="id"
+              descripcion="pacienteNombre"
+              errorStr="El paciente es requerido"
+              placeholder={"Seleccionar Paciente"}
+              customCss={"widthNota"}
+              headerStr="Seleccionar Paciente"
+              // customCssInput={"fondoBlue c-white"}
+            />
+          </div>
+          <div className="notas-textarea-container">
+            <p className="bw16b c-white">Nota</p>
+            <Input
+              refElement={refTextArea}
+              value={notaPaciente.Mensaje}
+              className={"notas-textarea"}
+              inputType="textarea"
+              name={"Mensaje"}
+              onChange={onChangeNota}
+            />
+          </div>
+          <div
+            className={`modalNotas-btn btn ${
+              notaPaciente.Mensaje === null ||
+              notaPaciente.Mensaje === "" ||
+              notaPaciente.PacienteId === null
+                ? "bgc-grey65"
+                : "bgc-broccoli pointer"
+            } c-white bw18b`}
+            onClick={
+              notaPaciente.Mensaje === null ||
+              notaPaciente.Mensaje === "" ||
+              notaPaciente.PacienteId === null
+                ? () => {}
+                : enviarNota
+            }
+          >
+            Guardar nota
+          </div>
         </div>
       </div>
     </>

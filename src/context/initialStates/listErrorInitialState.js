@@ -5,6 +5,7 @@ const listErrorInitialState = {
     apellido: false,
     nombreTutor: false,
     contrasena: false,
+    contrasenaRep: false,
     direccion: false,
     telefono: false,
     fecha_nacimiento: false,

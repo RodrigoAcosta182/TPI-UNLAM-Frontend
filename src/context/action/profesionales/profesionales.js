@@ -17,7 +17,7 @@ export const wsGetProfesionalesActivos = () => (dispatch) => {
   });
   axiosInstance().then((respuesta) => {
     respuesta
-      .get(`/ObtenerTodosLosProfesionalesActivos`)
+      .get(`/ObtenerTodosLosProfesionales`)
       .then((res) => {
         dispatch({
           type: PROFESIONALES_SUCCESS,

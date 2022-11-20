@@ -14,7 +14,6 @@ import { setPacienteContexto } from "../../context/action/pacienteSeleccionado/p
 import LlamadaProfesional from "../../components/genericos/VideoLlamada/LlamadaProfesional";
 import Modal from "../../components/genericos/Modal/Modal";
 import calculaEdad from "../../global/utils/edad";
-import NotasIcon from "../../assets/images/NotasIcon";
 import ResultadosIcon from "../../assets/images/ResultadosIcon.png";
 import ActiveIcon from "../../assets/images/ActiveIcon.png";
 import InactiveIcon from "../../assets/images/InactiveIcon.png";
@@ -22,6 +21,9 @@ import PostItIcon from "../../assets/images/PostItIcon.png";
 import ReactTooltip from "react-tooltip";
 import useTable from "../../global/utils/useTable";
 import TableFooter from "../../components/genericos/TableFooter/TableFooter";
+import { hideModal, showModal } from "../../context/action/modal/modal";
+import ModalHabilitar from "../../components/genericos/ModalHabilitar/ModalHabilitar";
+import Dropdown from "../../components/genericos/Dropdown/Dropdown";
 
 const MisPacientes = () => {
   const {
@@ -29,6 +31,7 @@ const MisPacientes = () => {
     misPacientesDispatch,
     pacienteSeleccionadoDispatch,
     modalState,
+    modalDispatch,
   } = React.useContext(GlobalContext);
   const [habilitarPacienteDto, setHabilitarPacienteDto] = React.useState({
     id: null,
@@ -40,11 +43,40 @@ const MisPacientes = () => {
   const [page, setPage] = React.useState(1);
   const [data, setData] = React.useState(null);
 
+  let arrayEstados = [
+    {
+      id: 1,
+      estado: "Activos",
+    },
+    {
+      id: 2,
+      estado: "Inactivos",
+    },
+    {
+      id: 3,
+      estado: "Todos",
+    },
+  ];
+
+  const [dropdownFiltros, setDropdownFiltros] = React.useState(
+    arrayEstados[arrayEstados.length - 3].id
+  );
+
+  const [flgData, setFlgData] = React.useState(true);
+
   useEffect(() => {
-    if (misPacientesState.misPacientes.data) {
-      setData(misPacientesState.misPacientes.data);
+    let arrx = [];
+    if (misPacientesState.misPacientes.data && flgData) {
+      Array.isArray(misPacientesState.misPacientes.data) &&
+        misPacientesState.misPacientes.data.map((item) => {
+          if (item.estado === true) {
+            return arrx.push(item);
+          }
+        });
+      setData(arrx);
+      // setFlgData(false);
     }
-  }, [misPacientesState.misPacientes.data]);
+  }, [misPacientesState.misPacientes.data, flgData]);
 
   const { slice, range } = useTable(data ? data : "", page, 4);
 
@@ -64,7 +96,28 @@ const MisPacientes = () => {
     setPacienteContexto(e)(pacienteSeleccionadoDispatch);
   };
 
+  const modalConfirmar = (item, opcion) => {
+    showModal(
+      <ModalHabilitar
+        item={item}
+        opcion={opcion}
+        habilitarPaciente={() => habilitarPaciente(item)}
+      />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
+  };
+
   const habilitarPaciente = (e) => {
+    cerrarModal();
     setHabilitarPacienteDto({
       ...habilitarPacienteDto,
       id: e.pacienteId,
@@ -78,6 +131,7 @@ const MisPacientes = () => {
       (habilitarPacienteDto.estado !== null)
     ) {
       wsHabilitarPaciente(habilitarPacienteDto)(misPacientesDispatch);
+      setDropdownFiltros(arrayEstados[arrayEstados.length - 3].id);
     }
   }, [habilitarPacienteDto]);
 
@@ -88,6 +142,37 @@ const MisPacientes = () => {
   const irANotasDelPaciente = (e) => {
     history.push("/notasPaciente");
     setPacienteContexto(e)(pacienteSeleccionadoDispatch);
+  };
+
+  const filtrarEstado = (e) => {
+    if (e !== "") {
+      switch (e.estado) {
+        case "Activos":
+          setDropdownFiltros(arrayEstados[arrayEstados.length - 3].id);
+          let arrxActivos = [];
+          for (let i = 0; i < misPacientesState.misPacientes.data.length; i++) {
+            if (misPacientesState.misPacientes.data[i].estado === true) {
+              arrxActivos.push(misPacientesState.misPacientes.data[i]);
+            }
+            setData(arrxActivos);
+          }
+          break;
+        case "Inactivos":
+          setDropdownFiltros(arrayEstados[arrayEstados.length - 2].id);
+          let arrxInactivos = [];
+          for (let i = 0; i < misPacientesState.misPacientes.data.length; i++) {
+            if (misPacientesState.misPacientes.data[i].estado === false) {
+              arrxInactivos.push(misPacientesState.misPacientes.data[i]);
+            }
+            setData(arrxInactivos);
+          }
+          break;
+        default:
+          setDropdownFiltros(arrayEstados[arrayEstados.length - 1].id);
+          setData(misPacientesState.misPacientes.data);
+          break;
+      }
+    }
   };
 
   return (
@@ -101,8 +186,22 @@ const MisPacientes = () => {
         </div>
       </div>
       <>
+        <p className="misPacientes-titulo c-white bw32b">Mis Pacientes:</p>
+        <div className="misPacientes-dropdownEstado">
+          <p className="c-white bw18b">Filtros:</p>
+          <Dropdown
+            valor={dropdownFiltros}
+            datos={arrayEstados}
+            name="estado"
+            onChange={filtrarEstado}
+            campoCodigo="id"
+            descripcion="estado"
+            heightLista={"auto"}
+            customCss={"widthFiltros"}
+            customCssInput={"bw18b"}
+          />
+        </div>
         <div className="misPacientes-container">
-          <p className="misPacientes-titulo c-white bw32b">Mis Pacientes:</p>
           <div className="bordeTablaPac">
             <table className="containerTabla">
               <tbody>
@@ -152,9 +251,7 @@ const MisPacientes = () => {
                             ).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
-                            {new Date(
-                              item.fechaFinRelac
-                            ).toLocaleDateString()}
+                            {new Date(item.fechaFinRelac).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
                             <button
@@ -189,7 +286,9 @@ const MisPacientes = () => {
                             {item.estado ? (
                               <button
                                 className="btnAccionesPacientes bw14b"
-                                onClick={() => habilitarPaciente(item)}
+                                onClick={() =>
+                                  modalConfirmar(item, "deshabilitar")
+                                }
                                 data-tip
                                 data-for={`botonTooltipDes ${index}`}
                               >
@@ -211,7 +310,9 @@ const MisPacientes = () => {
                             ) : (
                               <button
                                 className="btnAccionesPacientes bw14b"
-                                onClick={() => habilitarPaciente(item)}
+                                onClick={() =>
+                                  modalConfirmar(item, "habilitar")
+                                }
                                 data-tip
                                 data-for={`botonTooltipAct ${index}`}
                               >

@@ -19,9 +19,15 @@ import VagonVerde from "../../../assets/images/tren/Vagon3.png";
 import VagonNegro from "../../../assets/images/tren/Vagon4.png";
 import VagonAmarillo from "../../../assets/images/tren/Vagon5.png";
 import VagonSinColor from "../../../assets/images/tren/VagonSinColor.png";
-
+import ListoIcon from "../../../assets/images/ListoIcon.png";
+import ListoIconDsb from "../../../assets/images/ListoIconDsb.png";
+import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
+import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
+import LimpiarIcon from "../../../assets/images/LimpiarIcon.png";
 import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
 import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
+import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
+import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
 
 const SeguirPatron = () => {
   const {
@@ -40,11 +46,6 @@ const SeguirPatron = () => {
   const [arrayTrenRandom, setArrayTrenRandom] = useState(null);
   const [juegoFinalizado, setJuegoFinalizado] = useState(false);
   const [contadorAciertos, setContadorAciertos] = useState(0);
-  const [imagenOculto, setImagenOculto] = useState({
-    id: 0,
-    descripcion: "VagonSinColor",
-    img: VagonSinColor,
-  });
   const [contador, setContador] = useState(0);
 
   const [flgAct, setFlgAct] = useState(true);
@@ -56,7 +57,7 @@ const SeguirPatron = () => {
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
     Aciertos: 0,
     Desaciertos: 0,
-    JuegoId: 4,
+    JuegoId: 6,
     Finalizado: true,
     FechaInicio: horaInicio,
     FechaFinalizacion: null,
@@ -99,18 +100,6 @@ const SeguirPatron = () => {
 
   useEffect(() => {
     if (arrayTren && arrayTrenRandom && flgAct) {
-      //Si la imagen vuelve a ser la misma vuelvo a hacer un random
-      // if (imagenPreguntaAnterior) {
-      //   let preguntaNueva = arrayTren.filter(
-      //     (item) => item !== imagenPreguntaAnterior
-      //   );
-      //   setArrayTrenRandom(
-      //     preguntaNueva[Math.floor(Math.random() * preguntaNueva.length)]
-      //   );
-      // } else {
-      // setArrayTrenRandom(
-      // );
-      // }
       arrayTren.sort(function () {
         return Math.random() - 0.5;
       });
@@ -126,9 +115,15 @@ const SeguirPatron = () => {
     setResultadoJuegoDto({
       ...resultadoJuegoDto,
       FechaFinalizacion: horarioFinalizacion,
+      Finalizado: contadorAciertos === 5 ? true : false,
     });
-    setJuegoFinalizado(true);
   };
+
+  useEffect(() => {
+    if (resultadoJuegoDto.FechaFinalizacion !== null) {
+      showModalAvatar(enviarResultados)(modalAvatarDispatch);
+    }
+  }, [resultadoJuegoDto.FechaFinalizacion]);
 
   const limpiarArray = () => {
     setFlgPrimerItem(false);
@@ -154,13 +149,6 @@ const SeguirPatron = () => {
   };
 
   useEffect(() => {
-    if (juegoFinalizado) {
-      showModalAvatar(enviarResultados)(modalAvatarDispatch);
-      setJuegoFinalizado(false);
-    }
-  }, [juegoFinalizado]);
-
-  useEffect(() => {
     if (finalizaJuegoState.finalizaJuego.data !== null) {
       volverAlHome();
       resetFinalizaJuego()(finalizaJuegoDispatch);
@@ -175,7 +163,6 @@ const SeguirPatron = () => {
     history.push("/home");
   };
 
-
   const ponerVagon = (item) => {
     setFlgPrimerItem(true);
     const newArray = [...arrayTrenOculto];
@@ -188,18 +175,65 @@ const SeguirPatron = () => {
     setContador(contador + 1);
   };
 
-  // const sacarVagon = (item) => {
-  //   const newArray = [...arrayTrenRandom];
-  //   if (newArray.length <= 4) {
-  //     newArray.push(item);
-  //   }
+  const [flgSiguiente, setFlgSiguiente] = useState(false);
 
-  //   let nuevoOculto = arrayTrenOculto.filter((e) => e.id === item.id);
+  const enviarPatron = () => {
+    let comparacion = null;
+    for (var i = 0; i < arrayTrenOculto.length; i++) {
+      for (var j = 0; j < arrayTren.length; j++) {
+        if (arrayTrenOculto[i].id === arrayTren[j].id) {
+          comparacion = true;
+        } else {
+          comparacion = false;
+        }
+      }
+    }
 
-  //   setArrayTrenRandom(newArray);
-  //   setArrayTrenOculto(nuevoOculto);
-  //   setContador(contadorRandom + 1);
-  // };
+    if (comparacion === true) {
+      setResultadoJuegoDto({
+        ...resultadoJuegoDto,
+        Aciertos: resultadoJuegoDto.Aciertos + 1,
+      });
+      setContadorAciertos(contadorAciertos + 1);
+    } else {
+      setResultadoJuegoDto({
+        ...resultadoJuegoDto,
+        Desaciertos: resultadoJuegoDto.Desaciertos + 1,
+      });
+      setContadorAciertos(0);
+    }
+    setArrayTrenOculto([
+      { id: 1, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 2, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 3, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 4, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 5, descripcion: "VagonSinColor", img: VagonSinColor },
+    ]);
+    setArrayTrenRandom([
+      { id: 1, descripcion: "VagonAzul", img: VagonAzul },
+      { id: 2, descripcion: "VagonRojo", img: VagonRojo },
+      { id: 3, descripcion: "VagonVerde", img: VagonVerde },
+      { id: 4, descripcion: "VagonNegro", img: VagonNegro },
+      { id: 5, descripcion: "VagonAmarillo", img: VagonAmarillo },
+    ]);
+    setFlgSiguiente(true);
+    setBtnLimpiar(false);
+    setFlgPrimerItem(false);
+
+    setContador(0);
+  };
+
+  useEffect(() => {
+    if (flgSiguiente) {
+      arrayTrenRandom.sort(function () {
+        return Math.random() - 0.5;
+      });
+      arrayTren.sort(function () {
+        return Math.random() - 0.5;
+      });
+      setFlgSiguiente(false);
+    }
+  }, [flgSiguiente]);
 
   useEffect(() => {
     if (contadorAciertos === 5) {
@@ -216,84 +250,150 @@ const SeguirPatron = () => {
           <p className="seguirPatron-volverBtn c-white">VOLVER</p>
         </div>
       </div>
-      <div className="seguirPatron-container">
-        {/* <div className="seguirPatron-pregunta bw32b">
-              <p className="c-white">¿Es un/a {textoPregunta.descripcion}?</p>
-            </div> */}
-        <div className="seguirPatron-imgContainer">
-          <img
-            className={"seguirPatron-imagenTren"}
-            src={TrenDel}
-            alt="fruta"
-          />
-          {Array.isArray(arrayTren) &&
-            arrayTren.map((item, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <img
-                    className={"seguirPatron-imagen"}
-                    src={item.img}
-                    alt="vagon"
-                  />
-                </React.Fragment>
-              );
-            })}
-        </div>
+      <div className="seguirPatron-animal-juego">
+        <img
+          className="seguirPatron-animalIzq"
+          alt="fox"
+          src={FoxIzq}
+          width="200"
+          height="250"
+        ></img>
+        <div className="seguirPatron-container">
+          <div className="seguirPatron-pregunta-oculto">
+            <div className="seguirPatron-imgContainer">
+              <img
+                className={"seguirPatron-imagenTren"}
+                src={TrenDel}
+                alt="fruta"
+              />
 
-        <div className="seguirPatron-imgContainer">
-          <img
-            className={"seguirPatron-imagenTren"}
-            src={TrenDel}
-            alt="fruta"
-          />
-          {Array.isArray(arrayTrenOculto) &&
-            arrayTrenOculto.map((item, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <img
-                    // onClick={() => sacarVagon(item)}
-                    className={"seguirPatron-imagen"}
-                    src={item.img}
-                    alt="vagon"
-                  />
-                </React.Fragment>
-              );
-            })}
-        </div>
+              {Array.isArray(arrayTren) &&
+                arrayTren.map((item, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <img
+                        className={"seguirPatron-imagen"}
+                        src={item.img}
+                        alt="vagon"
+                      />
+                    </React.Fragment>
+                  );
+                })}
+            </div>
 
-        <div className="seguirPatron-imgContainerDesordenado">
-          {Array.isArray(arrayTrenRandom) &&
-            arrayTrenRandom.map((item, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <img
-                    onClick={() => ponerVagon(item)}
-                    className={"seguirPatron-imagen"}
-                    src={item.img}
-                    alt="vagon"
-                  />
-                </React.Fragment>
-              );
-            })}
-        </div>
+            <div className="seguirPatron-imgContainer">
+              <img
+                className={"seguirPatron-imagenTren"}
+                src={TrenDel}
+                alt="tren"
+              />
+              {Array.isArray(arrayTrenOculto) &&
+                arrayTrenOculto.map((item, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <img
+                        className={"seguirPatron-imagen"}
+                        src={item.img}
+                        alt="vagon"
+                      />
+                    </React.Fragment>
+                  );
+                })}
+            </div>
+          </div>
 
-        <div>
-          {btnLimpiar && (
+          {arrayTrenRandom && arrayTrenRandom.length === 0 ? (
             <button
-              className={"seguirPatron-finalizarBtn bw24t"}
-              onClick={() => limpiarArray()}
+              className={"iconButtonColorPatron bw24t"}
+              onClick={limpiarArray}
+              style={{ cursor: "pointer" }}
             >
-              Borrar
+              <img alt="listo" src={LimpiarIcon} width={80}></img>
+              <p className="c-white">Borrar</p>
             </button>
+          ) : (
+            <div className="seguirPatron-imgContainerDesordenado">
+              {Array.isArray(arrayTrenRandom) &&
+                arrayTrenRandom.map((item, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <img
+                        onClick={() => ponerVagon(item)}
+                        className={"seguirPatron-imagenRand"}
+                        src={item.img}
+                        alt="vagon"
+                      />
+                    </React.Fragment>
+                  );
+                })}
+            </div>
           )}
-          <button
-            className={"seguirPatron-finalizarBtn bw24t"}
-            onClick={() => finalizarJuego()}
-            disabled={btnDisabled}
-          >
-            Finalizar
-          </button>
+
+          {arrayTrenRandom && (
+            <div className="seguirPatron-btnContainer">
+              <button
+                className={
+                  resultadoJuegoDto.Aciertos > 0 ||
+                  resultadoJuegoDto.Desaciertos > 0
+                    ? "iconButtonColor bw24t"
+                    : "iconButtonColor bw24t"
+                }
+                onClick={
+                  resultadoJuegoDto.Aciertos > 0 ||
+                  resultadoJuegoDto.Desaciertos > 0
+                    ? finalizarJuego
+                    : () => {}
+                }
+                style={
+                  resultadoJuegoDto.Aciertos > 0 ||
+                  resultadoJuegoDto.Desaciertos > 0
+                    ? { cursor: "pointer" }
+                    : { cursor: "initial" }
+                }
+              >
+                <img
+                  alt="listo"
+                  src={
+                    resultadoJuegoDto.Aciertos > 0 ||
+                    resultadoJuegoDto.Desaciertos > 0
+                      ? FinalizarIcon
+                      : FinalizarIconDsb
+                  }
+                  width={80}
+                ></img>
+                <p className="c-white">Finalizar</p>
+              </button>
+
+              <button
+                className={
+                  arrayTrenRandom.length > 0
+                    ? "iconButtonColor bw24t"
+                    : "iconButtonColor bw24t"
+                }
+                onClick={arrayTrenRandom.length > 0 ? () => {} : enviarPatron}
+                style={
+                  arrayTrenRandom.length > 0
+                    ? { cursor: "initial" }
+                    : { cursor: "pointer" }
+                }
+              >
+                <img
+                  alt="listo"
+                  src={arrayTrenRandom.length > 0 ? ListoIconDsb : ListoIcon}
+                  width={80}
+                ></img>
+                <p className="c-white">Siguiente</p>
+              </button>
+            </div>
+          )}
         </div>
+        <img
+          className="seguirPatron-animalDer"
+          alt="fox"
+          src={FoxDer}
+          width="200"
+          height="250"
+        ></img>
       </div>
     </>
   );

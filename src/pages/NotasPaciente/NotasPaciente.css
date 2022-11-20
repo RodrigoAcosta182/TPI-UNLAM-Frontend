@@ -1,12 +1,24 @@
 .notas-volverAccion {
-  padding: 20px 0 0 20px;
+  padding: 20px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
 }
-.notas-btnCont {
+.notas-btnCont,
+.notas-AgregarbtnCont {
   display: flex;
   align-items: center;
   cursor: pointer;
   width: 100px;
+  height: fit-content;
 }
+.notas-AgregarbtnCont {
+  width: 160px;
+  gap: 6px;
+}
+
+/* .notas-agregarBtn{
+  width: 200px;
+} */
 .notas-container {
   display: flex;
   justify-content: center;
@@ -33,11 +45,14 @@
   display: flex;
   justify-content: center;
   padding: 10px 20px;
-  background-color: #fff97d;
+  /* background-color: #fff97d; */
+  background-color: var(--color-grey90);
   overflow: auto;
 }
 .notas-card2 {
-  background-color: #ff6666;
+  /* background-color: #ff6666; */
+  background-color: var(--color-latex10);
+  color: white;
 }
 .notas-card3 {
   background-color: #a0ff84;

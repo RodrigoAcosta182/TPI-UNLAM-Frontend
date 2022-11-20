@@ -81,6 +81,7 @@ const ComidaCorrecta = () => {
     setResultadoJuegoDto({
       ...resultadoJuegoDto,
       FechaFinalizacion: horarioFinalizacion,
+      Finalizado: contadorAciertos === 5 ? true : false,
     });
   };
 
@@ -254,7 +255,7 @@ const ComidaCorrecta = () => {
                   ? "iconButtonVoF bw24t"
                   : "iconButtonVoF bw24t"
               }
-              onClick={selected === undefined ? () => {} : () => elegir()}
+              onClick={selected === null ? () => {} : () => elegir()}
               style={
                 selected === null
                   ? { cursor: "initial" }
@@ -269,22 +270,6 @@ const ComidaCorrecta = () => {
               <p className="c-white">Siguiente</p>
             </button>
           </div>
-          {/* <div className="comidaCorrecta-btnContainer">
-            <button
-              className={`comidaCorrecta-btnListo bw24t ${
-                selected === null && "bgc-grey65"
-              }`}
-              onClick={selected === null ? () => {} : () => elegir()}
-            >
-              Listo
-            </button>
-            <button
-              className={"comidaCorrecta-btnFinalizar bw24t"}
-              onClick={() => finalizarJuego()}
-            >
-              Finalizar
-            </button>
-          </div> */}
         </div>
 
         <img

@@ -40,7 +40,11 @@ const ResultadosCards = () => {
   };
 
   const volverAMisPacientes = () => {
-    history.push("/misPacientes");
+    if (authState.auth.data.usuario.tipoUsuarioId === 1) {
+      history.push("/home");
+    } else {
+      history.push("/misPacientes");
+    }
     resetPacienteContexto()(pacienteSeleccionadoDispatch);
   };
 
