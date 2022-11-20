@@ -151,7 +151,7 @@ export default function ColorCorrecto() {
     setResultadoJuegoDto({
       ...resultadoJuegoDto,
       FechaFinalizacion: horarioFinalizacion,
-      Finalizado: false,
+      Finalizado: contadorAciertos === 5 ? true : false,
     });
 
     //poner logica de loading y push
@@ -160,6 +160,7 @@ export default function ColorCorrecto() {
   useEffect(() => {
     if (resultadoJuegoDto.FechaFinalizacion !== null) {
       showModalAvatar(enviarResultados)(modalAvatarDispatch);
+      console.log(resultadoJuegoDto);
     }
   }, [resultadoJuegoDto.FechaFinalizacion]);
 

@@ -56,7 +56,7 @@ const SeguirPatron = () => {
   const [resultadoJuegoDto, setResultadoJuegoDto] = useState({
     Aciertos: 0,
     Desaciertos: 0,
-    JuegoId: 4,
+    JuegoId: 6,
     Finalizado: true,
     FechaInicio: horaInicio,
     FechaFinalizacion: null,
@@ -99,18 +99,6 @@ const SeguirPatron = () => {
 
   useEffect(() => {
     if (arrayTren && arrayTrenRandom && flgAct) {
-      //Si la imagen vuelve a ser la misma vuelvo a hacer un random
-      // if (imagenPreguntaAnterior) {
-      //   let preguntaNueva = arrayTren.filter(
-      //     (item) => item !== imagenPreguntaAnterior
-      //   );
-      //   setArrayTrenRandom(
-      //     preguntaNueva[Math.floor(Math.random() * preguntaNueva.length)]
-      //   );
-      // } else {
-      // setArrayTrenRandom(
-      // );
-      // }
       arrayTren.sort(function () {
         return Math.random() - 0.5;
       });
@@ -126,8 +114,8 @@ const SeguirPatron = () => {
     setResultadoJuegoDto({
       ...resultadoJuegoDto,
       FechaFinalizacion: horarioFinalizacion,
+      Finalizado: contadorAciertos === 5 ? true : false,
     });
-    setJuegoFinalizado(true);
   };
 
   const limpiarArray = () => {
@@ -156,7 +144,6 @@ const SeguirPatron = () => {
   useEffect(() => {
     if (juegoFinalizado) {
       showModalAvatar(enviarResultados)(modalAvatarDispatch);
-      setJuegoFinalizado(false);
     }
   }, [juegoFinalizado]);
 
@@ -175,7 +162,6 @@ const SeguirPatron = () => {
     history.push("/home");
   };
 
-
   const ponerVagon = (item) => {
     setFlgPrimerItem(true);
     const newArray = [...arrayTrenOculto];
@@ -188,18 +174,63 @@ const SeguirPatron = () => {
     setContador(contador + 1);
   };
 
-  // const sacarVagon = (item) => {
-  //   const newArray = [...arrayTrenRandom];
-  //   if (newArray.length <= 4) {
-  //     newArray.push(item);
-  //   }
+  const [flgSiguiente, setFlgSiguiente] = useState(false);
 
-  //   let nuevoOculto = arrayTrenOculto.filter((e) => e.id === item.id);
+  const enviarPatron = () => {
+    let comparacion = null;
+    for (var i = 0; i < arrayTrenOculto.length; i++) {
+      for (var j = 0; j < arrayTren.length; j++) {
+        if (arrayTrenOculto[i].id === arrayTren[j].id) {
+          comparacion = true;
+        } else {
+          comparacion = false;
+        }
+      }
+    }
 
-  //   setArrayTrenRandom(newArray);
-  //   setArrayTrenOculto(nuevoOculto);
-  //   setContador(contadorRandom + 1);
-  // };
+    if (comparacion === true) {
+      setResultadoJuegoDto({
+        ...resultadoJuegoDto,
+        Aciertos: resultadoJuegoDto.Aciertos + 1,
+      });
+    } else {
+      setResultadoJuegoDto({
+        ...resultadoJuegoDto,
+        Desaciertos: resultadoJuegoDto.Desaciertos + 1,
+      });
+    }
+    setArrayTrenOculto([
+      { id: 1, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 2, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 3, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 4, descripcion: "VagonSinColor", img: VagonSinColor },
+      { id: 5, descripcion: "VagonSinColor", img: VagonSinColor },
+    ]);
+    setArrayTrenRandom([
+      { id: 1, descripcion: "VagonAzul", img: VagonAzul },
+      { id: 2, descripcion: "VagonRojo", img: VagonRojo },
+      { id: 3, descripcion: "VagonVerde", img: VagonVerde },
+      { id: 4, descripcion: "VagonNegro", img: VagonNegro },
+      { id: 5, descripcion: "VagonAmarillo", img: VagonAmarillo },
+    ]);
+    setFlgSiguiente(true);
+    setBtnLimpiar(false);
+    setFlgPrimerItem(false);
+
+    setContador(0);
+  };
+
+  useEffect(() => {
+    if (flgSiguiente) {
+      arrayTrenRandom.sort(function () {
+        return Math.random() - 0.5;
+      });
+      arrayTren.sort(function () {
+        return Math.random() - 0.5;
+      });
+      setFlgSiguiente(false);
+    }
+  }, [flgSiguiente]);
 
   useEffect(() => {
     if (contadorAciertos === 5) {
@@ -244,7 +275,7 @@ const SeguirPatron = () => {
           <img
             className={"seguirPatron-imagenTren"}
             src={TrenDel}
-            alt="fruta"
+            alt="tren"
           />
           {Array.isArray(arrayTrenOculto) &&
             arrayTrenOculto.map((item, index) => {
@@ -268,7 +299,7 @@ const SeguirPatron = () => {
                 <React.Fragment key={index}>
                   <img
                     onClick={() => ponerVagon(item)}
-                    className={"seguirPatron-imagen"}
+                    className={"seguirPatron-imagenRand"}
                     src={item.img}
                     alt="vagon"
                   />
@@ -286,6 +317,13 @@ const SeguirPatron = () => {
               Borrar
             </button>
           )}
+          <button
+            className={"seguirPatron-finalizarBtn bw24t"}
+            onClick={() => enviarPatron()}
+            disabled={btnDisabled}
+          >
+            Siguiente
+          </button>
           <button
             className={"seguirPatron-finalizarBtn bw24t"}
             onClick={() => finalizarJuego()}

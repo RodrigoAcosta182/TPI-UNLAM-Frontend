@@ -104,7 +104,7 @@ export const wsGetResultadosXPaciente = (idJuego) => (dispatch) => {
 
   axiosInstance().then((respuesta) => {
     respuesta
-      .get(`/ProgresosXPacienteXJuego/${idJuego}`)
+      .get(`/ListaProgresosXPaciente`)
       .then((res) => {
         dispatch({
           type: RESULTADOS_SUCCESS,

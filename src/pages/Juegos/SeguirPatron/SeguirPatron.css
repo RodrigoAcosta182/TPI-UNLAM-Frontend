@@ -53,10 +53,18 @@
 .seguirPatron-finalizarBtn {
   background: var(--color-white);
 }
-.seguirPatron-imagen {
+.seguirPatron-imagen,
+.seguirPatron-imagenRand {
   width: 170px;
   height: 140px;
+}
+.seguirPatron-imagenRand {
   cursor: pointer;
+}
+
+.seguirPatron-imagenRand:hover {
+  transform: scale(1.1);
+  transition-duration: 200ms;
 }
 .seguirPatron-imagenTren {
   width: 174px;
