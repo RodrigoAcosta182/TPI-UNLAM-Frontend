@@ -13,8 +13,8 @@ import "./LlamadaPaciente.css";
 import { hideModal, showModal } from "../../../context/action/modal/modal";
 import AceptaLlamada from "../AceptaLlamada/AceptaLlamada";
 import { GlobalContext } from "../../../context/Provider";
-import LlamadaEntrante from "../LlamadaEntrante/LlamadaEntrante";
 import { resetLlamada, wsGetLlamadaActual } from "../../../context/action/llamada/llamada";
+import ConexionSignalR from "../ConexionSignalR/ConexionSignalR";
 
 // Initialize Firebase
 
@@ -59,7 +59,7 @@ function LlamadaPaciente() {
 
   return (
     <>
-      <LlamadaEntrante callback={mostrarModalLlamar} />
+      <ConexionSignalR callback={mostrarModalLlamar} />
       {!mostrarModal ? (
         <Menu
           joinCode={joinCode}

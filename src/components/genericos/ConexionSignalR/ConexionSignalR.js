@@ -3,10 +3,12 @@ import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { Subject } from "rxjs";
 import { GlobalContext } from "../../../context/Provider";
 import { setLlamadaActual } from "../../../context/action/llamada/llamada";
-const LlamadaEntrante = ({ callback }) => {
-  const { authState, llamadaDispatch } = useContext(GlobalContext);
+import { setUsuarioConectado } from "../../../context/action/estadoConexion/estadoConexion";
+const ConexionSignalR = ({ callback }) => {
+  const { authState, llamadaDispatch, estadoConexionDispatch } =
+    useContext(GlobalContext);
   const connection = new HubConnectionBuilder()
-    .withUrl("https://localhost:44392/message")
+    .withUrl("https://localhost:44327/message")
     .configureLogging(LogLevel.Information)
     .build();
 
@@ -14,17 +16,21 @@ const LlamadaEntrante = ({ callback }) => {
     try {
       const subject = new Subject();
       subject.subscribe((message) => {
-        // showModal(<LlamadaEntranteModal mensaje={message} />)(modalDispatch);
-        // console.log(message)
-        
         callback();
       });
-
       await connection.start();
-      console.log("SignalR Connected.");
+      console.log("SignalR Conectado");
+      //enviar datos llamada
       connection.on("sendMessage", (message) => {
+        // console.log(message);
         setLlamadaActual(message.llamadaId)(llamadaDispatch);
         subject.next(message);
+      });
+
+      connection.on("estadoConexion", (usuario) => {
+        console.log(JSON.stringify(usuario.paciente));
+        setUsuarioConectado(usuario.paciente)(estadoConexionDispatch);
+        subject.next(usuario);
       });
 
       connection
@@ -35,11 +41,10 @@ const LlamadaEntrante = ({ callback }) => {
         .catch((err) => console.error(err.toString()));
     } catch (err) {
       console.log(err);
-      //   setTimeout(startHubConnection, 5000);
+      setTimeout(startHubConnection, 5000);
     }
     return false;
   };
-
   connection.onclose(async () => {
     await startHubConnection();
   });
@@ -49,4 +54,4 @@ const LlamadaEntrante = ({ callback }) => {
   }, []);
 };
 
-export default LlamadaEntrante;
+export default ConexionSignalR;

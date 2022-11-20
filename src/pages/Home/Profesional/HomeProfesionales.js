@@ -4,6 +4,8 @@ import "./HomeProfesionales.css";
 import CardJuegos from "../../../components/juego/CardJuegos/CardJuegos";
 import { GlobalContext } from "../../../context/Provider";
 
+import ConexionSignalR from "../../../components/genericos/ConexionSignalR/ConexionSignalR";
+
 const HomeProfesionales = () => {
   const { authState } = useContext(GlobalContext);
 
@@ -17,8 +19,13 @@ const HomeProfesionales = () => {
     }
   };
 
+  const hacerAlgo =() =>{
+    
+  }
+
   return (
     <React.Fragment>
+      <ConexionSignalR callback={hacerAlgo}/>
       <div className="homeProf-container">
         <div className="homeProf-logoBienvenida">
           <p className="c-white bw32b">

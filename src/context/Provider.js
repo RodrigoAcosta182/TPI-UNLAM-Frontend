@@ -3,6 +3,7 @@ import { createContext, useEffect, useReducer } from "react";
 //InitialStates ordenar alfabeticamente
 import authInitialState from "./initialStates/authInitialState";
 import colorCorrectoInitialState from "./initialStates/colorCorrectoInitialState";
+import estadoConexionInitialState from "./initialStates/estadoConexionInitialState";
 import finalizaJuegoInitialState from "./initialStates/finalizaJuegoInitialState";
 import generosInitialState from "./initialStates/generosInitialState";
 import juegoSeleccionadoInitialState from "./initialStates/juegoSeleccionadoInitialState";
@@ -16,13 +17,16 @@ import notaInitialState from "./initialStates/notaInitialState";
 import ordenNumerosInitialState from "./initialStates/ordenNumerosInitialState";
 import pacienteSeleccionadoInitialState from "./initialStates/pacienteSeleccionadoInitialState";
 import profesionalesInitialState from "./initialStates/profesionalesInitialState";
+import profesionalPorPacienteInitialState from "./initialStates/profesionalPorPacienteInitialState";
 import registroInitialState from "./initialStates/registroInitialState";
 import resultadosInitialState from "./initialStates/resultadosInitialState";
 import sugerenciaInitialState from "./initialStates/sugerenciaInitialState";
+import toasterInitialState from "./initialStates/toasterInitialState";
 
 //Reducers ordenar alfabeticamente
 import auth from "./reducers/auth";
 import colorCorrecto from "./reducers/colorCorrecto";
+import estadoConexion from "./reducers/estadoConexion";
 import finalizaJuego from "./reducers/finalizaJuego";
 import generos from "./reducers/generos";
 import juegoSeleccionado from "./reducers/juegoSeleccionado";
@@ -36,9 +40,11 @@ import nota from "./reducers/nota";
 import ordenNumeros from "./reducers/ordenNumeros";
 import pacienteSeleccionado from "./reducers/pacienteSeleccionado";
 import profesionales from "./reducers/profesionales";
+import profesionalPorPaciente from "./reducers/profesionalPorPaciente";
 import registro from "./reducers/registro";
 import resultados from "./reducers/resultados";
 import sugerencia from "./reducers/sugerencia";
+import toaster from "./reducers/toaster";
 
 export const GlobalContext = createContext({});
 
@@ -56,6 +62,11 @@ export const GlobalProvider = ({ children }) => {
   const [colorCorrectoState, colorCorrectoDispatch] = useReducer(
     colorCorrecto,
     colorCorrectoInitialState
+  );
+
+  const [estadoConexionState, estadoConexionDispatch] = useReducer(
+    estadoConexion,
+    estadoConexionInitialState
   );
 
   const [finalizaJuegoState, finalizaJuegoDispatch] = useReducer(
@@ -107,6 +118,8 @@ export const GlobalProvider = ({ children }) => {
     profesionales,
     profesionalesInitialState
   );
+  const [profesionalPorPacienteState, profesionalPorPacienteDispatch] =
+    useReducer(profesionalPorPaciente, profesionalPorPacienteInitialState);
   const [registroState, registroDispatch] = useReducer(
     registro,
     registroInitialState
@@ -119,6 +132,10 @@ export const GlobalProvider = ({ children }) => {
     sugerencia,
     sugerenciaInitialState
   );
+  const [toasterState, toasterDispatch] = useReducer(
+    toaster,
+    toasterInitialState
+  );
   return (
     //Declarar en Contexto Global, ordenar alfabeticamente
     <GlobalContext.Provider
@@ -127,6 +144,8 @@ export const GlobalProvider = ({ children }) => {
         authDispatch,
         colorCorrectoState,
         colorCorrectoDispatch,
+        estadoConexionState,
+        estadoConexionDispatch,
         finalizaJuegoState,
         finalizaJuegoDispatch,
         generosState,
@@ -151,6 +170,8 @@ export const GlobalProvider = ({ children }) => {
         ordenNumerosDispatch,
         profesionalesState,
         profesionalesDispatch,
+        profesionalPorPacienteState,
+        profesionalPorPacienteDispatch,
         registroState,
         registroDispatch,
         resultadosState,
@@ -159,6 +180,8 @@ export const GlobalProvider = ({ children }) => {
         pacienteSeleccionadoDispatch,
         sugerenciaState,
         sugerenciaDispatch,
+        toasterState,
+        toasterDispatch,
       }}
     >
       {children}

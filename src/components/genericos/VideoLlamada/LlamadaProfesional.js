@@ -176,7 +176,6 @@ function Videos({ callId, pacienteSeleccionado }) {
     }
   }, [llamadaDto.CodigoLlamada]);
 
-  //desactivo SignalR
   useEffect(() => {
     if (llamadaState.llamada.data === 200) {
       wsPostLlamadaSaliente(
