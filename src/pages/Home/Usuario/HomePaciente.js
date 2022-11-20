@@ -5,9 +5,6 @@ import JuegoSeleccionado from "../../../components/juego/JuegoSeleccionado/CardJ
 import CardJuegos from "../../../components/juego/CardJuegos/CardJuegos";
 import { hideModal, showModal } from "../../../context/action/modal/modal";
 import { GlobalContext } from "../../../context/Provider";
-import LlamadaPaciente from "../../../components/genericos/VideoLlamada/LlamadaPaciente";
-import LlamadaEntrante from "../../../components/genericos/LlamadaEntrante/LlamadaEntrante";
-
 const HomePaciente = () => {
   const {
     authState,
