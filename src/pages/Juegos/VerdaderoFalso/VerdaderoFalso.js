@@ -43,7 +43,6 @@ const VerdaderoFalso = () => {
   const [arrayFrutas, setArrayFrutas] = useState(null);
   const [textoPregunta, setTextoPregunta] = useState(null);
   const [imagenPregunta, setImagenPregunta] = useState(null);
-  const [juegoFinalizado, setJuegoFinalizado] = useState(false);
   const [contadorAciertos, setContadorAciertos] = useState(0);
 
   const [btnDisabled, setBtnDisabled] = useState(true);
@@ -104,16 +103,15 @@ const VerdaderoFalso = () => {
     setResultadoJuegoDto({
       ...resultadoJuegoDto,
       FechaFinalizacion: horarioFinalizacion,
+      Finalizado: contadorAciertos === 5 ? true : false,
     });
-    setJuegoFinalizado(true);
   };
 
   useEffect(() => {
-    if (juegoFinalizado) {
+    if (resultadoJuegoDto.FechaFinalizacion !== null) {
       showModalAvatar(enviarResultados)(modalAvatarDispatch);
-      setJuegoFinalizado(false);
     }
-  }, [juegoFinalizado]);
+  }, [resultadoJuegoDto.FechaFinalizacion]);
 
   useEffect(() => {
     if (finalizaJuegoState.finalizaJuego.data !== null) {

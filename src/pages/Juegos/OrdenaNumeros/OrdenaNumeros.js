@@ -87,6 +87,7 @@ const OrdenaNumeros = () => {
     setResultadoJuegoDto({
       ...resultadoJuegoDto,
       FechaFinalizacion: new Date(),
+      Finalizado: contadorAciertos === 5 ? true : false,
     });
   };
 
@@ -198,20 +199,6 @@ const OrdenaNumeros = () => {
                   <p className="c-white">Siguiente</p>
                 </button>
               </div>
-              {/* <div className="ordenarNumeros-btn-container">
-              <button
-                className="ordenarNumeros-btn bw24t"
-                onClick={enviarNumerosOrdenados}
-              >
-                Listo
-              </button>
-              <button
-                className="ordenarNumeros-btn bw24t"
-                onClick={finalizarJuego}
-              >
-                Finalizar
-              </button>
-            </div> */}
             </div>
             <img
               className="ordenarNumeros-animalDer"

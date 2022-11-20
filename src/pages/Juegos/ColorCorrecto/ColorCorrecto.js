@@ -160,7 +160,6 @@ export default function ColorCorrecto() {
   useEffect(() => {
     if (resultadoJuegoDto.FechaFinalizacion !== null) {
       showModalAvatar(enviarResultados)(modalAvatarDispatch);
-      console.log(resultadoJuegoDto);
     }
   }, [resultadoJuegoDto.FechaFinalizacion]);
 

@@ -214,7 +214,7 @@ const Resultados = () => {
                     <tbody>
                       <tr className="bw18t c-white">
                         <th className="columnaInicio">Juego</th>
-                        <th className="columna">Fecha de inicio</th>
+                        <th className="columna">Fecha</th>
                         <th className="columna">Aciertos</th>
                         <th className="columna">Desaciertos</th>
                         <th className="columna">Tiempo de resolución</th>
