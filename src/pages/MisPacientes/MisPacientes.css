@@ -110,6 +110,19 @@
   cursor: pointer;
   /* padding: 10px 6px; */
 }
+
+.circulo-pacienteEnLinea-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.circulo-pacienteEnLinea{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
 @media (max-width: 1365px) {
   .btnPacientesBox {
     /* flex-direction: column; */

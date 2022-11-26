@@ -26,6 +26,11 @@ import { hideModal, showModal } from "../../context/action/modal/modal";
 import ModalHabilitar from "../../components/genericos/ModalHabilitar/ModalHabilitar";
 import ModalMensaje from "../../components/genericos/ModalMensaje/ModalMensaje";
 import Dropdown from "../../components/genericos/Dropdown/Dropdown";
+import {
+  findAndUpdate,
+  obtenerIndexArray,
+  obtenerPacienteDeLaLista,
+} from "../../global/utils/obtenerIndexArray";
 
 const MisPacientes = () => {
   const {
@@ -35,6 +40,7 @@ const MisPacientes = () => {
     modalState,
     modalDispatch,
     textosState,
+    estadoConexionState,
   } = React.useContext(GlobalContext);
   const [habilitarPacienteDto, setHabilitarPacienteDto] = React.useState({
     id: null,
@@ -84,7 +90,9 @@ const MisPacientes = () => {
   const { slice, range } = useTable(data ? data : "", page, 4);
 
   useEffect(() => {
-    wsGetListaDePacientes()(misPacientesDispatch);
+    if (misPacientesState.misPacientes.data === null) {
+      wsGetListaDePacientes()(misPacientesDispatch);
+    }
   }, []);
 
   useEffect(() => {
@@ -193,6 +201,24 @@ const MisPacientes = () => {
     }
   };
 
+  //estado online
+  useEffect(() => {
+    if (data && estadoConexionState.usuarioConectado) {
+      findAndUpdate(
+        misPacientesState.misPacientes.data,
+        "online",
+        estadoConexionState.usuarioConectado.usuario.mail,
+        true
+      );
+      findAndUpdate(
+        data,
+        "online",
+        estadoConexionState.usuarioConectado.usuario.mail,
+        true
+      );
+    }
+  }, [estadoConexionState.usuarioConectado]);
+
   return (
     <>
       {modalState.modal.show && <Modal />}
@@ -244,6 +270,7 @@ const MisPacientes = () => {
             <table className="containerTabla">
               <tbody>
                 <tr className="bw18t c-white">
+                  <th className="columnaInicio">En línea</th>
                   <th className="columnaInicio">Nombre</th>
                   <th className="columna">Edad</th>
                   <th className="columna">Fecha Nacimiento</th>
@@ -265,6 +292,13 @@ const MisPacientes = () => {
                     return (
                       <React.Fragment key={index}>
                         <tr className="tablaFilasContainer bw18t">
+                          <td className="tablaFilas c-white circulo-pacienteEnLinea-container">
+                            <div
+                              className={`circulo-pacienteEnLinea ${
+                                item.online ? `bgc-broccoli` : `bgc-white`
+                              } `}
+                            ></div>
+                          </td>
                           <td className="tablaFilas c-white">
                             {item.pacienteNombre} {item.pacienteApellido}{" "}
                           </td>
