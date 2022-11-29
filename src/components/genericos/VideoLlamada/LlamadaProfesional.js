@@ -20,6 +20,9 @@ import {
 } from "../../../context/action/llamada/llamada";
 import LlamadaIcon from "../../../assets/images/LlamadaIcon.png";
 import ReactTooltip from "react-tooltip";
+import { resetNota, wsPostNota } from "../../../context/action/nota/nota";
+import { showToaster } from "../../../context/action/toasterGenerico/toasterGenerico";
+import ToasterGenerico from "../ToasterGenerico/ToasterGenerico";
 
 // Initialize Firebase
 
@@ -76,8 +79,16 @@ function LlamadaProfesional({ paciente }) {
 }
 
 function Videos({ callId, pacienteSeleccionado }) {
-  const { modalDispatch, llamadaDispatch, llamadaState } =
-    useContext(GlobalContext);
+  const {
+    modalDispatch,
+    llamadaDispatch,
+    llamadaState,
+    authState,
+    toasterGenericoDispatch,
+    notaDispatch,
+    notaState,
+    toasterGenericoState,
+  } = useContext(GlobalContext);
   const [webcamActive, setWebcamActive] = useState(false);
 
   const [llamadaDto, setLlamadaDto] = useState({
@@ -185,13 +196,43 @@ function Videos({ callId, pacienteSeleccionado }) {
     }
   }, [llamadaState.llamada.data]);
 
-  const handleClickGuardarNota = () => {};
-  const onChangeNota = (e) => {
-    console.log(e.target.value);
+  
+  const [notaPaciente, setNotaPaciente] = useState({
+    Fecha: new Date(),
+    Mensaje: null,
+    ProfesionalId: authState.auth.data.usuario.id,
+    PacienteId: pacienteSeleccionado.pacienteId,
+    Archivado: false,
+  });
+  
+  const [texto, setTexto] = useState(notaPaciente.Mensaje);
+
+  const onChangeNotaLlamada = (e) => {
+    setTexto(e.target.value);
+    setNotaPaciente({ ...notaPaciente, Mensaje: e.target.value });
   };
+
+  const enviarNota = () => {
+    wsPostNota(notaPaciente)(notaDispatch);
+  };
+
+  useEffect(() => {
+    if (notaState.nota.data === 200) {
+      showToaster(
+        {
+          texto: "La nota fue enviada correctamente",
+          tipo: "success",
+        },
+        "centroArriba"
+      )(toasterGenericoDispatch);
+    }
+    resetNota()(notaDispatch);
+    setTexto("");
+  }, [notaState.nota.data]);
 
   return (
     <>
+      {toasterGenericoState.toasterGenerico.show && <ToasterGenerico />}
       <div className="llamadaProfesional-videosContainer">
         <div className="llamadaProfesional-boxLeft">
           <CardInfoPaciente paciente={pacienteSeleccionado} />
@@ -234,8 +275,9 @@ function Videos({ callId, pacienteSeleccionado }) {
             muted
           />
           <NotaPaciente
-            handleClickGuardarNota={handleClickGuardarNota}
-            onChangeNota={onChangeNota}
+            onChangeNota={onChangeNotaLlamada}
+            handleClickGuardarNota={enviarNota}
+            texto={texto}
           />
         </div>
       </div>

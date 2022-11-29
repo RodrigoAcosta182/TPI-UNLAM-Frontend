@@ -12,6 +12,7 @@ import checkNroPrimo from "../../global/utils/checkNroPrimo";
 import {
   resetNota,
   wsArchivarNota,
+  wsEliminarNota,
   wsGetNotaXProfesional,
 } from "../../context/action/nota/nota";
 import { resetPacienteContexto } from "../../context/action/pacienteSeleccionado/pacienteSeleccionado";
@@ -20,7 +21,9 @@ import ModalAgregarNota from "./ModalAgregarNota/ModalAgregarNota";
 import { showToaster } from "../../context/action/toasterGenerico/toasterGenerico";
 import ToasterGenerico from "../../components/genericos/ToasterGenerico/ToasterGenerico";
 import GuardarIcon from "../../assets/images/GuardarIcon";
+import EliminarIcon from "../../assets/images/EliminarIcon";
 import ReactTooltip from "react-tooltip";
+import ModalArchivar from "../../components/genericos/ModalArchivar/ModalArchivar";
 
 const NotasPaciente = () => {
   const history = useHistory();
@@ -36,6 +39,10 @@ const NotasPaciente = () => {
   } = useContext(GlobalContext);
 
   const [flgArchivar, setFlgArchivar] = useState(false);
+  const [notaItem, setNotaItem] = useState(null);
+  const [archivar, setArchivar] = useState(false);
+  const [eliminarFlg, setEliminarFlg] = useState(false);
+  const [flgEliminarTxt, setFlgEliminarTxt] = useState(null);
 
   useEffect(() => {
     if (pacienteSeleccionadoState.pacienteSelected.data) {
@@ -53,6 +60,8 @@ const NotasPaciente = () => {
         {
           texto: flgArchivar
             ? "La nota fue archivada correctamente"
+            : flgEliminarTxt
+            ? "La nota fue eliminada correctamente"
             : "La nota fue agregada correctamente",
           tipo: "success",
         },
@@ -62,6 +71,7 @@ const NotasPaciente = () => {
         pacienteSeleccionadoState.pacienteSelected.data.pacienteId
       )(notaDispatch);
       setFlgArchivar(false);
+      setFlgEliminarTxt(false);
     }
   }, [notaState.nota.data]);
 
@@ -87,10 +97,57 @@ const NotasPaciente = () => {
     hideModal()(modalDispatch);
   };
 
-  const archivarNota = (e) => {
-    setFlgArchivar(true);
-    wsArchivarNota(e.id)(notaDispatch);
+  const modalArchivarNota = (e) => {
+    showModal(
+      <ModalArchivar opcion={"archivar"} archivar={archivarNota} />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+    setNotaItem(e);
   };
+
+  const modalEliminarNota = (e) => {
+    showModal(
+      <ModalArchivar opcion={"eliminar"} archivar={eliminarNota} />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+    setNotaItem(e);
+  };
+
+  const archivarNota = () => {
+    setArchivar(true);
+    setFlgArchivar(true);
+  };
+
+  const eliminarNota = () => {
+    setEliminarFlg(true);
+    setFlgEliminarTxt(true);
+  };
+
+  useEffect(() => {
+    if (archivar) {
+      wsArchivarNota(notaItem.id)(notaDispatch);
+      setNotaItem(null);
+      setArchivar(false);
+    }
+  }, [archivar]);
+
+  useEffect(() => {
+    if (eliminarFlg) {
+      wsEliminarNota(notaItem.id)(notaDispatch);
+      setNotaItem(null);
+      setEliminarFlg(false);
+    }
+  }, [eliminarFlg]);
 
   const irANotasArchivadas = (e) => {
     history.push("/notasArchivadas");
@@ -131,11 +188,30 @@ const NotasPaciente = () => {
                     <React.Fragment key={index}>
                       <div className={check ? "notas-card" : "notas-card2"}>
                         <div className="notas-fechaMensaje">
+                          <button
+                            className="notas-eliminarIcon"
+                            onClick={() => modalEliminarNota(item)}
+                            data-tip
+                            data-for={`botonTooltipENotas ${index}`}
+                          >
+                            <EliminarIcon
+                              color={check ? "var(--color-latex10)" : "white"}
+                            />{" "}
+                            <ReactTooltip
+                              id={`botonTooltipENotas ${index}`}
+                              place="top"
+                              type="light"
+                              effect="solid"
+                              border={true}
+                            >
+                              Eliminar Nota
+                            </ReactTooltip>
+                          </button>
                           <p className="bw24b">
                             {new Date(item.fecha).toLocaleDateString()}{" "}
                             <button
                               className="notas-guardarIcon"
-                              onClick={() => archivarNota(item)}
+                              onClick={() => modalArchivarNota(item)}
                               data-tip
                               data-for={`botonTooltipNotas ${index}`}
                             >

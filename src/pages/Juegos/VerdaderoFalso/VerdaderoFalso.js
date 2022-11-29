@@ -24,6 +24,11 @@ import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
 import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
 import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
 import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
+import ModalMensaje from "../../../components/genericos/ModalMensaje/ModalMensaje";
+import AyudaIcon from "../../../assets/images/AyudaIcon";
+import Modal from "../../../components/genericos/Modal/Modal";
+import { hideModal, showModal } from "../../../context/action/modal/modal";
+import ReactTooltip from "react-tooltip";
 
 const VerdaderoFalso = () => {
   const {
@@ -31,6 +36,9 @@ const VerdaderoFalso = () => {
     finalizaJuegoDispatch,
     modalAvatarDispatch,
     modalAvatarState,
+    textosState,
+    modalState,
+    modalDispatch,
   } = useContext(GlobalContext);
 
   const history = useHistory();
@@ -182,14 +190,51 @@ const VerdaderoFalso = () => {
     }
   }, [contadorAciertos]);
 
+  const modalAyuda = () => {
+    showModal(
+      <ModalMensaje
+        titulo={"Información"}
+        mensaje={textosState.textos.data[4].mensaje}
+      />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
+  };
+
   return (
     <>
+      {modalState.modal.show && <Modal />}
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       <div className="verdaderofalso-volverAccion">
         <div className="verdaderofalso-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="verdaderofalso-volverBtn c-white">VOLVER</p>
         </div>
+        <button
+          className="verdaderofalso-ayudaBtn bw14b"
+          onClick={() => modalAyuda()}
+          data-tip
+          data-for={`botonTooltipAyuda`}
+        >
+          <AyudaIcon color={"white"} />
+          <ReactTooltip
+            id={`botonTooltipAyuda`}
+            place="top"
+            type="light"
+            effect="solid"
+            border={true}
+          >
+            Mas información
+          </ReactTooltip>
+        </button>
       </div>
 
       <div className="verdaderofalso-animal-juego">

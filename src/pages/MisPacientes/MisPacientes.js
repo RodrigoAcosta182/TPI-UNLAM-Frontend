@@ -63,12 +63,16 @@ const MisPacientes = () => {
     },
     {
       id: 3,
+      estado: "Pendientes",
+    },
+    {
+      id: 4,
       estado: "Todos",
     },
   ];
 
   const [dropdownFiltros, setDropdownFiltros] = React.useState(
-    arrayEstados[arrayEstados.length - 3].id
+    arrayEstados[arrayEstados.length - 4].id
   );
 
   const [flgData, setFlgData] = React.useState(true);
@@ -157,7 +161,7 @@ const MisPacientes = () => {
       (habilitarPacienteDto.estado !== null)
     ) {
       wsHabilitarPaciente(habilitarPacienteDto)(misPacientesDispatch);
-      setDropdownFiltros(arrayEstados[arrayEstados.length - 3].id);
+      setDropdownFiltros(arrayEstados[arrayEstados.length - 4].id);
     }
   }, [habilitarPacienteDto]);
 
@@ -174,7 +178,7 @@ const MisPacientes = () => {
     if (e !== "") {
       switch (e.estado) {
         case "Activos":
-          setDropdownFiltros(arrayEstados[arrayEstados.length - 3].id);
+          setDropdownFiltros(arrayEstados[arrayEstados.length - 4].id);
           let arrxActivos = [];
           for (let i = 0; i < misPacientesState.misPacientes.data.length; i++) {
             if (misPacientesState.misPacientes.data[i].estado === true) {
@@ -184,13 +188,28 @@ const MisPacientes = () => {
           }
           break;
         case "Inactivos":
-          setDropdownFiltros(arrayEstados[arrayEstados.length - 2].id);
+          setDropdownFiltros(arrayEstados[arrayEstados.length - 3].id);
           let arrxInactivos = [];
           for (let i = 0; i < misPacientesState.misPacientes.data.length; i++) {
-            if (misPacientesState.misPacientes.data[i].estado === false) {
+            if (
+              misPacientesState.misPacientes.data[i].estado === false &&
+              misPacientesState.misPacientes.data[i].fechaInicioRelac !== null
+            ) {
               arrxInactivos.push(misPacientesState.misPacientes.data[i]);
             }
             setData(arrxInactivos);
+          }
+          break;
+        case "Pendientes":
+          setDropdownFiltros(arrayEstados[arrayEstados.length - 2].id);
+          let arrxPendientes = [];
+          for (let i = 0; i < misPacientesState.misPacientes.data.length; i++) {
+            if (
+              misPacientesState.misPacientes.data[i].fechaInicioRelac === null
+            ) {
+              arrxPendientes.push(misPacientesState.misPacientes.data[i]);
+            }
+            setData(arrxPendientes);
           }
           break;
         default:
@@ -277,8 +296,8 @@ const MisPacientes = () => {
                   <th className="columna">Tutor a cargo</th>
                   <th className="columna">Teléfono</th>
                   <th className="columna">Mail</th>
-                  <th className="columna">Fecha Inicio Relación</th>
-                  <th className="columna">Fecha Fin Relación</th>
+                  <th className="columna">Fecha Alta</th>
+                  <th className="columna">Fecha Baja</th>
                   <th className="columna">Notas</th>
                   <th className="columna">Activo</th>
                   <th className="columnaVacia">Acc</th>
@@ -318,12 +337,18 @@ const MisPacientes = () => {
                           </td>
                           <td className="tablaFilas c-white">{item.mail}</td>
                           <td className="tablaFilas c-white">
-                            {new Date(
-                              item.fechaInicioRelac
-                            ).toLocaleDateString()}
+                            {item.fechaInicioRelac === null
+                              ? "-"
+                              : new Date(
+                                  item.fechaInicioRelac
+                                ).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
-                            {new Date(item.fechaFinRelac).toLocaleDateString()}
+                            {item.fechaFinRelac === null
+                              ? "-"
+                              : new Date(
+                                  item.fechaFinRelac
+                                ).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
                             <button

@@ -17,6 +17,16 @@
   gap: 20px;
   flex-wrap: wrap;
 }
+.home-ayudaBtn{
+  width: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 20%;
+
+}
 @media (max-width: 760px) {
   .home-container{
     padding: 20px 0px;

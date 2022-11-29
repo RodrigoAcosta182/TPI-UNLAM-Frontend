@@ -15,6 +15,7 @@ import LogoEmpresa from "../../../assets/images/empresa/Logo.png";
 import { useHistory } from "react-router-dom";
 import ToasterGenerico from "../../genericos/ToasterGenerico/ToasterGenerico";
 import { showToaster } from "../../../context/action/toasterGenerico/toasterGenerico";
+import { resetRegistro } from "../../../context/action/auth/registro";
 
 const LoginBox = () => {
   const {
@@ -24,6 +25,8 @@ const LoginBox = () => {
     listErrorDispatch,
     toasterGenericoState,
     toasterGenericoDispatch,
+    registroState,
+    registroDispatch,
   } = useContext(GlobalContext);
 
   const [btnDisabled, setBtnDisabled] = useState(true);
@@ -31,6 +34,12 @@ const LoginBox = () => {
     email: null,
     contrasena: null,
   });
+
+  useEffect(() => {
+    if (registroState.registro.data !== null) {
+      resetRegistro()(registroDispatch);
+    }
+  }, [registroState.registro.data]);
 
   useEffect(() => {
     if (
@@ -81,7 +90,7 @@ const LoginBox = () => {
       } else {
         showToaster(
           {
-            texto: "Un profesional debe activar tu cuenta",
+            texto: "El profesional debe activar tu cuenta",
             tipo: "danger",
           },
           "centroArriba"

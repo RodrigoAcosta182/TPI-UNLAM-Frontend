@@ -59,8 +59,8 @@
 /* FOOTER */
 
 .landing-footer-container{
-  height: 400px;
-  display: flex;
+  height: 200px;
+  /* display: flex; */
   justify-content: space-between;
   padding: 40px;
 }
@@ -78,7 +78,7 @@
 
 .landing-footer-boxRight{
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: space-between;
   align-items: flex-end;
 }

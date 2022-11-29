@@ -24,6 +24,11 @@ import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
 import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
 import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
 import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
+import ModalMensaje from "../../../components/genericos/ModalMensaje/ModalMensaje";
+import AyudaIcon from "../../../assets/images/AyudaIcon";
+import Modal from "../../../components/genericos/Modal/Modal";
+import { hideModal, showModal } from "../../../context/action/modal/modal";
+import ReactTooltip from "react-tooltip";
 
 const ComidaCorrecta = () => {
   const {
@@ -31,6 +36,9 @@ const ComidaCorrecta = () => {
     modalAvatarDispatch,
     finalizaJuegoState,
     finalizaJuegoDispatch,
+    modalState,
+    modalDispatch,
+    textosState,
   } = useContext(GlobalContext);
 
   const history = useHistory();
@@ -146,14 +154,51 @@ const ComidaCorrecta = () => {
     }
   }, [contadorAciertos]);
 
+  const modalAyuda = () => {
+    showModal(
+      <ModalMensaje
+        titulo={"Información"}
+        mensaje={textosState.textos.data[5].mensaje}
+      />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
+  };
+
   return (
     <>
+      {modalState.modal.show && <Modal />}
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       <div className="comidaCorrecta-volverAccion">
         <div className="comidaCorrecta-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="comidaCorrecta-volverBtn c-white">VOLVER</p>
         </div>
+        <button
+          className="comidaCorrecta-ayudaBtn bw14b"
+          onClick={() => modalAyuda()}
+          data-tip
+          data-for={`botonTooltipAyuda`}
+        >
+          <AyudaIcon color={"white"} />
+          <ReactTooltip
+            id={`botonTooltipAyuda`}
+            place="top"
+            type="light"
+            effect="solid"
+            border={true}
+          >
+            Mas información
+          </ReactTooltip>
+        </button>
       </div>
       <div className="comidaCorrecta-animal-juego">
         <img
