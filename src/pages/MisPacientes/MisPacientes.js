@@ -221,22 +221,22 @@ const MisPacientes = () => {
   };
 
   //estado online
-  useEffect(() => {
-    if (data && estadoConexionState.usuarioConectado) {
-      findAndUpdate(
-        misPacientesState.misPacientes.data,
-        "online",
-        estadoConexionState.usuarioConectado.usuario.mail,
-        true
-      );
-      findAndUpdate(
-        data,
-        "online",
-        estadoConexionState.usuarioConectado.usuario.mail,
-        true
-      );
-    }
-  }, [estadoConexionState.usuarioConectado]);
+  // useEffect(() => {
+  //   if (data && estadoConexionState.usuarioConectado) {
+  //     findAndUpdate(
+  //       misPacientesState.misPacientes.data,
+  //       "online",
+  //       estadoConexionState.usuarioConectado.usuario.mail,
+  //       true
+  //     );
+  //     // findAndUpdate(
+  //     //   data,
+  //     //   "online",
+  //     //   estadoConexionState.usuarioConectado.usuario.mail,
+  //     //   true
+  //     // );
+  //   }
+  // }, [estadoConexionState.usuarioConectado]);
 
   return (
     <>
