@@ -18,7 +18,9 @@ const ConexionSignalR = ({ callback }) => {
       subject.subscribe((message) => {
         callback();
       });
+      
       await connection.start();
+      
       console.log("SignalR Conectado");
       //enviar datos llamada
       connection.on("sendMessage", (message) => {
@@ -28,7 +30,6 @@ const ConexionSignalR = ({ callback }) => {
       });
 
       connection.on("estadoConexion", (usuario) => {
-        console.log(JSON.stringify(usuario.paciente));
         setUsuarioConectado(usuario.paciente)(estadoConexionDispatch);
         subject.next(usuario);
       });
@@ -46,6 +47,7 @@ const ConexionSignalR = ({ callback }) => {
     return false;
   };
   connection.onclose(async () => {
+    console.log("cerre conexion")
     await startHubConnection();
   });
 

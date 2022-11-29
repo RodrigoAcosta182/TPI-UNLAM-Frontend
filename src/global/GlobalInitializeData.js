@@ -3,10 +3,12 @@ import { useContext } from "react";
 import Toaster from "../components/genericos/Toaster/Toaster";
 import LlamadaPaciente from "../components/genericos/VideoLlamada/LlamadaPaciente";
 import { wsPostEstadoConexion } from "../context/action/estadoConexion/estadoConexion";
+import { wsGetListaDePacientes } from "../context/action/misPacientes/misPacientes";
 import { profesionalPorPacienteReset, wsGetProfesionalPorPaciente } from "../context/action/profesionales/profesionalPorPaciente";
 import { wsGetAllTextos } from "../context/action/textos/textos";
 import { showToaster } from "../context/action/toaster/toaster";
 import { GlobalContext } from "../context/Provider";
+import { findAndUpdate } from "./utils/obtenerIndexArray";
 
 const GlobalInitializeData = ({ children }) => {
   const {
@@ -17,7 +19,9 @@ const GlobalInitializeData = ({ children }) => {
     profesionalPorPacienteDispatch,
     toasterState,
     toasterDispatch,
-    textosDispatch
+    textosDispatch,
+    misPacientesState,
+    misPacientesDispatch
   } = useContext(GlobalContext);
   const estadoConexionDto = {
     online: null,
@@ -37,6 +41,9 @@ const GlobalInitializeData = ({ children }) => {
     ) {
       wsGetProfesionalPorPaciente()(profesionalPorPacienteDispatch);
     }
+    if(authState.auth.data){
+      wsGetListaDePacientes()(misPacientesDispatch);
+    }
   }, [authState.auth.data]);
 
   useEffect(() => {
@@ -52,6 +59,24 @@ const GlobalInitializeData = ({ children }) => {
   useEffect(() => {
     if (estadoConexionState.usuarioConectado !== null) {
       showToaster(estadoConexionState.usuarioConectado)(toasterDispatch);
+    }
+  }, [estadoConexionState.usuarioConectado]);
+
+    //estado online
+  useEffect(() => {
+    if (estadoConexionState.usuarioConectado && misPacientesState.misPacientes.data) {
+      findAndUpdate(
+        misPacientesState.misPacientes.data,
+        "online",
+        estadoConexionState.usuarioConectado.usuario.mail,
+        true
+      );
+      // findAndUpdate(
+      //   data,
+      //   "online",
+      //   estadoConexionState.usuarioConectado.usuario.mail,
+      //   true
+      // );
     }
   }, [estadoConexionState.usuarioConectado]);
 
