@@ -250,8 +250,8 @@ const MisPacientes = () => {
                   <th className="columna">Tutor a cargo</th>
                   <th className="columna">Teléfono</th>
                   <th className="columna">Mail</th>
-                  <th className="columna">Fecha Inicio Relación</th>
-                  <th className="columna">Fecha Fin Relación</th>
+                  <th className="columna">Fecha Alta</th>
+                  <th className="columna">Fecha Baja</th>
                   <th className="columna">Notas</th>
                   <th className="columna">Activo</th>
                   <th className="columnaVacia">Acc</th>
@@ -284,12 +284,12 @@ const MisPacientes = () => {
                           </td>
                           <td className="tablaFilas c-white">{item.mail}</td>
                           <td className="tablaFilas c-white">
-                            {new Date(
+                            {item.fechaInicioRelac === null ? "-" : new Date(
                               item.fechaInicioRelac
                             ).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
-                            {new Date(item.fechaFinRelac).toLocaleDateString()}
+                            {item.fechaFinRelac === null ? "-" : new Date(item.fechaFinRelac).toLocaleDateString()}
                           </td>
                           <td className="tablaFilas c-white">
                             <button

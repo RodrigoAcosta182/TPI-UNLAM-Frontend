@@ -36,6 +36,13 @@
   border: none;
   background: none;
 }
+.notas-eliminarIcon{
+  position: absolute;
+  margin-right: 250px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
 .notas-input-email-container {
   width: 80%;
   display: flex;

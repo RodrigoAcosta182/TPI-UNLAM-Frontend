@@ -1,0 +1,19 @@
+.habilitar-header {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  padding: 10px;
+}
+.habilitar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 60px;
+}
+.habilitar-btnContanier {
+  display: flex;
+}
+.habilitar-btnCerrar {
+  border: 2px solid var(--color-latex30);
+}

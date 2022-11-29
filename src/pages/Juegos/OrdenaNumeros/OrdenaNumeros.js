@@ -27,6 +27,11 @@ import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
 import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
 import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
 import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
+import Modal from "../../../components/genericos/Modal/Modal";
+import { hideModal, showModal } from "../../../context/action/modal/modal";
+import ModalMensaje from "../../../components/genericos/ModalMensaje/ModalMensaje";
+import AyudaIcon from "../../../assets/images/AyudaIcon";
+import ReactTooltip from "react-tooltip";
 
 const OrdenaNumeros = () => {
   const history = useHistory();
@@ -38,6 +43,9 @@ const OrdenaNumeros = () => {
     finalizaJuegoDispatch,
     modalAvatarState,
     finalizaJuegoState,
+    textosState,
+    modalState,
+    modalDispatch,
   } = useContext(GlobalContext);
   const [items, setItems] = useState(null);
   const [contadorAciertos, setContadorAciertos] = useState(0);
@@ -120,8 +128,28 @@ const OrdenaNumeros = () => {
     }
   }, [contadorAciertos]);
 
+  const modalAyuda = () => {
+    showModal(
+      <ModalMensaje
+        titulo={"Información"}
+        mensaje={textosState.textos.data[3].mensaje}
+      />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
+  };
+
   return (
     <>
+      {modalState.modal.show && <Modal />}
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       <Loading
         state={finalizaJuegoState.finalizaJuego.loading}
@@ -132,6 +160,23 @@ const OrdenaNumeros = () => {
           <SalirIcon />
           <p className="ordenarNumeros-volverBtn c-white">VOLVER</p>
         </div>
+        <button
+          className="ordenarNumeros-ayudaBtn bw14b"
+          onClick={() => modalAyuda()}
+          data-tip
+          data-for={`botonTooltipAyuda`}
+        >
+          <AyudaIcon color={"white"} />
+          <ReactTooltip
+            id={`botonTooltipAyuda`}
+            place="top"
+            type="light"
+            effect="solid"
+            border={true}
+          >
+            Mas información
+          </ReactTooltip>
+        </button>
       </div>
       {items !== null && (
         <>

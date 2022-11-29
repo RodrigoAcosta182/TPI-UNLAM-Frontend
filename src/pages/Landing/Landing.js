@@ -20,8 +20,7 @@ const Landing = () => {
     "Ver resultados",
     "Videollamada",
     "Ver mis pacientes",
-    "Compartir informes",
-    "Sugerir mejoras",
+    "Agregar notas",
   ];
   const irAGrandin = () => {
     history.push("/");
@@ -88,7 +87,7 @@ const Landing = () => {
             <div>
               <ul>
                 <li className="landing-lista-informePorPaciente bw18m">
-                  Generacion de informes por cada juego.
+                  Generación de informes por cada juego.
                 </li>
                 <li className="landing-lista-informePorPaciente bw18m">
                   Seguimiento del paciente.
@@ -139,7 +138,7 @@ const Landing = () => {
             <div>
               <ul>
                 <li className="landing-lista-informePorPaciente bw18m">
-                  Generacion de informes por cada juego.
+                  Generación de informes por cada juego.
                 </li>
                 <li className="landing-lista-informePorPaciente bw18m">
                   Seguimiento del paciente.
@@ -164,7 +163,7 @@ const Landing = () => {
           </div>
         </div>
         <div ref={contactoRef} className="landing-footer-container bw18m">
-          <div className="landing-footer-boxLeft">
+          {/* <div className="landing-footer-boxLeft">
             <div className="landing-footer-atencionCliente">
               <div className="landing-footer-title c-white">
                 Atención al cliente
@@ -187,7 +186,7 @@ const Landing = () => {
                   </div>
                 ))}
             </div>
-          </div>
+          </div> */}
           <div className="landing-footer-boxRight">
             <div className="landing-footer-email">
               <span className=" c-white">Contactanos por email</span>

@@ -21,6 +21,11 @@ import FinalizarIcon from "../../../assets/images/FinalizarIcon.png";
 import FinalizarIconDsb from "../../../assets/images/FinalizarIconDsb.png";
 import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
 import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
+import ReactTooltip from "react-tooltip";
+import { hideModal, showModal } from "../../../context/action/modal/modal";
+import ModalMensaje from "../../../components/genericos/ModalMensaje/ModalMensaje";
+import AyudaIcon from "../../../assets/images/AyudaIcon";
+import Modal from "../../../components/genericos/Modal/Modal";
 
 export default function ColorCorrecto() {
   const {
@@ -30,6 +35,9 @@ export default function ColorCorrecto() {
     finalizaJuegoState,
     modalAvatarDispatch,
     modalAvatarState,
+    textosState,
+    modalDispatch,
+    modalState
   } = useContext(GlobalContext);
 
   const history = useHistory();
@@ -180,8 +188,28 @@ export default function ColorCorrecto() {
     history.push("/home");
   };
 
+  const modalAyuda = () => {
+    showModal(
+      <ModalMensaje
+        titulo={"Información"}
+        mensaje={textosState.textos.data[2].mensaje}
+      />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
+  };
+
   return (
     <>
+      {modalState.modal.show && <Modal />}
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       <Loading
         state={finalizaJuegoState.finalizaJuego.loading}
@@ -193,6 +221,23 @@ export default function ColorCorrecto() {
           <SalirIcon />
           <p className="colorCorrecto-volverBtn c-white">VOLVER</p>
         </div>
+        <button
+          className="colorCorrecto-ayudaBtn bw14b"
+          onClick={() => modalAyuda()}
+          data-tip
+          data-for={`botonTooltipAyuda`}
+        >
+          <AyudaIcon color={"white"} />
+          <ReactTooltip
+            id={`botonTooltipAyuda`}
+            place="top"
+            type="light"
+            effect="solid"
+            border={true}
+          >
+            Mas información
+          </ReactTooltip>
+        </button>
       </div>
       <div className="colorCorrecto-animal-juego">
         <img

@@ -99,7 +99,7 @@ const Notas = () => {
               onChange={seleccionarPaciente}
               datos={misPacientesState.misPacientes.data}
               campoCodigo="id"
-              descripcion="pacienteNombre"
+              descripcion="pacienteNombreCompleto"
               errorStr="El paciente es requerido"
               placeholder={"Seleccionar Paciente"}
               customCss={"widthNota"}

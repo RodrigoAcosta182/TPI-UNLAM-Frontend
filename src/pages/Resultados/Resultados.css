@@ -109,6 +109,7 @@
 }
 .resultados-ultimaVez{
   padding: 0 0 16px 16px;
+  text-align: center;
 }
 .bordeTablaRes {
   border: 2px solid white;
@@ -162,6 +163,9 @@
   align-items: baseline;
   justify-content: space-between;
   padding: 10px;
+}
+.resultados-globalvsPaciente{
+  display: flex;
 }
 @media (max-width: 1200px) {
   .resultados-dashboardBox1 {

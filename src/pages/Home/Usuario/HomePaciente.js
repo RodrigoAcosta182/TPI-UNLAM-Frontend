@@ -5,12 +5,13 @@ import JuegoSeleccionado from "../../../components/juego/JuegoSeleccionado/CardJ
 import CardJuegos from "../../../components/juego/CardJuegos/CardJuegos";
 import { hideModal, showModal } from "../../../context/action/modal/modal";
 import { GlobalContext } from "../../../context/Provider";
+import ReactTooltip from "react-tooltip";
+import ModalMensaje from "../../../components/genericos/ModalMensaje/ModalMensaje";
+import AyudaIcon from "../../../assets/images/AyudaIcon";
+
 const HomePaciente = () => {
-  const {
-    authState,
-    listaJuegosState,
-    modalDispatch,
-  } = useContext(GlobalContext);
+  const { authState, listaJuegosState, modalDispatch, textosState } =
+    useContext(GlobalContext);
 
   const history = useHistory();
 
@@ -42,9 +43,40 @@ const HomePaciente = () => {
     )(modalDispatch);
   };
 
+  const modalAyuda = () => {
+    showModal(
+      <ModalMensaje
+        titulo={"Información"}
+        mensaje={textosState.textos.data[1].mensaje}
+      />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
   return (
     <React.Fragment>
-      
+      <button
+        className="home-ayudaBtn bw14b"
+        onClick={() => modalAyuda()}
+        data-tip
+        data-for={`botonTooltipAyuda`}
+      >
+        <AyudaIcon color={"white"} />
+        <ReactTooltip
+          id={`botonTooltipAyuda`}
+          place="top"
+          type="light"
+          effect="solid"
+          border={true}
+        >
+          Mas información
+        </ReactTooltip>
+      </button>
       <div className="home-container">
         <div className="home-logoBienvenida">
           <p className="c-white bw32t">
@@ -62,7 +94,7 @@ const HomePaciente = () => {
                     <CardJuegos
                       juego={item.descripcion}
                       activo={item.activo}
-                      irAlJuego={() => showModalJuego(item)} 
+                      irAlJuego={() => showModalJuego(item)}
                       imagen={item.id}
                     />
                   </div>
@@ -70,7 +102,6 @@ const HomePaciente = () => {
               );
             })}
         </div>
-        
       </div>
     </React.Fragment>
   );

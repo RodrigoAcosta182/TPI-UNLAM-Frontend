@@ -97,6 +97,35 @@ export const wsArchivarNota = (idNota) => (dispatch) => {
   });
 };
 
+export const wsEliminarNota = (idNota) => (dispatch) => {
+  dispatch({
+    type: NOTA_LOADING,
+  });
+
+  axiosInstance().then((respuesta) => {
+    respuesta
+      .post(`/EliminarNota/${idNota}`)
+      .then((res) => {
+        dispatch({
+          type: NOTA_SUCCESS,
+          payload: res.status,
+        });
+      })
+      .catch((err) => {
+        let error = {
+          detail: err.response
+            ? err.response.data
+            : "Error al contactar el server.",
+        };
+
+        dispatch({
+          type: NOTA_ERROR,
+          payload: error,
+        });
+      });
+  });
+};
+
 export const resetNota = () => (dispatch) => {
   dispatch({ type: NOTA_RESET });
 };

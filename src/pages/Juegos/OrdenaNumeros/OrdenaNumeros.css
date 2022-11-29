@@ -1,5 +1,13 @@
 .ordenarNumeros-volverAccion {
-  padding: 20px 0 0 20px;
+  padding: 20px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.ordenarNumeros-ayudaBtn{
+  width: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 .ordenarNumeros-btnCont {
   display: flex;

@@ -80,9 +80,12 @@ const Resultados = () => {
     ["Fecha", "Aciertos", "Desaciertos"],
   ]);
 
-  const [dataGlobalChart, setDataGlobalChart] = React.useState([
-    ["Aciertos y desaciertos", "Aciertos", "Desaciertos"],
+  const [dataGlobalChartAciertos, setDataGlobalChartAciertos] = React.useState([
+    ["Fecha", "Aciertos Globales", "Aciertos Paciente"],
   ]);
+
+  const [dataGlobalChartDesaciertos, setDataGlobalChartDesaciertos] =
+    React.useState([["Fecha", "Desaciertos Globales", "Desaciertos Paciente"]]);
 
   const [dataBarChart, setBarDataChart] = React.useState([
     ["", "Aciertos", "Desaciertos"],
@@ -115,40 +118,44 @@ const Resultados = () => {
 
   //DATOS PARA EL GRAFICO PACIENTE VS GLOBAL
   useEffect(() => {
-    const dataGlobal = [...dataGlobalChart];
-    let sumaDeAciertosGlobales = 0;
-    let sumaDeDesaciertosGlobales = 0;
-    let sumaDeAciertosPaciente = 0;
-    let sumaDeDesaciertosPaciente = 0;
+    const dataGlobal = [...dataGlobalChartAciertos];
+    const dataGlobalDes = [...dataGlobalChartDesaciertos];
     if (
       resultadosState.resultadosGlobales.data &&
       resultadosState.resultados.data
     ) {
-      // Este map hace una suma de los aciertos y desaciertos globales
+      // Este map compara aciertos globales y de pacientes
       Array.isArray(resultadosState.resultadosGlobales.data) &&
         resultadosState.resultadosGlobales.data.map((item) => {
-          sumaDeAciertosGlobales = sumaDeAciertosGlobales + item.aciertos;
-          sumaDeDesaciertosGlobales =
-            sumaDeDesaciertosGlobales + item.desaciertos;
+          Array.isArray(resultadosState.resultados.data) &&
+            resultadosState.resultados.data.map((itemGlobal) => {
+              dataGlobal.push([
+                new Date(itemGlobal.fechaInicio)
+                  .toLocaleDateString()
+                  .slice(0, -5) &&
+                  new Date(item.fechaInicio).toLocaleDateString().slice(0, -5),
+                item.aciertos,
+                itemGlobal.aciertos,
+              ]);
+            });
         });
-      // Este map guarda la suma aciertos y desaciertos del paciente seleccioando
-      Array.isArray(resultadosState.resultados.data) &&
-        resultadosState.resultados.data.map((item) => {
-          sumaDeAciertosPaciente = sumaDeAciertosPaciente + item.aciertos;
-          sumaDeDesaciertosPaciente =
-            sumaDeDesaciertosPaciente + item.desaciertos;
+      // Este map compara desaciertos globales y de pacientes
+      Array.isArray(resultadosState.resultadosGlobales.data) &&
+        resultadosState.resultadosGlobales.data.map((item) => {
+          Array.isArray(resultadosState.resultados.data) &&
+            resultadosState.resultados.data.map((itemGlobal) => {
+              dataGlobalDes.push([
+                new Date(itemGlobal.fechaInicio)
+                  .toLocaleDateString()
+                  .slice(0, -5) &&
+                  new Date(item.fechaInicio).toLocaleDateString().slice(0, -5),
+                item.desaciertos,
+                itemGlobal.desaciertos,
+              ]);
+            });
         });
-      dataGlobal.push([
-        "Global",
-        sumaDeAciertosGlobales,
-        sumaDeDesaciertosGlobales,
-      ]);
-      dataGlobal.push([
-        `${pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre} ${pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}`,
-        sumaDeAciertosPaciente,
-        sumaDeDesaciertosPaciente,
-      ]);
-      setDataGlobalChart(dataGlobal);
+      setDataGlobalChartAciertos(dataGlobal);
+      setDataGlobalChartDesaciertos(dataGlobalDes);
     }
   }, [
     resultadosState.resultadosGlobales.data,
@@ -353,7 +360,7 @@ const Resultados = () => {
                   <div className="resultados-chart">
                     <Chart
                       className="chart"
-                      chartType="LineChart"
+                      chartType="Bar"
                       width="100%"
                       height="400px"
                       style={{ display: "flex", justifyContent: "center" }}
@@ -362,18 +369,35 @@ const Resultados = () => {
                     />
                   </div>
                   <div className="resultados-AciertosDesaciertos-BtnTabla">
-                    <p className="resultados-ultimaVez c-latex30 bw32t">
+                    <p className="resultados-ultimaVez c-latex30 bw32t" style={{textAlign: "center"}}>
                       Paciente vs. Global:
                     </p>
                   </div>
+                  <p className="resultados-ultimaVez c-latex30 bw32t">
+                    Aciertos:
+                  </p>
                   <div className="resultados-chart">
                     <Chart
                       className="chart"
-                      chartType="Bar"
+                      chartType="LineChart"
                       width="100%"
                       height="400px"
                       style={{ display: "flex", justifyContent: "center" }}
-                      data={dataGlobalChart}
+                      data={dataGlobalChartAciertos}
+                      options={options}
+                    />
+                  </div>
+                  <p className="resultados-ultimaVez c-latex30 bw32t">
+                    Desaciertos:
+                  </p>
+                  <div className="resultados-chart">
+                    <Chart
+                      className="chart"
+                      chartType="LineChart"
+                      width="100%"
+                      height="400px"
+                      style={{ display: "flex", justifyContent: "center" }}
+                      data={dataGlobalChartDesaciertos}
                       options={options}
                     />
                   </div>

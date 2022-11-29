@@ -1,5 +1,13 @@
 .verdaderofalso-volverAccion {
-  padding: 20px 0 0 20px;
+  padding: 20px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.verdaderofalso-ayudaBtn{
+  width: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 .verdaderofalso-btnCont {
   display: flex;

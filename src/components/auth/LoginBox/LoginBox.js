@@ -81,7 +81,7 @@ const LoginBox = () => {
       } else {
         showToaster(
           {
-            texto: "Un profesional debe activar tu cuenta",
+            texto: "El profesional debe activar tu cuenta",
             tipo: "danger",
           },
           "centroArriba"

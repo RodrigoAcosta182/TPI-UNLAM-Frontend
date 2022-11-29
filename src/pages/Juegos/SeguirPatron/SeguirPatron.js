@@ -28,6 +28,11 @@ import { showModalAvatar } from "../../../context/action/modal/modalAvatar";
 import ModalAvatar from "../../../components/genericos/ModalAvatar/ModalAvatar";
 import FoxIzq from "../../../assets/images/avatar/FoxIzquierda.png";
 import FoxDer from "../../../assets/images/avatar/FoxDerecha.png";
+import ModalMensaje from "../../../components/genericos/ModalMensaje/ModalMensaje";
+import AyudaIcon from "../../../assets/images/AyudaIcon";
+import Modal from "../../../components/genericos/Modal/Modal";
+import ReactTooltip from "react-tooltip";
+import { hideModal, showModal } from "../../../context/action/modal/modal";
 
 const SeguirPatron = () => {
   const {
@@ -35,6 +40,9 @@ const SeguirPatron = () => {
     finalizaJuegoDispatch,
     modalAvatarDispatch,
     modalAvatarState,
+    textosState,
+    modalState,
+    modalDispatch,
   } = useContext(GlobalContext);
 
   const history = useHistory();
@@ -241,14 +249,51 @@ const SeguirPatron = () => {
     }
   }, [contadorAciertos]);
 
+  const modalAyuda = () => {
+    showModal(
+      <ModalMensaje
+        titulo={"Información"}
+        mensaje={textosState.textos.data[10].mensaje}
+      />,
+      "",
+      cerrarModal,
+      true,
+      {},
+      "centro",
+      true
+    )(modalDispatch);
+  };
+
+  const cerrarModal = () => {
+    hideModal()(modalDispatch);
+  };
+
   return (
     <>
+      {modalState.modal.show && <Modal />}
       {modalAvatarState.modalAvatar.show && <ModalAvatar />}
       <div className="seguirPatron-volverAccion">
         <div className="seguirPatron-btnCont" onClick={volverAlHome}>
           <SalirIcon />
           <p className="seguirPatron-volverBtn c-white">VOLVER</p>
         </div>
+        <button
+          className="seguirPatron-ayudaBtn bw14b"
+          onClick={() => modalAyuda()}
+          data-tip
+          data-for={`botonTooltipAyuda`}
+        >
+          <AyudaIcon color={"white"} />
+          <ReactTooltip
+            id={`botonTooltipAyuda`}
+            place="top"
+            type="light"
+            effect="solid"
+            border={true}
+          >
+            Mas información
+          </ReactTooltip>
+        </button>
       </div>
       <div className="seguirPatron-animal-juego">
         <img

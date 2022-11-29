@@ -1,5 +1,13 @@
 .seguirPatron-volverAccion {
-  padding: 20px 0 0 20px;
+  padding: 20px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.seguirPatron-ayudaBtn{
+  width: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 .seguirPatron-btnCont {
   display: flex;
