@@ -9,7 +9,14 @@
   flex-direction: column;
   gap: 20px;
 }
-
+.aceptarLlamada-btnAccionesPacientes{
+  background: none;
+  /* width: 110px; */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 10px;
+}
 .aceptarLlamada-modal-botones {
   display: flex;
   justify-content: center;

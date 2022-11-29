@@ -23,12 +23,12 @@ const AceptaLlamada = ({
       <div className="aceptarLlamada-modal-botones">
         <button
           onClick={() => hideModal()(modalDispatch)}
-          className="btnAccionesPacientes  c-white bgc-danger bw18m"
+          className="aceptarLlamada-btnAccionesPacientes  c-white bgc-danger bw18m"
         >
           Cancelar
         </button>
         <button
-          className="btnAccionesPacientes  c-white bgc-broccoli bw18m"
+          className="aceptarLlamada-btnAccionesPacientes  c-white bgc-broccoli bw18m"
           onClick={setupSources}
         >
           {llamadaPaciente ? "Atender" : "Llamar"}
