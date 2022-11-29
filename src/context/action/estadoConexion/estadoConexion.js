@@ -17,7 +17,6 @@ export const wsPostEstadoConexion = (conexionDto) => (dispatch) => {
     respuesta
       .post(`/estadoConexion`, conexionDto)
       .then((res) => {
-        sessionStorage.token = res.data.token;
         dispatch({
           type: ESTADO_CONEXION_SUCCESS,
           payload: res.data,
