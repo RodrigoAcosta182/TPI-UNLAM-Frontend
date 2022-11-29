@@ -107,6 +107,9 @@
   justify-content: center;
   cursor: pointer;
 }
+.tablaDownloadContainer{
+  display: none;
+}
 .resultados-ultimaVez{
   padding: 0 0 16px 16px;
   text-align: center;

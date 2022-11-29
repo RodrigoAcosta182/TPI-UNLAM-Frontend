@@ -31,6 +31,25 @@ const Resultados = () => {
 
   const [ultimoJuego, setUltimoJuego] = React.useState(null);
 
+  const [page, setPage] = React.useState(1);
+  const [data, setData] = React.useState(null);
+
+  const [flgData, setFlgData] = React.useState(true);
+
+  useEffect(() => {
+    let arrx = [];
+    if (resultadosState.resultados.data && flgData) {
+      Array.isArray(resultadosState.resultados.data) &&
+        resultadosState.resultados.data.map((item) => {
+          return arrx.push(item);
+        });
+      setData(arrx);
+      // setFlgData(false);
+    }
+  }, [resultadosState.resultados.data, flgData]);
+
+  const { slice, range } = useTable(data ? data : "", page, 4);
+
   useEffect(() => {
     if (
       pacienteSeleccionadoState.pacienteSelected.data === null &&
@@ -227,8 +246,8 @@ const Resultados = () => {
                         <th className="columna">Tiempo de resolución</th>
                         <th className="columnaFinalRes">¿Completó?</th>
                       </tr>
-                      {Array.isArray(resultadosState.resultados.data) &&
-                        resultadosState.resultados.data.map((item, index) => {
+                      {Array.isArray(slice) &&
+                        slice.map((item, index) => {
                           return (
                             <React.Fragment key={index}>
                               <tr className="tablaFilasContainer bw18t">
@@ -261,6 +280,12 @@ const Resultados = () => {
                     </tbody>
                   </table>
                 </div>
+                <TableFooter
+                  range={range}
+                  slice={slice}
+                  setPage={setPage}
+                  page={page}
+                />
               </div>
             ) : (
               <div className="resultados-container">
@@ -332,15 +357,64 @@ const Resultados = () => {
                     </div>
                   </div>
 
+                  <div className="tablaDownloadContainer">
+                    <table
+                      className="containerTabla"
+                      id="test-table-xls-button2"
+                    >
+                      <tbody>
+                        <tr className="bw18t c-white">
+                          <th className="columnaInicio">Juego</th>
+                          <th className="columna">Fecha</th>
+                          <th className="columna">Aciertos</th>
+                          <th className="columna">Desaciertos</th>
+                          <th className="columna">Tiempo de resolución</th>
+                          <th className="columnaFinalRes">¿Completó?</th>
+                        </tr>
+                        {Array.isArray(resultadosState.resultados.data) &&
+                          resultadosState.resultados.data.map((item, index) => {
+                            return (
+                              <React.Fragment key={index}>
+                                <tr className="tablaFilasContainer bw18t">
+                                  <td className="tablaFilas c-white">
+                                    {item.juegoDescripcion}{" "}
+                                  </td>
+                                  <td className="tablaFilas c-white">
+                                    {new Date(
+                                      item.fechaInicio
+                                    ).toLocaleDateString()}{" "}
+                                  </td>
+                                  <td className="tablaFilas c-white">
+                                    {item.aciertos}
+                                  </td>
+                                  <td className="tablaFilas c-white">
+                                    {item.desaciertos}
+                                  </td>
+
+                                  <td className="tablaFilas c-white">
+                                    {item.duracion}
+                                  </td>
+
+                                  <td className="tablaFilas c-white">
+                                    {item.finalizado ? "Si" : "No"}
+                                  </td>
+                                </tr>
+                              </React.Fragment>
+                            );
+                          })}
+                      </tbody>
+                    </table>
+                  </div>
+
                   <div className="resultados-AciertosDesaciertos-BtnTabla">
                     <p className="resultados-ultimaVez c-latex30 bw32t">
                       Aciertos y desaciertos histórico:
                     </p>
                     {pacienteSeleccionadoState.pacienteSelected.data && (
                       <ReactHtmlTableToExcel
-                        id="test-table-xls-button"
+                        id="test-table-xls-button2"
                         className="DescargarTabla-btn c-white bw16b bgc-grandin30"
-                        table="test-table-xls-button"
+                        table="test-table-xls-button2"
                         filename={`Resultados - ${pacienteSeleccionadoState.pacienteSelected.data.pacienteNombre} ${pacienteSeleccionadoState.pacienteSelected.data.pacienteApellido}`}
                         sheet="resultados"
                         buttonText="Descargar Tabla"
@@ -348,9 +422,9 @@ const Resultados = () => {
                     )}
                     {authState.auth.data.usuario.tipoUsuarioId === 1 && (
                       <ReactHtmlTableToExcel
-                        id="test-table-xls-button"
+                        id="test-table-xls-button2"
                         className="DescargarTabla-btn c-white bw16b bgc-grandin30"
-                        table="test-table-xls-button"
+                        table="test-table-xls-button2"
                         filename={`Resultados - ${authState.auth.data.usuario.nombre} ${authState.auth.data.usuario.apellido}`}
                         sheet="resultados"
                         buttonText="Descargar Tabla"
@@ -369,7 +443,10 @@ const Resultados = () => {
                     />
                   </div>
                   <div className="resultados-AciertosDesaciertos-BtnTabla">
-                    <p className="resultados-ultimaVez c-latex30 bw32t" style={{textAlign: "center"}}>
+                    <p
+                      className="resultados-ultimaVez c-latex30 bw32t"
+                      style={{ textAlign: "center" }}
+                    >
                       Paciente vs. Global:
                     </p>
                   </div>
