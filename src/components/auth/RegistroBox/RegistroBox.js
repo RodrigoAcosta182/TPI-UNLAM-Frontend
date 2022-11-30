@@ -66,7 +66,7 @@ const RegistroBox = ({ dsb }) => {
     direccion: "",
     telefono: "8",
     contrasena: "",
-    usuarioProfesionalId: null,
+    usuarioProfesionalId: 0,
   });
 
   //Puse este useEffect porque al ir atras en el navegador y luego voler quedaba el boton activado
